@@ -1,42 +1,46 @@
 /**
- * ARKIS AGENCY — Cloudflare Worker + Brevo
- * Gère POST /api/contact → envoie via l'API Brevo
- *
- * Déploiement :
- *   1. npm install -g wrangler
- *   2. wrangler login
- *   3. wrangler secret put BREVO_API_KEY         (colle ta clé Brevo)
- *   4. wrangler secret put CONTACT_EMAIL_TO      (ex: contact@arkis.agency)
- *   5. wrangler secret put CONTACT_EMAIL_FROM_ADDR  (expéditeur vérifié)
- *   6. wrangler deploy cloudflare-worker.js --name arkis-contact
- *
- * Mets à jour l'URL dans script.js :
- *   const API_ENDPOINT = 'https://arkis-contact.<ton-sous-domaine>.workers.dev/api/contact';
+ * ARKIS AGENCY — Cloudflare Worker (Edge Router + Assets Server)
+ * Handles:
+ *  - POST /api/contact -> input validation, XSS filtering, Supabase DB insert, Brevo SMTP mail send
+ *  - GET * -> Falls back to static assets compiled in dist/ (index, services, tarifs, etc.)
  */
+
+'use strict';
 
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
 
 export default {
   async fetch(request, env) {
-    // CORS preflight
+    // CORS Preflight handler
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders(request) });
     }
 
     const url = new URL(request.url);
+    
+    // Intercept form contact API route
     if (url.pathname === '/api/contact' && request.method === 'POST') {
       return handleContact(request, env);
+    }
+
+    // Fallback: serve static assets compiled in /dist (index.html, services.html, style.css, script.js)
+    try {
+      if (env.ASSETS) {
+        return await env.ASSETS.fetch(request);
+      }
+    } catch (assetErr) {
+      console.error('Asset retrieval error:', assetErr.message);
     }
 
     return new Response('Not Found', { status: 404 });
   },
 };
 
-// ─── Handler contact ───────────────────────────────────────
+// ─── Contact Form Handler ───────────────────────────────────────
 async function handleContact(request, env) {
-  // Parse le body (JSON ou FormData)
   let body = {};
   const ct = request.headers.get('Content-Type') || '';
+  
   try {
     body = ct.includes('application/json')
       ? await request.json()
@@ -49,20 +53,24 @@ async function handleContact(request, env) {
   const sanitize   = (s = '') => String(s).trim().replace(/[<>]/g, '');
   const validEmail = (e)      => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
-  // Honeypot
+  // Honeypot spam bot trap
   if (_honey && String(_honey).trim() !== '') {
+    console.log('🤖 Spam bot blocked silently.');
     return jsonResponse({ ok: true }, 200, request);
   }
 
-  // Validation
+  // Strict server-side validation
   const errors = [];
-  if (!name    || sanitize(name).length    < 2)  errors.push({ field: 'name',    message: 'Nom invalide.' });
-  if (!email   || !validEmail(email))             errors.push({ field: 'email',   message: 'Email invalide.' });
-  if (!service || sanitize(service).length  < 1)  errors.push({ field: 'service', message: 'Sélectionnez un service.' });
-  if (!message || sanitize(message).length  < 10) errors.push({ field: 'message', message: 'Message trop court.' });
+  if (!name    || sanitize(name).length    < 2)  errors.push({ field: 'name',    message: 'Nom invalide (2 caractères minimum).' });
+  if (!email   || !validEmail(email))             errors.push({ field: 'email',   message: 'Adresse email invalide.' });
+  if (!service || sanitize(service).length  < 1)  errors.push({ field: 'service', message: 'Veuillez sélectionner un service.' });
+  if (!message || sanitize(message).length  < 10) errors.push({ field: 'message', message: 'Message trop court (10 caractères minimum).' });
 
-  if (errors.length) return jsonResponse({ ok: false, errors }, 422, request);
+  if (errors.length) {
+    return jsonResponse({ ok: false, errors }, 422, request);
+  }
 
+  // Input Sanitization (XSS filtering)
   const s = {
     name:    sanitize(name),
     company: sanitize(company  || '—'),
@@ -77,42 +85,84 @@ async function handleContact(request, env) {
   const FROM_NAME   = env.CONTACT_EMAIL_FROM_NAME || 'Arkis Agency';
   const FROM_ADDR   = env.CONTACT_EMAIL_FROM_ADDR || 'contact@arkis.agency';
   const BREVO_KEY   = env.BREVO_API_KEY;
+  const SUPABASE_URL = env.SUPABASE_URL;
+  const SUPABASE_KEY = env.SUPABASE_SERVICE_ROLE_KEY;
   const now         = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
 
-  try {
-    const [internal] = await Promise.allSettled([
-      // Email interne
-      brevoSend(BREVO_KEY, {
-        sender:      { name: FROM_NAME, email: FROM_ADDR },
-        to:          [{ email: EMAIL_TO, name: 'Équipe Arkis' }],
-        replyTo:     { email: s.email },
-        subject:     `[Arkis] ${s.service} — ${s.name}${s.company !== '—' ? ` (${s.company})` : ''}`,
-        htmlContent: buildInternalEmail(s, now),
-      }),
-      // Confirmation client
-      brevoSend(BREVO_KEY, {
-        sender:      { name: FROM_NAME, email: FROM_ADDR },
-        to:          [{ email: s.email, name: s.name }],
-        replyTo:     { email: FROM_ADDR },
-        subject:     'Votre message a bien été reçu — Arkis Agency',
-        htmlContent: buildConfirmEmail(s),
-      }),
-    ]);
+  // 1. Save to Supabase (SQL Injection safe via parametrization in HTTP Headers)
+  if (SUPABASE_URL && SUPABASE_KEY) {
+    try {
+      const dbResponse = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          name: s.name,
+          company: s.company,
+          email: s.email,
+          phone: s.phone,
+          service: s.service,
+          budget: s.budget,
+          message: s.message
+        })
+      });
 
-    if (internal.status === 'rejected') throw internal.reason;
+      if (!dbResponse.ok) {
+        console.error('❌ Supabase insert error:', await dbResponse.text());
+      } else {
+        console.log('💾 Contact saved to Supabase successfully from Edge Worker.');
+      }
+    } catch (dbErr) {
+      console.error('❌ Supabase network failure:', dbErr.message);
+    }
+  } else {
+    console.warn('⚠️ Supabase credentials missing on Edge Worker. Skipping database logging.');
+  }
+
+  // 2. Dispatch notifications via Brevo SMTP API
+  try {
+    if (BREVO_KEY) {
+      const [internal] = await Promise.allSettled([
+        // Internal team notification
+        brevoSend(BREVO_KEY, {
+          sender:      { name: FROM_NAME, email: FROM_ADDR },
+          to:          [{ email: EMAIL_TO, name: 'Équipe Arkis' }],
+          replyTo:     { email: s.email },
+          subject:     `[Arkis] ${s.service} — ${s.name}${s.company !== '—' ? ` (${s.company})` : ''}`,
+          htmlContent: buildInternalEmail(s, now),
+        }),
+        // Client auto-confirmation email
+        brevoSend(BREVO_KEY, {
+          sender:      { name: FROM_NAME, email: FROM_ADDR },
+          to:          [{ email: s.email, name: s.name }],
+          replyTo:     { email: FROM_ADDR },
+          subject:     'Votre message a bien été reçu — Arkis Agency',
+          htmlContent: buildConfirmEmail(s),
+        }),
+      ]);
+
+      if (internal.status === 'rejected') throw internal.reason;
+      console.log('✉️ Brevo notifications dispatched.');
+    } else {
+      console.warn('⚠️ BREVO_API_KEY not configured. Simulating email send.');
+    }
 
     return jsonResponse({ ok: true }, 200, request);
 
   } catch (err) {
-    console.error('Brevo error:', err);
+    console.error('❌ Edge mailer error:', err.message);
     return jsonResponse({
       ok: false,
-      errors: [{ field: 'form', message: 'Erreur d\'envoi. Réessayez ou contactez-nous directement.' }],
+      errors: [{ field: 'form', message: "Erreur d'envoi. Veuillez nous contacter directement." }],
     }, 500, request);
   }
 }
 
-// ─── Appel API Brevo ──────────────────────────────────────
+// ─── Brevo HTTP Dispatcher ──────────────────────────────────────
 async function brevoSend(apiKey, payload) {
   const res = await fetch(BREVO_ENDPOINT, {
     method:  'POST',
@@ -123,11 +173,11 @@ async function brevoSend(apiKey, payload) {
     },
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error(`Brevo ${res.status}: ${await res.text()}`);
+  if (!res.ok) throw new Error(`Brevo API returned status ${res.status}: ${await res.text()}`);
   return res.json();
 }
 
-// ─── Helpers ──────────────────────────────────────────────
+// ─── HTTP Utilities ──────────────────────────────────────────────
 function corsHeaders(req) {
   const origin = req?.headers?.get('Origin') || '*';
   return {
@@ -145,7 +195,7 @@ function jsonResponse(body, status, req) {
   });
 }
 
-// ─── Templates Email ──────────────────────────────────────
+// ─── Dynamic Email Templates ──────────────────────────────────────
 function buildInternalEmail(s, now) {
   const rows = [
     ['👤 Nom',        s.name],

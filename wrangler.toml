@@ -1,0 +1,9 @@
+# ARKIS AGENCY — Cloudflare Worker Configuration
+name = "arkis"
+main = "cloudflare-worker.js"
+compatibility_date = "2024-04-01"
+
+# Serves all static assets (HTML, CSS, JS, Images) from the EJS dist compiler
+[assets]
+directory = "./dist"
+binding = "ASSETS"
