@@ -1,0 +1,79 @@
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo footer-logo" aria-label="Arkis — Retour à l'accueil">
+            <span class="logo-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="none" stroke="url(#footerLogoGrad)" stroke-width="1.5"/>
+                <polygon points="16,8 24,13 24,19 16,24 8,19 8,13" fill="url(#footerLogoGrad)" opacity="0.2"/>
+                <defs>
+                  <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#00D4FF"/>
+                    <stop offset="100%" stop-color="#7B2FFF"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="logo-text">ARKIS<span class="logo-dot">.</span></span>
+          </a>
+          <p class="footer-tagline">Votre site web, impénétrable par conception.</p>
+          <div class="footer-security-badge" aria-label="Certifications sécurité">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span class="font-mono">Secure by Design</span>
+          </div>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navigation pied de page">
+          <div class="footer-nav-col">
+            <h4 class="footer-nav-title">Services</h4>
+            <ul role="list">
+              <li><a href="/services">Création Web</a></li>
+              <li><a href="/services">Cybersécurité</a></li>
+              <li><a href="/services">Pen-Testing</a></li>
+              <li><a href="/tarifs">Abonnement Run</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4 class="footer-nav-title">Agence</h4>
+            <ul role="list">
+              <li><a href="/realisations">Réalisations</a></li>
+              <li><a href="/equipe">Notre équipe</a></li>
+              <li><a href="/tarifs">Tarifs</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <h4 class="footer-nav-title">Légal</h4>
+            <ul role="list">
+              <li><a href="#">Mentions légales</a></li>
+              <li><a href="#">Politique de confidentialité</a></li>
+              <li><a href="#">CGV</a></li>
+              <li><a href="#">RGPD</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <%= new Date().getFullYear() %> Arkis Agency. Tous droits réservés. Conçu et blindé en France.</p>
+        <div class="footer-bottom-badges">
+          <span class="footer-badge font-mono">OWASP Compliant</span>
+          <span class="footer-badge font-mono">RGPD Ready</span>
+          <span class="footer-badge font-mono">Made in France</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<%- include('partials/head', { 
+  title: 'L\'Équipe — Qui sommes-nous ? | Arkis Agency', 
+  description: 'Arkis n\'est pas une agence web classique. Nous sommes une force de frappe pluridisciplinaire réunissant architectes du code, artisans du design, et experts certifiés en cybersécurité (OSCP).' 
+}) %>
+
+<%- include('partials/header', { page: 'equipe' }) %>
+
+<main style="padding-top: var(--nav-h);">
+  <!-- ═══════════════════════════════════════════════
+       5. ÉQUIPE / QUI SOMMES-NOUS
+  ═══════════════════════════════════════════════ -->
+  <section id="equipe" class="section team">
+    <div class="container">
+      <div class="team-layout">
+        <div class="team-left">
+          <p class="section-tag reveal-up">Qui sommes-nous ?</p>
+          <h2 class="section-title reveal-up delay-1">Des chefs d'orchestre<br /><span class="gradient-text">technologiques.</span></h2>
+          <p class="team-philosophy reveal-up delay-2">
+            Nous ne sommes pas une agence web classique. Nous sommes une force de frappe pluridisciplinaire — architectes du code, artisans du design, et gardiens de la sécurité — réunis sous une même conviction : <em>un site web doit être aussi beau que blindé</em>.
+          </p>
+          <p class="team-philosophy reveal-up delay-3">
+            Fondée par deux passionnés aux profils complémentaires, Arkis fédère des experts en développement, en marketing digital, et en cybersécurité offensive/défensive. Chaque projet mobilise l'ensemble de notre intelligence collective.
+          </p>
+
+          <div class="team-pillars reveal-up delay-3" style="margin-top: 3rem;">
+            <div class="pillar-item">
+              <div class="pillar-icon pillar-blue" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div>
+                <h4 class="pillar-title">Pôle Développement</h4>
+                <p class="pillar-desc">Full-Stack engineers spécialisés dans les architectures haute-performance et les systèmes scalables.</p>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-icon pillar-purple" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h4 class="pillar-title">Pôle Cybersécurité</h4>
+                <p class="pillar-desc">Red Team & Blue Team qui teste, attaque et défend. Une dualité offensive/défensive unique sur le marché.</p>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-icon pillar-cyan" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <h4 class="pillar-title">Pôle Marketing & Com'</h4>
+                <p class="pillar-desc">Stratèges du digital qui transforment la performance technique en avantage business mesurable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-right reveal-up delay-2">
+          <!-- Founders -->
+          <div class="founders-grid">
+            <div class="founder-card" id="founder-1">
+              <div class="founder-avatar founder-avatar-blue" aria-label="Fondateur 1">
+                <span class="avatar-initials">A1</span>
+                <div class="avatar-ring"></div>
+              </div>
+              <div class="founder-info">
+                <h4 class="founder-name">Co-Fondateur</h4>
+                <p class="founder-role font-mono">Lead Developer & Architect</p>
+                <div class="founder-skills">
+                  <span class="skill-tag">Full-Stack</span>
+                  <span class="skill-tag">DevOps</span>
+                  <span class="skill-tag">Cloud</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="founder-card" id="founder-2">
+              <div class="founder-avatar founder-avatar-purple" aria-label="Fondateur 2">
+                <span class="avatar-initials">A2</span>
+                <div class="avatar-ring"></div>
+              </div>
+              <div class="founder-info">
+                <h4 class="founder-name">Co-Fondateur</h4>
+                <p class="founder-role font-mono">Head of Security & Red Team</p>
+                <div class="founder-skills">
+                  <span class="skill-tag">Pen-Testing</span>
+                  <span class="skill-tag">OSCP</span>
+                  <span class="skill-tag">ISO 27001</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team stats -->
+          <div class="team-stats-grid" style="margin-top: 3rem;">
+            <div class="team-stat">
+              <span class="ts-value">8+</span>
+              <span class="ts-label">Experts mobilisables</span>
+            </div>
+            <div class="team-stat">
+              <span class="ts-value">3</span>
+              <span class="ts-label">Pôles d'expertise</span>
+            </div>
+            <div class="team-stat">
+              <span class="ts-value">100%</span>
+              <span class="ts-label">Projets livrés en temps</span>
+            </div>
+            <div class="team-stat">
+              <span class="ts-value">5★</span>
+              <span class="ts-label">Satisfaction clients</span>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="certifications reveal-up delay-4" style="margin-top: 3rem;">
+            <p class="cert-label font-mono">Certifications & standards maîtrisés</p>
+            <div class="cert-badges">
+              <span class="cert-badge">OSCP</span>
+              <span class="cert-badge">CEH</span>
+              <span class="cert-badge">ISO 27001</span>
+              <span class="cert-badge">OWASP</span>
+              <span class="cert-badge">NIS2</span>
+              <span class="cert-badge">RGPD</span>
+              <span class="cert-badge">PCI-DSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

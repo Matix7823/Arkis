@@ -1,0 +1,108 @@
+<%- include('partials/head', { 
+  title: 'Services — Création Web & Cybersécurité | Arkis Agency', 
+  description: 'Chaque site est pensé comme une infrastructure critique : performant, résilient, et blindé avant même d\'être mis en ligne. Découvrez nos offres Web Full-Stack, Cybersécurité et Pen-testing.' 
+}) %>
+
+<%- include('partials/header', { page: 'services' }) %>
+
+<main style="padding-top: var(--nav-h);">
+  <!-- ═══════════════════════════════════════════════
+       SERVICES SECTION
+  ═══════════════════════════════════════════════ -->
+  <section id="services" class="section services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag reveal-up">Nos Services</p>
+        <h2 class="section-title reveal-up delay-1">Trois piliers,<br /><span class="gradient-text">une forteresse.</span></h2>
+        <p class="section-subtitle reveal-up delay-2">Chaque projet est pensé comme une infrastructure critique : performante, résiliente, et blindée avant même d'être en ligne.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Service 1 : Web Full-Stack -->
+        <article class="service-card reveal-up delay-1" id="service-web">
+          <div class="service-card-inner">
+            <div class="service-icon-wrap service-icon-blue" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22" opacity="0.4"/></svg>
+            </div>
+            <div class="service-number font-mono" aria-hidden="true">01</div>
+            <h3 class="service-title">Création Web Full-Stack</h3>
+            <p class="service-desc">Du cahier des charges au déploiement en production — nous construisons des applications web sur-mesure, rapides comme l'éclair et scalables à l'infini.</p>
+            <ul class="service-features" role="list">
+              <li><span class="feat-check" aria-hidden="true"></span>Développement front & back-end sur-mesure</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Bases de données Supabase (PostgreSQL temps-réel)</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Edge computing & CDN Cloudflare mondial</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Score Core Web Vitals 100/100 garanti</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Architecture JAMstack & microservices</li>
+            </ul>
+            <div class="service-cta">
+              <a href="/tarifs" class="link-arrow" aria-label="Voir les tarifs Création Web">Voir les tarifs <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-blue" aria-hidden="true"></div>
+        </article>
+
+        <!-- Service 2 : Cybersécurité -->
+        <article class="service-card service-card-featured reveal-up delay-2" id="service-cyber">
+          <div class="service-card-inner">
+            <div class="service-featured-badge" aria-label="Service phare">Cœur de métier</div>
+            <div class="service-icon-wrap service-icon-purple" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" opacity="0.8"/></svg>
+            </div>
+            <div class="service-number font-mono" aria-hidden="true">02</div>
+            <h3 class="service-title">Cybersécurité & Défense</h3>
+            <p class="service-desc">Votre infrastructure, blindée à chaque couche. Nous déployons des défenses actives qui neutralisent les menaces avant qu'elles n'atteignent vos données.</p>
+            <ul class="service-features" role="list">
+              <li><span class="feat-check" aria-hidden="true"></span>Pare-feu applicatif (WAF) Enterprise Cloudflare</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Protection DDoS jusqu'à 200 Tbps absorbés</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Chiffrement TLS 1.3 & Zero-Trust Network</li>
+              <li><span class="feat-check" aria-hidden="true"></span>SIEM & monitoring des menaces en temps réel</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Conformité RGPD & ISO 27001 accompagnée</li>
+            </ul>
+            <div class="service-cta">
+              <a href="/contact" class="link-arrow" aria-label="Demander un audit sécurité">Audit gratuit <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-purple" aria-hidden="true"></div>
+        </article>
+
+        <!-- Service 3 : Pen-Testing -->
+        <article class="service-card reveal-up delay-3" id="service-pentest">
+          <div class="service-card-inner">
+            <div class="service-icon-wrap service-icon-red" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><path d="M8.5 8.5L12 12l3.5-3.5" opacity="0.6"/></svg>
+            </div>
+            <div class="service-number font-mono" aria-hidden="true">03</div>
+            <h3 class="service-title">Pen-Testing Red & Blue Team</h3>
+            <p class="service-desc">Nous attaquons nos propres créations — sans relâche — avant que quiconque d'autre ne le fasse. Chaque site livré a survécu à notre équipe offensive.</p>
+            <ul class="service-features" role="list">
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Tests d'intrusion OWASP Top 10 complets</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Fuzzing applicatif & injection SQL/XSS/CSRF</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Analyse des dépendances & CVE scanning</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Rapport d'audit détaillé & recommandations</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Simulation d'attaques APT (Advanced Threats)</li>
+            </ul>
+            <div class="service-cta">
+              <a href="/contact" class="link-arrow" aria-label="Commander un pen-test">Commander un audit <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-red" aria-hidden="true"></div>
+        </article>
+
+      </div>
+
+      <!-- Security Guarantee Banner -->
+      <div class="guarantee-banner reveal-up" style="margin-top: 4rem;">
+        <div class="guarantee-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="guarantee-text">
+          <strong>Garantie Zéro Vulnérabilité Critique.</strong>
+          Chaque projet livré est accompagné d'un rapport de sécurité certifié. Si une CVE critique est découverte dans les 30 jours post-livraison, nous la corrigeons gratuitement.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

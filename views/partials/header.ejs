@@ -1,0 +1,59 @@
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════ -->
+  <header id="navbar" role="banner">
+    <nav aria-label="Navigation principale">
+      <a href="/" class="logo" aria-label="Arkis — Retour à l'accueil">
+        <span class="logo-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="none" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <polygon points="16,8 24,13 24,19 16,24 8,19 8,13" fill="url(#logoGradFill)" opacity="0.3"/>
+            <line x1="16" y1="2" x2="16" y2="8" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <line x1="30" y1="10" x2="24" y2="13" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <line x1="30" y1="22" x2="24" y2="19" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <line x1="16" y1="30" x2="16" y2="24" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <line x1="2" y1="22" x2="8" y2="19" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <line x1="2" y1="10" x2="8" y2="13" stroke="url(#logoGrad)" stroke-width="1.5"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00D4FF"/>
+                <stop offset="100%" stop-color="#7B2FFF"/>
+              </linearGradient>
+              <linearGradient id="logoGradFill" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00D4FF"/>
+                <stop offset="100%" stop-color="#7B2FFF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="logo-text">ARKIS<span class="logo-dot">.</span></span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
+        <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
+        <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>
+        <li><a href="/equipe" class="nav-link <%= typeof page !== 'undefined' && page === 'equipe' ? 'active' : '' %>">Équipe</a></li>
+        <li><a href="/contact" class="nav-link <%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="/contact" class="btn btn-ghost" id="nav-audit-btn">Audit gratuit</a>
+        <button class="hamburger" id="hamburger-btn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
+        <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
+        <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>
+        <li><a href="/equipe" class="nav-link <%= typeof page !== 'undefined' && page === 'equipe' ? 'active' : '' %>">Équipe</a></li>
+        <li><a href="/contact" class="nav-link <%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
+        <li><a href="/contact" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">Démarrer un projet</a></li>
+      </ul>
+    </div>
+  </header>

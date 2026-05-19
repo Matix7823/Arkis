@@ -1,0 +1,157 @@
+<%- include('partials/head', { 
+  title: 'Arkis — Secure by Design | Agence Web & Cybersécurité', 
+  description: 'Votre site, impénétrable par conception. Nous combinons le développement Full-Stack de pointe (Supabase, Cloudflare) avec du Pen-testing intégré dès la phase de conception.' 
+}) %>
+
+<%- include('partials/header', { page: 'accueil' }) %>
+
+<main>
+  <!-- ═══════════════════════════════════════════════
+       1. HÉRO SECTION
+  ═══════════════════════════════════════════════ -->
+  <section id="accueil" class="hero" aria-label="Section d'accueil">
+    <div class="hero-canvas" id="hero-canvas" aria-hidden="true"></div>
+    <div class="hero-grid-overlay" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <div class="hero-badge reveal-up" aria-label="Statut">
+        <span class="badge-dot" aria-hidden="true"></span>
+        <span class="badge-text font-mono">Secure by Design — Red &amp; Blue Team Intégré</span>
+      </div>
+
+      <h1 class="hero-headline reveal-up delay-1">
+        Votre site web,<br />
+        <span class="gradient-text">impénétrable</span><br />
+        par conception.
+      </h1>
+
+      <p class="hero-subtitle reveal-up delay-2">
+        Nous combinons le développement Full-Stack de pointe — 
+        <strong>Supabase, Cloudflare, edge computing</strong> — 
+        avec des tests d'intrusion (Pen-testing) réalisés dès la phase de conception. 
+        Résultat : des sites ultra-performants qui résistent à tout.
+      </p>
+
+      <div class="hero-cta-group reveal-up delay-3">
+        <a href="/contact" class="btn btn-primary btn-lg" id="hero-audit-btn">
+          <span class="btn-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          Demander un audit gratuit
+        </a>
+        <a href="/realisations" class="btn btn-ghost btn-lg" id="hero-portfolio-btn">
+          Voir nos réalisations
+          <span class="btn-icon-right" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="hero-stats reveal-up delay-4" aria-label="Statistiques clés">
+        <div class="stat-item">
+          <span class="stat-value counter" data-target="100">0</span><span class="stat-unit">%</span>
+          <span class="stat-label">Score Lighthouse</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-value counter" data-target="0">0</span><span class="stat-unit"> CVE</span>
+          <span class="stat-label">Vulnérabilités livrées</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-value counter" data-target="24">0</span><span class="stat-unit">h/7</span>
+          <span class="stat-label">Support critique</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-value counter" data-target="99">0</span><span class="stat-unit">.9%</span>
+          <span class="stat-label">Uptime garanti</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating scroll indicator -->
+    <a href="/services" class="scroll-indicator" aria-label="Défiler vers les services">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+    </a>
+
+    <!-- Trusted tech badges -->
+    <div class="tech-strip reveal-up delay-5" aria-label="Technologies maîtrisées">
+      <span class="tech-label">Stack technologique :</span>
+      <div class="tech-badges">
+        <span class="tech-badge">Supabase</span>
+        <span class="tech-badge">Cloudflare</span>
+        <span class="tech-badge">Next.js</span>
+        <span class="tech-badge">TypeScript</span>
+        <span class="tech-badge">OWASP</span>
+        <span class="tech-badge">WAF Enterprise</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       VALEUR AJOUTÉE / TEASER SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="section services" style="border-top: 1px solid var(--clr-border);">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag reveal-up">L'expertise Arkis</p>
+        <h2 class="section-title reveal-up delay-1">Pourquoi choisir <br/><span class="gradient-text">une agence hybride ?</span></h2>
+        <p class="section-subtitle reveal-up delay-2">Un beau site ne vaut rien s'il s'effondre face à une attaque. Nous unissons le design de pointe et le blindage défensif pour créer des forteresses numériques.</p>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card reveal-up delay-1">
+          <div class="service-card-inner">
+            <div class="service-icon-wrap service-icon-blue" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="service-title">Création Web Sur-Mesure</h3>
+            <p class="service-desc">Des designs modernes, fluides, avec score SEO et temps de chargement optimaux.</p>
+            <div class="service-cta">
+              <a href="/services" class="link-arrow">Découvrir nos services <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-blue" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card service-card-featured reveal-up delay-2">
+          <div class="service-card-inner">
+            <div class="service-icon-wrap service-icon-purple" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="service-title">Cybersécurité Avancée</h3>
+            <p class="service-desc">Protection DDoS, pare-feu applicatif (WAF) entreprise et conformité RGPD intégrée.</p>
+            <div class="service-cta">
+              <a href="/services" class="link-arrow" style="color: #fff;">Voir notre protection <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-purple" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card reveal-up delay-3">
+          <div class="service-card-inner">
+            <div class="service-icon-wrap service-icon-red" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3 class="service-title">Pen-Testing Intégré</h3>
+            <p class="service-desc">Nous attaquons nos propres créations avant la livraison pour garantir un niveau de sécurité parfait.</p>
+            <div class="service-cta">
+              <a href="/services" class="link-arrow">En savoir plus <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <div class="service-glow service-glow-red" aria-hidden="true"></div>
+        </article>
+      </div>
+
+      <!-- Quick teaser CTA -->
+      <div style="text-align: center; margin-top: 4rem;" class="reveal-up delay-4">
+        <a href="/tarifs" class="btn btn-outline btn-lg">Découvrir nos offres Build &amp; Run</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

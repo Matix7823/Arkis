@@ -1,0 +1,156 @@
+<%- include('partials/head', { 
+  title: 'Réalisations — Nos Projets Web & Cybersécurité | Arkis Agency', 
+  description: 'Découvrez notre portfolio de créations d\'applications web SaaS, de boutiques E-Commerce premium et de tableaux de bord de cybersécurité industrielle (SOC).' 
+}) %>
+
+<%- include('partials/header', { page: 'realisations' }) %>
+
+<main style="padding-top: var(--nav-h);">
+  <!-- ═══════════════════════════════════════════════
+       RÉALISATIONS / PORTFOLIO
+  ═══════════════════════════════════════════════ -->
+  <section id="realisations" class="section portfolio">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag reveal-up">Portfolio</p>
+        <h2 class="section-title reveal-up delay-1">Nos réalisations<br /><span class="gradient-text">parlent d'elles-mêmes.</span></h2>
+        <p class="section-subtitle reveal-up delay-2">Chaque projet est livré avec ses métriques de performance et de sécurité. La transparence n'est pas une option.</p>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="portfolio-filters reveal-up delay-2" role="tablist" aria-label="Filtrer les projets">
+        <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all" id="filter-all">Tous</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="web" id="filter-web">Web App</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="cyber" id="filter-cyber">Cybersécurité</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="ecom" id="filter-ecom">E-Commerce</button>
+      </div>
+
+      <div class="portfolio-grid">
+
+        <!-- Project 1 -->
+        <article class="portfolio-card reveal-up delay-1" data-category="web" id="project-saas">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_mockup1.png" alt="Dashboard SaaS analytics avec interface dark mode et métriques en temps réel" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">Next.js</span>
+                <span class="p-tag">Supabase</span>
+                <span class="p-tag">Cloudflare</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">Web App SaaS</span>
+              <span class="portfolio-year font-mono">2025</span>
+            </div>
+            <h3 class="portfolio-title">Plateforme Analytics B2B</h3>
+            <p class="portfolio-desc">Dashboard temps-réel avec authentification multi-facteurs, chiffrement des données at-rest et in-transit, et architecture Zero-Trust.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
+                <span class="metric-value">0.8s</span>
+                <span class="metric-label">LCP</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">2,847</span>
+                <span class="metric-label">Menaces bloquées/j</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
+                <span class="metric-value">100</span>
+                <span class="metric-label">Score Lighthouse</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="portfolio-card portfolio-card-wide reveal-up delay-2" data-category="ecom" id="project-ecom">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_mockup2.png" alt="E-commerce luxe avec interface responsive mobile et desktop, dark mode premium" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">TypeScript</span>
+                <span class="p-tag">WAF</span>
+                <span class="p-tag">Stripe</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">E-Commerce Premium</span>
+              <span class="portfolio-year font-mono">2025</span>
+            </div>
+            <h3 class="portfolio-title">Boutique Luxe & Sécurisée</h3>
+            <p class="portfolio-desc">E-commerce haut de gamme avec PCI-DSS Level 1, tokenisation des paiements, et protection anti-fraude en temps réel.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
+                <span class="metric-value">0.6s</span>
+                <span class="metric-label">LCP</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">0</span>
+                <span class="metric-label">Fraudes subies</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-green" aria-hidden="true">↑</span>
+                <span class="metric-value">+34%</span>
+                <span class="metric-label">Conv. rate</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="portfolio-card reveal-up delay-3" data-category="cyber" id="project-cyber">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_mockup3.png" alt="Tableau de bord de surveillance cybersécurité avec indicateurs de menaces et alertes temps réel" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">SIEM</span>
+                <span class="p-tag">OWASP</span>
+                <span class="p-tag">Zero Trust</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">Cybersécurité</span>
+              <span class="portfolio-year font-mono">2024</span>
+            </div>
+            <h3 class="portfolio-title">SOC Dashboard Industriel</h3>
+            <p class="portfolio-desc">Centre opérationnel de sécurité (SOC) pour un groupe industriel — monitoring 24/7, réponse automatisée aux incidents, et conformité NIS2.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-red" aria-hidden="true">🎯</span>
+                <span class="metric-value">12</span>
+                <span class="metric-label">CVE corrigées</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">99.97%</span>
+                <span class="metric-label">Uptime</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-purple" aria-hidden="true">⚙</span>
+                <span class="metric-value">NIS2</span>
+                <span class="metric-label">Conforme</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="portfolio-cta reveal-up" style="margin-top: 4rem;">
+        <a href="/contact" class="btn btn-outline" id="portfolio-contact-btn">Discuter de votre projet</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
