@@ -1805,9 +1805,9 @@ a.cd-value:hover { color: var(--clr-cyan); }
 
 .process-step-line {
   position: absolute;
-  top: 2.75rem;
-  left: calc(50% + 20px);
-  right: -50%;
+  top: 3.75rem;
+  left: calc(1.5rem + 44px + 1rem);
+  width: calc(100% - 44px - 2rem);
   height: 1px;
   background: linear-gradient(90deg, rgba(0, 212, 255, 0.4), rgba(0, 212, 255, 0.05));
 }
