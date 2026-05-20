@@ -156,14 +156,41 @@ async function handleContact(request, env) {
     return jsonResponse({ ok: false, errors: [{ field: 'form', message: 'Requête invalide.' }] }, 400, request);
   }
 
-  const { name, company, email, phone, service, budget, message, _honey } = body;
+  const { name, company, email, phone, service, budget, message, 'cf-turnstile-response': turnstileToken } = body;
   const sanitize   = (s = '') => String(s).trim().replace(/[<>]/g, '');
   const validEmail = (e)      => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
-  // Honeypot spam bot trap
-  if (_honey && String(_honey).trim() !== '') {
-    console.log('🤖 Spam bot blocked silently.');
-    return jsonResponse({ ok: true }, 200, request);
+  // Cloudflare Turnstile Verification
+  const turnstileSecret = env.TURNSTILE_SECRET_KEY || '0x4AAAAAADTJbr-4Qe-1TQpT9jGqXVe2Y1I';
+  
+  if (!turnstileToken) {
+    console.error('❌ Turnstile token missing.');
+    return jsonResponse({ ok: false, errors: [{ field: 'form', message: 'Veuillez valider le contrôle de sécurité (CAPTCHA).' }] }, 400, request);
+  }
+
+  try {
+    const formData = new FormData();
+    formData.append('secret', turnstileSecret);
+    formData.append('response', turnstileToken);
+    
+    // Optional: Include client IP for better detection
+    const clientIP = request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For');
+    if (clientIP) formData.append('remoteip', clientIP);
+
+    const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    const turnstileData = await turnstileRes.json();
+    if (!turnstileData.success) {
+      console.error('❌ Turnstile validation failed:', turnstileData);
+      return jsonResponse({ ok: false, errors: [{ field: 'form', message: 'Échec de la validation de sécurité. Veuillez réessayer.' }] }, 403, request);
+    }
+    console.log('✅ Turnstile validation successful.');
+  } catch (err) {
+    console.error('❌ Turnstile network error:', err);
+    return jsonResponse({ ok: false, errors: [{ field: 'form', message: 'Erreur lors du contrôle de sécurité.' }] }, 500, request);
   }
 
   // Strict server-side validation
