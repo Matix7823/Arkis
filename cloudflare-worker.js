@@ -6,6 +6,8 @@ export default {
     // 1. ROUTE API : TRAITEMENT DU FORMULAIRE DE CONTACT
     // ==========================================
     if (request.method === "POST" && url.pathname === "/api/contact") {
+      
+      // 0. Protection CSRF (Cross-Site Request Forgery)
       const origin = request.headers.get("Origin");
       if (!origin || !origin.includes("arkis.mathis7823.workers.dev")) {
         return new Response(JSON.stringify({ success: false, message: "Requête non autorisée (CSRF Blocked)" }), { 
@@ -14,8 +16,40 @@ export default {
         });
       }
 
+      // 1. Rate Limiting par IP (Anti-Brute Force / DoS)
+      const clientIP = request.headers.get("CF-Connecting-IP") || "unknown";
+      const cacheKey = new Request(`https://rate-limit.local/${clientIP}`);
+      const cache = caches.default;
+      let cacheResponse = await cache.match(cacheKey);
+
+      if (cacheResponse) {
+        const data = await cacheResponse.json();
+        if (data.count >= 5) { // Limite : 5 requêtes par minute
+          return new Response(JSON.stringify({ success: false, message: "Trop de requêtes. Veuillez réessayer plus tard (Rate Limit)." }), { 
+            status: 429, 
+            headers: { "Content-Type": "application/json", "Retry-After": "60" } 
+          });
+        }
+        data.count++;
+        ctx.waitUntil(cache.put(cacheKey, new Response(JSON.stringify(data), { headers: { "Cache-Control": "max-age=60" } })));
+      } else {
+        ctx.waitUntil(cache.put(cacheKey, new Response(JSON.stringify({ count: 1 }), { headers: { "Cache-Control": "max-age=60" } })));
+      }
+
+      // 2. Bloquer les requêtes trop lourdes (Payload Too Large)
+      const contentLength = parseInt(request.headers.get("Content-Length") || "0");
+      if (contentLength > 10240) { // 10 Ko maximum
+        return new Response(JSON.stringify({ success: false, message: "Requête trop volumineuse." }), { status: 413 });
+      }
+
       try {
         const formData = await request.json();
+
+        // 3. Validation stricte de l'email via Regex
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(formData.email)) {
+          return new Response(JSON.stringify({ success: false, message: "Format d'adresse email invalide." }), { status: 400 });
+        }
 
         // A. SÉCURITÉ : Validation du jeton Cloudflare Turnstile (Anti-Bot)
         const turnstileToken = formData['cf-turnstile-response'];
@@ -100,16 +134,13 @@ export default {
     // ==========================================
     // 2. FALLBACK : SERVICE DES FICHIERS STATIQUES (HTML/CSS/JS)
     // ==========================================
-    // Récupère la page demandée depuis le bundle d'Assets (dossier dist/)
     const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get("Content-Type") || "";
 
-    // OPTIMISATION : Si c'est un fichier HTML, on peut modifier la réponse à la volée 
-    // pour injecter le script Cloudflare Web Analytics si nécessaire, ou ajouter des en-têtes de sécurité.
     if (contentType.includes("text/html")) {
       const newHeaders = new Headers(response.headers);
       
-      // Package de sécurité d'élite (Blue Team Standard)
+      // 4. Package de sécurité d'élite (Blue Team Standard + Hardening Militaire)
       newHeaders.set("X-Frame-Options", "DENY");
       newHeaders.set("X-Content-Type-Options", "nosniff");
       newHeaders.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -117,6 +148,11 @@ export default {
       newHeaders.set("Permissions-Policy", "geolocation=(), camera=(), microphone=()");
       newHeaders.set("X-XSS-Protection", "1; mode=block");
       newHeaders.set("Content-Security-Policy", "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' " + env.SUPABASE_URL + "; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+      
+      // Durcissement des politiques de cookies & fuites (Isolation globale)
+      newHeaders.set("X-Permitted-Cross-Domain-Policies", "none");
+      newHeaders.set("Cross-Origin-Opener-Policy", "same-origin");
+      newHeaders.set("Cross-Origin-Embedder-Policy", "require-corp");
       
       return new Response(response.body, {
         status: response.status,
