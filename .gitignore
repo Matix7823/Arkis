@@ -1,15 +1,16 @@
 # ── Dépendances Node.js
 node_modules/
 npm-debug.log*
-yarn-error.log
+yarn-error.log*
 package-lock.json
 
 # ── Secrets (CRITIQUE — ne jamais committer)
 .env
 .env.local
 .env.production
+.env.*.local
 
-# ── Build outputs
+# ── Build outputs (générés automatiquement par node build.js)
 dist/
 .wrangler/
 
@@ -19,3 +20,5 @@ Thumbs.db
 .vscode/settings.json
 *.suo
 *.user
+*.bak
+*.tmp

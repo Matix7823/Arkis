@@ -48,8 +48,9 @@ app.use(cors({ origin: false })); // Bloque le cross-origin non sollicité par d
 app.use(express.json({ limit: '64kb' })); // Taille max de payload pour éviter les injections de Denial of Service
 app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 
-// Sert les ressources statiques publiques (style.css, script.js, images portfolio)
-app.use(express.static(path.join(__dirname)));
+// Sert les ressources statiques publiques depuis public/ uniquement
+// ⚠️ Sécurité : on n'expose PAS la racine du projet (server.js, .env, routes/, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ─── 3. Configuration du Moteur EJS ───────────────────────
 app.set('view engine', 'ejs');

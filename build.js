@@ -21,36 +21,30 @@ if (fs.existsSync(DIST_DIR)) {
 fs.mkdirSync(DIST_DIR, { recursive: true });
 console.log('✓ Created fresh dist/ directory.');
 
-// 2. Copy static resources
-const assets = [
-  'style.css',
-  'script.js',
-  'portfolio_mockup1.png',
-  'portfolio_mockup2.png',
-  'portfolio_mockup3.png',
-  'portfolio_bricosam.png',
-  'portfolio_commerce.png',
-  'portfolio_dhmtech.png'
-];
-
-// Also copy public/ directory files (manifest.json, etc.)
+// 2. Copy static resources from public/ (canonical source of truth)
 const publicDir = path.join(__dirname, 'public');
+
+// Copy top-level files in public/ (style.css, script.js, manifest.json, etc.)
 if (fs.existsSync(publicDir)) {
   fs.readdirSync(publicDir).forEach(file => {
-    fs.copyFileSync(path.join(publicDir, file), path.join(DIST_DIR, file));
-    console.log(`✓ Copied public asset: ${file}`);
+    const srcPath = path.join(publicDir, file);
+    if (fs.statSync(srcPath).isFile()) {
+      fs.copyFileSync(srcPath, path.join(DIST_DIR, file));
+      console.log(`✓ Copied public asset: ${file}`);
+    }
   });
 }
 
-assets.forEach(asset => {
-  const srcPath = path.join(__dirname, asset);
-  if (fs.existsSync(srcPath)) {
-    fs.copyFileSync(srcPath, path.join(DIST_DIR, asset));
-    console.log(`✓ Copied static asset: ${asset}`);
-  } else {
-    console.warn(`⚠️ Warning: Static asset not found: ${asset}`);
-  }
-});
+// Copy images from public/images/
+const imagesDir = path.join(publicDir, 'images');
+const distImagesDir = path.join(DIST_DIR, 'images');
+if (fs.existsSync(imagesDir)) {
+  fs.mkdirSync(distImagesDir, { recursive: true });
+  fs.readdirSync(imagesDir).forEach(file => {
+    fs.copyFileSync(path.join(imagesDir, file), path.join(distImagesDir, file));
+    console.log(`✓ Copied image: images/${file}`);
+  });
+}
 
 // 3. Compile EJS Templates into static HTML pages
 const pages = [

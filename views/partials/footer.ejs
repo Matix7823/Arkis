@@ -70,19 +70,67 @@
     </div>
   </footer>
 
-  <!-- Back to top button -->
+  <!-- ═══ TOAST NOTIFICATION CONTAINER ═══ -->
+  <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ═══ BACK TO TOP BUTTON ═══ -->
   <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page" hidden>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <!-- Floating Onboarding Tour Trigger Button -->
+  <!-- ═══ CUSTOM CYBER CURSOR ═══ -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══ CHATBOT ARIA ═══ -->
+  <button id="aria-chat-btn" aria-label="Ouvrir l'assistant ARIA" aria-expanded="false" aria-controls="aria-chat-window">
+    <span class="aria-pulse" aria-hidden="true"></span>
+    <span class="aria-pulse-2" aria-hidden="true"></span>
+    <svg id="aria-icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg id="aria-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+
+  <div id="aria-chat-window" role="dialog" aria-hidden="true" aria-label="Assistant ARIA — Arkis">
+    <div class="aria-header">
+      <div class="aria-avatar" aria-hidden="true">🤖</div>
+      <div class="aria-info">
+        <div class="aria-name">ARIA</div>
+        <div class="aria-status">Assistant Arkis — En ligne</div>
+      </div>
+      <button class="aria-close-btn" id="aria-close-btn" aria-label="Fermer le chatbot">×</button>
+    </div>
+    <div class="aria-messages" id="aria-messages" role="log" aria-label="Conversation avec ARIA"></div>
+    <div class="aria-suggestions" id="aria-suggestions">
+      <button class="aria-suggestion-chip" data-msg="Quels sont vos services ?">Services</button>
+      <button class="aria-suggestion-chip" data-msg="Quels sont vos tarifs ?">Tarifs</button>
+      <button class="aria-suggestion-chip" data-msg="Comment fonctionne Build & Run ?">Build & Run</button>
+      <button class="aria-suggestion-chip" data-msg="Je veux un audit gratuit">Audit gratuit</button>
+    </div>
+    <div class="aria-input-area">
+      <input type="text" class="aria-input" id="aria-input" placeholder="Posez votre question…" autocomplete="off" aria-label="Message à ARIA" maxlength="200" />
+      <button class="aria-send-btn" id="aria-send-btn" aria-label="Envoyer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ MOBILE STICKY CTA ═══ -->
+  <div id="mobile-sticky-cta" role="complementary" aria-label="Démarrer un projet">
+    <div class="msca-text">
+      <strong>Prêt à sécuriser votre avenir ?</strong>
+      1ère consultation 100% gratuite
+    </div>
+    <a href="/contact" class="btn btn-primary" id="msca-cta-btn">Audit gratuit</a>
+    <button id="mobile-sticky-cta-close" aria-label="Fermer">×</button>
+  </div>
+
+  <!-- ═══ ONBOARDING TOUR ═══ -->
   <button id="tour-trigger-btn" class="tour-floating-btn" aria-label="Lancer la visite guidée interactive d'Arkis">
     <span class="tour-pulse-ring"></span>
     <span class="tour-icon">💡</span>
     <span class="tour-btn-text">Visite Guidée</span>
   </button>
 
-  <!-- Interactive Tour Onboarding Modal Overlay -->
   <div id="tour-modal" class="tour-modal" aria-hidden="true" role="dialog" aria-labelledby="tour-title">
     <div class="tour-box">
       <button class="tour-close" id="tour-close-btn" aria-label="Fermer la visite guidée">×</button>
@@ -109,6 +157,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
