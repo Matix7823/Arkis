@@ -2319,6 +2319,20 @@ function initCookieBanner() {
 }
 
 // ═══════════════════════════════════════════════
+// 24b. REOPEN COOKIE BANNER (For Footer Link)
+// ═══════════════════════════════════════════════
+window.reopenCookieBanner = function(e) {
+  if (e) e.preventDefault();
+  localStorage.removeItem('arkis-cookie-consent');
+  localStorage.removeItem('arkis-cookie-date');
+  
+  const existingBanner = document.getElementById('cookie-banner');
+  if (existingBanner) existingBanner.remove();
+  
+  injectUIPersistentElements();
+};
+
+// ═══════════════════════════════════════════════
 // 25. TOAST SYSTEM
 // ═══════════════════════════════════════════════
 let toastContainer;
