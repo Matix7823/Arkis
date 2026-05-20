@@ -833,6 +833,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       if (state.isDdosActive) return;
       state.isDdosActive = true;
       state.defcon = 1;
+      window.dispatchEvent(new CustomEvent('cyber-attack-start', { detail: { type: 'ddos' } }));
       
       // Disable buttons
       btnDdos.disabled = true;
@@ -880,6 +881,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       function finishDdosMitigation() {
         state.isDdosActive = false;
         state.defcon = 4;
+        window.dispatchEvent(new CustomEvent('cyber-attack-end'));
         
         // Restore controls
         btnDdos.disabled = false;
@@ -916,6 +918,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       if (state.isDdosActive) return;
       btnSqli.disabled = true;
       btnSqli.style.opacity = '0.5';
+      window.dispatchEvent(new CustomEvent('cyber-attack-start', { detail: { type: 'sqli' } }));
 
       if (threatLevelEl) {
         threatLevelEl.textContent = 'HIGH SQLi ATTEMPT (14.28%)';
@@ -939,6 +942,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         // Restore normal status
         btnSqli.disabled = false;
         btnSqli.style.opacity = '1';
+        window.dispatchEvent(new CustomEvent('cyber-attack-end'));
 
         if (threatLevelEl) {
           threatLevelEl.textContent = 'NORMAL (0.02%)';
@@ -957,6 +961,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       if (state.isDdosActive) return;
       btnBot.disabled = true;
       btnBot.style.opacity = '0.5';
+      window.dispatchEvent(new CustomEvent('cyber-attack-start', { detail: { type: 'bot' } }));
 
       if (threatLevelEl) {
         threatLevelEl.textContent = 'WARNING BOT SCAN ACTIVE (8.40%)';
@@ -979,6 +984,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           
           btnBot.disabled = false;
           btnBot.style.opacity = '1';
+          window.dispatchEvent(new CustomEvent('cyber-attack-end'));
 
           if (threatLevelEl) {
             threatLevelEl.textContent = 'NORMAL (0.02%)';
@@ -1052,6 +1058,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
 
         const vector = exploitVector ? exploitVector.value : 'custom';
+        window.dispatchEvent(new CustomEvent('cyber-attack-start', { detail: { type: vector === 'custom' ? 'exploit' : vector } }));
         let defcon = 2;
         let sig = 'CUSTOM-9999';
         
@@ -1163,6 +1170,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
           btnFire.disabled = false;
           btnFire.style.opacity = '1';
+          window.dispatchEvent(new CustomEvent('cyber-attack-end'));
         }, 3500);
 
       }, 800);
@@ -1210,6 +1218,485 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   drawChart();
   setTimeout(runLoop, 1500);
 })();
+
+// Insert Hardening Simulator and Cyber Threat Map engines
+// ═══════════════════════════════════════════════
+// 14b. INTERACTIVE HARDENING CONFIGURATOR
+// ═══════════════════════════════════════════════
+function initHardeningSimulator() {
+  const container = document.getElementById('hardening');
+  if (!container) return;
+
+  const switches = {
+    hsts: document.getElementById('switch-hsts'),
+    csp: document.getElementById('switch-csp'),
+    tls: document.getElementById('switch-tls'),
+    dnssec: document.getElementById('switch-dnssec'),
+    waf: document.getElementById('switch-waf'),
+    mfa: document.getElementById('switch-mfa')
+  };
+
+  const scorePctEl = document.getElementById('hardening-score-pct');
+  const radialBar = document.getElementById('hardening-radial-bar');
+  const threatLevelEl = document.getElementById('hardening-threat-level');
+  const slaEl = document.getElementById('hardening-sla');
+  const explainTitle = document.getElementById('explain-title');
+  const explainDesc = document.getElementById('explain-desc');
+
+  const layersInfo = {
+    hsts: {
+      title: "HSTS (Strict Transport Security)",
+      desc: "Sécurise les communications en instruisant les navigateurs de ne communiquer qu'en HTTPS. Bloque l'exploitation de failles d'interception de type Man-in-the-Middle (MitM) et prévient les attaques de downgrade SSL."
+    },
+    csp: {
+      title: "CSP (Content Security Policy) Stricte",
+      desc: "Définit les sources fiables pour l'exécution de scripts, d'images et de styles. Neutralise totalement l'injection de scripts malveillants (Cross-Site Scripting - XSS) et l'inclusion de frames frauduleuses."
+    },
+    tls: {
+      title: "TLS 1.3 & Chiffrement Fort",
+      desc: "Assure que tous les échanges de données utilisent des algorithmes de chiffrement de pointe (ChaCha20, AES-GCM). Accélère le handshake TLS et protège les sessions contre le décodage rétroactif."
+    },
+    dnssec: {
+      title: "DNSSEC (DNS Security Extensions)",
+      desc: "Signe cryptographiquement les enregistrements DNS de votre domaine. Empêche l'empoisonnement de cache DNS, le détournement de trafic et la redirection transparente de vos utilisateurs vers des sites clones."
+    },
+    waf: {
+      title: "Cloudflare WAF Enterprise",
+      desc: "Analyse le trafic réseau mondial en temps réel au niveau des serveurs Edge de Cloudflare. Identifie et neutralise instantanément les requêtes malveillantes (DDoS, injections SQL, Scrapers, Zero-day) avant qu'elles ne touchent votre infrastructure."
+    },
+    mfa: {
+      title: "Double Authentification (MFA) Admin",
+      desc: "Verrouille les accès aux consoles d'administration Supabase et d'hébergement. Exige une validation matérielle ou logicielle (OTP, clé FIDO2), bloquant 99,9% des tentatives de compromission d'identifiants."
+    }
+  };
+
+  let activeHoverLayer = null;
+
+  function updateHardeningScore() {
+    let score = 40;
+    
+    Object.keys(switches).forEach(key => {
+      const sw = switches[key];
+      if (sw && sw.checked) {
+        score += 10;
+        const card = sw.closest('.hardening-switch-card');
+        if (card) card.classList.add('active');
+      } else {
+        const swElement = switches[key];
+        if (swElement) {
+          const card = swElement.closest('.hardening-switch-card');
+          if (card) card.classList.remove('active');
+        }
+      }
+    });
+
+    if (score > 100) score = 100;
+
+    if (scorePctEl) scorePctEl.textContent = `${score}%`;
+
+    if (radialBar) {
+      const offset = 276 - (276 * score / 100);
+      radialBar.style.strokeDashoffset = offset;
+    }
+
+    if (threatLevelEl) {
+      if (score === 40) {
+        threatLevelEl.textContent = "Critique 🚨";
+        threatLevelEl.style.color = "#EF4444";
+      } else if (score <= 60) {
+        threatLevelEl.textContent = "Élevée ⚠️";
+        threatLevelEl.style.color = "#F97316";
+      } else if (score <= 80) {
+        threatLevelEl.textContent = "Moyenne ⚡";
+        threatLevelEl.style.color = "#FBBF24";
+      } else if (score <= 90) {
+        threatLevelEl.textContent = "Faible 🛡️";
+        threatLevelEl.style.color = "var(--clr-cyan)";
+      } else {
+        threatLevelEl.textContent = "Nulle 🛡️";
+        threatLevelEl.style.color = "var(--clr-green)";
+      }
+    }
+
+    if (slaEl) {
+      if (score <= 60) {
+        slaEl.textContent = "Standard";
+      } else if (score <= 80) {
+        slaEl.textContent = "Avancé";
+      } else {
+        slaEl.textContent = "Critique (SLA 99.99%)";
+      }
+    }
+  }
+
+  function showExplanation(key) {
+    const info = layersInfo[key];
+    if (!info || !explainTitle || !explainDesc) return;
+    explainTitle.textContent = info.title;
+    explainDesc.textContent = info.desc;
+  }
+
+  function resetExplanation() {
+    if (activeHoverLayer) {
+      showExplanation(activeHoverLayer);
+    } else {
+      const checkedKeys = Object.keys(switches).filter(key => switches[key] && switches[key].checked);
+      if (checkedKeys.length > 0) {
+        showExplanation(checkedKeys[0]);
+      } else {
+        explainTitle.textContent = "Sélectionnez un protocole";
+        explainDesc.textContent = "Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées.";
+      }
+    }
+  }
+
+  Object.keys(switches).forEach(key => {
+    const sw = switches[key];
+    if (!sw) return;
+
+    const card = sw.closest('.hardening-switch-card');
+    if (!card) return;
+
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'INPUT' && !e.target.closest('.cyber-switch')) {
+        sw.checked = !sw.checked;
+        sw.dispatchEvent(new Event('change'));
+      }
+    });
+
+    sw.addEventListener('change', () => {
+      updateHardeningScore();
+      showExplanation(key);
+      activeHoverLayer = key;
+    });
+
+    card.addEventListener('mouseenter', () => {
+      showExplanation(key);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      resetExplanation();
+    });
+
+    sw.addEventListener('focus', () => {
+      showExplanation(key);
+    });
+    sw.addEventListener('blur', () => {
+      resetExplanation();
+    });
+  });
+
+  updateHardeningScore();
+  resetExplanation();
+}
+
+// ═══════════════════════════════════════════════
+// 14c. CYBER THREAT MAP ENGINE (SOC VISUALS)
+// ═══════════════════════════════════════════════
+function initCyberThreatMap() {
+  const canvas = document.getElementById('threat-map-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let w, h;
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const nodes = [
+    { name: 'PARIS (HQ)', x: 0.50, y: 0.42, isHQ: true },
+    { name: 'NEW YORK', x: 0.20, y: 0.35 },
+    { name: 'SÃO PAULO', x: 0.28, y: 0.70 },
+    { name: 'MOSCOW', x: 0.65, y: 0.28 },
+    { name: 'BEIJING', x: 0.82, y: 0.38 },
+    { name: 'TOKYO', x: 0.90, y: 0.40 },
+    { name: 'SYDNEY', x: 0.88, y: 0.80 }
+  ];
+
+  let packets = [];
+  let activeAttack = null;
+  let shieldRipples = [];
+
+  window.addEventListener('cyber-attack-start', (e) => {
+    const attackType = e.detail.type;
+    let sourceNode = nodes[3]; // MOSCOW as default
+    if (attackType === 'bot') {
+      sourceNode = nodes[4]; // BEIJING
+    } else if (attackType === 'ddos') {
+      sourceNode = nodes[2]; // SÃO PAULO
+    } else if (attackType === 'sqli') {
+      sourceNode = nodes[3]; // MOSCOW
+    } else if (attackType === 'exploit') {
+      sourceNode = nodes[5]; // TOKYO
+    }
+
+    activeAttack = {
+      source: sourceNode,
+      type: attackType,
+      startTime: Date.now(),
+      intensity: 1.0,
+      packetsSpawned: 0
+    };
+
+    const hud = document.getElementById('active-attack-hud');
+    if (hud) {
+      hud.textContent = `WARNING: ACTIVE ${attackType.toUpperCase()} ATTACK INTERCEPTED`;
+      hud.style.display = 'block';
+    }
+  });
+
+  window.addEventListener('cyber-attack-end', () => {
+    activeAttack = null;
+    const hud = document.getElementById('active-attack-hud');
+    if (hud) {
+      hud.style.display = 'none';
+    }
+  });
+
+  function getControlPoint(p0, p2, curveOffset) {
+    const midX = (p0.x + p2.x) / 2;
+    const midY = (p0.y + p2.y) / 2;
+    return {
+      x: midX,
+      y: midY + curveOffset
+    };
+  }
+
+  function getBezierPoint(p0, p1, p2, t) {
+    const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+    const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+    return { x, y };
+  }
+
+  function spawnStandardPacket() {
+    const sourceIdx = Math.floor(Math.random() * (nodes.length - 1)) + 1;
+    const fromNode = nodes[sourceIdx];
+    const toNode = nodes[0]; // PARIS
+
+    const p0 = { x: fromNode.x * w, y: fromNode.y * h };
+    const p2 = { x: toNode.x * w, y: toNode.y * h };
+    const curveOffset = -40 - Math.random() * 40;
+    const p1 = getControlPoint(p0, p2, curveOffset);
+
+    packets.push({
+      p0, p1, p2,
+      t: 0,
+      speed: 0.003 + Math.random() * 0.005,
+      color: 'rgba(0, 212, 255, 0.7)',
+      size: 1.5 + Math.random() * 1.5,
+      isAttack: false
+    });
+  }
+
+  function spawnAttackPacket() {
+    if (!activeAttack) return;
+    const fromNode = activeAttack.source;
+    const toNode = nodes[0]; // PARIS
+
+    const p0 = { x: fromNode.x * w, y: fromNode.y * h };
+    const p2 = { x: toNode.x * w, y: toNode.y * h };
+    const curveOffset = -30 - Math.random() * 30;
+    const p1 = getControlPoint(p0, p2, curveOffset);
+
+    packets.push({
+      p0, p1, p2,
+      t: 0,
+      speed: 0.015 + Math.random() * 0.015,
+      color: 'rgba(239, 68, 68, 0.95)',
+      size: 2.5 + Math.random() * 2,
+      isAttack: true
+    });
+  }
+
+  function drawHQShield(hqX, hqY) {
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(hqX, hqY, 14, 0, Math.PI * 2);
+    ctx.stroke();
+
+    shieldRipples.forEach((ripple, idx) => {
+      ripple.r += 0.8;
+      ripple.alpha -= 0.015;
+      if (ripple.alpha <= 0) {
+        shieldRipples.splice(idx, 1);
+        return;
+      }
+      ctx.strokeStyle = ripple.isAttack 
+        ? `rgba(239, 68, 68, ${ripple.alpha})`
+        : `rgba(0, 212, 255, ${ripple.alpha})`;
+      ctx.lineWidth = ripple.isAttack ? 2.5 : 1.5;
+      ctx.beginPath();
+      ctx.arc(hqX, hqY, ripple.r, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+  }
+
+  function loop() {
+    ctx.fillStyle = 'rgba(1, 4, 10, 0.18)';
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.03)';
+    ctx.lineWidth = 0.5;
+    const gridSize = 30;
+    for (let x = 0; x < w; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.25)';
+    ctx.font = '8px monospace';
+    ctx.fillText('SYS_OBSERVABILITY_ON', 15, 20);
+    ctx.fillText('LATENCY_ALERT_G_PASS', w - 110, 20);
+
+    const hqCoord = { x: nodes[0].x * w, y: nodes[0].y * h };
+
+    if (packets.length < 16 && Math.random() < 0.06) {
+      spawnStandardPacket();
+    }
+
+    if (activeAttack) {
+      const spawnRate = activeAttack.type === 'ddos' ? 3 : 1;
+      for (let i = 0; i < spawnRate; i++) {
+        if (Math.random() < 0.6) {
+          spawnAttackPacket();
+        }
+      }
+    }
+
+    nodes.forEach(node => {
+      if (node.isHQ) return;
+      const p0 = { x: node.x * w, y: node.y * h };
+      const p2 = hqCoord;
+      const curveOffset = -40;
+      const p1 = getControlPoint(p0, p2, curveOffset);
+
+      ctx.strokeStyle = 'rgba(0, 212, 255, 0.04)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
+      ctx.stroke();
+    });
+
+    if (activeAttack) {
+      const fromNode = activeAttack.source;
+      const p0 = { x: fromNode.x * w, y: fromNode.y * h };
+      const p2 = hqCoord;
+      const curveOffset = -30;
+      const p1 = getControlPoint(p0, p2, curveOffset);
+
+      const pulseAlpha = 0.25 + 0.15 * Math.sin(Date.now() / 150);
+      ctx.strokeStyle = `rgba(239, 68, 68, ${pulseAlpha})`;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
+      ctx.stroke();
+
+      const alertAlpha = 0.08 + 0.06 * Math.sin(Date.now() / 80);
+      ctx.fillStyle = `rgba(239, 68, 68, ${alertAlpha})`;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = `rgba(239, 68, 68, ${0.4 + 0.4 * Math.sin(Date.now() / 120)})`;
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`WAF BLOCKED: ${activeAttack.type.toUpperCase()} THREAT FROM ${activeAttack.source.name}`, w / 2, 45);
+      ctx.textAlign = 'left';
+    }
+
+    for (let i = packets.length - 1; i >= 0; i--) {
+      const p = packets[i];
+      p.t += p.speed;
+
+      if (p.t >= 1) {
+        shieldRipples.push({
+          r: 14,
+          alpha: 0.6,
+          isAttack: p.isAttack
+        });
+        packets.splice(i, 1);
+        continue;
+      }
+
+      const pos = getBezierPoint(p.p0, p.p1, p.p2, p.t);
+
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (p.isAttack) {
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.3)';
+        ctx.beginPath();
+        const prevPos = getBezierPoint(p.p0, p.p1, p.p2, Math.max(0, p.t - 0.04));
+        ctx.arc(prevPos.x, prevPos.y, p.size * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    nodes.forEach(node => {
+      const cx = node.x * w;
+      const cy = node.y * h;
+
+      if (node.isHQ) {
+        ctx.fillStyle = 'var(--clr-cyan)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = 'var(--clr-cyan)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 9, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(0, 212, 255, 0.8)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(node.name, cx - 35, cy - 18);
+        
+        drawHQShield(cx, cy);
+      } else {
+        const isTargeted = activeAttack && activeAttack.source.name === node.name;
+        
+        ctx.fillStyle = isTargeted ? '#EF4444' : 'rgba(0, 212, 255, 0.4)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, isTargeted ? 4 : 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (isTargeted) {
+          ctx.strokeStyle = '#EF4444';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 7 + Math.sin(Date.now() / 100) * 3, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = isTargeted ? '#F87171' : 'rgba(255, 255, 255, 0.35)';
+        ctx.font = '7.5px monospace';
+        ctx.fillText(node.name, cx - 25, cy - 8);
+      }
+    });
+
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+}
 
 console.log('%c⬡ ARKIS AGENCY', 'color:#00D4FF;font-family:monospace;font-size:18px;font-weight:bold;');
 console.log('%cSecure by Design. Impénétrable par conception.', 'color:#94A3B8;font-family:monospace;font-size:12px;');
@@ -1378,35 +1865,25 @@ function initTeamModals() {
   if (!drawer || !overlay || !pane || !closeBtn || !content || triggers.length === 0) return;
 
   const bios = {
-    alexandre: {
-      initials: 'AV',
-      name: 'Alexandre Voisin',
-      role: 'Co-Fondateur & Lead Architecte Web',
+    mathisducarois: {
+      initials: 'MD',
+      name: 'Mathis Ducarois',
+      role: 'Lead Architecte Web & Expert en Cybersécurité',
       color: 'var(--clr-cyan)',
-      bio: "Alexandre est l'architecte principal d'Arkis. Spécialisé dans le développement front-end ultra-performant et les architectures Jamstack modernes (Astro, Next.js), il s'assure que chaque ligne de code est optimisée pour la vitesse, le SEO et la résilience opérationnelle. Il garantit notre score de 100/100 LCP.",
-      experience: "Plus de 8 ans d'expérience dans l'ingénierie logicielle pour des startups technologiques et des plateformes e-commerce à forte charge.",
-      certs: ['AWS Certified Solutions Architect', 'Google UX Design Professional', 'Scrum Alliance Product Owner'],
+      bio: "Mathis est l'architecte principal d'Arkis. Spécialisé dans le développement front-end et back-end ultra-performant et les architectures Jamstack modernes (Astro, Next.js), il couple ses compétences logicielles avec une expertise poussée en cybersécurité pour concevoir des applications web aussi rapides que blindées. Il s'assure que chaque ligne de code est optimisée pour la vitesse, le SEO et la résilience opérationnelle. Il garantit notre score de 100/100 LCP.",
+      experience: "Plus de 2 ans d'expérience dans l'ingénierie logicielle pour des startups technologiques et des plateformes e-commerce à forte charge.",
+      certs: ['AWS Certified Solutions Architect', 'Google UX Design Professional', 'Certified DevSecOps Professional'],
       skills: ['React / Next.js', 'Astro / JAMstack', 'Supabase (PostgreSQL)', 'Edge Workers & CDNs', 'TypeScript / Node.js']
     },
-    mathis: {
-      initials: 'ML',
-      name: 'Mathis Leroy',
+    lucasbataille: {
+      initials: 'LB',
+      name: 'Lucas Bataille',
       role: 'Co-Fondateur & Expert Cybersécurité',
       color: '#A78BFA',
-      bio: "Mathis dirige la division cybersécurité (Red Team / Blue Team) chez Arkis. Certifié OSCP, il passe ses journées à attaquer nos propres créations avant la mise en ligne. Expert en durcissement d'infrastructure et filtrage de trafic à la périphérie du réseau, il veille à ce que vos données restent totalement inviolables.",
+      bio: "Lucas dirige la division cybersécurité offensive (Pen-testing, Red Team / Blue Team) chez Arkis. Titulaire de la prestigieuse certification OSCP, il passe son temps à attaquer nos propres infrastructures et architectures logicielles avant la mise en production. Spécialisé dans la neutralisation active des vecteurs d'exploit et le déploiement de pare-feu applicatifs (WAF) avancés, il veille à ce que vos données restent totalement inviolables.",
       experience: "Ancien auditeur de sécurité senior pour des cabinets accrédités par l'ANSSI et chercheur de vulnérabilités indépendant (Bug Bounty).",
       certs: ['OSCP (Offensive Security Certified Professional)', 'CEH (Certified Ethical Hacker)', 'ISO 27001 Lead Implementer'],
       skills: ['Pen-Testing Applicatif', 'WAF Architecture', 'Audits OWASP Top 10', 'Zero-Trust Networks', 'SIEM & SOC Engineering']
-    },
-    amandine: {
-      initials: 'AR',
-      name: 'Amandine Roche',
-      role: 'Responsable SEO & Marketing Digital',
-      color: 'var(--clr-cyan)',
-      bio: "Amandine est responsable de l'acquisition de trafic et de la visibilité de nos clients sur le web. Elle allie de solides compétences en SEO technique à une vision stratégique de croissance (Growth) pour transformer la rapidité technique d'Arkis en résultats commerciaux concrets.",
-      experience: "6 ans d'expérience en tant que consultante Growth & SEO Lead pour des agences digitales majeures en France.",
-      certs: ['Google Analytics Certified Professional', 'SEMrush Certified SEO Specialist', 'HubSpot Inbound Marketing'],
-      skills: ['SEO Technique (On-Page/Off-Page)', 'Growth Marketing', 'Data Analytics', 'Stratégie de Contenu', 'Conversion Rate Optimization (CRO)']
     }
   };
 
@@ -1523,5 +2000,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleContactPreFill();
   initTeamModals();
   initFaqAccordions();
+  initHardeningSimulator();
+  initCyberThreatMap();
 });
 

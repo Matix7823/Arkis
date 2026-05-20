@@ -222,6 +222,16 @@
               </div>
             </div>
             
+            <!-- Threat Map Wrap -->
+            <div class="threat-map-wrap" style="position: relative; height: 260px; background: #01040a; border-bottom: 1px solid rgba(0, 212, 255, 0.1); overflow: hidden;">
+              <canvas id="threat-map-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+              <!-- Small HUD Overlay for coordinates/nodes -->
+              <div style="position: absolute; bottom: 10px; left: 15px; font-family: var(--font-mono); font-size: 0.65rem; color: rgba(0, 212, 255, 0.6); pointer-events: none; display: flex; gap: 1rem;">
+                <span>EDGE POP: CDG (FRANCE) [ACTIVE]</span>
+                <span id="active-attack-hud" style="color: #EF4444; font-weight: bold; display: none; animation: flash 1s infinite;">WARNING: ACTIVE THREAT INTERCEPTED</span>
+              </div>
+            </div>
+
             <!-- Terminal Syslog Body -->
             <div class="console-body font-mono" id="cyber-console" style="padding: 1.5rem; height: 420px; overflow-y: auto; font-size: 0.78rem; line-height: 1.65; color: #94A3B8; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(0, 212, 255, 0.2) transparent;">
               <p style="color: var(--clr-text-3); border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">[SIEM SYSLOG SYSTEM COMPILE SUCCESSFUL ... CAPTURE ACTIVE]</p>
@@ -480,6 +490,14 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
+}
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
+  50% { opacity: 0.5; filter: drop-shadow(0 0 1px currentColor); }
 }
 .live-site-item {
   transition: all var(--t-fast);

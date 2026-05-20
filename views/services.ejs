@@ -105,6 +105,209 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════
+       INTERACTIVE HARDENING CONFIGURATOR SECTION
+       ═══════════════════════════════════════════════ -->
+  <section id="hardening" class="section hardening-section" style="border-top: 1px solid var(--clr-border); padding: 5rem 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03), transparent 50%);">
+    <div class="container">
+      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+        <p class="section-tag reveal-up">Simulateur de Blindage</p>
+        <h2 class="section-title reveal-up delay-1">Configurez votre <br /><span class="gradient-text">niveau de durcissement.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Activez les protocoles de cybersécurité ci-dessous pour voir l'impact en temps réel sur la résilience et le score de blindage de votre future infrastructure.</p>
+      </div>
+
+      <div class="hardening-layout" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start;">
+        
+        <!-- Controls list (switches) -->
+        <div class="hardening-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          
+          <!-- HSTS Switch -->
+          <div class="hardening-switch-card" data-layer="hsts" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">HSTS (Strict Transport Security)</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Force les connexions HTTPS chiffrées et prévient le downgrade.</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-hsts" style="opacity: 0; width: 0; height: 0;" checked>
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+          <!-- CSP Switch -->
+          <div class="hardening-switch-card" data-layer="csp" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">CSP (Content Security Policy) Stricte</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Bloque l'exécution de scripts non approuvés (anti-XSS).</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-csp" style="opacity: 0; width: 0; height: 0;" checked>
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+          <!-- TLS Switch -->
+          <div class="hardening-switch-card" data-layer="tls" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">TLS 1.3 & Chiffrement Fort</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Négocie le protocole de chiffrement réseau le plus robuste.</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-tls" style="opacity: 0; width: 0; height: 0;">
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+          <!-- DNSSEC Switch -->
+          <div class="hardening-switch-card" data-layer="dnssec" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">DNSSEC (Résolution DNS Sécurisée)</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Empêche l'empoisonnement DNS et la redirection vers des sites clones.</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-dnssec" style="opacity: 0; width: 0; height: 0;">
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+          <!-- WAF Switch -->
+          <div class="hardening-switch-card" data-layer="waf" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Cloudflare WAF Enterprise</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Détecte et atténue les attaques zero-day à la périphérie.</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-waf" style="opacity: 0; width: 0; height: 0;">
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+          <!-- MFA Switch -->
+          <div class="hardening-switch-card" data-layer="mfa" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Double Authentification (MFA) Admin</h4>
+                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Verrouille cryptographiquement l'accès à la base de données.</p>
+              </div>
+            </div>
+            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
+              <input type="checkbox" id="switch-mfa" style="opacity: 0; width: 0; height: 0;">
+              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Telemetry & Score (Right side) -->
+        <div class="hardening-stats" style="background: rgba(12, 21, 41, 0.6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2.5rem; display: flex; flex-direction: column; gap: 2rem; position: sticky; top: 100px;">
+          
+          <div style="text-align: center;">
+            <p class="font-mono" style="font-size: 0.8rem; color: var(--clr-text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Score Global de Durcissement</p>
+            <div style="position: relative; width: 160px; height: 160px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+              <!-- Radial gauge SVG -->
+              <svg width="160" height="160" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6"/>
+                <circle id="hardening-radial-bar" cx="50" cy="50" r="44" fill="none" stroke="url(#hardGrad)" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="138" stroke-linecap="round" style="transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);"/>
+                <defs>
+                  <linearGradient id="hardGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#00D4FF"/>
+                    <stop offset="100%" stop-color="#7B2FFF"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div style="position: absolute; display: flex; flex-direction: column; align-items: center;">
+                <span id="hardening-score-pct" style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--clr-text); line-height: 1;">60%</span>
+                <span class="font-mono" style="font-size: 0.65rem; color: var(--clr-cyan); text-transform: uppercase; margin-top: 0.25rem;">Résilience</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center;">
+            <div>
+              <p class="font-mono" style="font-size: 0.7rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.25rem;">Menace Résiduelle</p>
+              <span id="hardening-threat-level" style="font-size: 1rem; font-weight: 700; color: var(--clr-red); transition: color 0.4s;">Élevée ⚠️</span>
+            </div>
+            <div>
+              <p class="font-mono" style="font-size: 0.7rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.25rem;">Niveau de SLA</p>
+              <span id="hardening-sla" style="font-size: 1rem; font-weight: 700; color: var(--clr-text);">Standard</span>
+            </div>
+          </div>
+
+          <!-- Explanation Card -->
+          <div id="hardening-explain-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md); padding: 1.25rem; min-height: 100px; display: flex; flex-direction: column; gap: 0.5rem;">
+            <h5 id="explain-title" class="font-mono" style="font-size: 0.75rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em;">Sélectionnez un protocole</h5>
+            <p id="explain-desc" style="font-size: 0.85rem; color: var(--clr-text-2); line-height: 1.55;">Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+  .hardening-switch-card:hover {
+    border-color: rgba(0, 212, 255, 0.2) !important;
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0,212,255,0.02);
+  }
+  .hardening-switch-card.active {
+    border-color: rgba(0, 212, 255, 0.25) !important;
+    background: rgba(0, 212, 255, 0.02) !important;
+  }
+  .hardening-switch-card.active .hs-icon {
+    color: var(--clr-cyan) !important;
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.4));
+  }
+  .cyber-switch input:checked + .cyber-slider {
+    background: var(--grad-primary) !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+  .cyber-switch input:checked + .cyber-slider:before {
+    transform: translateX(20px);
+    background-color: var(--clr-bg) !important;
+  }
+  .cyber-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--clr-text-3);
+    border-radius: 50%;
+    transition: .4s;
+  }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════
        INTERACTIVE CYBER FAQ ACCORDION SECTION
        ═══════════════════════════════════════════════ -->
   <section id="faq" class="section faq-section" style="background: var(--clr-bg-2); border-top: 1px solid var(--clr-border); padding: 5rem 0;">

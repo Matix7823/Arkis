@@ -46,7 +46,7 @@ Une réplique de tableau de bord de Security Operations Center (SOC) permet aux 
   5. Après **3,5 secondes**, la menace est atténuée. Le système affiche un log de rétablissement `[MITIGATION RESULT]`, le WAF repasse en mode filtrage standard (`PASS`), l'Edge Latency redescend à son état stable de **12ms**, et les voyants DEFCON repassent au vert.
 
 ### 3. Tiroir de Biographie Modal (`/equipe`)
-Présente nos profils d'ingénieurs (Alexandre Voisin, Mathis Leroy certifié OSCP, et Amandine Roche pour le SEO) avec une expérience utilisateur fluide :
+Présente nos profils d'ingénieurs (Mathis Ducarois et Lucas Bataille certifié OSCP) avec une expérience utilisateur fluide :
 * **Panneau Coulissant `#bio-drawer` :** Au lieu d'ouvrir une page externe ou une popup classique, l'interface utilise un panneau latéral en verre dépoli néon coulissant depuis la droite.
 * **Chargement Asynchrone :** Les détails biographiques de l'expert choisi, ses compétences cibles, ses faits d'armes techniques et ses certifications de sécurité (OSCP, AWS, Google UX) sont injectés dynamiquement sans rechargement de page.
 * **Accessibilité et Ergonomie :** Le tiroir se referme gracieusement sur clic extérieur, pression de la touche *Échap*, ou interaction avec le bouton de fermeture.
