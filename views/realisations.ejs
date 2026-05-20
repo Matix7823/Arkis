@@ -20,119 +20,119 @@
       <!-- Filter tabs -->
       <div class="portfolio-filters reveal-up delay-2" role="tablist" aria-label="Filtrer les projets">
         <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all" id="filter-all">Tous</button>
-        <button class="filter-btn" role="tab" aria-selected="false" data-filter="web" id="filter-web">Web App</button>
-        <button class="filter-btn" role="tab" aria-selected="false" data-filter="cyber" id="filter-cyber">Cybersécurité</button>
-        <button class="filter-btn" role="tab" aria-selected="false" data-filter="ecom" id="filter-ecom">E-Commerce</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="web" id="filter-web">Création Web</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="cyber" id="filter-cyber">Cybersécurité / Pen-Test</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="vitrine" id="filter-vitrine">Commerce &amp; Vitrine</button>
       </div>
 
       <div class="portfolio-grid">
 
-        <!-- Project 1 -->
-        <article class="portfolio-card reveal-up delay-1" data-category="web" id="project-saas">
+        <!-- Project 1: DHM-Tech -->
+        <article class="portfolio-card reveal-up delay-1" data-category="web" id="project-dhmtech">
           <div class="portfolio-img-wrap">
-            <img src="portfolio_mockup1.png" alt="Dashboard SaaS analytics avec interface dark mode et métriques en temps réel" loading="lazy" />
+            <img src="portfolio_dhmtech.png" alt="SaaS Dashboard de pilotage industriel complexe pour DHM-Tech" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
-                <span class="p-tag">Next.js</span>
-                <span class="p-tag">Supabase</span>
-                <span class="p-tag">Cloudflare</span>
+                <span class="p-tag">React / Next.js</span>
+                <span class="p-tag">Supabase DB</span>
+                <span class="p-tag">API Realtime</span>
               </div>
             </div>
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">Web App SaaS</span>
-              <span class="portfolio-year font-mono">2025</span>
+              <span class="portfolio-category">Création Web Full-Stack</span>
+              <span class="portfolio-year font-mono">2026</span>
             </div>
-            <h3 class="portfolio-title">Plateforme Analytics B2B</h3>
-            <p class="portfolio-desc">Dashboard temps-réel avec authentification multi-facteurs, chiffrement des données at-rest et in-transit, et architecture Zero-Trust.</p>
+            <h3 class="portfolio-title">DHM-Tech — Pilotage Industriel</h3>
+            <p class="portfolio-desc">Dashboard SaaS temps réel d'observabilité IoT. Intègre l'isolation de données Supabase, un temps de chargement sous la seconde et une conformité NIS2.</p>
             <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
                 <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
-                <span class="metric-value">0.8s</span>
-                <span class="metric-label">LCP</span>
+                <span class="metric-value">0.7s</span>
+                <span class="metric-label">LCP Speed</span>
               </div>
               <div class="metric-item">
                 <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
-                <span class="metric-value">2,847</span>
-                <span class="metric-label">Menaces bloquées/j</span>
+                <span class="metric-value">12k+</span>
+                <span class="metric-label">Visites/j</span>
               </div>
               <div class="metric-item">
                 <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
-                <span class="metric-value">100</span>
-                <span class="metric-label">Score Lighthouse</span>
+                <span class="metric-value">100/100</span>
+                <span class="metric-label">SEO</span>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- Project 2 -->
-        <article class="portfolio-card portfolio-card-wide reveal-up delay-2" data-category="ecom" id="project-ecom">
+        <!-- Project 2: Bricosam.fr -->
+        <article class="portfolio-card reveal-up delay-2" data-category="vitrine" id="project-bricosam">
           <div class="portfolio-img-wrap">
-            <img src="portfolio_mockup2.png" alt="E-commerce luxe avec interface responsive mobile et desktop, dark mode premium" loading="lazy" />
+            <img src="portfolio_bricosam.png" alt="E-Commerce Bricolage et outillage Bricosam" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
-                <span class="p-tag">TypeScript</span>
-                <span class="p-tag">WAF</span>
                 <span class="p-tag">Stripe</span>
+                <span class="p-tag">Static Generation</span>
+                <span class="p-tag">Cloudflare WAF</span>
               </div>
             </div>
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">E-Commerce Premium</span>
+              <span class="portfolio-category">E-Commerce &amp; Bricolage</span>
               <span class="portfolio-year font-mono">2025</span>
             </div>
-            <h3 class="portfolio-title">Boutique Luxe & Sécurisée</h3>
-            <p class="portfolio-desc">E-commerce haut de gamme avec PCI-DSS Level 1, tokenisation des paiements, et protection anti-fraude en temps réel.</p>
+            <h3 class="portfolio-title">Bricosam.fr — Outils &amp; Bricolage</h3>
+            <p class="portfolio-desc">Boutique en ligne complète et ultra-rapide pour professionnels. Tokenisation de paiement sécurisée Stripe et protection anti-fraude active.</p>
             <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
                 <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
                 <span class="metric-value">0.6s</span>
-                <span class="metric-label">LCP</span>
+                <span class="metric-label">LCP Speed</span>
               </div>
               <div class="metric-item">
                 <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">0</span>
-                <span class="metric-label">Fraudes subies</span>
+                <span class="metric-label">Fraude subie</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">↑</span>
-                <span class="metric-value">+34%</span>
-                <span class="metric-label">Conv. rate</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">↑</span>
+                <span class="metric-value">+42%</span>
+                <span class="metric-label">Ventes</span>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- Project 3 -->
+        <!-- Project 3: SOC Dashboard Industriel -->
         <article class="portfolio-card reveal-up delay-3" data-category="cyber" id="project-cyber">
           <div class="portfolio-img-wrap">
-            <img src="portfolio_mockup3.png" alt="Tableau de bord de surveillance cybersécurité avec indicateurs de menaces et alertes temps réel" loading="lazy" />
+            <img src="portfolio_mockup3.png" alt="SOC Dashboard de cybersécurité industrielle" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
                 <span class="p-tag">SIEM</span>
-                <span class="p-tag">OWASP</span>
-                <span class="p-tag">Zero Trust</span>
+                <span class="p-tag">Threat Feed</span>
+                <span class="p-tag">ISO 27001</span>
               </div>
             </div>
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">Cybersécurité</span>
-              <span class="portfolio-year font-mono">2024</span>
+              <span class="portfolio-category">Cybersécurité &amp; SOC</span>
+              <span class="portfolio-year font-mono">2025</span>
             </div>
-            <h3 class="portfolio-title">SOC Dashboard Industriel</h3>
-            <p class="portfolio-desc">Centre opérationnel de sécurité (SOC) pour un groupe industriel — monitoring 24/7, réponse automatisée aux incidents, et conformité NIS2.</p>
+            <h3 class="portfolio-title">Dashboard SOC Industriel</h3>
+            <p class="portfolio-desc">Centre opérationnel de sécurité (SOC) complet pour groupe de logistique : monitoring réseau 24h/7 et filtrage de paquets malveillants.</p>
             <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
                 <span class="metric-icon metric-red" aria-hidden="true">🎯</span>
-                <span class="metric-value">12</span>
-                <span class="metric-label">CVE corrigées</span>
+                <span class="metric-value">2.4M</span>
+                <span class="metric-label">Menaces bloquées</span>
               </div>
               <div class="metric-item">
                 <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
-                <span class="metric-value">99.97%</span>
+                <span class="metric-value">99.99%</span>
                 <span class="metric-label">Uptime</span>
               </div>
               <div class="metric-item">
@@ -144,10 +144,127 @@
           </div>
         </article>
 
+        <!-- Project 4: L'Écrin Sucré Bakery -->
+        <article class="portfolio-card reveal-up delay-1" data-category="vitrine" id="project-bakery">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_commerce.png" alt="Boulangerie L'Écrin Sucré site web moderne" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">JAMstack</span>
+                <span class="p-tag">Click &amp; Collect</span>
+                <span class="p-tag">WAF Shield</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">Commerce Local / Vitrine</span>
+              <span class="portfolio-year font-mono">2026</span>
+            </div>
+            <h3 class="portfolio-title">Boulangerie L'Écrin Sucré</h3>
+            <p class="portfolio-desc">Site vitrine gourmand de boulangerie-pâtisserie artisanale. Intègre un module de commande Click &amp; Collect ultra-sécurisé hébergé sur CDN Edge.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
+                <span class="metric-value">0.4s</span>
+                <span class="metric-label">Chargement</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">100%</span>
+                <span class="metric-label">Statique</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
+                <span class="metric-value">A+</span>
+                <span class="metric-label">SSL Grade</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5: Salon Signature Coiffeur -->
+        <article class="portfolio-card reveal-up delay-2" data-category="vitrine" id="project-hair">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_mockup2.png" alt="Salon Signature Coiffure site web chic" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">React Calendar</span>
+                <span class="p-tag">Supabase Auth</span>
+                <span class="p-tag">Encrypted Booking</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">Commerce Local / Réservations</span>
+              <span class="portfolio-year font-mono">2025</span>
+            </div>
+            <h3 class="portfolio-title">Le Salon Signature — Coiffeur</h3>
+            <p class="portfolio-desc">Application web élégante de prise de rendez-vous pour salon de coiffure haut-de-gamme. Système de calendrier chiffré anti-doubles réservations.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
+                <span class="metric-value">0.6s</span>
+                <span class="metric-label">LCP Speed</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">100%</span>
+                <span class="metric-label">Anti-Brute Force</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-purple" aria-hidden="true">↑</span>
+                <span class="metric-value">+55%</span>
+                <span class="metric-label">Réservations</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 6: Audit Fintech & Pen-testing -->
+        <article class="portfolio-card reveal-up delay-3" data-category="cyber" id="project-pentest-fintech">
+          <div class="portfolio-img-wrap">
+            <img src="portfolio_mockup1.png" alt="Audit de sécurité Fintech et rapports d'intrusion" loading="lazy" />
+            <div class="portfolio-overlay">
+              <div class="portfolio-tags">
+                <span class="p-tag">OWASP Top 10</span>
+                <span class="p-tag">SQLi / XSS</span>
+                <span class="p-tag">CVE Mitigation</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="portfolio-meta">
+              <span class="portfolio-category">Pen-testing &amp; Red Team</span>
+              <span class="portfolio-year font-mono">2026</span>
+            </div>
+            <h3 class="portfolio-title">Audit &amp; Pen-Testing Fintech</h3>
+            <p class="portfolio-desc">Simulation d'attaques persistantes (APT) sur une plateforme de transactions financières, avec correctifs automatiques et rapports d'intrusion OWASP.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
+              <div class="metric-item">
+                <span class="metric-icon metric-red" aria-hidden="true">🎯</span>
+                <span class="metric-value">18</span>
+                <span class="metric-label">CVE mitigées</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
+                <span class="metric-value">0</span>
+                <span class="metric-label">Faille critique</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-icon metric-purple" aria-hidden="true">⚙</span>
+                <span class="metric-value">RGPD</span>
+                <span class="metric-label">Certifié</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
 
       <div class="portfolio-cta reveal-up" style="margin-top: 4rem;">
-        <a href="/contact" class="btn btn-outline" id="portfolio-contact-btn">Discuter de votre projet</a>
+        <a href="/contact" class="btn btn-outline" id="portfolio-contact-btn">Discuter de votre projet vitrine ou technique</a>
       </div>
     </div>
   </section>

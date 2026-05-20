@@ -1,0 +1,54 @@
+<%- include('../partials/head', { 
+  title: 'Conditions Générales de Vente (CGV) — Arkis Agency', 
+  description: 'Conditions générales de vente de nos prestations de services de développement web et audit de cybersécurité.' 
+}) %>
+
+<%- include('../partials/header', { page: 'cgv' }) %>
+
+<main style="padding-top: var(--nav-h); min-height: 80vh;">
+  <section class="section legal-page" style="background-image: var(--grad-glow);">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+        <p class="section-tag font-mono" style="margin-left: 0;">Légal</p>
+        <h1 class="section-title" style="font-size: 2.5rem; line-height: 1.2;">Conditions Générales <br><span class="gradient-text">de Vente (CGV).</span></h1>
+        <p class="section-subtitle" style="margin-left: 0; max-width: 100%;">Dernière mise à jour : 20 mai 2026</p>
+      </div>
+
+      <div class="legal-content-wrap" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3rem); box-shadow: var(--shadow-card);">
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">1. Objet des Prestations</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Les présentes Conditions Générales de Vente régissent les relations contractuelles entre Arkis Agency et ses clients professionnels pour l'ensemble de nos offres de création web full-stack, d'audits de sécurité (Pen-testing), et de maintenance applicative continue (Abonnements RUN).
+          </p>
+        </div>
+
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">2. Tarifs et Modalités de Paiement</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem;">
+            Nos projets font l'objet d'un devis préalable détaillé. Le cycle tarifaire d'un projet comprend :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-bottom: 1rem;">
+            <li><strong>Phase BUILD</strong> : Acompte de 40% au lancement, 30% après validation des maquettes fonctionnelles et 30% lors du déploiement en production.</li>
+            <li><strong>Phase RUN</strong> : Facturation mensuelle par prélèvement automatique au début de chaque période d'abonnement (sans engagement après 12 mois initial).</li>
+          </ul>
+        </div>
+
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">3. Délais de Livraison et Recette</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Arkis Agency s'engage à livrer le projet conformément au planning annexé au cahier des charges. À la livraison, le client dispose d'une phase de recette technique de 10 jours ouvrés pour formuler d'éventuelles réserves. En l'absence de réserves durant cette période, la prestation est réputée validée.
+          </p>
+        </div>
+
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">4. Garantie Zéro Vulnérabilité Critique</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Chaque site livré par Arkis Agency bénéficie d'une garantie post-livraison de 30 jours. Si une faille de sécurité critique (selon les standards OWASP) est détectée sur notre périmètre de développement dans ce délai, nous nous engageons à la patcher gratuitement sous 48 heures ouvrées.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

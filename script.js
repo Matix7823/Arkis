@@ -524,7 +524,7 @@ document.querySelectorAll('.service-card, .pricing-card, .portfolio-card').forEa
 });
 
 // ═══════════════════════════════════════════════
-// 11. SMOOTH ANCHOR SCROLL with offset
+// 11. SMOOTH ANCHOR SCROLL with offset & hash intercept
 // ═══════════════════════════════════════════════
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
@@ -558,5 +558,157 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   setTimeout(type, 800);
 })();
 
+// ═══════════════════════════════════════════════
+// 13. PRICING PHASE TOGGLER (BUILD & RUN)
+// ═══════════════════════════════════════════════
+(function initPricingToggler() {
+  const buildTab = document.getElementById('phase-build-tab');
+  const runTab = document.getElementById('phase-run-tab');
+  const pricingBuild = document.getElementById('pricing-build');
+  const runSection = document.querySelector('.run-section');
+
+  if (!buildTab || !runTab || !pricingBuild || !runSection) return;
+
+  function setPhase(phase) {
+    if (phase === 'run') {
+      runTab.classList.add('active');
+      buildTab.classList.remove('active');
+      pricingBuild.style.display = 'none';
+      runSection.style.display = 'block';
+      runSection.style.marginTop = '0px';
+    } else {
+      buildTab.classList.add('active');
+      runTab.classList.remove('active');
+      pricingBuild.style.display = 'grid';
+      runSection.style.display = 'none';
+    }
+  }
+
+  buildTab.addEventListener('click', () => setPhase('build'));
+  runTab.addEventListener('click', () => setPhase('run'));
+
+  // Initial state: hide run section by default
+  runSection.style.display = 'none';
+
+  // Check URL Hash on Load
+  const hash = window.location.hash;
+  if (hash === '#run' || hash.startsWith('#run-')) {
+    setPhase('run');
+    setTimeout(() => {
+      const offsetTop = runSection.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }, 400);
+  }
+})();
+
+// ═══════════════════════════════════════════════
+// 14. LIVE SECURITY OBSERVABILITY (SOC ENGINE)
+// ═══════════════════════════════════════════════
+(function initLiveSocEngine() {
+  const logContainer = document.getElementById('log-container');
+  const consoleBody = document.getElementById('cyber-console');
+  if (!logContainer || !consoleBody) return;
+
+  const sites = [
+    { name: 'DHM-Tech', url: 'dhmtech.com', el: document.getElementById('dhm-visits'), visits: 12840, attacks: 1284 },
+    { name: 'Bricosam.fr', url: 'bricosam.fr', el: document.getElementById('bricosam-visits'), visits: 8429, attacks: 439 },
+    { name: 'L\'Écrin Sucré', url: 'ecrinsucre.fr', el: document.getElementById('bakery-visits'), visits: 2840, attacks: 112 },
+    { name: 'Le Salon Signature', url: 'salonsignature.fr', el: document.getElementById('hair-visits'), visits: 1942, attacks: 95 },
+    { name: 'L\'Alchimiste Bar', url: 'alchimistebar.fr', el: document.getElementById('bar-visits'), visits: 3119, attacks: 183 },
+    { name: 'Plateforme Fintech', url: 'fintech.internal', el: document.getElementById('fintech-visits'), visits: 28104, attacks: 14293 }
+  ];
+
+  let totalAttacks = 28491;
+  let totalTraffic = 148932;
+  
+  const attacksEl = document.getElementById('val-attacks');
+  const trafficEl = document.getElementById('val-traffic');
+  const latencyEl = document.getElementById('val-latency');
+
+  const logTemplates = [
+    { type: 'INFO', msg: 'TLS 1.3 handshake verified successfully.' },
+    { type: 'INFO', msg: 'Integrity check pass: static assets matched Cloudflare source hash.' },
+    { type: 'INFO', msg: 'PostgreSQL read query executed in 1.4ms (Supabase REST API).' },
+    { type: 'INFO', msg: 'Static Page Delivery from Edge Cache Paris (POP CDG).' },
+    { type: 'BLOCKED', msg: 'SQL Injection signature detected on search parameter ➔ Dropped by WAF.' },
+    { type: 'BLOCKED', msg: 'Cross-Site Scripting (XSS) payload blocked on endpoint /contact.' },
+    { type: 'BLOCKED', msg: 'Excessive connections from unique IP ➔ Rate-limiting threshold engaged (429).' },
+    { type: 'BLOCKED', msg: 'Malicious user-agent blocked from scanning /wp-login.php.' },
+    { type: 'BLOCKED', msg: 'DDoS brute force threat mitigated on transaction endpoint.' }
+  ];
+
+  function randomIP() {
+    return `${Math.floor(Math.random() * 150) + 50}.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 254) + 1}`;
+  }
+
+  function getFormattedTime() {
+    const d = new Date();
+    return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
+  }
+
+  // Prepopulate with a few starting logs
+  for (let step = 0; step < 5; step++) {
+    addLogLine();
+  }
+
+  function addLogLine() {
+    const site = sites[Math.floor(Math.random() * sites.length)];
+    const template = logTemplates[Math.floor(Math.random() * logTemplates.length)];
+    const time = getFormattedTime();
+
+    const line = document.createElement('p');
+    line.style.marginBottom = '0.35rem';
+    
+    if (template.type === 'BLOCKED') {
+      line.innerHTML = `<span style="color:#EF4444;font-weight:600;">[BLOCKED]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg} <span style="color:var(--clr-text-3); font-size:0.75rem;">(Source: IP ${randomIP()})</span>`;
+      
+      // Update attacks counts
+      totalAttacks++;
+      site.attacks++;
+      if (attacksEl) attacksEl.textContent = totalAttacks.toLocaleString();
+    } else {
+      line.innerHTML = `<span style="color:#10B981;font-weight:600;">[INFO]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg}`;
+    }
+
+    logContainer.appendChild(line);
+    
+    // Auto-scroll terminal
+    consoleBody.scrollTop = consoleBody.scrollHeight;
+
+    // Limit log lines to 150
+    if (logContainer.children.length > 150) {
+      logContainer.removeChild(logContainer.firstChild);
+    }
+  }
+
+  // Active loop for live logs & counters
+  function runLoop() {
+    addLogLine();
+
+    // Fluctuating traffic & latency
+    totalTraffic += Math.floor(Math.random() * 4) + 1;
+    if (trafficEl) trafficEl.textContent = totalTraffic.toLocaleString();
+
+    if (latencyEl) {
+      const lat = Math.floor(Math.random() * 10) + 78;
+      latencyEl.textContent = `${lat}ms`;
+    }
+
+    // Slightly increment site visits
+    const luckySite = sites[Math.floor(Math.random() * sites.length)];
+    luckySite.visits += Math.floor(Math.random() * 2) + 1;
+    if (luckySite.el) {
+      luckySite.el.textContent = `${luckySite.visits.toLocaleString()} visits`;
+    }
+
+    // Schedule next log
+    const nextMs = Math.floor(Math.random() * 1800) + 1200;
+    setTimeout(runLoop, nextMs);
+  }
+
+  setTimeout(runLoop, 1500);
+})();
+
 console.log('%c⬡ ARKIS AGENCY', 'color:#00D4FF;font-family:monospace;font-size:18px;font-weight:bold;');
 console.log('%cSecure by Design. Impénétrable par conception.', 'color:#94A3B8;font-family:monospace;font-size:12px;');
+

@@ -1,0 +1,60 @@
+<%- include('../partials/head', { 
+  title: 'Mentions Légales — Arkis Agency', 
+  description: 'Mentions légales d\'Arkis Agency, agence de création web et cybersécurité de confiance.' 
+}) %>
+
+<%- include('../partials/header', { page: 'mentions-legales' }) %>
+
+<main style="padding-top: var(--nav-h); min-height: 80vh;">
+  <section class="section legal-page" style="background-image: var(--grad-glow);">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+        <p class="section-tag font-mono" style="margin-left: 0;">Légal</p>
+        <h1 class="section-title" style="font-size: 2.5rem; line-height: 1.2;">Mentions <span class="gradient-text">Légales.</span></h1>
+        <p class="section-subtitle" style="margin-left: 0; max-width: 100%;">Dernière mise à jour : 20 mai 2026</p>
+      </div>
+
+      <div class="legal-content-wrap" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3rem); box-shadow: var(--shadow-card);">
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">1. Éditeur du Site</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem;">
+            Le présent site internet est édité par l'agence <strong>Arkis Agency</strong>, SAS au capital de 10 000 €, dont le siège social est situé à Paris, France.
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc;">
+            <li>Immatriculation : R.C.S. Paris — B 999 888 777</li>
+            <li>Président & Directeur de publication : Équipe de Direction d'Arkis</li>
+            <li>Contact : <a href="mailto:contact@arkis.agency" style="color: var(--clr-cyan); text-decoration: underline;">contact@arkis.agency</a></li>
+          </ul>
+        </div>
+
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">2. Hébergement du Site</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Le site est propulsé par notre infrastructure hybride hautement sécurisée, hébergée sur des serveurs Edge résilients et distribuée mondialement par :
+          </p>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-top: 0.5rem;">
+            <strong>Cloudflare, Inc.</strong><br>
+            101 Townsend St, San Francisco, CA 94107<br>
+            Sécurité Edge, CDN et WAF actif 24h/7.
+          </p>
+        </div>
+
+        <div class="legal-block" style="margin-bottom: 2rem;">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">3. Propriété Intellectuelle</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            L'ensemble des contenus présents sur ce site (textes, images, codes source, logos, animations graphiques, structures) est la propriété exclusive d'Arkis Agency ou de ses partenaires. Toute reproduction, distribution ou modification sans accord écrit préalable est strictement interdite et s'apparente à de la contrefaçon passible de poursuites judiciaires.
+          </p>
+        </div>
+
+        <div class="legal-block">
+          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">4. Limites de Responsabilité</h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Bien que nous mettions tout en œuvre pour assurer l'exactitude des informations et la sécurité de notre plateforme d'observabilité en direct, l'éditeur ne pourra être tenu responsable des interruptions temporaires du service ou d'éventuelles inexactitudes techniques indépendantes de sa volonté.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

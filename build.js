@@ -27,7 +27,10 @@ const assets = [
   'script.js',
   'portfolio_mockup1.png',
   'portfolio_mockup2.png',
-  'portfolio_mockup3.png'
+  'portfolio_mockup3.png',
+  'portfolio_bricosam.png',
+  'portfolio_commerce.png',
+  'portfolio_dhmtech.png'
 ];
 
 assets.forEach(asset => {
