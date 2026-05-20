@@ -1,177 +1,269 @@
-<%- include('partials/head', { 
-  title: 'L\'Équipe — Qui sommes-nous ? | Arkis Agency', 
-  description: 'Arkis n\'est pas une agence web classique. Nous sommes une force de frappe pluridisciplinaire réunissant architectes du code, artisans du design, et experts certifiés en cybersécurité (OSCP).' 
+<%- include('partials/head', {
+  title: 'Notre Équipe — Architectes Web & Experts Cybersécurité Certifiés | Arkis Agency',
+  description: 'Arkis réunit Mathis Ducarois (Lead Architecte JAMstack) et Lucas Bataille (Expert Pen-Testing OSCP). Une équipe pluridisciplinaire — développement, cybersécurité offensive/défensive, design.'
 }) %>
 
 <%- include('partials/header', { page: 'equipe' }) %>
 
 <main style="padding-top: var(--nav-h);">
+
   <!-- ═══════════════════════════════════════════════
-       5. ÉQUIPE / QUI SOMMES-NOUS
+       TEAM HERO
   ═══════════════════════════════════════════════ -->
-  <section id="equipe" class="section team">
-    <div class="container">
-      <div class="team-layout">
-        <div class="team-left">
-          <p class="section-tag reveal-up">Qui sommes-nous ?</p>
-          <h2 class="section-title reveal-up delay-1">Des chefs d'orchestre<br /><span class="gradient-text">technologiques.</span></h2>
-          <p class="team-philosophy reveal-up delay-2">
-            Nous ne sommes pas une agence web classique. Nous sommes une force de frappe pluridisciplinaire — architectes du code, artisans du design, et gardiens de la sécurité — réunis sous une même conviction : <em>un site web doit être aussi beau que blindé</em>.
-          </p>
-          <p class="team-philosophy reveal-up delay-3">
-            Fondée par deux passionnés aux profils complémentaires, Arkis fédère des experts en développement, en marketing digital, et en cybersécurité offensive/défensive. Chaque projet mobilise l'ensemble de notre intelligence collective.
-          </p>
-
-          <div class="team-pillars reveal-up delay-3" style="margin-top: 3rem;">
-            <div class="pillar-item">
-              <div class="pillar-icon pillar-blue" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div>
-                <h4 class="pillar-title">Pôle Développement</h4>
-                <p class="pillar-desc">Full-Stack engineers spécialisés dans les architectures haute-performance et les systèmes scalables.</p>
-              </div>
-            </div>
-            <div class="pillar-item">
-              <div class="pillar-icon pillar-purple" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div>
-                <h4 class="pillar-title">Pôle Cybersécurité</h4>
-                <p class="pillar-desc">Red Team & Blue Team qui teste, attaque et défend. Une dualité offensive/défensive unique sur le marché.</p>
-              </div>
-            </div>
-            <div class="pillar-item">
-              <div class="pillar-icon pillar-cyan" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              </div>
-              <div>
-                <h4 class="pillar-title">Pôle Marketing & Com'</h4>
-                <p class="pillar-desc">Stratèges du digital qui transforment la performance technique en avantage business mesurable.</p>
-              </div>
-            </div>
-          </div>
+  <section class="section" style="background: var(--grad-glow); border-bottom: 1px solid var(--clr-border); padding: 5rem 0 4rem; position: relative; overflow: hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 50%, rgba(123,47,255,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 20% 50%, rgba(0,212,255,0.05) 0%, transparent 50%);pointer-events:none;" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div style="max-width:760px;">
+        <p class="section-tag reveal-up">L'Équipe Arkis</p>
+        <h1 class="section-title reveal-up delay-1" style="font-size:clamp(2.4rem,5vw,3.5rem);">
+          Des chefs d'orchestre<br><span class="gradient-text">technologiques.</span>
+        </h1>
+        <p class="team-philosophy reveal-up delay-2" style="font-size:1.05rem;color:var(--clr-text-2);max-width:640px;line-height:1.7;margin-top:1rem;">
+          Nous ne sommes pas une agence web classique. Nous sommes une force de frappe pluridisciplinaire — architectes du code, artisans du design, et gardiens de la sécurité — réunis sous une même conviction : <em style="color:var(--clr-cyan);">un site web doit être aussi beau que blindé.</em>
+        </p>
+        <div class="reveal-up delay-3" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;">
+          <a href="/contact" class="btn btn-primary" id="team-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Travailler avec nous
+          </a>
+          <a href="/realisations" class="btn btn-secondary" id="team-realisations-btn">Voir nos réalisations →</a>
         </div>
+      </div>
 
-        <div class="team-right reveal-up delay-2">
-          <!-- Founders & Core Team -->
-          <div class="founders-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
-            
-            <!-- Founder 1: Mathis Ducarois -->
-            <div class="founder-card" id="founder-1" style="display: flex; gap: 1.5rem; background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem; align-items: center; position: relative; overflow: hidden; transition: all var(--t-base);">
-              <div class="founder-avatar founder-avatar-blue" aria-label="Mathis Ducarois" style="flex-shrink: 0; width: 68px; height: 68px; background: rgba(0, 212, 255, 0.08); border: 1.5px solid var(--clr-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
-                <span class="avatar-initials" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--clr-cyan);">MD</span>
-                <div class="avatar-ring" style="position: absolute; inset: -4px; border: 1px dashed rgba(0, 212, 255, 0.25); border-radius: 50%; animation: spin 20s linear infinite;"></div>
-              </div>
-              <div class="founder-info" style="flex-grow: 1;">
-                <h4 class="founder-name" style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Mathis Ducarois</h4>
-                <p class="founder-role font-mono" style="font-size: 0.72rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">Lead Architecte Web & Expert en Cybersécurité</p>
-                <div class="founder-skills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">JAMstack</span>
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Supabase</span>
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Cloudflare</span>
-                </div>
-                <button class="btn-bio-trigger" data-bio="mathisducarois" style="background: transparent; border: none; color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; padding: 0; outline: none;">
-                  Consulter sa bio <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Founder 2: Lucas Bataille -->
-            <div class="founder-card" id="founder-2" style="display: flex; gap: 1.5rem; background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem; align-items: center; position: relative; overflow: hidden; transition: all var(--t-base);">
-              <div class="founder-avatar founder-avatar-purple" aria-label="Lucas Bataille" style="flex-shrink: 0; width: 68px; height: 68px; background: rgba(123, 47, 255, 0.08); border: 1.5px solid var(--clr-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
-                <span class="avatar-initials" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--clr-purple);">LB</span>
-                <div class="avatar-ring" style="position: absolute; inset: -4px; border: 1px dashed rgba(123, 47, 255, 0.25); border-radius: 50%; animation: spin 20s linear reverse infinite;"></div>
-              </div>
-              <div class="founder-info" style="flex-grow: 1;">
-                <h4 class="founder-name" style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Lucas Bataille</h4>
-                <p class="founder-role font-mono" style="font-size: 0.72rem; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">Co-Fondateur & Expert Cybersécurité</p>
-                <div class="founder-skills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Pen-Testing</span>
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">OSCP cert</span>
-                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">WAF Shield</span>
-                </div>
-                <button class="btn-bio-trigger" data-bio="lucasbataille" style="background: transparent; border: none; color: #A78BFA; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; padding: 0; outline: none;">
-                  Consulter sa bio <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Team stats -->
-          <div class="team-stats-grid" style="margin-top: 3rem;">
-            <div class="team-stat">
-              <span class="ts-value">8+</span>
-              <span class="ts-label">Experts mobilisables</span>
-            </div>
-            <div class="team-stat">
-              <span class="ts-value">3</span>
-              <span class="ts-label">Pôles d'expertise</span>
-            </div>
-            <div class="team-stat">
-              <span class="ts-value">100%</span>
-              <span class="ts-label">Projets livrés en temps</span>
-            </div>
-            <div class="team-stat">
-              <span class="ts-value">5★</span>
-              <span class="ts-label">Satisfaction clients</span>
-            </div>
-          </div>
-
-          <!-- Certifications -->
-          <div class="certifications reveal-up delay-4" style="margin-top: 3rem;">
-            <p class="cert-label font-mono">Certifications & standards maîtrisés</p>
-            <div class="cert-badges">
-              <span class="cert-badge">OSCP</span>
-              <span class="cert-badge">CEH</span>
-              <span class="cert-badge">ISO 27001</span>
-              <span class="cert-badge">OWASP</span>
-              <span class="cert-badge">NIS2</span>
-              <span class="cert-badge">RGPD</span>
-              <span class="cert-badge">PCI-DSS</span>
-            </div>
-          </div>
+      <!-- Quick stats -->
+      <div class="reveal-up delay-3" style="display:flex;gap:2rem;flex-wrap:wrap;margin-top:4rem;">
+        <% [['8+', 'Experts mobilisables'], ['3', 'Pôles d\'expertise'], ['100%', 'Projets livrés en temps'], ['5★', 'Satisfaction clients']].forEach(([val, lbl]) => { %>
+        <div style="padding:1.25rem 1.75rem;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:var(--radius-lg);">
+          <div style="font-family:var(--font-mono);font-size:1.6rem;font-weight:800;color:var(--clr-cyan);"><%= val %></div>
+          <div style="font-size:0.72rem;color:var(--clr-text-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;margin-top:.25rem;"><%= lbl %></div>
         </div>
+        <% }) %>
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════════
+       FOUNDERS SECTION
+  ═══════════════════════════════════════════════ -->
+  <section id="equipe" class="section" style="padding:6rem 0;">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:4rem;">
+        <p class="section-tag reveal-up">Fondateurs</p>
+        <h2 class="section-title reveal-up delay-1">Les architectes <span class="gradient-text">derrière Arkis.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Deux experts aux profils complémentaires. Un seul objectif : livrer des infrastructures web impénétrables.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1100px;margin:0 auto;" class="team-founders-grid">
+
+        <!-- Founder 1: Mathis Ducarois -->
+        <div class="founder-card reveal-up delay-1" id="founder-1" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-xl);padding:2.5rem;position:relative;overflow:hidden;transition:all var(--t-base);">
+          <!-- Top gradient accent -->
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--clr-cyan),var(--clr-purple));"></div>
+
+          <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:2rem;">
+            <div style="flex-shrink:0;width:80px;height:80px;background:rgba(0,212,255,0.08);border:2px solid rgba(0,212,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;">
+              <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--clr-cyan);">MD</span>
+              <div style="position:absolute;inset:-6px;border:1px dashed rgba(0,212,255,0.2);border-radius:50%;animation:spin 20s linear infinite;"></div>
+            </div>
+            <div>
+              <h3 style="font-size:1.3rem;font-weight:800;color:var(--clr-text);margin-bottom:.25rem;">Mathis Ducarois</h3>
+              <p class="font-mono" style="font-size:0.72rem;color:var(--clr-cyan);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.625rem;">Lead Architecte Web &amp; Expert Cybersécurité</p>
+              <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+                <span style="font-size:.6rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">JAMstack</span>
+                <span style="font-size:.6rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">Supabase</span>
+                <span style="font-size:.6rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">Cloudflare</span>
+                <span style="font-size:.6rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">TypeScript</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:.88rem;color:var(--clr-text-2);line-height:1.7;margin-bottom:2rem;">
+            Mathis est l'architecte en chef de toutes les infrastructures Arkis. Passionné par la performance et la sécurité applicative, il est le garant du score <strong style="color:var(--clr-text);">100/100 Google PageSpeed</strong> et de l'architecture Zero-Trust sur chaque projet. Il supervise l'intégralité du cycle de vie technique, de la conception à la mise en production.
+          </p>
+
+          <!-- Skills bars -->
+          <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
+            <% [
+              ['Développement Full-Stack', 98, 'var(--clr-cyan)'],
+              ['Architecture Cloud / Edge', 96, 'var(--clr-cyan)'],
+              ['Sécurité Applicative', 90, 'var(--clr-purple)'],
+              ['Performance Web (LCP)', 100, 'var(--clr-green)'],
+            ].forEach(([skill, pct, color]) => { %>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.35rem;">
+                <span style="font-size:.78rem;color:var(--clr-text-2);"><%- skill %></span>
+                <span style="font-size:.72rem;font-family:var(--font-mono);color:var(--clr-text-3);"><%- pct %>%</span>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-bar" style="width:<%- pct %>%;background:<%- color %>;"></div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+          <button class="btn-bio-trigger" data-bio="mathisducarois" style="background:transparent;border:none;color:var(--clr-cyan);font-family:var(--font-mono);font-size:.75rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.35rem;padding:0;outline:none;">
+            Consulter sa biographie complète <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <!-- Founder 2: Lucas Bataille -->
+        <div class="founder-card reveal-up delay-2" id="founder-2" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-xl);padding:2.5rem;position:relative;overflow:hidden;transition:all var(--t-base);">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--clr-purple),#F87171);"></div>
+
+          <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:2rem;">
+            <div style="flex-shrink:0;width:80px;height:80px;background:rgba(123,47,255,0.08);border:2px solid rgba(123,47,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;">
+              <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--clr-purple);">LB</span>
+              <div style="position:absolute;inset:-6px;border:1px dashed rgba(123,47,255,0.2);border-radius:50%;animation:spin 20s linear reverse infinite;"></div>
+            </div>
+            <div>
+              <h3 style="font-size:1.3rem;font-weight:800;color:var(--clr-text);margin-bottom:.25rem;">Lucas Bataille</h3>
+              <p class="font-mono" style="font-size:0.72rem;color:#A78BFA;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.625rem;">Co-Fondateur &amp; Expert Cybersécurité Offensive</p>
+              <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+                <span style="font-size:.6rem;background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.15);color:#A78BFA;padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">OSCP Certifié</span>
+                <span style="font-size:.6rem;background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.15);color:#A78BFA;padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">Pen-Testing</span>
+                <span style="font-size:.6rem;background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.15);color:#A78BFA;padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">Red Team</span>
+                <span style="font-size:.6rem;background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.15);color:#A78BFA;padding:.1rem .4rem;border-radius:4px;font-family:var(--font-mono);">OWASP</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:.88rem;color:var(--clr-text-2);line-height:1.7;margin-bottom:2rem;">
+            Lucas est notre "hacker éthique" officiel. Certifié <strong style="color:var(--clr-text);">OSCP (Offensive Security Certified Professional)</strong>, la certification la plus difficile et respectée dans la cybersécurité, il dirige l'équipe Red Team et orchestre tous les tests d'intrusion. Chaque site Arkis passe sous ses outils avant d'être livré au client.
+          </p>
+
+          <!-- Skills bars -->
+          <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
+            <% [
+              ['Pen-Testing / Red Team', 99, '#F87171'],
+              ['Analyse de Vulnérabilités CVE', 95, '#F87171'],
+              ['WAF &amp; Défense Active', 92, 'var(--clr-purple)'],
+              ['Conformité OWASP / ISO 27001', 97, 'var(--clr-purple)'],
+            ].forEach(([skill, pct, color]) => { %>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:.35rem;">
+                <span style="font-size:.78rem;color:var(--clr-text-2);"><%- skill %></span>
+                <span style="font-size:.72rem;font-family:var(--font-mono);color:var(--clr-text-3);"><%- pct %>%</span>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-bar" style="width:<%- pct %>%;background:<%- color %>;"></div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+          <button class="btn-bio-trigger" data-bio="lucasbataille" style="background:transparent;border:none;color:#A78BFA;font-family:var(--font-mono);font-size:.75rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.35rem;padding:0;outline:none;">
+            Consulter sa biographie complète <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       VALEURS & PHILOSOPHIE
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);padding:5rem 0;">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:3.5rem;">
+        <p class="section-tag reveal-up">Nos valeurs</p>
+        <h2 class="section-title reveal-up delay-1">Ce qui nous <span class="gradient-text">anime chaque jour.</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="values-grid">
+        <% [
+          ['🔒', 'Secure by Design', 'La sécurité n\'est pas une fonctionnalité qu\'on ajoute en fin de projet — c\'est la fondation sur laquelle tout repose. Chaque décision architecturale est prise avec cet impératif en tête.'],
+          ['⚡', 'Performance absolue', 'Un site lent perd des clients. Nous garantissons contractuellement un score LCP de 100/100 sur Google PageSpeed. Aucun compromis, aucune excuse.'],
+          ['🤝', 'Transparence totale', 'Pas de surprise, pas de factures cachées. Le modèle Build & Run définit clairement ce que vous payez et ce que vous obtenez, dès le premier devis.'],
+          ['🎯', 'Zéro CVE livré', 'Chaque ligne de code est auditée. Notre processus de Red Team garantit qu\'aucune vulnérabilité connue ne survit à la livraison de votre infrastructure.'],
+          ['🇫🇷', 'Made in France', 'Nous sommes fiers de concevoir et héberger en zone UE. Nos données, notre code, notre équipe — tout est souverain et conforme au RGPD nativement.'],
+          ['📈', 'ROI mesurable', 'Nous ne vendons pas des sites web. Nous vendons des infrastructures qui convertissent, qui protègent et qui évoluent avec votre activité. Chaque euro investi est justifié.'],
+        ].forEach(([icon, title, desc]) => { %>
+        <div class="value-card reveal-up">
+          <span class="value-icon"><%= icon %></span>
+          <h3 class="value-title"><%= title %></h3>
+          <p class="value-desc"><%= desc %></p>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CERTIFICATIONS SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="padding:5rem 0;border-top:1px solid var(--clr-border);">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:3.5rem;">
+        <p class="section-tag reveal-up">Standards</p>
+        <h2 class="section-title reveal-up delay-1">Certifications &amp; <span class="gradient-text">conformités maîtrisées.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Chaque certification représente des centaines d'heures de formation. Pas une case à cocher — une façon de travailler.</p>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center;" class="reveal-up delay-1">
+        <% [
+          ['🎯', 'OSCP', 'Offensive Security Certified Professional'],
+          ['🔐', 'CEH', 'Certified Ethical Hacker'],
+          ['📋', 'ISO 27001', 'Information Security Management'],
+          ['🛡️', 'OWASP', 'Top 10 Compliant'],
+          ['🇪🇺', 'NIS2', 'Directive Ready'],
+          ['🔒', 'TLS 1.3', 'Chiffrement bout en bout'],
+          ['🧱', 'Zero-Trust', 'Architecture certifiée'],
+          ['☁️', 'Cloudflare', 'Partner Network'],
+          ['📊', 'RGPD', 'Conforme & Natif'],
+          ['💳', 'PCI-DSS', 'Payment Security'],
+        ].forEach(([icon, label, sub]) => { %>
+        <div class="cert-badge-card" style="min-width:130px;">
+          <span class="cert-icon"><%= icon %></span>
+          <div class="cert-label" style="font-size:.75rem;font-weight:800;"><%= label %></div>
+          <div style="font-size:.6rem;color:var(--clr-text-3);text-align:center;line-height:1.3;"><%= sub %></div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       REJOINDRE L'ÉQUIPE
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);padding:5rem 0;text-align:center;">
+    <div class="container" style="max-width:700px;">
+      <p class="section-tag reveal-up">Nous rejoindre</p>
+      <h2 class="section-title reveal-up delay-1" style="font-size:clamp(1.8rem,4vw,2.8rem);">Vous êtes expert web<br><span class="gradient-text">ou en cybersécurité ?</span></h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Arkis est en croissance permanente. Nous cherchons des profils exceptionnels qui partagent notre obsession pour la sécurité et la performance. Pas de routine — uniquement des projets challengeants.</p>
+      <div class="reveal-up delay-3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;">
+        <a href="/contact?service=recrutement" class="btn btn-primary" id="team-join-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Envoyer ma candidature
+        </a>
+        <a href="mailto:contact@arkis.agency" class="btn btn-secondary" id="team-email-btn" data-copy-email="contact@arkis.agency">contact@arkis.agency</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<!-- ═══════════════════════════════════════════════
-     BIOGRAPHIC SIDEBAR DRAWER MODAL
-     ═══════════════════════════════════════════════ -->
-<div id="bio-drawer" class="bio-drawer" style="position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: flex-end; pointer-events: none;" aria-hidden="true" role="dialog" aria-modal="true">
-  <!-- Overlay dim background -->
-  <div id="bio-drawer-overlay" style="position: absolute; inset: 0; background: rgba(5, 10, 24, 0.85); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.40s ease; pointer-events: auto; cursor: pointer;"></div>
-  
-  <!-- Drawer content pane -->
-  <div id="bio-drawer-pane" style="position: relative; width: 100%; max-width: 500px; height: 100%; background: #070F22; border-left: 1px solid rgba(0, 212, 255, 0.15); box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.40s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: auto; padding: 3rem 2.5rem; overflow-y: auto;">
-    
-    <!-- Close button -->
-    <button id="bio-drawer-close" aria-label="Fermer la biographie" style="position: absolute; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); color: var(--clr-text-2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--t-fast); outline: none;">
+<!-- Bio Drawer -->
+<div id="bio-drawer" class="bio-drawer" style="position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:flex-end;pointer-events:none;" aria-hidden="true" role="dialog" aria-modal="true">
+  <div id="bio-drawer-overlay" style="position:absolute;inset:0;background:rgba(5,10,24,0.85);backdrop-filter:blur(8px);opacity:0;transition:opacity .40s ease;pointer-events:auto;cursor:pointer;"></div>
+  <div id="bio-drawer-pane" style="position:relative;width:100%;max-width:500px;height:100%;background:#070F22;border-left:1px solid rgba(0,212,255,0.15);box-shadow:-10px 0 40px rgba(0,0,0,.8);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .40s cubic-bezier(0.22,1,0.36,1);pointer-events:auto;padding:3rem 2.5rem;overflow-y:auto;">
+    <button id="bio-drawer-close" aria-label="Fermer" style="position:absolute;top:1.5rem;right:1.5rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.03);border:1px solid var(--clr-border);color:var(--clr-text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--t-fast);outline:none;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-
-    <!-- Content to be dynamically loaded in script.js -->
-    <div id="bio-drawer-content" style="display: flex; flex-direction: column; gap: 2rem;">
-      <!-- Dynamic Bio template loaded by Javascript -->
-    </div>
-
+    <div id="bio-drawer-content" style="display:flex;flex-direction:column;gap:2rem;"></div>
   </div>
 </div>
 
 <style>
-.founder-card:hover {
-  border-color: rgba(0, 212, 255, 0.3) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.04);
+.founder-card:hover { border-color:rgba(0,212,255,0.25)!important;transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,212,255,.06); }
+.btn-bio-trigger:hover { text-decoration:underline; }
+.bio-drawer.active { display:flex!important; }
+@media (max-width:768px) {
+  .team-founders-grid { grid-template-columns:1fr!important; }
+  .values-grid { grid-template-columns:1fr!important; }
 }
-.btn-bio-trigger:hover {
-  text-decoration: underline;
-}
-.bio-drawer.active {
-  display: flex !important;
+@media (max-width:900px) {
+  .values-grid { grid-template-columns:1fr 1fr!important; }
 }
 </style>
 

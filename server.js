@@ -52,6 +52,13 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 // ⚠️ Sécurité : on n'expose PAS la racine du projet (server.js, .env, routes/, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ─── 3a. Forcer UTF-8 sur toutes les réponses HTML ─────────────
+// Évite que les navigateurs interprètent l'UTF-8 comme Latin-1 (Ã© etc.)
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  next();
+});
+
 // ─── 3. Configuration du Moteur EJS ───────────────────────
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

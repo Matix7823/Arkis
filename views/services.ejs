@@ -1,40 +1,100 @@
-<%- include('partials/head', { 
-  title: 'Services — Création Web & Cybersécurité | Arkis Agency', 
-  description: 'Chaque site est pensé comme une infrastructure critique : performant, résilient, et blindé avant même d\'être mis en ligne. Découvrez nos offres Web Full-Stack, Cybersécurité et Pen-testing.' 
+<%- include('partials/head', {
+  title: 'Services — Création Web Full-Stack, Cybersécurité & Pen-Testing | Arkis Agency',
+  description: 'Découvrez les 3 piliers Arkis : Création Web JAMstack ultra-rapide (100/100 garanti), Cybersécurité Cloudflare Enterprise, et Pen-Testing Red Team certifié OSCP. Secure by Design.'
 }) %>
 
 <%- include('partials/header', { page: 'services' }) %>
 
 <main style="padding-top: var(--nav-h);">
+
   <!-- ═══════════════════════════════════════════════
-       SERVICES SECTION
+       SERVICES HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background: var(--grad-glow); border-bottom: 1px solid var(--clr-border); padding: 5rem 0 4rem; position: relative; overflow: hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,212,255,0.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div style="max-width:800px;margin:0 auto;text-align:center;">
+        <p class="section-tag reveal-up">Nos Services</p>
+        <h1 class="section-title reveal-up delay-1" style="font-size:clamp(2.4rem,5vw,3.5rem);">
+          Trois piliers.<br><span class="gradient-text">Une forteresse inviolable.</span>
+        </h1>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;font-size:1.05rem;">
+          Chaque projet est pensé comme une infrastructure critique : performante, résiliente, et blindée avant même d'être en ligne. Aucun compromis entre le design et la sécurité.
+        </p>
+
+        <!-- Quick Nav pills -->
+        <div class="reveal-up delay-3" style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;">
+          <a href="#service-web" class="btn btn-secondary" style="font-size:0.82rem;padding:0.5rem 1.25rem;">
+            <span>💻</span> Création Web
+          </a>
+          <a href="#service-cyber" class="btn btn-secondary" style="font-size:0.82rem;padding:0.5rem 1.25rem;">
+            <span>🛡️</span> Cybersécurité
+          </a>
+          <a href="#service-pentest" class="btn btn-secondary" style="font-size:0.82rem;padding:0.5rem 1.25rem;">
+            <span>🎯</span> Pen-Testing
+          </a>
+          <a href="#hardening" class="btn btn-secondary" style="font-size:0.82rem;padding:0.5rem 1.25rem;">
+            <span>⚙️</span> Simulateur
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Stats -->
+      <div class="reveal-up delay-3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;max-width:900px;margin-inline:auto;">
+        <div style="text-align:center;padding:1.5rem;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:var(--radius-lg);">
+          <div class="font-mono" style="font-size:2rem;font-weight:800;color:var(--clr-cyan);">100</div>
+          <div style="font-size:0.72rem;color:var(--clr-text-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;">/100 LCP Garanti</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.1);border-radius:var(--radius-lg);">
+          <div class="font-mono" style="font-size:2rem;font-weight:800;color:var(--clr-red);">0</div>
+          <div style="font-size:0.72rem;color:var(--clr-text-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;">CVE Livré</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.1);border-radius:var(--radius-lg);">
+          <div class="font-mono" style="font-size:2rem;font-weight:800;color:var(--clr-green);">24h/7</div>
+          <div style="font-size:0.72rem;color:var(--clr-text-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;">Monitoring WAF</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;background:rgba(123,47,255,0.04);border:1px solid rgba(123,47,255,0.1);border-radius:var(--radius-lg);">
+          <div class="font-mono" style="font-size:2rem;font-weight:800;color:var(--clr-purple);">200</div>
+          <div style="font-size:0.72rem;color:var(--clr-text-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;">Tbps Anti-DDoS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       3 SERVICE CARDS
   ═══════════════════════════════════════════════ -->
   <section id="services" class="section services">
     <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Nos Services</p>
-        <h2 class="section-title reveal-up delay-1">Trois piliers,<br /><span class="gradient-text">une forteresse.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Chaque projet est pensé comme une infrastructure critique : performante, résiliente, et blindée avant même d'être en ligne.</p>
-      </div>
-
       <div class="services-grid">
 
         <!-- Service 1 : Web Full-Stack -->
         <article class="service-card reveal-up delay-1" id="service-web">
           <div class="service-card-inner">
             <div class="service-icon-wrap service-icon-blue" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22" opacity="0.4"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22" opacity=".4"/></svg>
             </div>
             <div class="service-number font-mono" aria-hidden="true">01</div>
-            <h3 class="service-title">Création Web Full-Stack</h3>
+            <h2 class="service-title">Création Web Full-Stack</h2>
             <p class="service-desc">Du cahier des charges au déploiement en production — nous construisons des applications web sur-mesure, rapides comme l'éclair et scalables à l'infini.</p>
             <ul class="service-features" role="list">
-              <li><span class="feat-check" aria-hidden="true"></span>Développement front & back-end sur-mesure</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Bases de données Supabase (PostgreSQL temps-réel)</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Edge computing & CDN Cloudflare mondial</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Score Core Web Vitals 100/100 garanti</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Architecture JAMstack & microservices</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Développement front &amp; back-end sur-mesure (Astro, Next.js, React)</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Bases de données Supabase PostgreSQL avec Row-Level Security</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Edge Computing &amp; CDN Cloudflare — 310 PoPs mondiaux</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Score Core Web Vitals 100/100 garanti contractuellement</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Architecture JAMstack &amp; microservices serverless</li>
+              <li><span class="feat-check" aria-hidden="true"></span>SEO technique avancé — Schema.org, Open Graph, Sitemap</li>
             </ul>
+
+            <!-- Tech stack badges -->
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:1.25rem 0;">
+              <span style="font-size:0.62rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--font-mono);">Astro</span>
+              <span style="font-size:0.62rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--font-mono);">Next.js</span>
+              <span style="font-size:0.62rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--font-mono);">Supabase</span>
+              <span style="font-size:0.62rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--font-mono);">Cloudflare</span>
+              <span style="font-size:0.62rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);color:var(--clr-cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--font-mono);">TypeScript</span>
+            </div>
+
             <div class="service-cta">
               <a href="/tarifs" class="link-arrow" aria-label="Voir les tarifs Création Web">Voir les tarifs <span aria-hidden="true">→</span></a>
             </div>
@@ -42,23 +102,37 @@
           <div class="service-glow service-glow-blue" aria-hidden="true"></div>
         </article>
 
-        <!-- Service 2 : Cybersécurité -->
+        <!-- Service 2 : Cybersécurité (featured) -->
         <article class="service-card service-card-featured reveal-up delay-2" id="service-cyber">
           <div class="service-card-inner">
             <div class="service-featured-badge" aria-label="Service phare">Cœur de métier</div>
             <div class="service-icon-wrap service-icon-purple" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" opacity="0.8"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" opacity=".8"/></svg>
             </div>
             <div class="service-number font-mono" aria-hidden="true">02</div>
-            <h3 class="service-title">Cybersécurité & Défense</h3>
+            <h2 class="service-title">Cybersécurité &amp; Défense</h2>
             <p class="service-desc">Votre infrastructure, blindée à chaque couche. Nous déployons des défenses actives qui neutralisent les menaces avant qu'elles n'atteignent vos données.</p>
             <ul class="service-features" role="list">
-              <li><span class="feat-check" aria-hidden="true"></span>Pare-feu applicatif (WAF) Enterprise Cloudflare</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Protection DDoS jusqu'à 200 Tbps absorbés</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Chiffrement TLS 1.3 & Zero-Trust Network</li>
-              <li><span class="feat-check" aria-hidden="true"></span>SIEM & monitoring des menaces en temps réel</li>
-              <li><span class="feat-check" aria-hidden="true"></span>Conformité RGPD & ISO 27001 accompagnée</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Pare-feu applicatif (WAF) Enterprise Cloudflare — OWASP CRS 3.3</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Protection DDoS jusqu'à 200 Tbps absorbés via Anycast BGP</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Chiffrement TLS 1.3 &amp; architecture Zero-Trust Network</li>
+              <li><span class="feat-check" aria-hidden="true"></span>SIEM &amp; monitoring des menaces en temps réel — 24h/7</li>
+              <li><span class="feat-check" aria-hidden="true"></span>Conformité RGPD &amp; ISO 27001 accompagnée pas à pas</li>
+              <li><span class="feat-check" aria-hidden="true"></span>CVE Intelligence Feed — patch automatique sous 4 heures</li>
             </ul>
+
+            <!-- Security metrics -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:1.25rem 0;background:rgba(0,0,0,0.2);border-radius:var(--radius-md);padding:1rem;">
+              <div style="text-align:center;">
+                <div style="font-family:var(--font-mono);font-size:1.25rem;font-weight:800;color:var(--clr-green);">2.4M+</div>
+                <div style="font-size:0.65rem;color:var(--clr-text-3);">Menaces bloquées / mois</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-family:var(--font-mono);font-size:1.25rem;font-weight:800;color:var(--clr-cyan);">99.99%</div>
+                <div style="font-size:0.65rem;color:var(--clr-text-3);">Uptime SLA garanti</div>
+              </div>
+            </div>
+
             <div class="service-cta">
               <a href="/contact" class="link-arrow" aria-label="Demander un audit sécurité">Audit gratuit <span aria-hidden="true">→</span></a>
             </div>
@@ -70,18 +144,29 @@
         <article class="service-card reveal-up delay-3" id="service-pentest">
           <div class="service-card-inner">
             <div class="service-icon-wrap service-icon-red" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><path d="M8.5 8.5L12 12l3.5-3.5" opacity="0.6"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <div class="service-number font-mono" aria-hidden="true">03</div>
-            <h3 class="service-title">Pen-Testing Red & Blue Team</h3>
+            <h2 class="service-title">Pen-Testing Red &amp; Blue Team</h2>
             <p class="service-desc">Nous attaquons nos propres créations — sans relâche — avant que quiconque d'autre ne le fasse. Chaque site livré a survécu à notre équipe offensive.</p>
             <ul class="service-features" role="list">
-              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Tests d'intrusion OWASP Top 10 complets</li>
-              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Fuzzing applicatif & injection SQL/XSS/CSRF</li>
-              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Analyse des dépendances & CVE scanning</li>
-              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Rapport d'audit détaillé & recommandations</li>
-              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Simulation d'attaques APT (Advanced Threats)</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Tests d'intrusion OWASP Top 10 complets (5–7 jours)</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Fuzzing applicatif &amp; injection SQL/XSS/CSRF/SSRF</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Analyse des dépendances &amp; CVE scanning automatisé</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Rapport d'audit détaillé avec CVSS scoring</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Simulation d'attaques APT &amp; Advanced Persistent Threats</li>
+              <li><span class="feat-check feat-check-red" aria-hidden="true"></span>Certification de sécurité délivrée post-audit</li>
             </ul>
+
+            <!-- Certification badge -->
+            <div style="display:flex;align-items:center;gap:0.875rem;margin:1.25rem 0;padding:0.875rem 1rem;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.15);border-radius:var(--radius-md);">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);display:flex;align-items:center;justify-content:center;color:#F87171;flex-shrink:0;font-size:1rem;">🎯</div>
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--clr-text);">Expert certifié OSCP</div>
+                <div style="font-size:0.65rem;color:var(--clr-text-3);">Offensive Security Certified Professional</div>
+              </div>
+            </div>
+
             <div class="service-cta">
               <a href="/contact" class="link-arrow" aria-label="Commander un pen-test">Commander un audit <span aria-hidden="true">→</span></a>
             </div>
@@ -92,152 +177,191 @@
       </div>
 
       <!-- Security Guarantee Banner -->
-      <div class="guarantee-banner reveal-up" style="margin-top: 4rem;">
+      <div class="guarantee-banner reveal-up" style="margin-top:4rem;">
         <div class="guarantee-icon" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="guarantee-text">
           <strong>Garantie Zéro Vulnérabilité Critique.</strong>
-          Chaque projet livré est accompagné d'un rapport de sécurité certifié. Si une CVE critique est découverte dans les 30 jours post-livraison, nous la corrigeons gratuitement.
+          Chaque projet livré est accompagné d'un rapport de sécurité certifié. Si une CVE critique est découverte dans les 30 jours post-livraison, nous la corrigeons gratuitement, sans conditions.
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════
-       INTERACTIVE HARDENING CONFIGURATOR SECTION
-       ═══════════════════════════════════════════════ -->
-  <section id="hardening" class="section hardening-section" style="border-top: 1px solid var(--clr-border); padding: 5rem 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03), transparent 50%);">
+       COMPARAISON TECHNOLOGIQUE DÉTAILLÉE
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);padding:5rem 0;">
     <div class="container">
-      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+      <div class="section-header" style="text-align:center;margin-bottom:3.5rem;">
+        <p class="section-tag reveal-up">Pourquoi Arkis ?</p>
+        <h2 class="section-title reveal-up delay-1">Ce que nous faisons <span class="gradient-text">différemment.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Chaque fonctionnalité est conçue pour protéger votre investissement et maximiser votre retour sur ROI numérique.</p>
+      </div>
+
+      <!-- Feature comparison table -->
+      <div class="reveal-up delay-1" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;min-width:700px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--clr-border);">
+              <th style="text-align:left;padding:1rem 1.25rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--clr-text-3);text-transform:uppercase;letter-spacing:.06em;">Fonctionnalité</th>
+              <th style="text-align:center;padding:1rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--clr-cyan);text-transform:uppercase;letter-spacing:.06em;">Arkis</th>
+              <th style="text-align:center;padding:1rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--clr-text-3);text-transform:uppercase;letter-spacing:.06em;">Agence WordPress</th>
+              <th style="text-align:center;padding:1rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--clr-text-3);text-transform:uppercase;letter-spacing:.06em;">Agence Classique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% [
+              ['Score PageSpeed', '100/100 garanti', '40–70/100', '60–85/100', 'cyan', false],
+              ['Protection DDoS', '200 Tbps — Cloudflare Enterprise', 'Plugin basique', 'Selon hébergeur', 'cyan', false],
+              ['Pen-Testing', 'Intégré dès le Build', 'Non inclus', 'En option, coûteux', 'red', false],
+              ['CVE tracking', '0 garanti contractuellement', 'Non suivi', 'Non garanti', 'green', false],
+              ['Support critique', 'CTO en astreinte — réponse 15min', 'Email 48h', 'Ticketing variable', 'cyan', false],
+              ['Conformité RGPD', 'Natif — architecture Zero-Trust', 'Plugin payant', 'Juriste séparé', 'purple', false],
+              ['Uptime SLA', '99.99% garanti — Edge CDN', 'Aucune garantie', 'Selon contrat', 'green', false],
+              ['TCO 2 ans', 'Transparent, fixe, prévisible', 'Plugins + urgences', 'Devis ré-évalués', 'cyan', true],
+            ].forEach(([feat, arkis, wp, classic, color, last]) => { %>
+            <tr style="border-bottom:1px solid <%= last ? 'transparent' : 'rgba(255,255,255,0.03)' %>;">
+              <td style="padding:0.875rem 1.25rem;font-size:0.85rem;color:var(--clr-text-2);font-weight:500;"><%= feat %></td>
+              <td style="padding:0.875rem 1rem;text-align:center;">
+                <span style="font-size:0.8rem;font-weight:700;color:var(--clr-<%= color %>);">✓ <%= arkis %></span>
+              </td>
+              <td style="padding:0.875rem 1rem;text-align:center;font-size:0.78rem;color:var(--clr-text-3);"><%= wp %></td>
+              <td style="padding:0.875rem 1rem;text-align:center;font-size:0.78rem;color:var(--clr-text-3);"><%= classic %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       INTERACTIVE HARDENING CONFIGURATOR
+  ═══════════════════════════════════════════════ -->
+  <section id="hardening" class="section hardening-section" style="border-top:1px solid var(--clr-border);padding:5rem 0;background:radial-gradient(circle at 20% 50%,rgba(0,212,255,0.03),transparent 50%);">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:4rem;">
         <p class="section-tag reveal-up">Simulateur de Blindage</p>
-        <h2 class="section-title reveal-up delay-1">Configurez votre <br /><span class="gradient-text">niveau de durcissement.</span></h2>
-        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Activez les protocoles de cybersécurité ci-dessous pour voir l'impact en temps réel sur la résilience et le score de blindage de votre future infrastructure.</p>
-        <div class="interactive-hint reveal-up delay-3" style="margin-inline: auto;">
+        <h2 class="section-title reveal-up delay-1">Configurez votre <br/><span class="gradient-text">niveau de durcissement.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Activez les protocoles de cybersécurité ci-dessous pour voir l'impact en temps réel sur la résilience et le score de blindage de votre future infrastructure.</p>
+        <div class="interactive-hint reveal-up delay-3" style="margin-inline:auto;">
           <span class="hint-dot"></span>
           <span>Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées</span>
         </div>
       </div>
 
-      <div class="hardening-layout resp-grid-2" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start;">
-        
-        <!-- Controls list (switches) -->
-        <div class="hardening-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
-          
-          <!-- HSTS Switch -->
-          <div class="hardening-switch-card" data-layer="hsts" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+      <div class="hardening-layout resp-grid-2" style="display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;">
+
+        <div class="hardening-controls" style="display:flex;flex-direction:column;gap:1.25rem;">
+
+          <div class="hardening-switch-card" data-layer="hsts" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">HSTS (Strict Transport Security)</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Force les connexions HTTPS chiffrées et prévient le downgrade.</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">HSTS (Strict Transport Security)</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Force les connexions HTTPS chiffrées et prévient le downgrade vers HTTP.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-hsts" style="opacity: 0; width: 0; height: 0;" checked>
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-hsts" style="opacity:0;width:0;height:0;" checked>
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
-          <!-- CSP Switch -->
-          <div class="hardening-switch-card" data-layer="csp" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+          <div class="hardening-switch-card" data-layer="csp" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">CSP (Content Security Policy) Stricte</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Bloque l'exécution de scripts non approuvés (anti-XSS).</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">CSP (Content Security Policy) Stricte</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Bloque l'exécution de scripts non approuvés — anti-XSS natif au niveau du navigateur.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-csp" style="opacity: 0; width: 0; height: 0;" checked>
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-csp" style="opacity:0;width:0;height:0;" checked>
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
-          <!-- TLS Switch -->
-          <div class="hardening-switch-card" data-layer="tls" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+          <div class="hardening-switch-card" data-layer="tls" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">TLS 1.3 & Chiffrement Fort</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Négocie le protocole de chiffrement réseau le plus robuste.</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">TLS 1.3 &amp; Chiffrement Fort</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Négocie le protocole de chiffrement réseau le plus robuste — ECDHE_RSA_AES256_GCM.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-tls" style="opacity: 0; width: 0; height: 0;">
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-tls" style="opacity:0;width:0;height:0;">
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
-          <!-- DNSSEC Switch -->
-          <div class="hardening-switch-card" data-layer="dnssec" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+          <div class="hardening-switch-card" data-layer="dnssec" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">DNSSEC (Résolution DNS Sécurisée)</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Empêche l'empoisonnement DNS et la redirection vers des sites clones.</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">DNSSEC (Résolution DNS Sécurisée)</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Empêche l'empoisonnement DNS et la redirection vers des sites clones malveillants.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-dnssec" style="opacity: 0; width: 0; height: 0;">
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-dnssec" style="opacity:0;width:0;height:0;">
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
-          <!-- WAF Switch -->
-          <div class="hardening-switch-card" data-layer="waf" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+          <div class="hardening-switch-card" data-layer="waf" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Cloudflare WAF Enterprise</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Détecte et atténue les attaques zero-day à la périphérie.</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">Cloudflare WAF Enterprise</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Détecte et atténue les attaques zero-day à la périphérie du réseau.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-waf" style="opacity: 0; width: 0; height: 0;">
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-waf" style="opacity:0;width:0;height:0;">
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
-          <!-- MFA Switch -->
-          <div class="hardening-switch-card" data-layer="mfa" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; transition: all var(--t-base); cursor: pointer;">
-            <div style="display: flex; gap: 1rem; align-items: center;">
-              <div class="hs-icon" style="color: var(--clr-cyan); flex-shrink: 0; width: 20px; height: 20px;">
+          <div class="hardening-switch-card" data-layer="mfa" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;transition:all var(--t-base);cursor:pointer;">
+            <div style="display:flex;gap:1rem;align-items:center;">
+              <div class="hs-icon" style="color:var(--clr-cyan);flex-shrink:0;width:20px;height:20px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
               <div>
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Double Authentification (MFA) Admin</h4>
-                <p style="font-size: 0.8rem; color: var(--clr-text-2);">Verrouille cryptographiquement l'accès à la base de données.</p>
+                <h4 style="font-size:1rem;font-weight:700;color:var(--clr-text);margin-bottom:.15rem;">Double Authentification (MFA) Admin</h4>
+                <p style="font-size:0.8rem;color:var(--clr-text-2);">Verrouille cryptographiquement l'accès à la base de données et au panel admin.</p>
               </div>
             </div>
-            <label class="cyber-switch" style="position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;">
-              <input type="checkbox" id="switch-mfa" style="opacity: 0; width: 0; height: 0;">
-              <span class="cyber-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.08); border: 1px solid var(--clr-border); border-radius: 34px; transition: .4s;"></span>
+            <label class="cyber-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;">
+              <input type="checkbox" id="switch-mfa" style="opacity:0;width:0;height:0;">
+              <span class="cyber-slider" style="position:absolute;cursor:pointer;inset:0;background-color:rgba(255,255,255,0.08);border:1px solid var(--clr-border);border-radius:34px;transition:.4s;"></span>
             </label>
           </div>
 
         </div>
 
-        <!-- Telemetry & Score (Right side) -->
-        <div class="hardening-stats" style="background: rgba(12, 21, 41, 0.6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2.5rem; display: flex; flex-direction: column; gap: 2rem; position: sticky; top: 100px;">
-          
-          <div style="text-align: center;">
-            <p class="font-mono" style="font-size: 0.8rem; color: var(--clr-text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Score Global de Durcissement</p>
-            <div style="position: relative; width: 160px; height: 160px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-              <!-- Radial gauge SVG -->
-              <svg width="160" height="160" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+        <!-- Score panel -->
+        <div class="hardening-stats" style="background:rgba(12,21,41,0.6);border:1px solid var(--clr-border);border-radius:var(--radius-lg);padding:2.5rem;display:flex;flex-direction:column;gap:2rem;position:sticky;top:100px;">
+          <div style="text-align:center;">
+            <p class="font-mono" style="font-size:0.8rem;color:var(--clr-text-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;">Score Global de Durcissement</p>
+            <div style="position:relative;width:160px;height:160px;margin:0 auto;display:flex;align-items:center;justify-content:center;">
+              <svg width="160" height="160" viewBox="0 0 100 100" style="transform:rotate(-90deg);">
                 <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6"/>
-                <circle id="hardening-radial-bar" cx="50" cy="50" r="44" fill="none" stroke="url(#hardGrad)" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="138" stroke-linecap="round" style="transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);"/>
+                <circle id="hardening-radial-bar" cx="50" cy="50" r="44" fill="none" stroke="url(#hardGrad)" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="138" stroke-linecap="round" style="transition:stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);"/>
                 <defs>
                   <linearGradient id="hardGrad" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#00D4FF"/>
@@ -245,30 +369,28 @@
                   </linearGradient>
                 </defs>
               </svg>
-              <div style="position: absolute; display: flex; flex-direction: column; align-items: center;">
-                <span id="hardening-score-pct" style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--clr-text); line-height: 1;">60%</span>
-                <span class="font-mono" style="font-size: 0.65rem; color: var(--clr-cyan); text-transform: uppercase; margin-top: 0.25rem;">Résilience</span>
+              <div style="position:absolute;display:flex;flex-direction:column;align-items:center;">
+                <span id="hardening-score-pct" style="font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--clr-text);line-height:1;">60%</span>
+                <span class="font-mono" style="font-size:0.65rem;color:var(--clr-cyan);text-transform:uppercase;margin-top:.25rem;">Résilience</span>
               </div>
             </div>
           </div>
 
-          <div class="resp-grid-2" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center;">
+          <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:center;">
             <div>
-              <p class="font-mono" style="font-size: 0.7rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.25rem;">Menace Résiduelle</p>
-              <span id="hardening-threat-level" style="font-size: 1rem; font-weight: 700; color: var(--clr-red); transition: color 0.4s;">Élevée ⚠️</span>
+              <p class="font-mono" style="font-size:.7rem;color:var(--clr-text-3);text-transform:uppercase;margin-bottom:.25rem;">Menace Résiduelle</p>
+              <span id="hardening-threat-level" style="font-size:1rem;font-weight:700;color:var(--clr-red);transition:color .4s;">Élevée ⚠️</span>
             </div>
             <div>
-              <p class="font-mono" style="font-size: 0.7rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.25rem;">Niveau de SLA</p>
-              <span id="hardening-sla" style="font-size: 1rem; font-weight: 700; color: var(--clr-text);">Standard</span>
+              <p class="font-mono" style="font-size:.7rem;color:var(--clr-text-3);text-transform:uppercase;margin-bottom:.25rem;">Niveau de SLA</p>
+              <span id="hardening-sla" style="font-size:1rem;font-weight:700;color:var(--clr-text);">Standard</span>
             </div>
           </div>
 
-          <!-- Explanation Card -->
-          <div id="hardening-explain-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md); padding: 1.25rem; min-height: 100px; display: flex; flex-direction: column; gap: 0.5rem;">
-            <h5 id="explain-title" class="font-mono" style="font-size: 0.75rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em;">Sélectionnez un protocole</h5>
-            <p id="explain-desc" style="font-size: 0.85rem; color: var(--clr-text-2); line-height: 1.55;">Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées.</p>
+          <div id="hardening-explain-card" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:var(--radius-md);padding:1.25rem;min-height:100px;display:flex;flex-direction:column;gap:.5rem;">
+            <h5 id="explain-title" class="font-mono" style="font-size:.75rem;color:var(--clr-cyan);text-transform:uppercase;letter-spacing:.05em;">Sélectionnez un protocole</h5>
+            <p id="explain-desc" style="font-size:.85rem;color:var(--clr-text-2);line-height:1.55;">Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées sur chaque couche de protection.</p>
           </div>
-
         </div>
 
       </div>
@@ -276,157 +398,79 @@
   </section>
 
   <style>
-  .hardening-switch-card:hover {
-    border-color: rgba(0, 212, 255, 0.2) !important;
-    transform: translateX(4px);
-    box-shadow: 0 4px 20px rgba(0,212,255,0.02);
-  }
-  .hardening-switch-card.active {
-    border-color: rgba(0, 212, 255, 0.25) !important;
-    background: rgba(0, 212, 255, 0.02) !important;
-  }
-  .hardening-switch-card.active .hs-icon {
-    color: var(--clr-cyan) !important;
-    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.4));
-  }
-  .cyber-switch input:checked + .cyber-slider {
-    background: var(--grad-primary) !important;
-    border-color: transparent !important;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-  }
-  .cyber-switch input:checked + .cyber-slider:before {
-    transform: translateX(20px);
-    background-color: var(--clr-bg) !important;
-  }
-  .cyber-slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 3px;
-    bottom: 3px;
-    background-color: var(--clr-text-3);
-    border-radius: 50%;
-    transition: .4s;
-  }
+  .hardening-switch-card:hover { border-color:rgba(0,212,255,0.2)!important;transform:translateX(4px);box-shadow:0 4px 20px rgba(0,212,255,.02); }
+  .hardening-switch-card.active { border-color:rgba(0,212,255,0.25)!important;background:rgba(0,212,255,0.02)!important; }
+  .hardening-switch-card.active .hs-icon { color:var(--clr-cyan)!important;filter:drop-shadow(0 0 8px rgba(0,212,255,.4)); }
+  .cyber-switch input:checked + .cyber-slider { background:var(--grad-primary)!important;border-color:transparent!important;box-shadow:0 0 10px rgba(0,212,255,.3); }
+  .cyber-switch input:checked + .cyber-slider:before { transform:translateX(20px);background-color:var(--clr-bg)!important; }
+  .cyber-slider:before { position:absolute;content:"";height:16px;width:16px;left:3px;bottom:3px;background-color:var(--clr-text-3);border-radius:50%;transition:.4s; }
   </style>
 
   <!-- ═══════════════════════════════════════════════
-       INTERACTIVE CYBER FAQ ACCORDION SECTION
-       ═══════════════════════════════════════════════ -->
-  <section id="faq" class="section faq-section" style="background: var(--clr-bg-2); border-top: 1px solid var(--clr-border); padding: 5rem 0;">
+       FAQ SECTION
+  ═══════════════════════════════════════════════ -->
+  <section id="faq" class="section faq-section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);padding:5rem 0;">
     <div class="container">
-      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+      <div class="section-header" style="text-align:center;margin-bottom:4rem;">
         <p class="section-tag reveal-up">Foire aux questions</p>
         <h2 class="section-title reveal-up delay-1">Questions &amp; <span class="gradient-text">Cybersécurité.</span></h2>
-        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Trouvez des réponses claires sur nos méthodes de blindage applicatif, d'isolation de données et de maintenance.</p>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Trouvez des réponses claires sur nos méthodes de blindage applicatif, d'isolation de données et de maintenance.</p>
       </div>
 
-      <div class="faq-accordion-container reveal-up delay-1" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
-        
-        <!-- FAQ Item 1 -->
-        <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-          <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-            <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Qu'est-ce que le modèle de tarification Build &amp; Run ?</span>
-            <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
-          <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-            <div style="overflow: hidden;">
-              <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                <strong>La construction robuste puis la garde active.</strong> Le modèle <strong>Build &amp; Run</strong> sépare clairement l'étape de création de votre site (le <em>Build</em> — un coût fixe unitaire sans surprise) de l'étape de surveillance et maintenance en conditions opérationnelles (le <em>Run</em> — un abonnement mensuel transparent). Cela vous garantit un site toujours à jour techniquement, blindé face aux nouvelles menaces, sans aucune facture cachée.
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="faq-accordion-container reveal-up delay-1" style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:1rem;">
 
-        <!-- FAQ Item 2 -->
-        <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-          <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-            <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment fonctionne la garantie de performance de 100/100 LCP ?</span>
-            <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+        <% [
+          ['Qu\'est-ce que le modèle de tarification Build & Run ?', 'La construction robuste puis la garde active. Le modèle <strong>Build & Run</strong> sépare clairement l\'étape de création de votre site (le <em>Build</em> — un coût fixe unitaire sans surprise) de l\'étape de surveillance et maintenance en conditions opérationnelles (le <em>Run</em> — un abonnement mensuel transparent). Cela vous garantit un site toujours à jour techniquement, blindé face aux nouvelles menaces, sans aucune facture cachée.'],
+          ['Comment fonctionne la garantie de performance de 100/100 LCP ?', 'Le chargement instantané comme un éclair. Le score <em>LCP (Largest Contentful Paint)</em> mesure le temps d\'affichage de l\'élément principal de votre site. Grâce à notre architecture JAMstack reliée aux serveurs Edge de Cloudflare, vos pages ne sont pas recalculées à chaque visite — elles sont pré-rendues statiquement et livrées instantanément depuis le serveur le plus proche de votre visiteur, en moins de 0.6 seconde. Score parfait garanti contractuellement.'],
+          ['Comment Supabase assure-t-il la sécurité des données ?', 'L\'analogie de la résidence ultra-sécurisée. Pensez à votre base de données comme à un immeuble résidentiel. Avec la technologie <strong>Row Level Security (RLS)</strong> de Supabase (PostgreSQL), chaque utilisateur possède une clé cryptographique unique qui lui donne accès exclusivement à ses propres données. Il est techniquement impossible pour un locataire de déborder sur les données voisines, neutralisant nativement les risques de vol de données.'],
+          ['Pourquoi un pare-feu Cloudflare WAF Enterprise est-il nécessaire ?', 'Le garde du corps d\'élite posté à l\'entrée. Le <em>WAF (Web Application Firewall) Enterprise</em> de Cloudflare intercepte 100% du trafic mondial avant qu\'il ne s\'approche de votre site. Il analyse chaque requête HTTP en moins de 1 milliseconde et filtre instantanément les injections SQL, les tentatives de piratage, les DDoS volumétriques et les crawlers malveillants. Les attaquants sont mis au tapis à la frontière du réseau.'],
+          ['Combien de temps dure un Pen-testing complet ?', 'Le crash-test intensif de sécurité. Nos audits offensifs durent généralement entre 3 et 7 jours ouvrés selon la complexité de votre infrastructure. Nos experts certifiés OSCP (Red Team) simulent de vraies attaques cyber pour débusquer les moindres failles, puis vous livrent un rapport d\'audit exhaustif avec CVSS scoring, suivi d\'un accompagnement direct pour sceller hermétiquement toutes les vulnérabilités trouvées.'],
+          ['Quel est le délai moyen de livraison d\'un projet ?', 'Un projet vitrine simple est livré en <strong>3 à 4 semaines</strong>. Une application Full-Stack complexe (SaaS, e-commerce, dashboard) nécessite <strong>6 à 12 semaines</strong>. Notre processus — cadrage → maquettes → développement → audit de sécurité → déploiement — est conçu pour livrer sans compromis sur la qualité. Vous validez chaque étape avant la suivante.'],
+        ].forEach(([q, a]) => { %>
+        <div class="faq-item" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-md);overflow:hidden;transition:border-color var(--t-fast);">
+          <button class="faq-trigger" aria-expanded="false" style="width:100%;padding:1.5rem;background:transparent;border:none;text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer;outline:none;gap:1rem;">
+            <span style="font-size:1.05rem;font-weight:700;color:var(--clr-text);font-family:var(--font-display);"><%= q %></span>
+            <span class="faq-chevron" style="color:var(--clr-cyan);transition:transform var(--t-base);flex-shrink:0;display:flex;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
           </button>
-          <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-            <div style="overflow: hidden;">
-              <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                <strong>Le chargement instantané comme un éclair.</strong> Le score <em>LCP (Largest Contentful Paint)</em> mesure le temps d'affichage de l'élément principal de votre site. Grâce à notre architecture JAMstack reliée aux serveurs Edge de Cloudflare, vos pages ne sont pas recalculées à chaque visite. Elles sont pré-rendues statiquement et livrées instantanément depuis le serveur DNS le plus proche du visiteur en moins de 1 seconde, garantissant un score parfait sans ralentissement de base de données.
-              </div>
+          <div class="faq-content" style="display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--t-base) var(--ease-out);">
+            <div style="overflow:hidden;">
+              <div style="padding:0 1.5rem 1.5rem;font-size:.9rem;color:var(--clr-text-2);line-height:1.65;border-top:1px solid rgba(255,255,255,.03);padding-top:1rem;"><%- a %></div>
             </div>
           </div>
         </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-          <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-            <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment Supabase assure-t-il la sécurité des données ?</span>
-            <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
-          <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-            <div style="overflow: hidden;">
-              <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                <strong>L'analogie de la résidence ultra-sécurisée.</strong> Pensez à votre base de données comme à un immeuble résidentiel. Avec la technologie <strong>Row Level Security (RLS)</strong> de Supabase (PostgreSQL), chaque utilisateur possède une clé cryptographique unique qui lui donne accès exclusivement à son propre appartement (ses lignes de données). Il est techniquement impossible pour un locataire de déborder ou de forcer les portes des voisins, neutralisant nativement les risques de vol de données.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-          <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-            <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Pourquoi un pare-feu Cloudflare WAF Enterprise est-il nécessaire ?</span>
-            <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
-          <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-            <div style="overflow: hidden;">
-              <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                <strong>Le garde du corps d'élite posté à l'entrée.</strong> Le <em>WAF (Web Application Firewall) Enterprise</em> de Cloudflare intercepte 100% du trafic mondial avant qu'il ne s'approche de votre site. Il analyse chaque requête HTTP en moins de 1 milliseconde et filtre instantanément les injections, les tentatives de piratage, les DDoS volumétriques et les scripts robots malveillants. Les attaquants sont mis au tapis à la frontière du réseau.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-          <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-            <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Combien de temps dure un Pen-testing complet ?</span>
-            <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
-          <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-            <div style="overflow: hidden;">
-              <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                <strong>Le crash-test intensif de sécurité.</strong> Nos audits offensifs durent généralement entre 3 et 7 jours ouvrés selon la complexité et la taille de votre infrastructure. Nos experts certifiés (équipes Red Team) simulate de vraies attaques cyber pour débusquer les moindres failles, puis vous livrent un rapport d'audit exhaustif et concret, suivi d'un accompagnement direct pour sceller hermétiquement toutes les vulnérabilités trouvées.
-              </div>
-            </div>
-          </div>
-        </div>
+        <% }) %>
 
       </div>
     </div>
   </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background:var(--clr-bg);border-top:1px solid var(--clr-border);padding:5rem 0;text-align:center;">
+    <div class="container" style="max-width:700px;">
+      <div class="section-tag reveal-up">Prêt à démarrer ?</div>
+      <h2 class="section-title reveal-up delay-1" style="font-size:clamp(1.8rem,4vw,2.8rem);">Votre projet mérite<br><span class="gradient-text">une infrastructure d'exception.</span></h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Audit de sécurité gratuit — 30 minutes avec notre équipe. Diagnostic honnête, proposition concrète, zéro engagement.</p>
+      <div class="reveal-up delay-3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;">
+        <a href="/contact" class="btn btn-primary" id="services-cta-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Réserver mon audit gratuit
+        </a>
+        <a href="/tarifs" class="btn btn-secondary" id="services-tarifs-btn">Voir les tarifs →</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <style>
-.faq-item:hover {
-  border-color: rgba(0, 212, 255, 0.2) !important;
-}
-.faq-item.active {
-  border-color: rgba(0, 212, 255, 0.3) !important;
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.03);
-}
-.faq-item.active .faq-chevron {
-  transform: rotate(180deg);
-}
-.faq-item.active .faq-content {
-  grid-template-rows: 1fr;
+.faq-item:hover { border-color:rgba(0,212,255,0.2)!important; }
+.faq-item.active { border-color:rgba(0,212,255,0.3)!important;box-shadow:0 4px 20px rgba(0,212,255,.03); }
+.faq-item.active .faq-chevron { transform:rotate(180deg); }
+.faq-item.active .faq-content { grid-template-rows:1fr; }
+@media (max-width:768px) {
+  .hardening-layout { grid-template-columns:1fr!important; }
 }
 </style>
 

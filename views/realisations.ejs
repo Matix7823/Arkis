@@ -1,27 +1,65 @@
-﻿<%- include('partials/head', { 
-  title: 'RÃ©alisations â€” Nos Projets Web & CybersÃ©curitÃ© | Arkis Agency', 
-  description: 'DÃ©couvrez notre portfolio de crÃ©ations d\'applications web SaaS, de boutiques E-Commerce premium et de tableaux de bord de cybersÃ©curitÃ© industrielle (SOC).' 
+<%- include('partials/head', {
+  title: 'Réalisations — Portfolio Web & Cybersécurité | Arkis Agency',
+  description: 'Découvrez nos réalisations : dashboards SaaS industriels, e-commerces ultra-sécurisés, SOC de cybersécurité, et audits Red Team certifiés OWASP. Métriques réelles, transparence totale.'
 }) %>
 
 <%- include('partials/header', { page: 'realisations' }) %>
 
 <main style="padding-top: var(--nav-h);">
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       RÃ‰ALISATIONS / PORTFOLIO
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section id="realisations" class="section portfolio">
-    <div class="container">
-      <div class="section-header">
+
+  <!-- ═══════════════════════════════════════════════
+       PORTFOLIO HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--grad-glow);border-bottom:1px solid var(--clr-border);padding:5rem 0 4rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,212,255,0.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div style="max-width:760px;">
         <p class="section-tag reveal-up">Portfolio</p>
-        <h2 class="section-title reveal-up delay-1">Nos rÃ©alisations<br /><span class="gradient-text">parlent d'elles-mÃªmes.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Chaque projet est livrÃ© avec ses mÃ©triques de performance et de sÃ©curitÃ©. La transparence n'est pas une option.</p>
+        <h1 class="section-title reveal-up delay-1" style="font-size:clamp(2.4rem,5vw,3.5rem);">
+          Nos réalisations<br><span class="gradient-text">parlent d'elles-mêmes.</span>
+        </h1>
+        <p class="section-subtitle reveal-up delay-2">
+          Chaque projet est livré avec ses métriques réelles de performance et de sécurité. La transparence n'est pas une option — c'est une philosophie.
+        </p>
       </div>
 
+      <!-- Global Stats Bar -->
+      <div class="portfolio-stat-bar reveal-up delay-3" style="justify-content:flex-start;margin-top:3rem;">
+        <div class="portfolio-stat-item">
+          <span class="portfolio-stat-value">6+</span>
+          <span class="portfolio-stat-label">Projets livrés</span>
+        </div>
+        <div class="portfolio-stat-item">
+          <span class="portfolio-stat-value">100%</span>
+          <span class="portfolio-stat-label">Score LCP moyen</span>
+        </div>
+        <div class="portfolio-stat-item">
+          <span class="portfolio-stat-value">0</span>
+          <span class="portfolio-stat-label">CVE critique livré</span>
+        </div>
+        <div class="portfolio-stat-item">
+          <span class="portfolio-stat-value">2.4M</span>
+          <span class="portfolio-stat-label">Menaces bloquées</span>
+        </div>
+        <div class="portfolio-stat-item">
+          <span class="portfolio-stat-value">99.99%</span>
+          <span class="portfolio-stat-label">Uptime global</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       PORTFOLIO GRID
+  ═══════════════════════════════════════════════ -->
+  <section id="realisations" class="section portfolio">
+    <div class="container">
+
       <!-- Filter tabs -->
-      <div class="portfolio-filters reveal-up delay-2" role="tablist" aria-label="Filtrer les projets">
+      <div class="portfolio-filters reveal-up delay-1" role="tablist" aria-label="Filtrer les projets">
         <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all" id="filter-all">Tous</button>
-        <button class="filter-btn" role="tab" aria-selected="false" data-filter="web" id="filter-web">CrÃ©ation Web</button>
-        <button class="filter-btn" role="tab" aria-selected="false" data-filter="cyber" id="filter-cyber">CybersÃ©curitÃ© / Pen-Test</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="web" id="filter-web">Création Web</button>
+        <button class="filter-btn" role="tab" aria-selected="false" data-filter="cyber" id="filter-cyber">Cybersécurité / Pen-Test</button>
         <button class="filter-btn" role="tab" aria-selected="false" data-filter="vitrine" id="filter-vitrine">Commerce &amp; Vitrine</button>
       </div>
 
@@ -34,31 +72,31 @@
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
                 <span class="p-tag">React / Next.js</span>
-                <span class="p-tag">Supabase DB</span>
-                <span class="p-tag">API Realtime</span>
+                <span class="p-tag">Supabase Realtime</span>
+                <span class="p-tag">IoT API</span>
               </div>
             </div>
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">CrÃ©ation Web Full-Stack</span>
+              <span class="portfolio-category">Création Web Full-Stack</span>
               <span class="portfolio-year font-mono">2026</span>
             </div>
-            <h3 class="portfolio-title">DHM-Tech â€” Pilotage Industriel</h3>
-            <p class="portfolio-desc">Dashboard SaaS temps rÃ©el d'observabilitÃ© IoT. IntÃ¨gre l'isolation de donnÃ©es Supabase, un temps de chargement sous la seconde et une conformitÃ© NIS2.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">DHM-Tech — Pilotage Industriel</h2>
+            <p class="portfolio-desc">Dashboard SaaS temps réel d'observabilité IoT. Intègre l'isolation de données Supabase (RLS), un temps de chargement sous la seconde et une conformité NIS2 native.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">âš¡</span>
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
                 <span class="metric-value">0.7s</span>
                 <span class="metric-label">LCP Speed</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">12k+</span>
                 <span class="metric-label">Visites/j</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">âœ“</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
                 <span class="metric-value">100/100</span>
                 <span class="metric-label">SEO</span>
               </div>
@@ -72,7 +110,7 @@
             <img src="images/portfolio_bricosam.png" alt="E-Commerce Bricolage et outillage Bricosam" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
-                <span class="p-tag">Stripe</span>
+                <span class="p-tag">Stripe Tokenisation</span>
                 <span class="p-tag">Static Generation</span>
                 <span class="p-tag">Cloudflare WAF</span>
               </div>
@@ -83,21 +121,21 @@
               <span class="portfolio-category">E-Commerce &amp; Bricolage</span>
               <span class="portfolio-year font-mono">2025</span>
             </div>
-            <h3 class="portfolio-title">Bricosam.fr â€” Outils &amp; Bricolage</h3>
-            <p class="portfolio-desc">Boutique en ligne complÃ¨te et ultra-rapide pour professionnels. Tokenisation de paiement sÃ©curisÃ©e Stripe et protection anti-fraude active.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">Bricosam.fr — Outils &amp; Bricolage</h2>
+            <p class="portfolio-desc">Boutique en ligne complète et ultra-rapide pour professionnels du bricolage. Tokenisation de paiement sécurisée Stripe et protection anti-fraude active.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">âš¡</span>
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
                 <span class="metric-value">0.6s</span>
                 <span class="metric-label">LCP Speed</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">0</span>
                 <span class="metric-label">Fraude subie</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">â†‘</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">↑</span>
                 <span class="metric-value">+42%</span>
                 <span class="metric-label">Ventes</span>
               </div>
@@ -108,35 +146,35 @@
         <!-- Project 3: SOC Dashboard Industriel -->
         <article class="portfolio-card reveal-up delay-3" data-category="cyber" id="project-cyber">
           <div class="portfolio-img-wrap">
-            <img src="images/portfolio_mockup3.png" alt="SOC Dashboard de cybersÃ©curitÃ© industrielle" loading="lazy" />
+            <img src="images/portfolio_mockup3.png" alt="SOC Dashboard de cybersécurité industrielle" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
                 <span class="p-tag">SIEM</span>
-                <span class="p-tag">Threat Feed</span>
+                <span class="p-tag">Threat Intel Feed</span>
                 <span class="p-tag">ISO 27001</span>
               </div>
             </div>
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">CybersÃ©curitÃ© &amp; SOC</span>
+              <span class="portfolio-category">Cybersécurité &amp; SOC</span>
               <span class="portfolio-year font-mono">2025</span>
             </div>
-            <h3 class="portfolio-title">Dashboard SOC Industriel</h3>
-            <p class="portfolio-desc">Centre opÃ©rationnel de sÃ©curitÃ© (SOC) complet pour groupe de logistique : monitoring rÃ©seau 24h/7 et filtrage de paquets malveillants.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">Dashboard SOC Industriel</h2>
+            <p class="portfolio-desc">Centre opérationnel de sécurité (SOC) complet pour groupe de logistique : monitoring réseau 24h/7, filtrage de paquets malveillants et SIEM en temps réel.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-red" aria-hidden="true">ðŸŽ¯</span>
+                <span class="metric-icon metric-red" aria-hidden="true">🎯</span>
                 <span class="metric-value">2.4M</span>
-                <span class="metric-label">Menaces bloquÃ©es</span>
+                <span class="metric-label">Menaces bloquées</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">99.99%</span>
                 <span class="metric-label">Uptime</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">âš™</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">⚙</span>
                 <span class="metric-value">NIS2</span>
                 <span class="metric-label">Conforme</span>
               </div>
@@ -144,10 +182,10 @@
           </div>
         </article>
 
-        <!-- Project 4: L'Ã‰crin SucrÃ© Bakery -->
+        <!-- Project 4: L'Écrin Sucré -->
         <article class="portfolio-card reveal-up delay-1" data-category="vitrine" id="project-bakery">
           <div class="portfolio-img-wrap">
-            <img src="images/portfolio_commerce.png" alt="Boulangerie L'Ã‰crin SucrÃ© site web moderne" loading="lazy" />
+            <img src="images/portfolio_commerce.png" alt="Boulangerie L'Écrin Sucré site web moderne" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
                 <span class="p-tag">JAMstack</span>
@@ -161,21 +199,21 @@
               <span class="portfolio-category">Commerce Local / Vitrine</span>
               <span class="portfolio-year font-mono">2026</span>
             </div>
-            <h3 class="portfolio-title">Boulangerie L'Ã‰crin SucrÃ©</h3>
-            <p class="portfolio-desc">Site vitrine gourmand de boulangerie-pÃ¢tisserie artisanale. IntÃ¨gre un module de commande Click &amp; Collect ultra-sÃ©curisÃ© hÃ©bergÃ© sur CDN Edge.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">L'Écrin Sucré — Boulangerie</h2>
+            <p class="portfolio-desc">Site vitrine gourmand de boulangerie-pâtisserie artisanale. Intègre un module de commande Click &amp; Collect ultra-sécurisé hébergé sur CDN Edge Cloudflare.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">âš¡</span>
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
                 <span class="metric-value">0.4s</span>
                 <span class="metric-label">Chargement</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">100%</span>
                 <span class="metric-label">Statique</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">âœ“</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
                 <span class="metric-value">A+</span>
                 <span class="metric-label">SSL Grade</span>
               </div>
@@ -183,7 +221,7 @@
           </div>
         </article>
 
-        <!-- Project 5: Salon Signature Coiffeur -->
+        <!-- Project 5: Salon Signature -->
         <article class="portfolio-card reveal-up delay-2" data-category="vitrine" id="project-hair">
           <div class="portfolio-img-wrap">
             <img src="images/portfolio_mockup2.png" alt="Salon Signature Coiffure site web chic" loading="lazy" />
@@ -197,39 +235,39 @@
           </div>
           <div class="portfolio-info">
             <div class="portfolio-meta">
-              <span class="portfolio-category">Commerce Local / RÃ©servations</span>
+              <span class="portfolio-category">Commerce Local / Réservations</span>
               <span class="portfolio-year font-mono">2025</span>
             </div>
-            <h3 class="portfolio-title">Le Salon Signature â€” Coiffeur</h3>
-            <p class="portfolio-desc">Application web Ã©lÃ©gante de prise de rendez-vous pour salon de coiffure haut-de-gamme. SystÃ¨me de calendrier chiffrÃ© anti-doubles rÃ©servations.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">Le Salon Signature — Coiffeur</h2>
+            <p class="portfolio-desc">Application web élégante de prise de rendez-vous pour salon de coiffure haut-de-gamme. Système de calendrier chiffré anti-doubles réservations.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">âš¡</span>
+                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
                 <span class="metric-value">0.6s</span>
                 <span class="metric-label">LCP Speed</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">100%</span>
                 <span class="metric-label">Anti-Brute Force</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">â†‘</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">↑</span>
                 <span class="metric-value">+55%</span>
-                <span class="metric-label">RÃ©servations</span>
+                <span class="metric-label">Réservations</span>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- Project 6: Audit Fintech & Pen-testing -->
+        <!-- Project 6: Audit Fintech -->
         <article class="portfolio-card reveal-up delay-3" data-category="cyber" id="project-pentest-fintech">
           <div class="portfolio-img-wrap">
-            <img src="images/portfolio_mockup1.png" alt="Audit de sÃ©curitÃ© Fintech et rapports d'intrusion" loading="lazy" />
+            <img src="images/portfolio_mockup1.png" alt="Audit de sécurité Fintech et rapports d'intrusion" loading="lazy" />
             <div class="portfolio-overlay">
               <div class="portfolio-tags">
                 <span class="p-tag">OWASP Top 10</span>
-                <span class="p-tag">SQLi / XSS</span>
+                <span class="p-tag">SQLi / XSS / SSRF</span>
                 <span class="p-tag">CVE Mitigation</span>
               </div>
             </div>
@@ -239,36 +277,92 @@
               <span class="portfolio-category">Pen-testing &amp; Red Team</span>
               <span class="portfolio-year font-mono">2026</span>
             </div>
-            <h3 class="portfolio-title">Audit &amp; Pen-Testing Fintech</h3>
-            <p class="portfolio-desc">Simulation d'attaques persistantes (APT) sur une plateforme de transactions financiÃ¨res, avec correctifs automatiques et rapports d'intrusion OWASP.</p>
-            <div class="portfolio-metrics" aria-label="MÃ©triques du projet">
+            <h2 class="portfolio-title">Audit &amp; Pen-Testing Fintech</h2>
+            <p class="portfolio-desc">Simulation d'attaques persistantes (APT) sur une plateforme de transactions financières. Correctifs automatiques et rapports d'intrusion OWASP CVSS-scorés.</p>
+            <div class="portfolio-metrics" aria-label="Métriques du projet">
               <div class="metric-item">
-                <span class="metric-icon metric-red" aria-hidden="true">ðŸŽ¯</span>
+                <span class="metric-icon metric-red" aria-hidden="true">🎯</span>
                 <span class="metric-value">18</span>
-                <span class="metric-label">CVE mitigÃ©es</span>
+                <span class="metric-label">CVE mitigées</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">ðŸ›¡</span>
+                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
                 <span class="metric-value">0</span>
                 <span class="metric-label">Faille critique</span>
               </div>
               <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">âš™</span>
+                <span class="metric-icon metric-purple" aria-hidden="true">⚙</span>
                 <span class="metric-value">RGPD</span>
-                <span class="metric-label">CertifiÃ©</span>
+                <span class="metric-label">Certifié</span>
               </div>
             </div>
           </div>
         </article>
 
+      </div><!-- end portfolio-grid -->
+
+      <!-- Portfolio CTA -->
+      <div class="portfolio-cta reveal-up" style="margin-top:4rem;">
+        <a href="/contact" class="btn btn-outline" id="portfolio-contact-btn">Discuter de votre projet →</a>
       </div>
 
-      <div class="portfolio-cta reveal-up" style="margin-top: 4rem;">
-        <a href="/contact" class="btn btn-outline" id="portfolio-contact-btn">Discuter de votre projet vitrine ou technique</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       TÉMOIGNAGES CLIENTS
+  ═══════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);padding:5rem 0;">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:3.5rem;">
+        <p class="section-tag reveal-up">Témoignages</p>
+        <h2 class="section-title reveal-up delay-1">Ce que disent <span class="gradient-text">nos clients.</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="testimonials-grid">
+        <% [
+          ['★★★★★', '"Arkis a transformé notre infrastructure digitale. Notre site est passé de 52/100 à 100/100 en une semaine. Aucun incident de sécurité en 18 mois."', 'CEO, DHM-Tech', 'DT'],
+          ['★★★★★', '"Leur équipe Red Team a trouvé des vulnérabilités que personne n\'avait jamais repérées. Rapport d\'audit impeccable, corrections faites en 24h."', 'DSI, Fintech Paris', 'FP'],
+          ['★★★★★', '"Le simulateur de devis est honnête, le prix était exactement ce que nous avons payé. Zéro surprise, livraison en 3 semaines. Exceptionnel."', 'Fondatrice, L\'Écrin Sucré', 'ES'],
+        ].forEach(([stars, quote, name, initials]) => { %>
+        <div class="reveal-up" style="background:var(--clr-bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-lg);padding:2rem;display:flex;flex-direction:column;gap:1.25rem;transition:all var(--t-base);">
+          <div style="font-size:0.9rem;color:#FBBF24;"><%- stars %></div>
+          <p style="font-size:.875rem;color:var(--clr-text-2);line-height:1.7;font-style:italic;flex:1;"><%- quote %></p>
+          <div style="display:flex;align-items:center;gap:.75rem;border-top:1px solid var(--clr-border);padding-top:1rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;font-family:var(--font-mono);"><%- initials %></div>
+            <span style="font-size:.82rem;font-weight:600;color:var(--clr-text);"><%- name %></span>
+          </div>
+        </div>
+        <% }) %>
       </div>
     </div>
   </section>
+
+  <!-- Final CTA -->
+  <section class="section" style="padding:5rem 0;border-top:1px solid var(--clr-border);text-align:center;">
+    <div class="container" style="max-width:700px;">
+      <p class="section-tag reveal-up">Votre tour</p>
+      <h2 class="section-title reveal-up delay-1" style="font-size:clamp(1.8rem,4vw,2.8rem);">Votre projet sera<br><span class="gradient-text">notre prochaine référence.</span></h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;">Audit de sécurité gratuit — 30 minutes avec notre équipe. Diagnostic honnête, proposition technique détaillée, zéro engagement.</p>
+      <div class="reveal-up delay-3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;">
+        <a href="/contact" class="btn btn-primary" id="portfolio-cta-main">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Démarrer mon projet
+        </a>
+        <a href="/tarifs" class="btn btn-secondary" id="portfolio-cta-tarifs">Voir les tarifs →</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<%- include('partials/footer') %>
+<style>
+@media (max-width:900px) {
+  .testimonials-grid { grid-template-columns:1fr!important; }
+}
+@media (max-width:768px) {
+  .testimonials-grid { grid-template-columns:1fr!important; }
+}
+</style>
 
+<%- include('partials/footer') %>

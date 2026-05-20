@@ -1,541 +1,784 @@
-<%- include('partials/head', { 
-  title: 'SIEM Cyber-Défense en Direct (SOC) — Arkis Agency', 
-  description: 'Console d\'observabilité de sécurité en temps réel. Suivez le pare-feu applicatif (WAF), la télémétrie des serveurs et les menaces DDoS déjouées en direct.' 
+<%- include('partials/head', {
+  title: 'ARKIS SOC — Security Operations Center Live | Threat Intelligence Dashboard',
+  description: 'Centre opérationnel de sécurité Arkis en temps réel. SIEM, WAF, threat feed, métriques de performance et télémétrie réseau live — comme un vrai SOC industriel.'
 }) %>
 
 <%- include('partials/header', { page: 'live' }) %>
 
-<main style="padding-top: var(--nav-h); min-height: 100vh; background-color: var(--clr-bg); color: var(--clr-text);">
-  
-  <!-- ═══════════════════════════════════════════════
-       LIVE SIEM CYBER-OBSERVABILITY SUITE (SOC)
-       ═══════════════════════════════════════════════ -->
-  <section class="section live-soc" style="background-image: var(--grad-glow); padding-bottom: 6rem; position: relative;">
-    
-    <!-- Cyber grid pattern inside the background -->
-    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none;" aria-hidden="true"></div>
+<main class="soc-main">
 
-    <div class="container">
-      
-      <!-- Dashboard Top Header Bar -->
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; position: relative; z-index: 2;">
-        <div>
-          <div class="live-indicator" style="display: inline-flex; align-items: center; gap: 0.625rem; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1rem;">
-            <span style="width: 8px; height: 8px; background: var(--clr-green); border-radius: 50%; display: inline-block; animation: pulseGlow 1.5s infinite;" id="soc-status-dot"></span>
-            <span class="font-mono" style="font-size: 0.78rem; color: var(--clr-green); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;" id="soc-status-text">SYSTEM OPERATIONAL — DEFCON 4</span>
-          </div>
-          <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em;">
-            SIEM Security <span class="gradient-text">Operations Center.</span>
-          </h1>
-          <p style="font-size: 0.95rem; color: var(--clr-text-2); max-width: 680px; margin-top: 0.75rem;">
-            Console d'observabilité active et de télémétrie défensive d'Arkis. Surveillez en temps réel les flux réseau, l'intégrité de la JAMstack et les requêtes filtrées à l'Edge par notre WAF.
-          </p>
-        </div>
+  <!-- ════════════════════════════════════════════════════════════════
+       ARKIS SOC — SECURITY OPERATIONS CENTER
+       Full-screen SIEM dashboard with real-time simulated telemetry
+  ════════════════════════════════════════════════════════════════ -->
 
-        <!-- Defcon Security Advisory Shield -->
-        <div style="background: rgba(8, 15, 34, 0.8); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 16px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; box-shadow: var(--shadow-card);" id="defcon-shield">
-          <div style="width: 48px; height: 48px; background: rgba(0, 212, 255, 0.08); border: 1.5px solid var(--clr-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--clr-cyan); animation: float 3s ease-in-out infinite;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--clr-text-3); text-transform: uppercase; display: block; letter-spacing: 0.05em;">Indice de Menace Global</span>
-            <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 800; color: var(--clr-cyan);" id="threat-level-val">NORMAL (0.02%)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ═══════════════════════════════════════════════
-           SIEM COMMAND CONTROLS & EXPLOIT PLAYGROUND
-           ═══════════════════════════════════════════════ -->
-      <div style="background: rgba(12, 21, 41, 0.6); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; backdrop-filter: blur(10px); position: relative; z-index: 2; box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);" class="exploit-grid">
-        
-        <!-- Left: Quick presets and custom exploit sandbox -->
-        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-          <div>
-            <h3 style="font-size: 1.1rem; font-weight: 700; font-family: var(--font-display); color: var(--clr-text); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
-              <span style="display:inline-block; width:8px; height:8px; background:var(--clr-red); border-radius:50%; animation: pulseGlow 1s infinite;"></span>
-              Cyber Attack Exploit Sandbox
-            </h3>
-            <p style="font-size: 0.8rem; color: var(--clr-text-2);">Testez l'impénétrabilité de nos systèmes. Choisissez un vecteur d'attaque ci-dessous, ajustez le payload et déclenchez l'offensive pour monitorer le WAF.</p>
-          </div>
-
-          <!-- Payload type selector -->
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <label for="exploit-vector" style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-cyan); text-transform: uppercase; font-weight: 600;">Vecteur d'Attaque</label>
-            <select id="exploit-vector" style="width: 100%; padding: 0.65rem 1rem; background: var(--clr-bg-2); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); color: var(--clr-text); font-size: 0.85rem; font-weight: 500; outline: none; cursor: pointer; transition: border-color var(--t-fast);">
-              <option value="sqli">Injection SQL — Authentification Bypass Presets</option>
-              <option value="xss">Cross-Site Scripting (XSS) — Cookie Grabber Alert</option>
-              <option value="bot">Bad Bot User-Agent — Web Server Scraper Crawler</option>
-              <option value="custom">Payload Perso (Saisissez votre propre code malveillant)</option>
-            </select>
-          </div>
-
-          <!-- Payload input textarea -->
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <label for="exploit-payload" style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-cyan); text-transform: uppercase; font-weight: 600;">Code du Payload Offensif</label>
-            <textarea id="exploit-payload" rows="3" style="width: 100%; padding: 0.75rem 1rem; background: #020612; border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-sm); color: #C084FC; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.4; outline: none; resize: none; transition: border-color 0.2s;" placeholder="' OR '1'='1' --"></textarea>
-          </div>
-
-          <!-- Action and status triggers -->
-          <div style="display: flex; gap: 1rem; align-items: center;">
-            <button id="btn-fire-exploit" class="btn btn-primary" style="background: var(--clr-red); border-color: var(--clr-red); color: white; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              Lancer l'Attaque
-            </button>
-            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-text-3);" id="sandbox-status-text">Prêt à l'envoi</span>
-          </div>
-
-        </div>
-
-        <!-- Right: Real-time Firewall Intercept Telemetry & Quick triggers -->
-        <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
-          
-          <div>
-            <h4 style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em; display: flex; justify-content: space-between;">
-              <span>Rapport de Filtration Edge</span>
-              <span id="sandbox-result-badge" style="color:var(--clr-green); font-weight: 800;">● SHIELD ON</span>
-            </h4>
-            
-            <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.75rem;">
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.04); padding-bottom: 0.4rem;">
-                <span style="color:var(--clr-text-2);">Dernier Verdict WAF :</span>
-                <strong id="waf-verdict" style="color:var(--clr-green);">PASS (Légitime)</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.04); padding-bottom: 0.4rem;">
-                <span style="color:var(--clr-text-2);">Action Déclenchée :</span>
-                <strong id="waf-action" style="color:var(--clr-text-3);">MONITOR ONLY</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span style="color:var(--clr-text-2);">Signature de Risque :</span>
-                <strong id="waf-signature" style="color:var(--clr-text-3);">NONE (0x000)</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick simulation buttons at the bottom -->
-          <div>
-            <h4 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Scénarios d'Attaque Globaux (Auto)</h4>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button id="btn-sim-ddos" class="btn btn-xs btn-outline" style="border-color: rgba(239, 68, 68, 0.3); color: #F87171; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(239, 68, 68, 0.02);">
-                <span style="width: 4px; height: 4px; background: #EF4444; border-radius: 50%;"></span>
-                DDoS Flood
-              </button>
-              <button id="btn-sim-sqli" class="btn btn-xs btn-outline" style="border-color: rgba(167, 139, 250, 0.3); color: #C084FC; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(167, 139, 250, 0.02);">
-                <span style="width: 4px; height: 4px; background: #A78BFA; border-radius: 50%;"></span>
-                Auto SQLi
-              </button>
-              <button id="btn-sim-bot" class="btn btn-xs btn-outline" style="border-color: rgba(0, 212, 255, 0.3); color: var(--clr-cyan); display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(0, 212, 255, 0.02);">
-                <span style="width: 4px; height: 4px; background: var(--clr-cyan); border-radius: 50%;"></span>
-                Bot Scan
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Grid: Global Stats Counters -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--gap-card); margin-bottom: 2.5rem; position: relative; z-index: 2;">
-        
-        <!-- Attaques déjouées -->
-        <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-card);">
-          <span style="font-size: 0.72rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
-            <span>Menaces Bloquées (24H)</span>
-            <span style="color: var(--clr-red);">● DÉFENSE ACTIONS</span>
-          </span>
-          <span class="font-mono" id="val-attacks" style="font-size: 2.5rem; font-weight: 800; color: var(--clr-red); letter-spacing: -0.03em; line-height: 1;">28,491</span>
-          <span style="font-size: 0.72rem; color: var(--clr-text-2); display: flex; align-items: center; gap: 0.35rem;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
-            <span id="txt-attacks-rate">+42 / min standard</span>
-          </span>
-          <div style="position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background: var(--clr-red); opacity: 0.6;" id="bar-attacks"></div>
-        </div>
-
-        <!-- Disponibilité Edge -->
-        <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-card);">
-          <span style="font-size: 0.72rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
-            <span>Uptime Réseau Edge</span>
-            <span style="color: var(--clr-green);">● EDGE CLUSTERS</span>
-          </span>
-          <span class="font-mono" style="font-size: 2.5rem; font-weight: 800; color: var(--clr-green); letter-spacing: -0.03em; line-height: 1;" id="val-uptime">99.993%</span>
-          <span style="font-size: 0.72rem; color: var(--clr-text-2); display: flex; align-items: center; gap: 0.35rem;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <span>Multi-régions Cloudflare actif</span>
-          </span>
-          <div style="position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background: var(--clr-green); opacity: 0.6;"></div>
-        </div>
-
-        <!-- Temps de réponse -->
-        <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-card);">
-          <span style="font-size: 0.72rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
-            <span>Temps de Réponse Moyen</span>
-            <span style="color: var(--clr-cyan);">● PROXIMITY EDGE</span>
-          </span>
-          <span class="font-mono" id="val-latency" style="font-size: 2.5rem; font-weight: 800; color: var(--clr-cyan); letter-spacing: -0.03em; line-height: 1;">82ms</span>
-          <span style="font-size: 0.72rem; color: var(--clr-text-2); display: flex; align-items: center; gap: 0.35rem;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Routage DNS CDN intelligent</span>
-          </span>
-          <div style="position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background: var(--clr-cyan); opacity: 0.6;"></div>
-        </div>
-
-        <!-- Trafic légitime -->
-        <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-card);">
-          <span style="font-size: 0.72rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
-            <span>Trafic Total (24H)</span>
-            <span style="color: var(--clr-text-2);">● HTTP REQUESTS</span>
-          </span>
-          <span class="font-mono" id="val-traffic" style="font-size: 2.5rem; font-weight: 800; color: var(--clr-text); letter-spacing: -0.03em; line-height: 1;">148,932</span>
-          <span style="font-size: 0.72rem; color: var(--clr-text-2); display: flex; align-items: center; gap: 0.35rem;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>Visiteurs uniques vérifiés</span>
-          </span>
-          <div style="position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background: rgba(255,255,255,0.08); opacity: 0.4;"></div>
-        </div>
-
-      </div>
-
-      <!-- MAIN SIEM LAYOUT: Charts & Live logs split -->
-      <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 2rem; margin-bottom: 4rem; align-items: start; position: relative; z-index: 2;" class="siem-grid-layout">
-        
-        <!-- Left Column: Observability Console & Graphs -->
-        <div style="display: flex; flex-direction: column; gap: 2rem;">
-          
-          <!-- Panel 1: Cyber Observability Live Console -->
-          <div style="background: #020612; border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 0 30px rgba(0, 212, 255, 0.08);">
-            
-            <!-- Terminal Header -->
-            <div style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-              <div style="display:flex; align-items:center; gap: 0.5rem;">
-                <span style="width: 8px; height: 8px; background:#EF4444; border-radius:50%;"></span>
-                <span style="width: 8px; height: 8px; background:#F59E0B; border-radius:50%;"></span>
-                <span style="width: 8px; height: 8px; background:#10B981; border-radius:50%;"></span>
-                <span class="font-mono" style="font-size: 0.78rem; color: var(--clr-text-2); margin-left: 0.5rem; font-weight: 600;">arkis_waf_siem_core.log</span>
-              </div>
-              
-              <!-- Console Filter Tabs -->
-              <div style="display: flex; gap: 0.35rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 0.2rem; border-radius: 8px;" id="console-filter-tabs">
-                <button class="filter-tab active" data-filter="ALL" style="background: rgba(0,212,255,0.1); border: none; color: #fff; font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.2s;">TOUT</button>
-                <button class="filter-tab" data-filter="BLOCKED" style="background: transparent; border: none; color: var(--clr-text-3); font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.2s;">WAF BLOQUÉS</button>
-                <button class="filter-tab" data-filter="INFO" style="background: transparent; border: none; color: var(--clr-text-3); font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.2s;">LÉGITIMES</button>
-              </div>
-            </div>
-            
-            <!-- Threat Map Wrap -->
-            <div class="threat-map-wrap" style="position: relative; height: 260px; background: #01040a; border-bottom: 1px solid rgba(0, 212, 255, 0.1); overflow: hidden;">
-              <canvas id="threat-map-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
-              <!-- Small HUD Overlay for coordinates/nodes -->
-              <div style="position: absolute; bottom: 10px; left: 15px; font-family: var(--font-mono); font-size: 0.65rem; color: rgba(0, 212, 255, 0.6); pointer-events: none; display: flex; gap: 1rem;">
-                <span>EDGE POP: CDG (FRANCE) [ACTIVE]</span>
-                <span id="active-attack-hud" style="color: #EF4444; font-weight: bold; display: none; animation: flash 1s infinite;">WARNING: ACTIVE THREAT INTERCEPTED</span>
-              </div>
-            </div>
-
-            <!-- Terminal Syslog Body -->
-            <div class="console-body font-mono" id="cyber-console" style="padding: 1.5rem; height: 420px; overflow-y: auto; font-size: 0.78rem; line-height: 1.65; color: #94A3B8; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(0, 212, 255, 0.2) transparent;">
-              <p style="color: var(--clr-text-3); border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">[SIEM SYSLOG SYSTEM COMPILE SUCCESSFUL ... CAPTURE ACTIVE]</p>
-              <div id="log-container">
-                <!-- Live logs stream injected by JS -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel 2: Live Graphic Threat Telemetry (SVG Chart Panel) -->
-          <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem 2rem; box-shadow: var(--shadow-card);">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
-              <h3 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display); display: flex; align-items: center; gap: 0.5rem;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--clr-cyan)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                Débit &amp; Activité Réseau Edge (Temps réel)
-              </h3>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--clr-cyan); background: var(--clr-cyan-dim); padding: 0.15rem 0.5rem; border-radius: 4px;">WAF TELEMETRY FEED</span>
-            </div>
-            
-            <!-- Beautiful animated line SVG chart representing LCP / requests throughput -->
-            <div style="width: 100%; height: 180px; position: relative;">
-              <svg width="100%" height="100%" viewBox="0 0 600 180" preserveAspectRatio="none" style="overflow: visible;" id="chart-svg">
-                <!-- Grids -->
-                <line x1="0" y1="30" x2="600" y2="30" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-                <line x1="0" y1="75" x2="600" y2="75" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-                <line x1="0" y1="120" x2="600" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-                <line x1="0" y1="165" x2="600" y2="165" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
-                
-                <!-- Area and Line plots (Dynamic SVG paths styled to animate nicely) -->
-                <path d="M 0 165 C 50 140, 100 150, 150 110 C 200 90, 250 120, 300 80 C 350 70, 400 140, 450 95 C 500 50, 550 80, 600 45 L 600 165 L 0 165 Z" fill="url(#chartGrad)" opacity="0.12" id="chart-area-path"></path>
-                <path d="M 0 165 C 50 140, 100 150, 150 110 C 200 90, 250 120, 300 80 C 350 70, 400 140, 450 95 C 500 50, 550 80, 600 45" fill="none" stroke="var(--clr-cyan)" stroke-width="2.5" id="chart-line-path"></path>
-                
-                <!-- DDoS Threat Spike path (Drawn dynamically or hidden under normal conditions) -->
-                <path d="" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="4 4" id="chart-spike-path" opacity="0"></path>
-
-                <!-- Gradient Definitions -->
-                <defs>
-                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#00D4FF"></stop>
-                    <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"></stop>
-                  </linearGradient>
-                </defs>
-              </svg>
-              
-              <!-- Floating label markers -->
-              <div style="position: absolute; top: 15px; left: 10px; font-family: var(--font-mono); font-size: 0.65rem; color: var(--clr-text-3);">150 req/sec</div>
-              <div style="position: absolute; bottom: 15px; left: 10px; font-family: var(--font-mono); font-size: 0.65rem; color: var(--clr-text-3);">0 req/sec</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Right Column: Site integrity list & Mitigation status dials -->
-        <div style="display: flex; flex-direction: column; gap: 2rem;">
-          
-          <!-- Panel 3: SIEM Resources and Systems Status (interactive and gorgeous) -->
-          <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; box-shadow: var(--shadow-card);">
-            <h3 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-              Ressources &amp; État Système
-            </h3>
-
-            <div style="display: flex; flex-direction: column; gap: 1rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--clr-text-2);">
-              
-              <!-- CPU Load Core -->
-              <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:0.35rem;">
-                  <span>CPU Cluster Edge (AVG)</span>
-                  <strong style="color:var(--clr-green);" id="val-cpu">42%</strong>
-                </div>
-                <div style="height: 6px; background: rgba(255,255,255,0.04); border:1px solid var(--clr-border); border-radius:3px; overflow:hidden;">
-                  <div style="height: 100%; width: 42%; background: var(--clr-green); transition: width 1s;" id="bar-cpu"></div>
-                </div>
-              </div>
-
-              <!-- RAM Memory Usage -->
-              <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:0.35rem;">
-                  <span>RAM Allocations</span>
-                  <strong>3.84 GB / 8.00 GB</strong>
-                </div>
-                <div style="height: 6px; background: rgba(255,255,255,0.04); border:1px solid var(--clr-border); border-radius:3px; overflow:hidden;">
-                  <div style="height: 100%; width: 48%; background: var(--clr-cyan);"></div>
-                </div>
-              </div>
-
-              <!-- Firewall Rules Active -->
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
-                <span>Règles WAF Actives</span>
-                <strong style="color:var(--clr-cyan);">14 Règles actives</strong>
-              </div>
-
-              <!-- Secure handshakes SSL/TLS -->
-              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
-                <span>Protocole Cryptographique</span>
-                <strong style="color:#A78BFA;">TLS 1.3 Suite (Chiffrée)</strong>
-              </div>
-
-              <!-- Threat Prevention Mode -->
-              <div style="display:flex; justify-content:space-between;">
-                <span>Seuil de Blocage</span>
-                <strong style="color:var(--clr-cyan); text-transform:uppercase;" id="waf-mode">HIGH DÉFENSE</strong>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Panel 4: Distribution of threat categories (SVG circular pie charts) -->
-          <div style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; box-shadow: var(--shadow-card);">
-            <h3 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              Typologie des Filles de Risques
-            </h3>
-
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-              <!-- Circle visualization representing the threat types -->
-              <div style="position: relative; width: 90px; height: 90px; flex-shrink:0;">
-                <svg width="100" height="100" viewBox="0 0 36 36" style="transform: rotate(-90deg); overflow: visible;">
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="3"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#EF4444" stroke-width="3.5" stroke-dasharray="45 100" stroke-dashoffset="0" id="circle-ddos"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#A78BFA" stroke-width="3.5" stroke-dasharray="25 100" stroke-dashoffset="-45" id="circle-sqli"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#00D4FF" stroke-width="3.5" stroke-dasharray="20 100" stroke-dashoffset="-70" id="circle-bot"></circle>
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#FBBF24" stroke-width="3.5" stroke-dasharray="10 100" stroke-dashoffset="-90" id="circle-brute"></circle>
-                </svg>
-              </div>
-
-              <!-- Legend labels -->
-              <div style="display: flex; flex-direction: column; gap: 0.35rem; font-family: var(--font-mono); font-size: 0.65rem; width: 100%;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="display: flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 6px; height: 6px; background:#EF4444; border-radius:50%;"></span>DDoS Floods</span>
-                  <strong style="color: #F87171;" id="lbl-ddos-pct">45%</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="display: flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 6px; height: 6px; background:#A78BFA; border-radius:50%;"></span>Injection SQL/XSS</span>
-                  <strong style="color: #C084FC;" id="lbl-sqli-pct">25%</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="display: flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 6px; height: 6px; background:#00D4FF; border-radius:50%;"></span>Bad Bots / Scrapers</span>
-                  <strong style="color: var(--clr-cyan);" id="lbl-bot-pct">20%</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="display: flex; align-items: center; gap: 0.35rem;"><span style="display: inline-block; width: 6px; height: 6px; background:#FBBF24; border-radius:50%;"></span>Brute-Force Brèches</span>
-                  <strong style="color: #FBBF24;">10%</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel 5: Live Hosted Sites List -->
-          <div class="live-sites-wrap">
-            <h3 style="font-size: 1rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Intégrité des Sites Clients Hébergés
-            </h3>
-
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-              
-              <!-- Site 1: DHM-Tech -->
-              <div class="live-site-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
-                    <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--clr-text);">DHM-Tech</h4>
-                    <span style="font-size: 0.6rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--clr-green); padding: 0.05rem 0.25rem; border-radius: 3px; font-weight: 700; text-transform: uppercase;">ONLINE</span>
-                  </div>
-                  <p style="font-size: 0.7rem; color: var(--clr-text-3); font-family: var(--font-mono);">dhmtech.com • IoT Dashboard</p>
-                </div>
-                <div style="text-align: right; font-family: var(--font-mono);">
-                  <div style="font-size: 0.8rem; font-weight: 600; color: var(--clr-cyan);" id="dhm-visits">12,840 visits</div>
-                  <div style="font-size: 0.625rem; color: var(--clr-text-3);">WAF Protected</div>
-                </div>
-              </div>
-
-              <!-- Site 2: Bricosam.fr -->
-              <div class="live-site-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
-                    <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--clr-text);">Bricosam.fr</h4>
-                    <span style="font-size: 0.6rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--clr-green); padding: 0.05rem 0.25rem; border-radius: 3px; font-weight: 700; text-transform: uppercase;">ONLINE</span>
-                  </div>
-                  <p style="font-size: 0.7rem; color: var(--clr-text-3); font-family: var(--font-mono);">bricosam.fr • E-Commerce</p>
-                </div>
-                <div style="text-align: right; font-family: var(--font-mono);">
-                  <div style="font-size: 0.8rem; font-weight: 600; color: var(--clr-cyan);" id="bricosam-visits">8,429 visits</div>
-                  <div style="font-size: 0.625rem; color: var(--clr-text-3);">WAF Shield Active</div>
-                </div>
-              </div>
-
-              <!-- Site 3: Boulangerie L'Écrin Sucré -->
-              <div class="live-site-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem;">
-                    <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--clr-text);">L'Écrin Sucré</h4>
-                    <span style="font-size: 0.6rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--clr-green); padding: 0.05rem 0.25rem; border-radius: 3px; font-weight: 700; text-transform: uppercase;">ONLINE</span>
-                  </div>
-                  <p style="font-size: 0.7rem; color: var(--clr-text-3); font-family: var(--font-mono);">ecrinsucre.fr • Click &amp; Collect</p>
-                </div>
-                <div style="text-align: right; font-family: var(--font-mono);">
-                  <div style="font-size: 0.8rem; font-weight: 600; color: var(--clr-cyan);" id="bakery-visits">2,840 visits</div>
-                  <div style="font-size: 0.625rem; color: var(--clr-text-3);">Static CDN Host</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Why client sites are unhackable (SIEM Assurance Section) -->
-      <div class="reassure-section" style="margin-top: 5rem; position: relative; z-index: 2;">
-        <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--clr-text); text-align: center; margin-bottom: 3.5rem;">
-          Télémétrie &amp; Blindage <span class="gradient-text">à la pointe.</span>
-        </h2>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap-card);">
-          
-          <div class="reassure-card" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2rem; transition: border-color var(--t-fast);">
-            <div style="width: 44px; height: 44px; background: rgba(0, 212, 255, 0.08); color: var(--clr-cyan); border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1.25rem;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.75rem;">Architecture JAMstack &amp; Edge</h3>
-            <p style="font-size: 0.875rem; color: var(--clr-text-2); line-height: 1.65;">
-              La majorité de nos pages vitrines sont pré-générées de manière statique. En l'absence de base de données ou de serveurs dynamiques exposés en direct, il n'existe aucune vulnérabilité d'injection ou de faille système exploitable.
-            </p>
-          </div>
-
-          <div class="reassure-card" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2rem; transition: border-color var(--t-fast);">
-            <div style="width: 44px; height: 44px; background: rgba(123, 47, 255, 0.08); color: #A78BFA; border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1.25rem;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.75rem;">Isolation de Données Supabase</h3>
-            <p style="font-size: 0.875rem; color: var(--clr-text-2); line-height: 1.65;">
-              Vos bases de données PostgreSQL sont isolées sur des instances hautement chiffrées (AES-256 au repos). L'authentification multi-facteurs (MFA) et les règles strictes de sécurité (Row Level Security) garantissent qu'aucun compte ne peut déborder sur un autre.
-            </p>
-          </div>
-
-          <div class="reassure-card" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2rem; transition: border-color var(--t-fast);">
-            <div style="width: 44px; height: 44px; background: rgba(239, 68, 68, 0.08); color: #F87171; border-radius: 10px; display:flex; align-items:center; justify-content:center; margin-bottom: 1.25rem;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3-3.5 3.5z"/></svg>
-            </div>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.75rem;">Pen-testing Offensif Continu</h3>
-            <p style="font-size: 0.875rem; color: var(--clr-text-2); line-height: 1.65;">
-              Nous attaquons nos propres systèmes. En identifiant nous-mêmes les failles potentielles de vos applicatifs selon les méthodes de la Red Team, nous assurons un blindage complet avant que des acteurs malveillants n'essaient.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
+  <!-- ── SOC Top Status Bar ── -->
+  <div class="soc-statusbar" id="soc-statusbar">
+    <div class="soc-statusbar-left">
+      <span class="soc-sb-logo font-mono">ARKIS_SOC</span>
+      <span class="soc-sb-sep">|</span>
+      <span class="soc-sb-dot" id="soc-dot"></span>
+      <span class="soc-sb-status font-mono" id="soc-status-text">SYSTEM OPERATIONAL — DEFCON 4</span>
     </div>
-  </section>
+    <div class="soc-statusbar-right font-mono">
+      <span class="soc-sb-item"><span class="soc-sb-label">UTC</span><span id="soc-clock">--:--:--</span></span>
+      <span class="soc-sb-sep">|</span>
+      <span class="soc-sb-item"><span class="soc-sb-label">UPTIME</span><span class="soc-sb-val-green">99.993%</span></span>
+      <span class="soc-sb-sep">|</span>
+      <span class="soc-sb-item"><span class="soc-sb-label">EDGE POPs</span><span class="soc-sb-val-cyan">310</span></span>
+      <span class="soc-sb-sep">|</span>
+      <span class="soc-sb-item"><span class="soc-sb-label">WAF</span><span class="soc-sb-val-green">ACTIVE</span></span>
+    </div>
+  </div>
+
+  <!-- ── SOC Layout Grid ── -->
+  <div class="soc-grid">
+
+    <!-- ╔═══════════════════════════════════════════════════╗ -->
+    <!-- ║   LEFT COLUMN — KPI + Controls + Geo              ║ -->
+    <!-- ╚═══════════════════════════════════════════════════╝ -->
+    <div class="soc-col-left">
+
+      <!-- ── KPI Cards Row ── -->
+      <div class="soc-kpi-grid">
+        <div class="soc-kpi-card soc-kpi-blocked">
+          <div class="soc-kpi-label font-mono">Menaces Bloquées / h</div>
+          <div class="soc-kpi-value" id="kpi-blocked">0</div>
+          <div class="soc-kpi-trend">↑ <span id="kpi-blocked-rate">0</span>/min</div>
+        </div>
+        <div class="soc-kpi-card soc-kpi-req">
+          <div class="soc-kpi-label font-mono">Requêtes / sec</div>
+          <div class="soc-kpi-value" id="kpi-rps">0</div>
+          <div class="soc-kpi-trend">Edge CDN Paris</div>
+        </div>
+        <div class="soc-kpi-card soc-kpi-integrity">
+          <div class="soc-kpi-label font-mono">Intégrité TLS</div>
+          <div class="soc-kpi-value" id="kpi-tls">100%</div>
+          <div class="soc-kpi-trend soc-trend-green">TLS 1.3 Only</div>
+        </div>
+        <div class="soc-kpi-card soc-kpi-score">
+          <div class="soc-kpi-label font-mono">Score Résilience</div>
+          <div class="soc-kpi-value" id="kpi-score">98</div>
+          <div class="soc-kpi-trend soc-trend-green">/100 SIEM Index</div>
+        </div>
+      </div>
+
+      <!-- ── Threat Distribution Bar ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">THREAT DISTRIBUTION — WAF Classification</span>
+          <span class="soc-panel-badge live-badge">LIVE</span>
+        </div>
+        <div class="soc-threat-dist" id="threat-dist">
+          <div class="soc-td-row">
+            <span class="soc-td-label font-mono">DDoS / L7 Flood</span>
+            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-red" id="bar-ddos" style="width:0%"></div></div>
+            <span class="soc-td-pct font-mono" id="pct-ddos">0%</span>
+          </div>
+          <div class="soc-td-row">
+            <span class="soc-td-label font-mono">SQL Injection</span>
+            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-orange" id="bar-sqli" style="width:0%"></div></div>
+            <span class="soc-td-pct font-mono" id="pct-sqli">0%</span>
+          </div>
+          <div class="soc-td-row">
+            <span class="soc-td-label font-mono">XSS / CSRF</span>
+            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-yellow" id="bar-xss" style="width:0%"></div></div>
+            <span class="soc-td-pct font-mono" id="pct-xss">0%</span>
+          </div>
+          <div class="soc-td-row">
+            <span class="soc-td-label font-mono">Bot / Crawler</span>
+            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-cyan" id="bar-bot" style="width:0%"></div></div>
+            <span class="soc-td-pct font-mono" id="pct-bot">0%</span>
+          </div>
+          <div class="soc-td-row">
+            <span class="soc-td-label font-mono">Brute Force</span>
+            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-purple" id="bar-bf" style="width:0%"></div></div>
+            <span class="soc-td-pct font-mono" id="pct-bf">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Network Traffic Sparkline Chart ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">NETWORK TRAFFIC — Req/s (Last 60s)</span>
+          <div style="display:flex;gap:1rem;align-items:center;">
+            <span class="soc-panel-badge">EDGE CDG</span>
+            <span class="font-mono" style="font-size:0.65rem;color:var(--clr-text-3);" id="chart-peak">Peak: 0</span>
+          </div>
+        </div>
+        <canvas id="soc-traffic-chart" class="soc-chart" aria-label="Network traffic chart"></canvas>
+      </div>
+
+      <!-- ── Cyber Attack Simulator ── -->
+      <div class="soc-panel soc-attack-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono" style="color:#F87171;">
+            <span class="soc-live-dot soc-dot-red"></span>EXPLOIT SANDBOX — Simulation WAF
+          </span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--clr-text-2);margin-bottom:1.25rem;line-height:1.5;">
+          Testez l'impénétrabilité d'Arkis en direct. Déclenchez une attaque simulée et observez la mitigation en temps réel dans la console SIEM.
+        </p>
+        <div class="soc-attack-btns">
+          <button class="soc-atk-btn" id="btn-ddos">
+            <span class="soc-atk-icon">🌊</span>
+            <span class="soc-atk-name">DDoS Flood</span>
+            <span class="soc-atk-sub">L7 HTTP/2</span>
+          </button>
+          <button class="soc-atk-btn" id="btn-sqli">
+            <span class="soc-atk-icon">💉</span>
+            <span class="soc-atk-name">SQL Injection</span>
+            <span class="soc-atk-sub">UNION-based</span>
+          </button>
+          <button class="soc-atk-btn" id="btn-xss">
+            <span class="soc-atk-icon">📜</span>
+            <span class="soc-atk-name">XSS Payload</span>
+            <span class="soc-atk-sub">DOM-based</span>
+          </button>
+          <button class="soc-atk-btn" id="btn-bruteforce">
+            <span class="soc-atk-icon">🔑</span>
+            <span class="soc-atk-name">Brute Force</span>
+            <span class="soc-atk-sub">Credential stuffing</span>
+          </button>
+        </div>
+        <div class="soc-attack-status font-mono" id="attack-status">
+          <span style="color:var(--clr-green);">◉</span> WAF SHIELD NOMINAL — Awaiting simulation command...
+        </div>
+      </div>
+
+    </div><!-- end left col -->
+
+    <!-- ╔═══════════════════════════════════════════════════╗ -->
+    <!-- ║   CENTER COLUMN — SIEM Event Log (main console)  ║ -->
+    <!-- ╚═══════════════════════════════════════════════════╝ -->
+    <div class="soc-col-center">
+      <div class="soc-panel soc-console-panel">
+        <div class="soc-panel-header">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span class="soc-live-dot"></span>
+            <span class="soc-panel-title font-mono">SIEM EVENT LOG — Security Console</span>
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <div class="soc-filter-tabs" id="soc-filter-tabs">
+              <button class="soc-filter-btn active" data-filter="all">ALL</button>
+              <button class="soc-filter-btn" data-filter="BLOCKED">BLOCKED</button>
+              <button class="soc-filter-btn" data-filter="WARN">WARN</button>
+              <button class="soc-filter-btn" data-filter="INFO">INFO</button>
+            </div>
+            <button class="soc-clear-btn" id="soc-clear-btn" title="Clear console">CLR</button>
+          </div>
+        </div>
+
+        <div class="soc-console" id="soc-console" role="log" aria-live="polite" aria-label="Security event log">
+          <div class="soc-console-welcome font-mono">
+            <span style="color:var(--clr-cyan);">ARKIS_SIEM v3.1.4</span> — Security Information &amp; Event Management<br/>
+            <span style="color:var(--clr-text-3);">[INIT] Loading security modules... ThreatFeed, WAF, IDS, NetFlow...</span><br/>
+            <span style="color:var(--clr-green);">[OK] All systems operational. Monitoring 6 client stacks.</span>
+          </div>
+        </div>
+
+        <!-- Console event count bar -->
+        <div class="soc-console-footer font-mono">
+          <span>Events: <span id="event-count">0</span></span>
+          <span>Blocked: <span id="event-blocked" style="color:#F87171;">0</span></span>
+          <span>Warnings: <span id="event-warn" style="color:#FBBF24;">0</span></span>
+          <span class="soc-console-scroll-hint">⬇ Auto-scroll</span>
+        </div>
+      </div>
+    </div><!-- end center col -->
+
+    <!-- ╔═══════════════════════════════════════════════════╗ -->
+    <!-- ║   RIGHT COLUMN — Assets + CPU + Active Threats   ║ -->
+    <!-- ╚═══════════════════════════════════════════════════╝ -->
+    <div class="soc-col-right">
+
+      <!-- ── Active Threats Feed ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">ACTIVE THREAT FEED</span>
+          <span class="soc-panel-badge soc-badge-red">INTEL</span>
+        </div>
+        <div class="soc-threat-feed" id="threat-feed"></div>
+      </div>
+
+      <!-- ── Protected Assets Status ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">PROTECTED ASSETS</span>
+          <span class="soc-panel-badge">6 SITES</span>
+        </div>
+        <div class="soc-assets" id="soc-assets">
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-green"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">DHM-Tech Dashboard</span>
+              <span class="soc-asset-url font-mono">dhmtech.com</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">0.7s LCP</span>
+              <span class="soc-asset-metric">99.99%</span>
+            </div>
+          </div>
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-green"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">Bricosam E-Commerce</span>
+              <span class="soc-asset-url font-mono">bricosam.fr</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">0.6s LCP</span>
+              <span class="soc-asset-metric">99.99%</span>
+            </div>
+          </div>
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-green"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">L'Écrin Sucré</span>
+              <span class="soc-asset-url font-mono">ecrin-sucre.fr</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">0.4s LCP</span>
+              <span class="soc-asset-metric">100%</span>
+            </div>
+          </div>
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-green"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">Salon Signature</span>
+              <span class="soc-asset-url font-mono">salonside.fr</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">0.6s LCP</span>
+              <span class="soc-asset-metric">99.98%</span>
+            </div>
+          </div>
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-green"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">SOC Industriel</span>
+              <span class="soc-asset-url font-mono">soc-logistik.eu</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">1.1s LCP</span>
+              <span class="soc-asset-metric">99.99%</span>
+            </div>
+          </div>
+          <div class="soc-asset">
+            <div class="soc-asset-indicator soc-ind-cyan"></div>
+            <div class="soc-asset-info">
+              <span class="soc-asset-name">Arkis Agency</span>
+              <span class="soc-asset-url font-mono">arkis.agency</span>
+            </div>
+            <div class="soc-asset-metrics">
+              <span class="soc-asset-metric soc-met-green">0.5s LCP</span>
+              <span class="soc-asset-metric">100%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WAF Rule Engine Status ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">WAF RULE ENGINE</span>
+          <span class="soc-panel-badge soc-badge-green">ENTERPRISE</span>
+        </div>
+        <div class="soc-waf-rules">
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">OWASP Core Ruleset v3.3</span>
+            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">DDoS L3/L4 Mitigation</span>
+            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">Bot Management Pro</span>
+            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">Rate Limiting (429)</span>
+            <span class="soc-waf-rule-status soc-badge-cyan">ADAPTIVE</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">Zero-Day Shield (ML)</span>
+            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">CVE Database Feed</span>
+            <span class="soc-waf-rule-status soc-badge-green">SYNCED</span>
+          </div>
+          <div class="soc-waf-rule">
+            <span class="soc-waf-rule-name font-mono">TLS 1.3 Enforcement</span>
+            <span class="soc-waf-rule-status soc-badge-green">ENFORCED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CPU / Memory System Metrics ── -->
+      <div class="soc-panel">
+        <div class="soc-panel-header">
+          <span class="soc-panel-title font-mono">SYSTEM TELEMETRY</span>
+        </div>
+        <div class="soc-sys-metrics">
+          <div class="soc-sys-row">
+            <span class="soc-sys-label font-mono">CPU Load</span>
+            <div class="soc-sys-bar-wrap">
+              <div class="soc-sys-bar" id="cpu-bar" style="width:0%"></div>
+            </div>
+            <span class="soc-sys-val font-mono" id="cpu-val">0%</span>
+          </div>
+          <div class="soc-sys-row">
+            <span class="soc-sys-label font-mono">RAM Usage</span>
+            <div class="soc-sys-bar-wrap">
+              <div class="soc-sys-bar soc-bar-cyan" id="ram-bar" style="width:0%"></div>
+            </div>
+            <span class="soc-sys-val font-mono" id="ram-val">0%</span>
+          </div>
+          <div class="soc-sys-row">
+            <span class="soc-sys-label font-mono">Bandwidth</span>
+            <div class="soc-sys-bar-wrap">
+              <div class="soc-sys-bar soc-bar-purple" id="bw-bar" style="width:0%"></div>
+            </div>
+            <span class="soc-sys-val font-mono" id="bw-val">0 Gbps</span>
+          </div>
+          <div class="soc-sys-row">
+            <span class="soc-sys-label font-mono">Edge Latency</span>
+            <div class="soc-sys-bar-wrap">
+              <div class="soc-sys-bar soc-bar-green" id="lat-bar" style="width:0%"></div>
+            </div>
+            <span class="soc-sys-val font-mono" id="lat-val">0ms</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end right col -->
+
+  </div><!-- end soc-grid -->
+
+  <!-- ── CTA Bar ── -->
+  <div class="soc-cta-bar">
+    <div class="soc-cta-text">
+      <strong>Protégez votre infrastructure comme nous protégeons nos clients.</strong>
+      Audit de sécurité gratuit — 30 minutes, diagnostic honnête, zéro engagement.
+    </div>
+    <a href="/contact" class="btn btn-primary" id="soc-cta-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Demander un audit gratuit
+    </a>
+  </div>
+
 </main>
 
-<style>
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-@keyframes flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-@keyframes pulseGlow {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
-  50% { opacity: 0.5; filter: drop-shadow(0 0 1px currentColor); }
-}
-.live-site-item {
-  transition: all var(--t-fast);
-}
-.live-site-item:hover {
-  border-color: rgba(0, 212, 255, 0.25) !important;
-  transform: translateX(4px);
-}
-.reassure-card:hover {
-  border-color: rgba(0, 212, 255, 0.2) !important;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.03);
-}
-.filter-tab {
-  background: transparent;
-  border: none;
-  color: var(--clr-text-3);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-.filter-tab:hover {
-  color: var(--clr-text);
-}
-.filter-tab.active {
-  background: rgba(0, 212, 255, 0.12) !important;
-  color: var(--clr-cyan) !important;
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.05);
-}
-@media (max-width: 992px) {
-  .siem-grid-layout,
-  .exploit-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-</style>
-
 <%- include('partials/footer') %>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ARKIS SOC DASHBOARD — Live SIEM Engine
+   Self-contained script for the Live SOC page
+═══════════════════════════════════════════════════════════ */
+
+// ── State ──────────────────────────────────────────────────
+const state = {
+  events: [],
+  filteredEvents: [],
+  activeFilter: 'all',
+  counters: {
+    blocked: 0,
+    blocked_rate: 0,
+    rps: 0,
+    total_events: 0,
+    warn_count: 0,
+  },
+  chartData: Array(60).fill(0),
+  isAttacking: false,
+  attackType: null,
+  cpu: 18, ram: 34, bw: 2.4, lat: 8,
+};
+
+const clients = ['DHM-Tech', 'Bricosam.fr', "L'Écrin Sucré", 'Salon Signature', 'SOC Industriel', 'Arkis Agency'];
+const ipPool = () => {
+  const r = () => Math.floor(Math.random() * 254) + 1;
+  return `${r()}.${r()}.${r()}.${r()}`;
+};
+
+// ── SIEM Log Definitions ───────────────────────────────────
+const LOG_TEMPLATES = {
+  sqli: () => ({
+    level: 'BLOCKED', type: 'SQLi',
+    msg: `SQL Injection detected on endpoint /${['search','api/users','products','checkout'][Math.floor(Math.random()*4)]} → Dropped by Cloudflare WAF (OWASP CRS Rule 942100). Source: ${ipPool()}`
+  }),
+  xss: () => ({
+    level: 'BLOCKED', type: 'XSS',
+    msg: `Cross-Site Scripting payload blocked on ${['/contact','/comment','/api/v2/data'][Math.floor(Math.random()*3)]} — Script injection sanitized. Source: ${ipPool()}`
+  }),
+  ddos: () => ({
+    level: 'BLOCKED', type: 'DDoS',
+    msg: `Layer-7 HTTP flood mitigated — ${(300+Math.floor(Math.random()*400)).toLocaleString()} req/s absorbed by Edge CDG. BGP Anycast rerouting engaged.`
+  }),
+  bruteforce: () => ({
+    level: 'BLOCKED', type: 'BruteForce',
+    msg: `Credential stuffing detected on /admin — Rate-limit 429 engaged after ${5+Math.floor(Math.random()*10)} failed attempts. Source: ${ipPool()}`
+  }),
+  bot: () => ({
+    level: 'BLOCKED', type: 'Bot',
+    msg: `Malicious crawler fingerprint detected — User-Agent: "${['SentryBot/1.0','Scrapy/2.6','masscan/1.3','nmap/7.9'][Math.floor(Math.random()*4)]}" → Blocked at Edge. Source: ${ipPool()}`
+  }),
+  tls: () => ({
+    level: 'INFO', type: 'TLS',
+    msg: `TLS 1.3 handshake verified — ECDHE_RSA_AES256_GCM_SHA384 on ${clients[Math.floor(Math.random()*clients.length)]}. HSTS enforced.`
+  }),
+  cache: () => ({
+    level: 'INFO', type: 'Cache',
+    msg: `Static page delivery from Edge cache (Cloudflare POP CDG) — Cache HIT ratio: ${(85+Math.floor(Math.random()*15))}%. Asset: ${clients[Math.floor(Math.random()*clients.length)]}`
+  }),
+  rls: () => ({
+    level: 'INFO', type: 'RLS',
+    msg: `Row-Level Security policy enforced — Supabase isolation confirmed. User scope restricted to tenant ID #${Math.floor(Math.random()*9999)+1000}`
+  }),
+  zerotrust: () => ({
+    level: 'INFO', type: 'ZeroTrust',
+    msg: `Zero-Trust token validated — mTLS certificate presented. Identity: service-account@${clients[Math.floor(Math.random()*clients.length)].toLowerCase().replace(/\s/g,'-')}`
+  }),
+  integrity: () => ({
+    level: 'INFO', type: 'Integrity',
+    msg: `SHA-256 asset hash verified — Edge static manifest integrity check PASS on ${clients[Math.floor(Math.random()*clients.length)]}`
+  }),
+  cve: () => ({
+    level: 'WARN', type: 'CVE',
+    msg: `CVE Advisory: ${['CVE-2025-0132','CVE-2025-1841','CVE-2024-9956','CVE-2025-0330'][Math.floor(Math.random()*4)]} — Patch status: RESOLVED. Client stacks auto-updated.`
+  }),
+  ratelimit: () => ({
+    level: 'WARN', type: 'RateLimit',
+    msg: `Threshold exceeded — ${Math.floor(Math.random()*200)+50} req/5s from ${ipPool()} on /${['api','login','checkout','search'][Math.floor(Math.random()*4)]}. HTTP 429 returned.`
+  }),
+  pentest: () => ({
+    level: 'INFO', type: 'PenTest',
+    msg: `Scheduled pen-test routine — OWASP ZAP scan completed on ${clients[Math.floor(Math.random()*clients.length)]}. CVE found: 0. Score: A+`
+  }),
+};
+
+const NORMAL_POOL = ['tls','cache','rls','zerotrust','integrity','pentest'];
+const THREAT_POOL = ['sqli','xss','bot','ratelimit'];
+const CRITICAL_POOL = ['ddos','bruteforce','cve'];
+
+function getRandomLog() {
+  const roll = Math.random();
+  let pool;
+  if (state.isAttacking) {
+    if (state.attackType === 'ddos') pool = ['ddos','ratelimit','bot'];
+    else if (state.attackType === 'sqli') pool = ['sqli','sqli','xss'];
+    else if (state.attackType === 'xss') pool = ['xss','xss','sqli'];
+    else pool = ['bruteforce','bruteforce','ratelimit'];
+  } else {
+    if (roll < 0.55) pool = NORMAL_POOL;
+    else if (roll < 0.85) pool = THREAT_POOL;
+    else pool = CRITICAL_POOL;
+  }
+  const key = pool[Math.floor(Math.random()*pool.length)];
+  return { key, ...LOG_TEMPLATES[key]() };
+}
+
+// ── Console Renderer ───────────────────────────────────────
+const consoleEl = document.getElementById('soc-console');
+const MAX_EVENTS = 200;
+
+function addLog(log) {
+  const now = new Date();
+  const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+
+  const entry = {
+    ts,
+    level: log.level,
+    type: log.type,
+    msg: log.msg,
+    id: Date.now() + Math.random()
+  };
+
+  state.events.unshift(entry);
+  if (state.events.length > MAX_EVENTS) state.events.pop();
+
+  // Counters
+  state.counters.total_events++;
+  if (log.level === 'BLOCKED') {
+    state.counters.blocked++;
+    state.counters.blocked_rate = Math.min(state.counters.blocked_rate + 1, 999);
+  }
+  if (log.level === 'WARN') state.counters.warn_count++;
+
+  renderConsole();
+  updateCounters();
+}
+
+function renderConsole() {
+  const filter = state.activeFilter;
+  const visible = filter === 'all'
+    ? state.events
+    : state.events.filter(e => e.level === filter);
+
+  // Rebuild only if needed (perf)
+  const html = visible.slice(0, 80).map(e => {
+    const cls = e.level === 'BLOCKED' ? 'soc-log-blocked'
+              : e.level === 'WARN'    ? 'soc-log-warn'
+              : 'soc-log-info';
+    const badge = e.level === 'BLOCKED' ? `<span class="soc-log-badge soc-lb-red">${e.level}</span>`
+                : e.level === 'WARN'    ? `<span class="soc-log-badge soc-lb-yellow">${e.level}</span>`
+                : `<span class="soc-log-badge soc-lb-blue">${e.level}</span>`;
+    return `<div class="soc-log-entry ${cls}">
+      <span class="soc-log-ts font-mono">${e.ts}</span>
+      ${badge}
+      <span class="soc-log-type font-mono">[${e.type}]</span>
+      <span class="soc-log-msg">${e.msg}</span>
+    </div>`;
+  }).join('');
+
+  consoleEl.innerHTML = html;
+}
+
+function updateCounters() {
+  const el = (id, val) => { const e = document.getElementById(id); if(e) e.textContent = val; };
+  el('kpi-blocked', state.counters.blocked.toLocaleString());
+  el('kpi-blocked-rate', state.counters.blocked_rate);
+  el('event-count', state.counters.total_events.toLocaleString());
+  el('event-blocked', state.events.filter(e=>e.level==='BLOCKED').length);
+  el('event-warn', state.events.filter(e=>e.level==='WARN').length);
+}
+
+// ── Clock ──────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const utc = `${String(now.getUTCHours()).padStart(2,'0')}:${String(now.getUTCMinutes()).padStart(2,'0')}:${String(now.getUTCSeconds()).padStart(2,'0')} UTC`;
+  const el = document.getElementById('soc-clock');
+  if (el) el.textContent = utc;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Traffic Chart ──────────────────────────────────────────
+const canvas = document.getElementById('soc-traffic-chart');
+const ctx = canvas ? canvas.getContext('2d') : null;
+
+function drawChart() {
+  if (!ctx) return;
+  const W = canvas.offsetWidth;
+  const H = canvas.offsetHeight || 120;
+  canvas.width = W;
+  canvas.height = H;
+
+  const max = Math.max(...state.chartData, 100);
+  const step = W / (state.chartData.length - 1);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(0,212,255,0.06)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = (H / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+
+  // Gradient fill
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(0, 212, 255, 0.3)');
+  grad.addColorStop(1, 'rgba(0, 212, 255, 0.0)');
+
+  ctx.beginPath();
+  state.chartData.forEach((val, i) => {
+    const x = i * step;
+    const y = H - (val / max) * (H - 8) - 4;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.lineTo((state.chartData.length - 1) * step, H);
+  ctx.lineTo(0, H);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = '#00D4FF';
+  ctx.lineWidth = 2;
+  ctx.shadowBlur = 8;
+  ctx.shadowColor = '#00D4FF';
+  state.chartData.forEach((val, i) => {
+    const x = i * step;
+    const y = H - (val / max) * (H - 8) - 4;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Peak label
+  const peak = document.getElementById('chart-peak');
+  if (peak) peak.textContent = `Peak: ${max.toLocaleString()} req/s`;
+}
+
+// ── System Metrics ─────────────────────────────────────────
+function updateSysMetrics() {
+  const targetCpu = state.isAttacking
+    ? 80 + Math.floor(Math.random()*18)
+    : 12 + Math.floor(Math.random()*22);
+
+  state.cpu += (targetCpu - state.cpu) * 0.15;
+  state.ram = 28 + Math.sin(Date.now()/10000)*8 + Math.random()*5;
+  state.bw = state.isAttacking ? 8 + Math.random()*12 : 1.8 + Math.random()*2;
+  state.lat = state.isAttacking ? 25 + Math.random()*40 : 6 + Math.random()*8;
+
+  const setBar = (barId, valId, pct, val) => {
+    const b = document.getElementById(barId); const v = document.getElementById(valId);
+    if(b) b.style.width = `${Math.min(pct,100)}%`;
+    if(v) v.textContent = val;
+    if(b) {
+      b.style.background = pct > 80 ? 'var(--clr-red)' : pct > 60 ? '#FBBF24' : '';
+    }
+  };
+
+  setBar('cpu-bar','cpu-val', state.cpu, `${Math.round(state.cpu)}%`);
+  setBar('ram-bar','ram-val', state.ram, `${Math.round(state.ram)}%`);
+  setBar('bw-bar','bw-val', (state.bw/20)*100, `${state.bw.toFixed(1)} Gbps`);
+  setBar('lat-bar','lat-val', (state.lat/100)*100, `${Math.round(state.lat)}ms`);
+
+  // RPS
+  const rps = state.isAttacking ? 800+Math.floor(Math.random()*400) : 80+Math.floor(Math.random()*120);
+  const kpiRps = document.getElementById('kpi-rps');
+  if (kpiRps) kpiRps.textContent = rps.toLocaleString();
+  state.chartData.push(rps);
+  state.chartData.shift();
+  drawChart();
+}
+
+// ── Threat Distribution ────────────────────────────────────
+function updateThreatDist() {
+  const dist = state.isAttacking ? { ddos: 65, sqli: 15, xss: 10, bot: 6, bf: 4 }
+                                 : { ddos: 38, sqli: 22, xss: 18, bot: 14, bf: 8 };
+
+  const keys = ['ddos','sqli','xss','bot','bf'];
+  keys.forEach(k => {
+    const bar = document.getElementById(`bar-${k}`);
+    const pct = document.getElementById(`pct-${k}`);
+    if (bar) bar.style.width = `${dist[k]}%`;
+    if (pct) pct.textContent = `${dist[k]}%`;
+  });
+}
+
+// ── Threat Feed ────────────────────────────────────────────
+const THREAT_INTEL = [
+  { country: 'CN', ip: '218.92.0.0/16', threat: 'APT41 Botnet', severity: 'CRITICAL' },
+  { country: 'RU', ip: '91.234.18.55', threat: 'Emotet C2 Node', severity: 'HIGH' },
+  { country: 'KP', ip: '175.45.176.0/22', threat: 'Lazarus Group', severity: 'CRITICAL' },
+  { country: 'BR', ip: '189.40.0.0/14', threat: 'Credential Stuffing Ring', severity: 'MEDIUM' },
+  { country: 'US', ip: '104.21.48.1', threat: 'Tor Exit Node', severity: 'LOW' },
+  { country: 'DE', ip: '46.243.189.0/24', threat: 'DDoS-for-Hire', severity: 'HIGH' },
+];
+
+function renderThreatFeed() {
+  const feed = document.getElementById('threat-feed');
+  if (!feed) return;
+  feed.innerHTML = THREAT_INTEL.map(t => `
+    <div class="soc-threat-item">
+      <div class="soc-threat-flag">${t.country}</div>
+      <div class="soc-threat-details">
+        <span class="soc-threat-ip font-mono">${t.ip}</span>
+        <span class="soc-threat-name">${t.threat}</span>
+      </div>
+      <span class="soc-threat-sev soc-sev-${t.severity.toLowerCase()}">${t.severity}</span>
+    </div>
+  `).join('');
+}
+
+// ── Attack Simulator ───────────────────────────────────────
+function initAttacks() {
+  const attacks = [
+    { id: 'btn-ddos', type: 'ddos', name: 'DDoS Flood' },
+    { id: 'btn-sqli', type: 'sqli', name: 'SQL Injection' },
+    { id: 'btn-xss',  type: 'xss',  name: 'XSS Payload' },
+    { id: 'btn-bruteforce', type: 'bruteforce', name: 'Brute Force' },
+  ];
+
+  attacks.forEach(atk => {
+    const btn = document.getElementById(atk.id);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (state.isAttacking) return;
+      state.isAttacking = true;
+      state.attackType = atk.type;
+
+      btn.classList.add('soc-atk-active');
+      document.querySelectorAll('.soc-atk-btn').forEach(b => b.disabled = true);
+
+      const statusEl = document.getElementById('attack-status');
+      if (statusEl) {
+        statusEl.innerHTML = `<span style="color:#EF4444;animation:blink 0.5s infinite;">⚠</span> ATTACK ENGAGED: ${atk.name.toUpperCase()} — WAF mitigation active...`;
+      }
+
+      // Inject rapid attack logs
+      let count = 0;
+      const atk_interval = setInterval(() => {
+        addLog(getRandomLog());
+        count++;
+        if (count >= 20) {
+          clearInterval(atk_interval);
+          state.isAttacking = false;
+          state.attackType = null;
+          btn.classList.remove('soc-atk-active');
+          document.querySelectorAll('.soc-atk-btn').forEach(b => b.disabled = false);
+          if (statusEl) {
+            statusEl.innerHTML = `<span style="color:var(--clr-green);">◉</span> MITIGATION COMPLETE — ${atk.name} attack neutralized. 0 data breached.`;
+          }
+        }
+      }, 200);
+    });
+  });
+}
+
+// ── Filter Tabs ────────────────────────────────────────────
+document.querySelectorAll('.soc-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.soc-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.activeFilter = btn.dataset.filter;
+    renderConsole();
+  });
+});
+
+// Clear button
+const clearBtn = document.getElementById('soc-clear-btn');
+if (clearBtn) clearBtn.addEventListener('click', () => {
+  state.events = [];
+  state.counters = { blocked: 0, blocked_rate: 0, rps: 0, total_events: 0, warn_count: 0 };
+  renderConsole();
+  updateCounters();
+});
+
+// ── Main Loop ──────────────────────────────────────────────
+function mainLoop() {
+  // Inject new event
+  addLog(getRandomLog());
+  updateSysMetrics();
+  updateThreatDist();
+}
+
+// ── Init ───────────────────────────────────────────────────
+renderThreatFeed();
+initAttacks();
+
+// Initial events burst
+for (let i = 0; i < 12; i++) {
+  setTimeout(() => addLog(getRandomLog()), i * 100);
+}
+
+// Recurring intervals
+setInterval(mainLoop, state.isAttacking ? 400 : 1800);
+setInterval(() => {
+  // Variable speed
+  const delay = 800 + Math.random() * 2000;
+  setTimeout(mainLoop, delay);
+}, 2500);
+
+</script>
+</main>
