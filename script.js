@@ -2287,27 +2287,35 @@ function initDarkMode() {
 }
 
 // ═══════════════════════════════════════════════
-// 24. COOKIE BANNER RGPD
+// 24. COOKIE BANNER RGPD (CNIL Compliant)
 // ═══════════════════════════════════════════════
 function initCookieBanner() {
   if (localStorage.getItem('arkis-cookie-consent')) return;
 
   const banner = document.getElementById('cookie-banner');
-  if (!banner) return;
+  if (!banner || banner.dataset.initialized) return;
+  banner.dataset.initialized = 'true';
 
-  setTimeout(() => banner.classList.add('visible'), 1200);
+  // Show after 2s — give user time to read the page first
+  setTimeout(() => banner.classList.add('visible'), 2000);
 
-  const accept  = document.getElementById('cookie-accept');
-  const decline = document.getElementById('cookie-decline');
-
-  const dismiss = (accepted) => {
+  const dismiss = (choice) => {
     banner.classList.remove('visible');
-    localStorage.setItem('arkis-cookie-consent', accepted ? 'accepted' : 'declined');
-    setTimeout(() => banner.remove(), 400);
+    localStorage.setItem('arkis-cookie-consent', choice);
+    localStorage.setItem('arkis-cookie-date', new Date().toISOString());
+    setTimeout(() => banner.remove(), 500);
+    if (choice === 'accepted') showToast('Préférences cookies enregistrées ✓', '🍪', 2500);
   };
 
-  if (accept)  accept.addEventListener('click',  () => dismiss(true));
-  if (decline) decline.addEventListener('click', () => dismiss(false));
+  const btnAccept  = document.getElementById('cookie-accept');
+  const btnDecline = document.getElementById('cookie-decline');
+  const btnManage  = document.getElementById('cookie-manage');
+
+  if (btnAccept)  btnAccept.addEventListener('click',  () => dismiss('accepted'), { once: true });
+  if (btnDecline) btnDecline.addEventListener('click', () => dismiss('declined'), { once: true });
+  if (btnManage)  btnManage.addEventListener('click',  () => {
+    window.location.href = '/legal/politique-confidentialite#cookies';
+  }, { once: true });
 }
 
 // ═══════════════════════════════════════════════
@@ -2408,25 +2416,30 @@ function initSmoothAnchorScroll() {
 // 29. INJECT PERSISTENT UI ELEMENTS
 // ═══════════════════════════════════════════════
 function injectUIPersistentElements() {
-  // ── Cookie Banner (if not already in HTML) ──
-  if (!document.getElementById('cookie-banner')) {
+  // ── Cookie Banner CNIL/RGPD Compliant — injected only once ──
+  if (!document.getElementById('cookie-banner') && !localStorage.getItem('arkis-cookie-consent')) {
     const banner = document.createElement('div');
     banner.id = 'cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-modal', 'true');
+    banner.setAttribute('aria-label', 'Paramètres des cookies');
     banner.innerHTML = `
       <div class="cookie-inner">
         <div class="cookie-text">
-          <strong>🍪 Votre vie privée nous importe.</strong>
-          Nous utilisons des cookies essentiels pour le bon fonctionnement du site.
-          Aucun tracking publicitaire. <a href="/legal/politique-confidentialite">En savoir plus</a>.
+          <strong>🍪 Nous respectons votre vie privée.</strong>
+          Ce site utilise uniquement des cookies techniques essentiels à son fonctionnement — aucun cookie publicitaire, aucun tracker tiers.
+          Vous pouvez accepter, refuser ou consulter notre politique de confidentialité.
+          <br/><a href="/legal/politique-confidentialite#cookies" style="color:var(--clr-cyan);text-decoration:underline;">Politique de confidentialité &amp; cookies →</a>
         </div>
         <div class="cookie-actions">
-          <button class="cookie-btn-accept" id="cookie-accept">Accepter</button>
-          <button class="cookie-btn-decline" id="cookie-decline">Refuser</button>
+          <button class="cookie-btn-accept" id="cookie-accept" aria-label="Tout accepter">Tout accepter</button>
+          <button class="cookie-btn-decline" id="cookie-decline" aria-label="Tout refuser">Tout refuser</button>
+          <button class="cookie-btn-manage" id="cookie-manage" aria-label="Gérer mes préférences">Gérer</button>
         </div>
       </div>
     `;
     document.body.appendChild(banner);
-    // re-init after inject
+    // Single init call — no double-binding
     initCookieBanner();
   }
 }

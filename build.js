@@ -33,6 +33,15 @@ const assets = [
   'portfolio_dhmtech.png'
 ];
 
+// Also copy public/ directory files (manifest.json, etc.)
+const publicDir = path.join(__dirname, 'public');
+if (fs.existsSync(publicDir)) {
+  fs.readdirSync(publicDir).forEach(file => {
+    fs.copyFileSync(path.join(publicDir, file), path.join(DIST_DIR, file));
+    console.log(`✓ Copied public asset: ${file}`);
+  });
+}
+
 assets.forEach(asset => {
   const srcPath = path.join(__dirname, asset);
   if (fs.existsSync(srcPath)) {
