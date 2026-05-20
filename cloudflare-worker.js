@@ -6,6 +6,14 @@ export default {
     // 1. ROUTE API : TRAITEMENT DU FORMULAIRE DE CONTACT
     // ==========================================
     if (request.method === "POST" && url.pathname === "/api/contact") {
+      const origin = request.headers.get("Origin");
+      if (!origin || !origin.includes("arkis.mathis7823.workers.dev")) {
+        return new Response(JSON.stringify({ success: false, message: "Requête non autorisée (CSRF Blocked)" }), { 
+          status: 403,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
       try {
         const formData = await request.json();
 
@@ -101,10 +109,14 @@ export default {
     if (contentType.includes("text/html")) {
       const newHeaders = new Headers(response.headers);
       
-      // En-têtes de sécurité HTTP (Security Headers) essentiels pour la Blue Team
-      newHeaders.set("X-Frame-Options", "DENY"); // Anti-Clickjacking
-      newHeaders.set("X-Content-Type-Options", "nosniff"); // Anti-MIME-Sniffing
+      // Package de sécurité d'élite (Blue Team Standard)
+      newHeaders.set("X-Frame-Options", "DENY");
+      newHeaders.set("X-Content-Type-Options", "nosniff");
       newHeaders.set("Referrer-Policy", "strict-origin-when-cross-origin");
+      newHeaders.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+      newHeaders.set("Permissions-Policy", "geolocation=(), camera=(), microphone=()");
+      newHeaders.set("X-XSS-Protection", "1; mode=block");
+      newHeaders.set("Content-Security-Policy", "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' " + env.SUPABASE_URL + "; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
       
       return new Response(response.body, {
         status: response.status,
