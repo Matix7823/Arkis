@@ -2229,5 +2229,205 @@ document.addEventListener('DOMContentLoaded', () => {
   initGuidedTour();
   initHardeningSimulator();
   initCyberThreatMap();
+  initScrollProgress();
+  initDarkMode();
+  initCookieBanner();
+  initToastSystem();
+  initEmailCopy();
+  initCardTilt();
+  initSmoothAnchorScroll();
+  injectUIPersistentElements();
 });
+
+// ═══════════════════════════════════════════════
+// 22. SCROLL PROGRESS BAR
+// ═══════════════════════════════════════════════
+function initScrollProgress() {
+  const bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  document.body.prepend(bar);
+
+  const update = () => {
+    const scrollTop    = window.scrollY;
+    const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+    const pct          = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width    = `${Math.min(pct, 100)}%`;
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+// ═══════════════════════════════════════════════
+// 23. DARK / LIGHT MODE
+// ═══════════════════════════════════════════════
+function initDarkMode() {
+  const toggle = document.getElementById('dark-mode-toggle');
+  if (!toggle) return;
+
+  const iconDark  = toggle.querySelector('.dm-icon-dark');
+  const iconLight = toggle.querySelector('.dm-icon-light');
+
+  const applyMode = (isLight) => {
+    document.body.classList.toggle('light-mode', isLight);
+    if (iconDark)  iconDark.style.display  = isLight ? 'none' : 'block';
+    if (iconLight) iconLight.style.display = isLight ? 'block' : 'none';
+    toggle.setAttribute('aria-label', isLight ? 'Passer en mode sombre' : 'Passer en mode clair');
+    localStorage.setItem('arkis-theme', isLight ? 'light' : 'dark');
+  };
+
+  const saved = localStorage.getItem('arkis-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isLight = saved ? saved === 'light' : !prefersDark;
+  applyMode(isLight);
+
+  toggle.addEventListener('click', () => {
+    applyMode(!document.body.classList.contains('light-mode'));
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 24. COOKIE BANNER RGPD
+// ═══════════════════════════════════════════════
+function initCookieBanner() {
+  if (localStorage.getItem('arkis-cookie-consent')) return;
+
+  const banner = document.getElementById('cookie-banner');
+  if (!banner) return;
+
+  setTimeout(() => banner.classList.add('visible'), 1200);
+
+  const accept  = document.getElementById('cookie-accept');
+  const decline = document.getElementById('cookie-decline');
+
+  const dismiss = (accepted) => {
+    banner.classList.remove('visible');
+    localStorage.setItem('arkis-cookie-consent', accepted ? 'accepted' : 'declined');
+    setTimeout(() => banner.remove(), 400);
+  };
+
+  if (accept)  accept.addEventListener('click',  () => dismiss(true));
+  if (decline) decline.addEventListener('click', () => dismiss(false));
+}
+
+// ═══════════════════════════════════════════════
+// 25. TOAST SYSTEM
+// ═══════════════════════════════════════════════
+let toastContainer;
+
+function initToastSystem() {
+  toastContainer = document.createElement('div');
+  toastContainer.id = 'toast-container';
+  document.body.appendChild(toastContainer);
+}
+
+function showToast(message, icon = '✓', duration = 3000) {
+  if (!toastContainer) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ═══════════════════════════════════════════════
+// 26. EMAIL COPY ON CLICK
+// ═══════════════════════════════════════════════
+function initEmailCopy() {
+  document.querySelectorAll('[data-copy-email], .cd-value[href^="mailto:"]').forEach(el => {
+    el.style.cursor = 'copy';
+    el.addEventListener('click', async (e) => {
+      const email = el.dataset.copyEmail || el.textContent.trim();
+      if (!email.includes('@')) return;
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast(`${email} copié !`, '📋');
+      } catch {
+        showToast('Copiez : ' + email, '📋');
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 27. 3D CARD TILT EFFECT
+// ═══════════════════════════════════════════════
+function initCardTilt() {
+  // Only on non-touch devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  const tiltCards = document.querySelectorAll(
+    '.service-card, .pricing-card, .testimonial-card, .founder-card, .portfolio-card'
+  );
+
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect   = card.getBoundingClientRect();
+      const x      = e.clientX - rect.left;
+      const y      = e.clientY - rect.top;
+      const centerX = rect.width  / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+
+      card.style.transform    = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
+      card.style.transition   = 'transform 80ms linear';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform  = '';
+      card.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1)';
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 28. SMOOTH ANCHOR SCROLL WITH NAVBAR OFFSET
+// ═══════════════════════════════════════════════
+function initSmoothAnchorScroll() {
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 29. INJECT PERSISTENT UI ELEMENTS
+// ═══════════════════════════════════════════════
+function injectUIPersistentElements() {
+  // ── Cookie Banner (if not already in HTML) ──
+  if (!document.getElementById('cookie-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.innerHTML = `
+      <div class="cookie-inner">
+        <div class="cookie-text">
+          <strong>🍪 Votre vie privée nous importe.</strong>
+          Nous utilisons des cookies essentiels pour le bon fonctionnement du site.
+          Aucun tracking publicitaire. <a href="/legal/politique-confidentialite">En savoir plus</a>.
+        </div>
+        <div class="cookie-actions">
+          <button class="cookie-btn-accept" id="cookie-accept">Accepter</button>
+          <button class="cookie-btn-decline" id="cookie-decline">Refuser</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    // re-init after inject
+    initCookieBanner();
+  }
+}
 

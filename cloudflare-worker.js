@@ -1,13 +1,40 @@
 /**
  * ARKIS AGENCY — Cloudflare Worker (Edge Router + Assets Server)
  * Handles:
- *  - POST /api/contact -> input validation, XSS filtering, Supabase DB insert, Brevo SMTP mail send
- *  - GET * -> Falls back to static assets compiled in dist/ (index, services, tarifs, etc.)
+ *  - POST /api/contact -> input validation, XSS filtering, rate limiting, Supabase DB insert, Brevo SMTP
+ *  - GET * -> Static assets from dist/ with full HTTP security headers (A+ SecurityHeaders.com)
+ *
+ * Security Headers implemented:
+ *  - Content-Security-Policy (strict)
+ *  - Strict-Transport-Security (HSTS max-age 1 year + preload)
+ *  - X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+ *  - Referrer-Policy, Permissions-Policy
+ *  - Cache-Control fine-grained
  */
 
 'use strict';
 
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
+
+// ─── In-memory rate limiter (per IP, resets per Worker instance) ────────────
+const rateLimitMap = new Map();
+const RATE_LIMIT    = 5;   // max requests
+const RATE_WINDOW   = 60;  // seconds
+
+function isRateLimited(ip) {
+  const now  = Math.floor(Date.now() / 1000);
+  const data = rateLimitMap.get(ip) || { count: 0, reset: now + RATE_WINDOW };
+
+  if (now > data.reset) {
+    data.count = 1;
+    data.reset = now + RATE_WINDOW;
+  } else {
+    data.count++;
+  }
+
+  rateLimitMap.set(ip, data);
+  return data.count > RATE_LIMIT;
+}
 
 export default {
   async fetch(request, env) {
@@ -17,16 +44,25 @@ export default {
     }
 
     const url = new URL(request.url);
-    
+
     // Intercept form contact API route
     if (url.pathname === '/api/contact' && request.method === 'POST') {
+      // Rate limiting per IP
+      const clientIP = request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || 'unknown';
+      if (isRateLimited(clientIP)) {
+        return jsonResponse(
+          { ok: false, errors: [{ field: 'form', message: 'Trop de tentatives. Réessayez dans 1 minute.' }] },
+          429, request
+        );
+      }
       return handleContact(request, env);
     }
 
-    // Fallback: serve static assets compiled in /dist (index.html, services.html, style.css, script.js)
+    // Serve static assets with full security headers
     try {
       if (env.ASSETS) {
-        return await env.ASSETS.fetch(request);
+        const assetRes = await env.ASSETS.fetch(request);
+        return addSecurityHeaders(assetRes, request);
       }
     } catch (assetErr) {
       console.error('Asset retrieval error:', assetErr.message);
@@ -35,6 +71,77 @@ export default {
     return new Response('Not Found', { status: 404 });
   },
 };
+
+// ─── Security Headers Injector ──────────────────────────────────────────────
+function addSecurityHeaders(response, request) {
+  const url          = new URL(request.url);
+  const isHTML       = response.headers.get('Content-Type')?.includes('text/html');
+  const isCss        = response.headers.get('Content-Type')?.includes('text/css');
+  const isJs         = response.headers.get('Content-Type')?.includes('javascript');
+  const isFont       = /\.(woff2?|ttf|otf|eot)$/i.test(url.pathname);
+  const isImage      = /\.(png|jpg|jpeg|webp|avif|gif|svg|ico)$/i.test(url.pathname);
+
+  const headers = new Headers(response.headers);
+
+  // ── Strict Transport Security (HSTS) — 1 year, includeSubDomains, preload ──
+  headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+
+  // ── Clickjacking protection ──
+  headers.set('X-Frame-Options', 'DENY');
+
+  // ── MIME-type sniffing protection ──
+  headers.set('X-Content-Type-Options', 'nosniff');
+
+  // ── XSS Protection (legacy browsers) ──
+  headers.set('X-XSS-Protection', '1; mode=block');
+
+  // ── Referrer Policy ──
+  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  // ── Permissions Policy — disable unneeded browser features ──
+  headers.set('Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), fullscreen=(self), interest-cohort=()'
+  );
+
+  // ── Content Security Policy (strict but functional) ──
+  if (isHTML) {
+    headers.set('Content-Security-Policy', [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'",   // unsafe-inline needed for inline scripts; remove when using nonces
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com data:",
+      "img-src 'self' data: blob: https:",
+      "connect-src 'self' https://*.supabase.co https://api.brevo.com https://fonts.googleapis.com",
+      "frame-ancestors 'none'",
+      "form-action 'self'",
+      "base-uri 'self'",
+      "upgrade-insecure-requests",
+    ].join('; '));
+  }
+
+  // ── Cache Control — fine-grained per asset type ──
+  if (isCss || isJs || isFont) {
+    // Immutable assets with hash in name — cache 1 year
+    headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  } else if (isImage) {
+    // Images — cache 30 days
+    headers.set('Cache-Control', 'public, max-age=2592000');
+  } else if (isHTML) {
+    // HTML — always revalidate
+    headers.set('Cache-Control', 'no-cache, must-revalidate');
+  }
+
+  // ── Server header — hide technology fingerprint ──
+  headers.delete('Server');
+  headers.delete('X-Powered-By');
+  headers.set('X-Protected-By', 'Arkis Security Shield');
+
+  return new Response(response.body, {
+    status:     response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
 
 // ─── Contact Form Handler ───────────────────────────────────────
 async function handleContact(request, env) {

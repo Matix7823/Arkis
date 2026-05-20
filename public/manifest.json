@@ -1,0 +1,24 @@
+{
+  "name": "Arkis Agency",
+  "short_name": "Arkis",
+  "description": "Agence Web & Cybersécurité — Secure by Design",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050A18",
+  "theme_color": "#00D4FF",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity"],
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' fill='none'%3E%3Crect width='192' height='192' fill='%23050A18'/%3E%3Cpolygon points='96,12 180,60 180,132 96,180 12,132 12,60' fill='none' stroke='%2300D4FF' stroke-width='8'/%3E%3Cpolygon points='96,48 144,78 144,114 96,144 48,114 48,78' fill='%237B2FFF' fill-opacity='0.4'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='none'%3E%3Crect width='512' height='512' fill='%23050A18'/%3E%3Cpolygon points='256,32 480,160 480,352 256,480 32,352 32,160' fill='none' stroke='%2300D4FF' stroke-width='20'/%3E%3Cpolygon points='256,128 384,208 384,304 256,384 128,304 128,208' fill='%237B2FFF' fill-opacity='0.4'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
