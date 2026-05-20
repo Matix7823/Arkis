@@ -49,6 +49,10 @@
 
       <!-- Right Column: Glowing Interactive Security HUD (Dynamically animated) -->
       <div class="hero-hud-wrap reveal-up delay-3" style="background: rgba(8, 15, 34, 0.65); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 0 40px rgba(0, 212, 255, 0.08); font-family: var(--font-mono); font-size: 0.75rem; color: var(--clr-text-2); max-width: 420px; width: 100%;">
+        <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(0, 212, 255, 0.25); display: flex;">
+          <span class="hint-dot"></span>
+          <span>HUD Interactif : Observabilité active</span>
+        </div>
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--clr-border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
           <span style="color: var(--clr-cyan); font-weight: 600; letter-spacing: 0.05em;">ARKIS_WAF_MONITOR</span>
           <span style="font-size: 0.65rem; background: rgba(16, 185, 129, 0.15); color: var(--clr-green); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
@@ -92,14 +96,11 @@
           <span class="stat-label">Uptime réseau Edge</span>
         </div>
       </div>
-    </div>
-
-    <!-- Floating scroll indicator -->
-    <a href="#expertises" class="scroll-indicator" aria-label="Défiler vers les services">
-      <div class="scroll-mouse">
-        <div class="scroll-wheel"></div>
+      <div class="interactive-hint reveal-up delay-5" style="margin: 1.25rem auto 0 auto; display: flex; justify-content: center; gap: 0.5rem;">
+        <span class="hint-dot"></span>
+        <span>Métriques de performance garanties par audits et CDN Edge</span>
       </div>
-    </a>
+    </div>
 
     <!-- Trusted tech badges -->
     <div class="tech-strip reveal-up delay-5" aria-label="Technologies maîtrisées" style="margin-top: 4rem;">
@@ -136,6 +137,10 @@
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             </div>
             <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-text-3); display: block; margin-bottom: 0.5rem;">PILIERS 01</span>
+            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; display: flex;">
+              <span class="hint-dot"></span>
+              <span>Développement &amp; Intégration</span>
+            </div>
             <h3 class="service-title">Création Web Full-Stack</h3>
             <p class="service-desc">Du cahier des charges au déploiement — nous façonnons des sites vitrines ou boutiques e-commerce élégants, fluides et optimisés pour la vitesse.</p>
             <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
@@ -157,6 +162,10 @@
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-cyan); display: block; margin-bottom: 0.5rem;">CŒUR DE MÉTIER 02</span>
+            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(0, 212, 255, 0.3); display: flex;">
+              <span class="hint-dot"></span>
+              <span>Défense Active 24h/7</span>
+            </div>
             <h3 class="service-title">Cybersécurité &amp; Défense</h3>
             <p class="service-desc">Votre infrastructure, blindée à chaque couche. Nous arrêtons les cybermenaces (DDoS, bots, vols de données) avant qu'elles n'effleurent vos serveurs.</p>
             <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
@@ -178,6 +187,10 @@
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-text-3); display: block; margin-bottom: 0.5rem;">PILIER 03</span>
+            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(239, 68, 68, 0.25); color: #EF4444; display: flex;">
+              <span class="hint-dot" style="background: #EF4444; box-shadow: 0 0 8px #EF4444;"></span>
+              <span>Audit Offensif OWASP</span>
+            </div>
             <h3 class="service-title">Pen-Testing Red &amp; Blue Team</h3>
             <p class="service-desc">Nous attaquons nos propres créations avant les hackers. Des audits d'intrusion rigoureux garantissent qu'aucune CVE ne subsiste.</p>
             <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
@@ -356,7 +369,7 @@
           <p style="font-size:0.9rem; color:var(--clr-text-2); line-height:1.65; margin-bottom:2rem;">
             Nous surveillons activement la bande passante, le trafic et les menaces ciblant les sites de nos clients comme [bricosam.fr](http://bricosam.fr) et **DHM-Tech**. Accédez à notre console d'observabilité réseau en direct pour suivre la cybersécurité des serveurs en temps réel.
           </p>
-          <a href="/live" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.5rem;">
+          <a href="/live" class="btn btn-live" style="display:inline-flex; align-items:center; gap:0.5rem;">
             <span class="btn-icon" aria-hidden="true">🟢</span>
             Accéder à la Console Live SOC
           </a>
@@ -492,83 +505,244 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════
-       5. FAQS ACCORDION SECTION (Interactif & SEO)
+       5. FAQS ACCORDION SECTION (Premium Tabbed FAQ & Cyber Jargon Buster)
   ═══════════════════════════════════════════════ -->
-  <section class="section faqs" style="border-top:1px solid var(--clr-border); background:var(--clr-bg-2); padding-bottom:7rem;">
-    <div class="container" style="max-width: 800px;">
+  <section class="section faqs" id="faq-section" style="border-top: 1px solid var(--clr-border); background: var(--clr-bg-2); padding-bottom: 7rem;">
+    <div class="container">
       
       <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
         <p class="section-tag reveal-up">Foire aux questions</p>
-        <h2 class="section-title reveal-up delay-1">Questions <span class="gradient-text">Fréquentes.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Vous avez des questions sur la cybersécurité web ou notre accompagnement ? Voici nos réponses transparentes.</p>
+        <h2 class="section-title reveal-up delay-1">Questions &amp; <span class="gradient-text">Cybersécurité.</span></h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Découvrez nos réponses simples, illustrées par des métaphores concrètes, pour comprendre les technologies et le blindage de nos architectures.</p>
+        <div class="interactive-hint reveal-up delay-3" style="margin-inline: auto;">
+          <span class="hint-dot"></span>
+          <span>Cliquez sur les onglets et questions pour révéler les secrets cyber</span>
+        </div>
       </div>
 
-      <div class="faqs-list reveal-up delay-2" style="display:flex; flex-direction:column; gap:1rem;">
+      <div class="faq-grid-layout reveal-up delay-2">
         
-        <!-- FAQ 1 -->
-        <details class="faq-item" style="background:var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius:var(--radius-md); padding: 1.25rem 1.75rem; cursor:pointer; transition: border-color var(--t-fast);">
-          <summary style="font-weight:700; font-size:1.05rem; color:var(--clr-text); list-style:none; display:flex; justify-content:space-between; align-items:center; outline:none;">
-            <span>Qu'est-ce que le concept "Secure by Design" chez Arkis ?</span>
-            <span class="faq-icon" style="color:var(--clr-cyan); font-weight:400; font-size:1.25rem;">+</span>
-          </summary>
-          <p style="margin-top:1rem; color:var(--clr-text-2); font-size:0.9rem; line-height:1.7; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.75rem; cursor:default;">
-            "Secure by Design" signifie que la sécurité de votre application web ou site vitrine n'est pas un vernis rajouté tardivement après développement, mais une exigence fondamentale intégrée dès la rédaction du cahier des charges. Nous excluons les architectures fragiles (comme les plugins WordPress vulnérables), chiffrons toutes les tables de données et limitons au maximum la surface d'attaque système.
-          </p>
-        </details>
+        <!-- Left Column: Unified Tabbed FAQ -->
+        <div class="faq-left-col">
+          
+          <!-- Category Tabs -->
+          <div class="faq-tabs-container">
+            <button class="faq-tab-btn active" data-tab="web" aria-controls="pane-web" aria-selected="true" role="tab">
+              💻 Création &amp; Vitesse
+            </button>
+            <button class="faq-tab-btn" data-tab="cyber" aria-controls="pane-cyber" aria-selected="false" role="tab">
+              🛡️ Sécurité &amp; Données
+            </button>
+            <button class="faq-tab-btn" data-tab="model" aria-controls="pane-model" aria-selected="false" role="tab">
+              🤝 Modèle &amp; Services
+            </button>
+          </div>
 
-        <!-- FAQ 2 -->
-        <details class="faq-item" style="background:var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius:var(--radius-md); padding: 1.25rem 1.75rem; cursor:pointer; transition: border-color var(--t-fast);">
-          <summary style="font-weight:700; font-size:1.05rem; color:var(--clr-text); list-style:none; display:flex; justify-content:space-between; align-items:center; outline:none;">
-            <span>Quels types de sites web concevez-vous ?</span>
-            <span class="faq-icon" style="color:var(--clr-cyan); font-weight:400; font-size:1.25rem;">+</span>
-          </summary>
-          <p style="margin-top:1rem; color:var(--clr-text-2); font-size:0.9rem; line-height:1.7; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.75rem; cursor:default;">
-            Nous créons des applications sur-mesure de toute envergure : des applications web SaaS industrielles (comme pour DHM-Tech), des boutiques e-commerce complètes et rapides (comme Bricosam.fr), et des sites vitrines prestigieux pour le commerce local (boulangerie L'Écrin Sucré, salon de coiffure Signature, bar L'Alchimiste).
-          </p>
-        </details>
+          <!-- PANE 1: Web & Vitesse -->
+          <div class="faq-group-pane active" id="pane-web" role="tabpanel" aria-labelledby="tab-web">
+            
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Qu'est-ce que le concept "Secure by Design" chez Arkis ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>La sécurité comme fondation, pas comme vernis.</strong> "Secure by Design" signifie que nous blindons votre site dès la première ligne de code. Nous excluons d'emblée les plateformes fragiles comme WordPress et ses plugins vulnérables. À la place, nous construisons une forteresse moderne en séparant le contenu de la base de données, rendant l'architecture techniquement inviolable et imperméable aux attaques courantes.
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!-- FAQ 3 -->
-        <details class="faq-item" style="background:var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius:var(--radius-md); padding: 1.25rem 1.75rem; cursor:pointer; transition: border-color var(--t-fast);">
-          <summary style="font-weight:700; font-size:1.05rem; color:var(--clr-text); list-style:none; display:flex; justify-content:space-between; align-items:center; outline:none;">
-            <span>Comment fonctionne la "Garantie Zéro Vulnérabilité" ?</span>
-            <span class="faq-icon" style="color:var(--clr-cyan); font-weight:400; font-size:1.25rem;">+</span>
-          </summary>
-          <p style="margin-top:1rem; color:var(--clr-text-2); font-size:0.9rem; line-height:1.7; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.75rem; cursor:default;">
-            Chaque code source livré par Arkis est audité et testé par notre équipe offensive (Pen-testing). Si une vulnérabilité critique figurant dans le Top 10 de l'OWASP est découverte sur le périmètre développé par Arkis dans les 30 jours suivant le déploiement final, nous rédigeons un rapport cyber détaillé et appliquons le correctif de sécurité gratuitement sous 48h.
-          </p>
-        </details>
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment fonctionne la garantie de performance de 100/100 LCP ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Le chargement instantané comme un éclair.</strong> Le score <em>LCP (Largest Contentful Paint)</em> mesure le temps d'affichage de l'élément principal de votre site. Grâce à notre architecture JAMstack reliée aux serveurs Edge de Cloudflare, vos pages ne sont pas recalculées à chaque visite. Elles sont pré-rendues statiquement et livrées instantanément depuis le serveur DNS le plus proche du visiteur en moins de 1 seconde, garantissant un score parfait sans ralentissement de base de données.
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!-- FAQ 4 -->
-        <details class="faq-item" style="background:var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius:var(--radius-md); padding: 1.25rem 1.75rem; cursor:pointer; transition: border-color var(--t-fast);">
-          <summary style="font-weight:700; font-size:1.05rem; color:var(--clr-text); list-style:none; display:flex; justify-content:space-between; align-items:center; outline:none;">
-            <span>Puis-je migrer mon site WordPress actuel chez Arkis ?</span>
-            <span class="faq-icon" style="color:var(--clr-cyan); font-weight:400; font-size:1.25rem;">+</span>
-          </summary>
-          <p style="margin-top:1rem; color:var(--clr-text-2); font-size:0.9rem; line-height:1.7; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.75rem; cursor:default;">
-            Absolument. Nous prenons en charge la migration de vos contenus et de votre historique SEO de WordPress vers une architecture JAMstack moderne et ultra-rapide (Astro ou Next.js), reliée à un CMS Headless sécurisé. Vous conservez votre interface d'édition mais éliminez définitivement les plantages et failles de sécurité de WordPress.
-          </p>
-        </details>
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Quels types de sites web concevez-vous ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Des oeuvres d'art technologiques robustes.</strong> Nous concevons et développons des applications sur-mesure d'une vitesse foudroyante : des plateformes SaaS industrielles complexes (comme pour <em>DHM-Tech</em>), des boutiques e-commerce à fort trafic prêtes pour les pics de ventes (comme <em>Bricosam.fr</em>), et des sites vitrines prestigieux de haute facture (boulangerie, commerces et artisans de luxe).
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- PANE 2: Sécurité & Données -->
+          <div class="faq-group-pane" id="pane-cyber" role="tabpanel" aria-labelledby="tab-cyber">
+            
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment Supabase assure-t-il la sécurité des données ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>L'analogie de la résidence ultra-sécurisée.</strong> Pensez à votre base de données comme à un immeuble résidentiel. Avec la technologie <strong>Row Level Security (RLS)</strong> de Supabase (PostgreSQL), chaque utilisateur possède une clé cryptographique unique qui lui donne accès exclusivement à son propre appartement (ses lignes de données). Il est techniquement impossible pour un locataire de déborder ou de forcer les portes des voisins, neutralisant nativement les risques de vol de données.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Pourquoi un pare-feu Cloudflare WAF Enterprise est-il nécessaire ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Le garde du corps d'élite posté à l'entrée.</strong> Le <em>WAF (Web Application Firewall) Enterprise</em> de Cloudflare intercepte 100% du trafic mondial avant qu'il ne s'approche de votre site. Il analyse chaque requête HTTP en moins de 1 milliseconde et filtre instantanément les injections, les tentatives de piratage, les DDoS volumétriques et les scripts robots malveillants. Les attaquants sont mis au tapis à la frontière du réseau.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Combien de temps dure un Pen-testing complet ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Le crash-test intensif de sécurité.</strong> Nos audits offensifs durent généralement entre 3 et 7 jours ouvrés selon la complexité et la taille de votre infrastructure. Nos experts certifiés (équipes Red Team) simulent de vraies attaques cyber pour débusquer les moindres failles, puis vous livrent un rapport d'audit exhaustif et concret, suivi d'un accompagnement direct pour sceller hermétiquement toutes les vulnérabilités trouvées.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- PANE 3: Modèle & Services -->
+          <div class="faq-group-pane" id="pane-model" role="tabpanel" aria-labelledby="tab-model">
+            
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Qu'est-ce que le modèle de tarification Build &amp; Run ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>La construction robuste puis la garde active.</strong> Le modèle <strong>Build &amp; Run</strong> sépare clairement l'étape de création de votre site (le <em>Build</em> — un coût fixe unitaire sans surprise) de l'étape de surveillance et maintenance en conditions opérationnelles (le <em>Run</em> — un abonnement mensuel transparent). Cela vous garantit un site toujours à jour techniquement, blindé face aux nouvelles menaces, sans aucune facture cachée.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment fonctionne la "Garantie Zéro Vulnérabilité" ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Notre engagement contractuel de sécurité.</strong> Chaque ligne de code conçue par Arkis est passée au crible par nos ingénieurs. Si une vulnérabilité critique (référencée par l'OWASP ou une CVE officielle) est découverte sur les fonctionnalités que nous avons développées dans les 30 jours suivant la mise en ligne, nos équipes analysent la faille et déploient son correctif de sécurité gratuitement en moins de 48 heures.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
+              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
+                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Puis-je migrer mon site WordPress actuel chez Arkis ?</span>
+                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
+                <div style="overflow: hidden;">
+                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
+                    <strong>Éradiquez définitivement les tracas WordPress.</strong> Oui, absolument. Nous prenons en charge la refonte et la migration complète de votre site WordPress actuel vers une architecture JAMstack moderne ultra-rapide. Nous transférons l'intégralité de vos contenus et de votre structure SEO pour que vous ne perdiez aucune position Google. Vous conservez un tableau de bord intuitif pour publier vos textes, mais vous dites définitivement adieu aux pannes, lenteurs et piratages.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Cyber Jargon Buster (Décodeur) -->
+        <div class="faq-right-col" id="jargon-buster-step">
+          <div class="jargon-buster-card">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--clr-text); font-family: var(--font-display); line-height: 1.2;">
+              Le Décodeur de <br /><span class="gradient-text">Jargon Cyber 🛡️</span>
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--clr-text-2); margin-top: 0.5rem; line-height: 1.5;">
+              La sécurité est souvent remplie d'acronymes obscurs. Survolez ou cliquez sur les termes ci-dessous pour obtenir instantanément leur définition en clair !
+            </p>
+            
+            <div class="jargon-grid">
+              <div class="jargon-item active" data-jargon="lcp">LCP (Vitesse)</div>
+              <div class="jargon-item" data-jargon="waf">WAF (Frontal)</div>
+              <div class="jargon-item" data-jargon="rls">RLS (Isolation)</div>
+              <div class="jargon-item" data-jargon="cve">CVE (Faille)</div>
+              <div class="jargon-item" data-jargon="pentest">Pen-testing</div>
+              <div class="jargon-item" data-jargon="jamstack">JAMstack</div>
+              <div class="jargon-item" data-jargon="buildrun">Build &amp; Run</div>
+              <div class="jargon-item" data-jargon="zerotrust">Zero-Trust</div>
+            </div>
+
+            <!-- Dynamic Bubble -->
+            <div class="jargon-bubble">
+              <h4 id="jargon-bubble-title" class="font-mono" style="font-size: 0.85rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">LCP (Vitesse)</h4>
+              <p id="jargon-bubble-desc" style="font-size: 0.82rem; color: var(--clr-text-2); line-height: 1.55;">
+                Le chrono de chargement principal. C'est le temps nécessaire pour que l'élément le plus lourd de votre page web apparaisse à l'écran. Notre architecture Edge garantit un score LCP parfait de 100/100, assurant une expérience client fluide et un SEO optimisé.
+              </p>
+            </div>
+          </div>
+        </div>
 
       </div>
 
     </div>
   </section>
 </main>
-
-<style>
-/* CSS transition improvements for detailed summary tags */
-.faq-item[open] {
-  border-color: rgba(0, 212, 255, 0.25) !important;
-}
-.faq-item[open] .faq-icon {
-  content: '−';
-  transform: rotate(45deg);
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-</style>
 
 <%- include('partials/footer') %>

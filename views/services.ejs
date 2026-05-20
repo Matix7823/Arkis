@@ -113,6 +113,10 @@
         <p class="section-tag reveal-up">Simulateur de Blindage</p>
         <h2 class="section-title reveal-up delay-1">Configurez votre <br /><span class="gradient-text">niveau de durcissement.</span></h2>
         <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Activez les protocoles de cybersécurité ci-dessous pour voir l'impact en temps réel sur la résilience et le score de blindage de votre future infrastructure.</p>
+        <div class="interactive-hint reveal-up delay-3" style="margin-inline: auto;">
+          <span class="hint-dot"></span>
+          <span>Survolez ou activez les commutateurs pour obtenir des informations cyber détaillées</span>
+        </div>
       </div>
 
       <div class="hardening-layout" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start;">
@@ -331,7 +335,7 @@
           <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
             <div style="overflow: hidden;">
               <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                Le modèle <strong>Build &amp; Run</strong> sépare la phase active de création sur-mesure (Build) de la phase continue de surveillance et support (Run). Cela évite les frais cachés et assure un site sécurisé pour toujours. On construit, puis on protège.
+                <strong>La construction robuste puis la garde active.</strong> Le modèle <strong>Build &amp; Run</strong> sépare clairement l'étape de création de votre site (le <em>Build</em> — un coût fixe unitaire sans surprise) de l'étape de surveillance et maintenance en conditions opérationnelles (le <em>Run</em> — un abonnement mensuel transparent). Cela vous garantit un site toujours à jour techniquement, blindé face aux nouvelles menaces, sans aucune facture cachée.
               </div>
             </div>
           </div>
@@ -348,7 +352,7 @@
           <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
             <div style="overflow: hidden;">
               <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                Grâce à notre architecture JAMstack et au Edge computing de Cloudflare, vos pages sont pré-rendues statiquement et livrées instantanément depuis le serveur DNS le plus proche du visiteur. Pas de requêtes de serveur SQL lentes au chargement de page initial, garantissant des scores Core Web Vitals optimaux.
+                <strong>Le chargement instantané comme un éclair.</strong> Le score <em>LCP (Largest Contentful Paint)</em> mesure le temps d'affichage de l'élément principal de votre site. Grâce à notre architecture JAMstack reliée aux serveurs Edge de Cloudflare, vos pages ne sont pas recalculées à chaque visite. Elles sont pré-rendues statiquement et livrées instantanément depuis le serveur DNS le plus proche du visiteur en moins de 1 seconde, garantissant un score parfait sans ralentissement de base de données.
               </div>
             </div>
           </div>
@@ -365,7 +369,7 @@
           <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
             <div style="overflow: hidden;">
               <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                Supabase s'appuie sur la technologie <strong>Row Level Security (RLS)</strong> directement intégrée au cœur de PostgreSQL. Chaque transaction client est authentifiée cryptographiquement. Cela garantit qu'aucun utilisateur ou compte ne peut déborder ou lire les lignes appartenant à un autre, éliminant ainsi le risque d'injection SQL backend.
+                <strong>L'analogie de la résidence ultra-sécurisée.</strong> Pensez à votre base de données comme à un immeuble résidentiel. Avec la technologie <strong>Row Level Security (RLS)</strong> de Supabase (PostgreSQL), chaque utilisateur possède une clé cryptographique unique qui lui donne accès exclusivement à son propre appartement (ses lignes de données). Il est techniquement impossible pour un locataire de déborder ou de forcer les portes des voisins, neutralisant nativement les risques de vol de données.
               </div>
             </div>
           </div>
@@ -382,7 +386,7 @@
           <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
             <div style="overflow: hidden;">
               <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                Le WAF agit comme un bouclier frontal interceptant et analysant chaque requête HTTP en moins de 1ms au niveau mondial (Edge). Les attaques courantes de type injection SQL, script XSS, brute-force et DDoS volumétriques sont instantanément mitigées avant même d'avoir la moindre chance d'atteindre votre base de données ou votre code d'application.
+                <strong>Le garde du corps d'élite posté à l'entrée.</strong> Le <em>WAF (Web Application Firewall) Enterprise</em> de Cloudflare intercepte 100% du trafic mondial avant qu'il ne s'approche de votre site. Il analyse chaque requête HTTP en moins de 1 milliseconde et filtre instantanément les injections, les tentatives de piratage, les DDoS volumétriques et les scripts robots malveillants. Les attaquants sont mis au tapis à la frontière du réseau.
               </div>
             </div>
           </div>
@@ -399,7 +403,7 @@
           <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
             <div style="overflow: hidden;">
               <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                Nos audits Red Team durent généralement entre 3 et 7 jours ouvrés selon la complexité du périmètre. Nous livrons un rapport CVE complet certifié détaillant chaque vecteur d'attaque simulé et son correctif, ainsi qu'un accompagnement direct pour sceller les vulnérabilités trouvées.
+                <strong>Le crash-test intensif de sécurité.</strong> Nos audits offensifs durent généralement entre 3 et 7 jours ouvrés selon la complexité et la taille de votre infrastructure. Nos experts certifiés (équipes Red Team) simulate de vraies attaques cyber pour débusquer les moindres failles, puis vous livrent un rapport d'audit exhaustif et concret, suivi d'un accompagnement direct pour sceller hermétiquement toutes les vulnérabilités trouvées.
               </div>
             </div>
           </div>

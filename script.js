@@ -975,8 +975,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       // Add crawler scanner logs
       let scanStep = 0;
       const botInterval = setInterval(() => {
-        const paths = ['/wp-login.php', '/.env', '/config/db.php', '/admin/setup'];
-        createAndStoreLog('BLOCKED', `Crawler Exploit Probe blocked: GET ${paths[scanStep]} from headless python-agent.`);
+        const paths = ['/api/v1/auth/session', '/api/v2/gateway/payments', '/api/v1/users/profile', '/api/v1/analytics/telemetry'];
+        createAndStoreLog('BLOCKED', `REST API Fuzzing Probe blocked: GET ${paths[scanStep]} from headless python-agent.`);
         renderLogs();
         scanStep++;
         if (scanStep >= paths.length) {

@@ -74,6 +74,40 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
+  <!-- Floating Onboarding Tour Trigger Button -->
+  <button id="tour-trigger-btn" class="tour-floating-btn" aria-label="Lancer la visite guidée interactive d'Arkis">
+    <span class="tour-pulse-ring"></span>
+    <span class="tour-icon">💡</span>
+    <span class="tour-btn-text">Visite Guidée</span>
+  </button>
+
+  <!-- Interactive Tour Onboarding Modal Overlay -->
+  <div id="tour-modal" class="tour-modal" aria-hidden="true" role="dialog" aria-labelledby="tour-title">
+    <div class="tour-box">
+      <button class="tour-close" id="tour-close-btn" aria-label="Fermer la visite guidée">×</button>
+      <div class="tour-header">
+        <span class="tour-step-badge" id="tour-step-badge">Étape 1/5</span>
+        <h3 class="tour-title" id="tour-title">Bienvenue chez Arkis</h3>
+      </div>
+      <p class="tour-text" id="tour-text">
+        Nous créons des applications web sur-mesure d'une vitesse foudroyante et dotées d'une sécurité offensive intégrée dès la conception. Découvrons ensemble comment nous blindons votre avenir numérique !
+      </p>
+      <div class="tour-footer">
+        <div class="tour-dots" id="tour-dots">
+          <span class="tour-dot active"></span>
+          <span class="tour-dot"></span>
+          <span class="tour-dot"></span>
+          <span class="tour-dot"></span>
+          <span class="tour-dot"></span>
+        </div>
+        <div class="tour-btns">
+          <button class="tour-btn tour-btn-prev" id="tour-btn-prev" disabled>Retour</button>
+          <button class="tour-btn tour-btn-next" id="tour-btn-next">Suivant ➔</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
