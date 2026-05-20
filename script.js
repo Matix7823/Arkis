@@ -2230,7 +2230,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHardeningSimulator();
   initCyberThreatMap();
   initScrollProgress();
-  initDarkMode();
   initCookieBanner();
   initToastSystem();
   initEmailCopy();
@@ -2258,33 +2257,7 @@ function initScrollProgress() {
   update();
 }
 
-// ═══════════════════════════════════════════════
-// 23. DARK / LIGHT MODE
-// ═══════════════════════════════════════════════
-function initDarkMode() {
-  const toggle = document.getElementById('dark-mode-toggle');
-  if (!toggle) return;
 
-  const iconDark  = toggle.querySelector('.dm-icon-dark');
-  const iconLight = toggle.querySelector('.dm-icon-light');
-
-  const applyMode = (isLight) => {
-    document.body.classList.toggle('light-mode', isLight);
-    if (iconDark)  iconDark.style.display  = isLight ? 'none' : 'block';
-    if (iconLight) iconLight.style.display = isLight ? 'block' : 'none';
-    toggle.setAttribute('aria-label', isLight ? 'Passer en mode sombre' : 'Passer en mode clair');
-    localStorage.setItem('arkis-theme', isLight ? 'light' : 'dark');
-  };
-
-  const saved = localStorage.getItem('arkis-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isLight = saved ? saved === 'light' : !prefersDark;
-  applyMode(isLight);
-
-  toggle.addEventListener('click', () => {
-    applyMode(!document.body.classList.contains('light-mode'));
-  });
-}
 
 // ═══════════════════════════════════════════════
 // 24. COOKIE BANNER RGPD (CNIL Compliant)
