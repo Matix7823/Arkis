@@ -2216,10 +2216,546 @@ function initGuidedTour() {
   });
 }
 
+
 // ═══════════════════════════════════════════════
-// INITIALIZATION
+// 22. READING PROGRESS BAR
+// ═══════════════════════════════════════════════
+function initScrollProgress() {
+  const bar = document.getElementById('reading-progress');
+  if (!bar) return;
+
+  const update = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = `${Math.min(pct, 100)}%`;
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+// ═══════════════════════════════════════════════
+// 23. CUSTOM CYBER CURSOR
+// ═══════════════════════════════════════════════
+function initCustomCursor() {
+  // Only on pointer/mouse devices
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+  let rafId;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left  = mouseX + 'px';
+    dot.style.top   = mouseY + 'px';
+  });
+
+  // Smooth ring follow with lerp
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.14;
+    ringY += (mouseY - ringY) * 0.14;
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+    rafId = requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover effects on interactive elements
+  const interactiveSelector = 'a, button, [role="button"], input, textarea, select, .btn, .service-card, .portfolio-card, .cert-badge-card';
+  document.querySelectorAll(interactiveSelector).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.style.width  = '4px';
+      dot.style.height = '4px';
+      dot.style.background = 'var(--clr-purple)';
+      ring.style.width  = '52px';
+      ring.style.height = '52px';
+      ring.style.borderColor = 'rgba(123,47,255,0.6)';
+      ring.style.background  = 'rgba(123,47,255,0.04)';
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.style.width  = '8px';
+      dot.style.height = '8px';
+      dot.style.background = 'var(--clr-cyan)';
+      ring.style.width  = '32px';
+      ring.style.height = '32px';
+      ring.style.borderColor = 'rgba(0,212,255,0.5)';
+      ring.style.background  = 'transparent';
+    });
+  });
+
+  // Hide when leaving window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity  = '0';
+    ring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity  = '1';
+    ring.style.opacity = '1';
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 24. THREAT TICKER ACTIVATION
+// ═══════════════════════════════════════════════
+function initThreatTicker() {
+  const ticker = document.getElementById('threat-ticker');
+  if (!ticker) return;
+  document.body.classList.add('has-ticker');
+}
+
+// ═══════════════════════════════════════════════
+// 25. ARIA CHATBOT
+// ═══════════════════════════════════════════════
+function initAriaChatbot() {
+  const chatBtn    = document.getElementById('aria-chat-btn');
+  const chatWindow = document.getElementById('aria-chat-window');
+  const closeBtn   = document.getElementById('aria-close-btn');
+  const messagesEl = document.getElementById('aria-messages');
+  const inputEl    = document.getElementById('aria-input');
+  const sendBtn    = document.getElementById('aria-send-btn');
+  const iconChat   = document.getElementById('aria-icon-chat');
+  const iconClose  = document.getElementById('aria-icon-close');
+
+  if (!chatBtn || !chatWindow || !messagesEl || !inputEl || !sendBtn) return;
+
+  let isOpen = false;
+  let hasWelcomed = false;
+
+  // ── Knowledge Base ──────────────────────────
+  const kb = [
+    {
+      patterns: ['service', 'offre', 'proposez', 'faites', 'activité'],
+      response: '🛡️ Arkis propose **3 services** : \n\n1. **Création Web Full-Stack** — Sites JAMstack ultra-rapides (score 100/100 Google garanti)\n2. **Cybersécurité & WAF** — Protection Cloudflare Enterprise + audits OWASP\n3. **Pen-Testing Red Team** — Tests d\'intrusion par notre expert OSCP certifié\n\nTous nos projets intègrent la sécurité dès la conception — *Secure by Design*. 🔐'
+    },
+    {
+      patterns: ['tarif', 'prix', 'coût', 'combien', 'budget', 'facturation'],
+      response: '💰 Notre modèle **Build & Run** :\n\n**Phase BUILD** (coût unique)\n• Vitrine Sécurisée : à partir de 2 000€\n• Application Full-Stack : à partir de 4 500€\n• Audit Pen-Test : sur devis\n\n**Phase RUN** (mensuel)\n• Essentiel : 149€/mois\n• Business 24/7 : 349€/mois\n• Critique SLA 99.99% : 890€/mois\n\nUtilisez notre [simulateur de tarifs](/tarifs) pour une estimation précise ! 🎯'
+    },
+    {
+      patterns: ['build', 'run', 'modèle', 'fonctionn', 'abonnement'],
+      response: '⚡ Le modèle **Build & Run** c\'est simple :\n\n🔨 **BUILD** = Construction unique de votre site (architecture, design, sécurité, déploiement)\n\n🔄 **RUN** = Abonnement mensuel pour surveiller, protéger et maintenir votre infrastructure 24h/7\n\nComme construire une maison (BUILD), puis payer la surveillance + maintenance (RUN). Transparent, prévisible, sans surprises !'
+    },
+    {
+      patterns: ['audit', 'gratuit', 'rdv', 'rendez', 'contact', 'démarrer', 'commencer'],
+      response: '🚀 Super ! Notre **audit gratuit** c\'est :\n\n✅ 30 minutes d\'analyse de votre situation\n✅ Diagnostic technique honnête (pas de commercial)\n✅ Proposition d\'architecture sur-mesure\n✅ Estimation transparente et détaillée\n✅ Zéro engagement\n\n👉 [Réservez votre audit gratuit →](/contact)\n\nRéponse garantie sous 24h ouvrées !'
+    },
+    {
+      patterns: ['sécurité', 'securite', 'hack', 'protec', 'waf', 'ddos', 'attaque'],
+      response: '🔒 Notre stack de sécurité :\n\n• **Cloudflare WAF Enterprise** — 200 Tbps anti-DDoS\n• **TLS 1.3** — Chiffrement bout en bout\n• **Zero-Trust Architecture** — Confiance zéro native\n• **OWASP Top 10** — Protection contre les 10 failles les plus critiques\n• **Pen-Testing** — Tests d\'intrusion réguliers par notre expert OSCP\n• **CVE Monitoring** — Surveillance 24h/7 des nouvelles vulnérabilités\n\nZéro CVE livré, garanti contractuellement. 🛡️'
+    },
+    {
+      patterns: ['vitesse', 'rapide', 'performance', 'pagespeed', 'lcp', 'score', 'google'],
+      response: '⚡ Nos sites atteignent **100/100 sur Google PageSpeed**, garanti !\n\nComment ? Notre stack **JAMstack Edge** :\n• Pages pré-générées (aucun calcul serveur)\n• Distribuées via CDN mondial Cloudflare\n• LCP < 0.6s (record mondial de chargement)\n• 0 JavaScript inutile, 0 CSS bloquant\n\nUn site rapide = meilleur référencement SEO = plus de clients. 📈'
+    },
+    {
+      patterns: ['rgpd', 'gdpr', 'données', 'confidentiel', 'legal', 'légal'],
+      response: '📋 Arkis est **RGPD natif** :\n\n• Aucun cookie publicitaire ou tracker tiers\n• Architecture Zero-Trust (isolation des données)\n• Row-Level Security Supabase (chaque user voit uniquement ses données)\n• Hébergement 100% en zone UE\n• Documentation RGPD fournie avec chaque projet\n\nNos pages légales → [Mentions légales](/legal/mentions-legales) · [Politique de confidentialité](/legal/politique-confidentialite)'
+    },
+    {
+      patterns: ['pentest', 'pen-test', 'intrusion', 'oscp', 'red team', 'vulnérabilité'],
+      response: '🎯 Notre service **Pen-Testing** :\n\nNotre expert Lucas Bataille (certifié **OSCP** — la certification la plus difficile de la cybersécurité) simule de vraies attaques sur votre infrastructure :\n\n• Injection SQL / XSS / CSRF\n• Brute-force & credential stuffing\n• API security testing\n• Analyse OWASP Top 10\n• Rapport d\'intrusion complet\n\n[Découvrir notre service →](/services#service-pentest)'
+    },
+    {
+      patterns: ['réalisation', 'portfolio', 'projet', 'exemple', 'client', 'référence'],
+      response: '📸 Quelques **réalisations récentes** :\n\n🏭 **DHM-Tech** — Dashboard SaaS IoT temps réel (LCP: 0.7s, 12k visites/j)\n🔨 **Bricosam.fr** — E-commerce sécurisé (+42% ventes, 0 fraude)\n👁️ **SOC Industriel** — Centre de sécurité 24/7 (2.4M menaces bloquées)\n🥐 **L\'Écrin Sucré** — Click & Collect (0.4s chargement, Grade SSL A+)\n\n[Voir tous nos projets →](/realisations)'
+    },
+    {
+      patterns: ['techno', 'technologie', 'stack', 'framework', 'astro', 'next', 'react', 'supabase', 'cloudflare'],
+      response: '🛠️ Notre **stack technique** :\n\n**Frontend** — Astro, Next.js, React (selon le besoin)\n**Backend** — Node.js, Supabase (PostgreSQL RLS)\n**Edge** — Cloudflare Workers, CDN Enterprise\n**Sécurité** — Helmet, WAF, TLS 1.3, Zero-Trust\n**Déploiement** — Cloudflare Pages (99.99% uptime SLA)\n\nChaque technologie est choisie pour sa sécurité et sa performance, pas pour la mode.'
+    },
+    {
+      patterns: ['equipe', 'équipe', 'fondateur', 'qui', 'mathis', 'lucas'],
+      response: '👥 **L\'équipe Arkis** :\n\n🔷 **Mathis Ducarois** — Lead Architecte Web & Expert Cybersécurité. Spécialiste JAMstack, Supabase, Edge Computing. Garant du 100/100 LCP.\n\n🔷 **Lucas Bataille** — Co-Fondateur & Expert Pen-Testing. Certifié OSCP. Ancien auditeur ANSSI. Notre "hacker éthique".\n\n[Rencontrer l\'équipe →](/equipe)'
+    },
+    {
+      patterns: ['bonjour', 'salut', 'hello', 'bonsoir', 'coucou', 'aide', 'help'],
+      response: '👋 **Bonjour ! Je suis ARIA**, l\'assistante virtuelle d\'Arkis.\n\nJe peux vous renseigner sur :\n• 🛡️ Nos services (Web, Cyber, Pen-Test)\n• 💰 Nos tarifs et le modèle Build & Run\n• ⚡ Nos performances techniques\n• 📋 La conformité RGPD\n• 🏆 Nos réalisations\n\nQue souhaitez-vous savoir ?'
+    },
+    {
+      patterns: ['merci', 'super', 'parfait', 'excellent', 'top', 'génial', 'cool'],
+      response: '😊 Avec plaisir ! N\'hésitez pas si vous avez d\'autres questions.\n\nPour démarrer votre projet, notre **audit gratuit** est disponible sans engagement → [Réserver →](/contact)'
+    }
+  ];
+
+  function findResponse(input) {
+    const lower = input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    for (const entry of kb) {
+      if (entry.patterns.some(p => lower.includes(p.normalize('NFD').replace(/[\u0300-\u036f]/g, '')))) {
+        return entry.response;
+      }
+    }
+    return '🤔 Je ne suis pas sûre de comprendre votre question. Voici ce que je peux vous dire :\n\n• **Services** → Tapez "services"\n• **Tarifs** → Tapez "tarifs"\n• **Audit gratuit** → Tapez "audit"\n• **Sécurité** → Tapez "sécurité"\n\nOu [contactez directement notre équipe →](/contact) pour une réponse personnalisée !';
+  }
+
+  function formatResponse(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:var(--clr-cyan);text-decoration:underline;">$1</a>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function addMessage(text, sender = 'bot') {
+    const msg = document.createElement('div');
+    msg.className = `aria-msg ${sender}`;
+    const bubble = document.createElement('div');
+    bubble.className = 'aria-msg-bubble';
+    bubble.innerHTML = sender === 'bot' ? formatResponse(text) : text;
+    msg.appendChild(bubble);
+    messagesEl.appendChild(msg);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function showTyping() {
+    const typingEl = document.createElement('div');
+    typingEl.className = 'aria-msg bot aria-typing-wrap';
+    typingEl.innerHTML = '<div class="aria-typing"><span></span><span></span><span></span></div>';
+    messagesEl.appendChild(typingEl);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return typingEl;
+  }
+
+  function sendMessage(text) {
+    if (!text.trim()) return;
+    addMessage(text, 'user');
+    inputEl.value = '';
+
+    // Hide suggestions after first message
+    const suggestions = document.getElementById('aria-suggestions');
+    if (suggestions) suggestions.style.display = 'none';
+
+    // Show typing indicator
+    const typing = showTyping();
+
+    // Simulate thinking delay (700–1400ms)
+    const delay = 700 + Math.random() * 700;
+    setTimeout(() => {
+      typing.remove();
+      addMessage(findResponse(text), 'bot');
+    }, delay);
+  }
+
+  function openChat() {
+    isOpen = true;
+    chatWindow.classList.add('open');
+    chatWindow.setAttribute('aria-hidden', 'false');
+    chatBtn.setAttribute('aria-expanded', 'true');
+    chatBtn.classList.add('open');
+    if (iconChat) iconChat.style.display = 'none';
+    if (iconClose) iconClose.style.display = '';
+
+    if (!hasWelcomed) {
+      hasWelcomed = true;
+      setTimeout(() => addMessage('👋 Bonjour ! Je suis **ARIA**, l\'assistante virtuelle d\'Arkis. Comment puis-je vous aider aujourd\'hui ?', 'bot'), 300);
+    }
+
+    setTimeout(() => inputEl.focus(), 350);
+  }
+
+  function closeChat() {
+    isOpen = false;
+    chatWindow.classList.remove('open');
+    chatWindow.setAttribute('aria-hidden', 'true');
+    chatBtn.setAttribute('aria-expanded', 'false');
+    chatBtn.classList.remove('open');
+    if (iconChat) iconChat.style.display = '';
+    if (iconClose) iconClose.style.display = 'none';
+  }
+
+  chatBtn.addEventListener('click', () => isOpen ? closeChat() : openChat());
+  if (closeBtn) closeBtn.addEventListener('click', closeChat);
+
+  sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(inputEl.value);
+    }
+  });
+
+  // Suggestion chips
+  document.querySelectorAll('.aria-suggestion-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (!isOpen) openChat();
+      sendMessage(chip.dataset.msg);
+    });
+  });
+
+  // Close on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeChat();
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 26. MOBILE STICKY CTA
+// ═══════════════════════════════════════════════
+function initMobileStickyCTA() {
+  const banner = document.getElementById('mobile-sticky-cta');
+  const closeBtn = document.getElementById('mobile-sticky-cta-close');
+  if (!banner) return;
+
+  let shown = false;
+  const dismissed = sessionStorage.getItem('arkis-sticky-dismissed');
+  if (dismissed) return;
+
+  const showBanner = () => {
+    if (!shown && window.scrollY > 350) {
+      shown = true;
+      banner.classList.add('visible');
+    }
+  };
+
+  window.addEventListener('scroll', showBanner, { passive: true });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      banner.classList.remove('visible');
+      sessionStorage.setItem('arkis-sticky-dismissed', '1');
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 27. TOAST SYSTEM (Enhanced)
+// ═══════════════════════════════════════════════
+function initToastSystem() {
+  // Use existing HTML container or create one
+  if (!document.getElementById('toast-container')) {
+    const tc = document.createElement('div');
+    tc.id = 'toast-container';
+    document.body.appendChild(tc);
+  }
+}
+
+function showToast(message, icon = '✓', duration = 4000, type = 'info') {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.style.position = 'relative';
+  toast.innerHTML = `
+    <span class="toast-icon">${icon}</span>
+    <div class="toast-body">
+      <div class="toast-title">${message}</div>
+    </div>
+    <div class="toast-progress"></div>
+  `;
+
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('show'));
+
+  const removeToast = () => {
+    toast.classList.add('hide');
+    toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+  };
+
+  const timer = setTimeout(removeToast, duration);
+  toast.addEventListener('click', () => { clearTimeout(timer); removeToast(); });
+}
+
+// ═══════════════════════════════════════════════
+// 28. MAGNETIC BUTTONS
+// ═══════════════════════════════════════════════
+function initMagneticButtons() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  document.querySelectorAll('.btn-primary, .btn-live').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect   = btn.getBoundingClientRect();
+      const x      = e.clientX - rect.left - rect.width  / 2;
+      const y      = e.clientY - rect.top  - rect.height / 2;
+      const strength = 0.3;
+      btn.style.transform    = `translate(${x * strength}px, ${y * strength}px)`;
+      btn.style.transition   = 'transform 100ms linear';
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform  = '';
+      btn.style.transition = 'transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)';
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 29. EMAIL COPY ON CLICK
+// ═══════════════════════════════════════════════
+function initEmailCopy() {
+  document.querySelectorAll('[data-copy-email], .cd-value[href^="mailto:"]').forEach(el => {
+    el.style.cursor = 'copy';
+    el.addEventListener('click', async (e) => {
+      const email = el.dataset.copyEmail || el.textContent.trim();
+      if (!email.includes('@')) return;
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast(`${email} copié !`, '📋', 3000, 'success');
+      } catch {
+        showToast('Copiez : ' + email, '📋', 3000, 'info');
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 30. 3D CARD TILT EFFECT
+// ═══════════════════════════════════════════════
+function initCardTilt() {
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  document.querySelectorAll('.service-card, .pricing-card, .testimonial-card, .founder-card, .portfolio-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect    = card.getBoundingClientRect();
+      const x       = e.clientX - rect.left;
+      const y       = e.clientY - rect.top;
+      const centerX = rect.width  / 2;
+      const centerY = rect.height / 2;
+      const rotX    = ((y - centerY) / centerY) * -5;
+      const rotY    = ((x - centerX) / centerX) *  5;
+      card.style.transform  = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(4px)`;
+      card.style.transition = 'transform 80ms linear';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform  = '';
+      card.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1)';
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 31. SMOOTH ANCHOR SCROLL WITH NAVBAR OFFSET
+// ═══════════════════════════════════════════════
+function initSmoothAnchorScroll() {
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+  const tickerH = document.body.classList.contains('has-ticker') ? 36 : 0;
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - navH - tickerH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 32. PAGE LOAD FADE-IN
+// ═══════════════════════════════════════════════
+function initPageTransition() {
+  document.body.style.opacity = '0';
+  document.body.style.transition = 'opacity 0.4s ease';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.style.opacity = '1';
+    });
+  });
+
+  // Fade out on navigation
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+    link.addEventListener('click', (e) => {
+      const dest = link.href;
+      if (dest && !dest.includes(window.location.origin + window.location.pathname + '#')) {
+        e.preventDefault();
+        document.body.style.opacity = '0';
+        setTimeout(() => { window.location.href = dest; }, 300);
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 33. INJECT PERSISTENT UI ELEMENTS (Cookie Banner)
+// ═══════════════════════════════════════════════
+function injectUIPersistentElements() {
+  if (!document.getElementById('cookie-banner') && !localStorage.getItem('arkis-cookie-consent')) {
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-modal', 'true');
+    banner.setAttribute('aria-label', 'Paramètres des cookies');
+    banner.innerHTML = `
+      <div class="cookie-inner">
+        <div class="cookie-text">
+          <strong>🍪 Nous respectons votre vie privée.</strong>
+          Ce site utilise uniquement des cookies techniques essentiels à son fonctionnement — aucun cookie publicitaire, aucun tracker tiers.
+          <br/><a href="/legal/politique-confidentialite#cookies" style="color:var(--clr-cyan);text-decoration:underline;">Politique de confidentialité &amp; cookies →</a>
+        </div>
+        <div class="cookie-actions">
+          <button class="cookie-btn-accept" id="cookie-accept" aria-label="Tout accepter">Tout accepter</button>
+          <button class="cookie-btn-decline" id="cookie-decline" aria-label="Tout refuser">Tout refuser</button>
+          <button class="cookie-btn-manage" id="cookie-manage" aria-label="Gérer mes préférences">Gérer</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    initCookieBanner();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 34. COOKIE BANNER RGPD (CNIL Compliant)
+// ═══════════════════════════════════════════════
+function initCookieBanner() {
+  if (localStorage.getItem('arkis-cookie-consent')) return;
+  const banner = document.getElementById('cookie-banner');
+  if (!banner || banner.dataset.initialized) return;
+  banner.dataset.initialized = 'true';
+
+  setTimeout(() => banner.classList.add('visible'), 2000);
+
+  const dismiss = (choice) => {
+    banner.classList.remove('visible');
+    localStorage.setItem('arkis-cookie-consent', choice);
+    localStorage.setItem('arkis-cookie-date', new Date().toISOString());
+    setTimeout(() => banner.remove(), 500);
+    if (choice === 'accepted') showToast('Préférences cookies enregistrées', '🍪', 3000, 'success');
+  };
+
+  const btnAccept  = document.getElementById('cookie-accept');
+  const btnDecline = document.getElementById('cookie-decline');
+  const btnManage  = document.getElementById('cookie-manage');
+
+  if (btnAccept)  btnAccept.addEventListener('click',  () => dismiss('accepted'), { once: true });
+  if (btnDecline) btnDecline.addEventListener('click', () => dismiss('declined'), { once: true });
+  if (btnManage)  btnManage.addEventListener('click',  () => {
+    window.location.href = '/legal/politique-confidentialite#cookies';
+  }, { once: true });
+}
+
+// ═══════════════════════════════════════════════
+// 35. REOPEN COOKIE BANNER (Footer Link)
+// ═══════════════════════════════════════════════
+window.reopenCookieBanner = function(e) {
+  if (e) e.preventDefault();
+  localStorage.removeItem('arkis-cookie-consent');
+  localStorage.removeItem('arkis-cookie-date');
+  const existingBanner = document.getElementById('cookie-banner');
+  if (existingBanner) existingBanner.remove();
+  injectUIPersistentElements();
+};
+
+// ═══════════════════════════════════════════════
+// INITIALIZATION — DOMContentLoaded
 // ═══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  initPageTransition();
+  initScrollProgress();
+  initCustomCursor();
+  initThreatTicker();
   initPricingCalculator();
   handleContactPreFill();
   initTeamModals();
@@ -2229,14 +2765,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initGuidedTour();
   initHardeningSimulator();
   initCyberThreatMap();
-  initScrollProgress();
   initCookieBanner();
   initToastSystem();
   initEmailCopy();
   initCardTilt();
+  initMagneticButtons();
   initSmoothAnchorScroll();
+  initAriaChatbot();
+  initMobileStickyCTA();
   injectUIPersistentElements();
+
+  // Welcome toast after 3s (first visit only)
+  if (!sessionStorage.getItem('arkis-welcomed')) {
+    sessionStorage.setItem('arkis-welcomed', '1');
+    setTimeout(() => {
+      showToast('Bienvenue chez Arkis — Secure by Design 🛡️', '⬡', 4000, 'info');
+    }, 3000);
+  }
 });
+
+
 
 // ═══════════════════════════════════════════════
 // 22. SCROLL PROGRESS BAR
