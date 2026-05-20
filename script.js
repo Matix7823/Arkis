@@ -612,29 +612,55 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   const sites = [
     { name: 'DHM-Tech', url: 'dhmtech.com', el: document.getElementById('dhm-visits'), visits: 12840, attacks: 1284 },
     { name: 'Bricosam.fr', url: 'bricosam.fr', el: document.getElementById('bricosam-visits'), visits: 8429, attacks: 439 },
-    { name: 'L\'Écrin Sucré', url: 'ecrinsucre.fr', el: document.getElementById('bakery-visits'), visits: 2840, attacks: 112 },
-    { name: 'Le Salon Signature', url: 'salonsignature.fr', el: document.getElementById('hair-visits'), visits: 1942, attacks: 95 },
-    { name: 'L\'Alchimiste Bar', url: 'alchimistebar.fr', el: document.getElementById('bar-visits'), visits: 3119, attacks: 183 },
-    { name: 'Plateforme Fintech', url: 'fintech.internal', el: document.getElementById('fintech-visits'), visits: 28104, attacks: 14293 }
+    { name: 'L\'Écrin Sucré', url: 'ecrinsucre.fr', el: document.getElementById('bakery-visits'), visits: 2840, attacks: 112 }
   ];
 
-  let totalAttacks = 28491;
-  let totalTraffic = 148932;
-  
+  // Global State
+  let state = {
+    activeFilter: 'ALL',
+    cpuLoad: 42,
+    defcon: 4,
+    threatLevel: 0.02,
+    latency: 82,
+    attacksRate: 42,
+    attacks24h: 28491,
+    traffic24h: 148932,
+    isDdosActive: false,
+    isSqliActive: false,
+    isBotActive: false,
+    chartData: [85, 92, 78, 110, 95, 120, 105, 112, 98, 115, 130, 108, 118, 96, 110]
+  };
+
+  const loggedItems = [];
+
+  // DOM Elements cache
   const attacksEl = document.getElementById('val-attacks');
   const trafficEl = document.getElementById('val-traffic');
   const latencyEl = document.getElementById('val-latency');
+  const cpuEl = document.getElementById('val-cpu');
+  const cpuBar = document.getElementById('bar-cpu');
+  const wafModeEl = document.getElementById('waf-mode');
+  const threatLevelEl = document.getElementById('threat-level-val');
+  const statusDot = document.getElementById('soc-status-dot');
+  const statusText = document.getElementById('soc-status-text');
+  const defconShield = document.getElementById('defcon-shield');
+
+  const btnDdos = document.getElementById('btn-sim-ddos');
+  const btnSqli = document.getElementById('btn-sim-sqli');
+  const btnBot = document.getElementById('btn-sim-bot');
 
   const logTemplates = [
-    { type: 'INFO', msg: 'TLS 1.3 handshake verified successfully.' },
-    { type: 'INFO', msg: 'Integrity check pass: static assets matched Cloudflare source hash.' },
-    { type: 'INFO', msg: 'PostgreSQL read query executed in 1.4ms (Supabase REST API).' },
+    { type: 'INFO', msg: 'TLS 1.3 cryptographic handshake verified successfully.' },
+    { type: 'INFO', msg: 'Integrity check pass: Edge static assets matched source SHA-256 hash.' },
+    { type: 'INFO', msg: 'PostgreSQL read query executed in 1.4ms via Supabase REST Client.' },
     { type: 'INFO', msg: 'Static Page Delivery from Edge Cache Paris (POP CDG).' },
-    { type: 'BLOCKED', msg: 'SQL Injection signature detected on search parameter ➔ Dropped by WAF.' },
+    { type: 'INFO', msg: 'Zero-Trust access token validated on administration gateway.' },
+    { type: 'INFO', msg: 'Row-Level Security policy triggered: secure access isolation confirmed.' },
+    { type: 'BLOCKED', msg: 'SQL Injection signature detected on search parameter ➔ Dropped by Cloudflare WAF.' },
     { type: 'BLOCKED', msg: 'Cross-Site Scripting (XSS) payload blocked on endpoint /contact.' },
     { type: 'BLOCKED', msg: 'Excessive connections from unique IP ➔ Rate-limiting threshold engaged (429).' },
-    { type: 'BLOCKED', msg: 'Malicious user-agent blocked from scanning /wp-login.php.' },
-    { type: 'BLOCKED', msg: 'DDoS brute force threat mitigated on transaction endpoint.' }
+    { type: 'BLOCKED', msg: 'Malicious user-agent blocked from scanning web server endpoints.' },
+    { type: 'BLOCKED', msg: 'Brute-force security mitigation triggered on transaction gateway.' }
   ];
 
   function randomIP() {
@@ -646,55 +672,352 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
   }
 
-  // Prepopulate with a few starting logs
-  for (let step = 0; step < 5; step++) {
-    addLogLine();
+  // Prepopulate SOC with logs
+  for (let i = 0; i < 15; i++) {
+    createAndStoreLog();
   }
+  renderLogs();
 
-  function addLogLine() {
+  function createAndStoreLog(forcedType = null, forcedMsg = null) {
     const site = sites[Math.floor(Math.random() * sites.length)];
-    const template = logTemplates[Math.floor(Math.random() * logTemplates.length)];
+    const template = forcedType 
+      ? { type: forcedType, msg: forcedMsg }
+      : logTemplates[Math.floor(Math.random() * logTemplates.length)];
     const time = getFormattedTime();
 
-    const line = document.createElement('p');
-    line.style.marginBottom = '0.35rem';
-    
+    let html = "";
     if (template.type === 'BLOCKED') {
-      line.innerHTML = `<span style="color:#EF4444;font-weight:600;">[BLOCKED]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg} <span style="color:var(--clr-text-3); font-size:0.75rem;">(Source: IP ${randomIP()})</span>`;
-      
-      // Update attacks counts
-      totalAttacks++;
-      site.attacks++;
-      if (attacksEl) attacksEl.textContent = totalAttacks.toLocaleString();
+      html = `<span style="color:#EF4444;font-weight:600;">[BLOCKED]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg} <span style="color:var(--clr-text-3); font-size:0.75rem;">(Source: IP ${randomIP()})</span>`;
+      state.attacks24h++;
+      if (attacksEl) attacksEl.textContent = state.attacks24h.toLocaleString();
     } else {
-      line.innerHTML = `<span style="color:#10B981;font-weight:600;">[INFO]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg}`;
+      html = `<span style="color:#10B981;font-weight:600;">[INFO]</span> [${time}] — <strong style="color:#E8EDF8;">${site.name}</strong> — ${template.msg}`;
     }
 
-    logContainer.appendChild(line);
-    
-    // Auto-scroll terminal
+    loggedItems.push({ type: template.type, html: html });
+    if (loggedItems.length > 200) loggedItems.shift();
+  }
+
+  function renderLogs() {
+    logContainer.innerHTML = "";
+    loggedItems.forEach(item => {
+      if (state.activeFilter === 'ALL' || item.type === state.activeFilter) {
+        const p = document.createElement('p');
+        p.style.marginBottom = '0.35rem';
+        p.style.animation = 'fadeIn 0.2s ease-out';
+        p.innerHTML = item.html;
+        logContainer.appendChild(p);
+      }
+    });
     consoleBody.scrollTop = consoleBody.scrollHeight;
+  }
 
-    // Limit log lines to 150
-    if (logContainer.children.length > 150) {
-      logContainer.removeChild(logContainer.firstChild);
+  // Draw Line and Area SVG dynamic chart
+  function drawChart() {
+    const linePath = document.getElementById('chart-line-path');
+    const areaPath = document.getElementById('chart-area-path');
+    if (!linePath || !areaPath) return;
+
+    const pointsCount = state.chartData.length;
+    const stepX = 600 / (pointsCount - 1);
+    
+    let dLine = "";
+    let dArea = "";
+    
+    state.chartData.forEach((val, i) => {
+      const x = i * stepX;
+      // Map val (0 to 1000) to Y coordinate (165 = baseline, 15 = maximum peak)
+      const maxVal = state.isDdosActive ? 1000 : 250;
+      const y = 165 - (val / maxVal) * 140;
+      
+      if (i === 0) {
+        dLine += `M ${x} ${y}`;
+        dArea += `M ${x} 165 L ${x} ${y}`;
+      } else {
+        dLine += ` L ${x} ${y}`;
+        dArea += ` L ${x} ${y}`;
+      }
+    });
+    
+    dArea += ` L 600 165 Z`;
+    
+    linePath.setAttribute('d', dLine);
+    areaPath.setAttribute('d', dArea);
+
+    // Apply color gradient updates depending on threat activity
+    const lineGrad = document.getElementById('chartGrad');
+    if (state.isDdosActive) {
+      linePath.setAttribute('stroke', '#EF4444');
+      if (lineGrad) {
+        lineGrad.querySelectorAll('stop').forEach((stop, idx) => {
+          stop.setAttribute('stop-color', '#EF4444');
+        });
+      }
+    } else {
+      linePath.setAttribute('stroke', 'var(--clr-cyan)');
+      if (lineGrad) {
+        lineGrad.querySelectorAll('stop').forEach((stop, idx) => {
+          stop.setAttribute('stop-color', '#00D4FF');
+        });
+      }
     }
+  }
+
+  // Threat Typology distribution circle updates
+  function updateThreatDistribution(ddos = 45, sqli = 25, bot = 20, brute = 10) {
+    const ddosCircle = document.getElementById('circle-ddos');
+    const sqliCircle = document.getElementById('circle-sqli');
+    const botCircle = document.getElementById('circle-bot');
+    const bruteCircle = document.getElementById('circle-brute');
+    
+    if (ddosCircle) ddosCircle.setAttribute('stroke-dasharray', `${ddos} 100`);
+    if (sqliCircle) {
+      sqliCircle.setAttribute('stroke-dasharray', `${sqli} 100`);
+      sqliCircle.setAttribute('stroke-dashoffset', `-${ddos}`);
+    }
+    if (botCircle) {
+      botCircle.setAttribute('stroke-dasharray', `${bot} 100`);
+      botCircle.setAttribute('stroke-dashoffset', `-${ddos + sqli}`);
+    }
+    if (bruteCircle) {
+      bruteCircle.setAttribute('stroke-dasharray', `${brute} 100`);
+      bruteCircle.setAttribute('stroke-dashoffset', `-${ddos + sqli + bot}`);
+    }
+    
+    const lblDdos = document.getElementById('lbl-ddos-pct');
+    const lblSqli = document.getElementById('lbl-sqli-pct');
+    const lblBot = document.getElementById('lbl-bot-pct');
+    
+    if (lblDdos) lblDdos.textContent = `${ddos}%`;
+    if (lblSqli) lblSqli.textContent = `${sqli}%`;
+    if (lblBot) lblBot.textContent = `${bot}%`;
+  }
+
+  // Update hardware resource UI
+  function updateSystemResources() {
+    if (!cpuEl || !cpuBar) return;
+    let targetCpu = 35 + Math.floor(Math.random() * 12);
+    if (state.isDdosActive) {
+      targetCpu = 92 + Math.floor(Math.random() * 6);
+    }
+    state.cpuLoad = targetCpu;
+    cpuEl.textContent = `${state.cpuLoad}%`;
+    cpuBar.style.width = `${state.cpuLoad}%`;
+    
+    if (state.cpuLoad > 85) {
+      cpuEl.style.color = '#EF4444';
+      cpuBar.style.backgroundColor = '#EF4444';
+    } else if (state.cpuLoad > 60) {
+      cpuEl.style.color = '#FBBF24';
+      cpuBar.style.backgroundColor = '#FBBF24';
+    } else {
+      cpuEl.style.color = 'var(--clr-green)';
+      cpuBar.style.backgroundColor = 'var(--clr-green)';
+    }
+  }
+
+  // Hook event filters
+  const filterTabs = document.querySelectorAll('#console-filter-tabs .filter-tab');
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      state.activeFilter = tab.dataset.filter;
+      renderLogs();
+    });
+  });
+
+  // Simulator Buttons Event Listeners
+  if (btnDdos) {
+    btnDdos.addEventListener('click', () => {
+      if (state.isDdosActive) return;
+      state.isDdosActive = true;
+      state.defcon = 1;
+      
+      // Disable buttons
+      btnDdos.disabled = true;
+      btnDdos.style.opacity = '0.5';
+
+      // Visual updates to critical mode
+      if (statusDot) {
+        statusDot.style.backgroundColor = '#EF4444';
+        statusDot.style.animation = 'pulseGlow 0.4s infinite';
+      }
+      if (statusText) {
+        statusText.textContent = 'CRITICAL SYSLOG TARGETED — DDoS FLOOD ATTACK ENGAGED — DEFCON 1';
+        statusText.style.color = '#EF4444';
+      }
+      if (threatLevelEl) {
+        threatLevelEl.textContent = 'CRITICAL RED (99.98%)';
+        threatLevelEl.style.color = '#EF4444';
+      }
+      if (wafModeEl) {
+        wafModeEl.textContent = 'ENTERPRISE FLOW SHIELD MITIGATION';
+        wafModeEl.style.color = '#EF4444';
+      }
+
+      updateThreatDistribution(82, 8, 7, 3);
+
+      // Injects rapid stream of alerts
+      let alertCount = 0;
+      const ddosInterval = setInterval(() => {
+        const pps = 450 + Math.floor(Math.random() * 200);
+        createAndStoreLog('BLOCKED', `MITIGATED DDoS Flow: Layer 7 Flood HTTP flood attack vector dropped ➔ Packets: ${pps} pps, Protocol: HTTP/2`);
+        renderLogs();
+        
+        // Push huge values to graph
+        state.chartData.shift();
+        state.chartData.push(800 + Math.floor(Math.random() * 190));
+        drawChart();
+
+        alertCount++;
+        if (alertCount >= 30) {
+          clearInterval(ddosInterval);
+          finishDdosMitigation();
+        }
+      }, 250);
+
+      function finishDdosMitigation() {
+        state.isDdosActive = false;
+        state.defcon = 4;
+        
+        // Restore controls
+        btnDdos.disabled = false;
+        btnDdos.style.opacity = '1';
+
+        if (statusDot) {
+          statusDot.style.backgroundColor = 'var(--clr-green)';
+          statusDot.style.animation = 'pulseGlow 1.5s infinite';
+        }
+        if (statusText) {
+          statusText.textContent = 'SYSTEM OPERATIONAL — DEFCON 4';
+          statusText.style.color = 'var(--clr-green)';
+        }
+        if (threatLevelEl) {
+          threatLevelEl.textContent = 'NORMAL (0.02%)';
+          threatLevelEl.style.color = 'var(--clr-cyan)';
+        }
+        if (wafModeEl) {
+          wafModeEl.textContent = 'HIGH DÉFENSE';
+          wafModeEl.style.color = 'var(--clr-cyan)';
+        }
+
+        updateThreatDistribution(45, 25, 20, 10);
+        
+        // Final syslog
+        createAndStoreLog('INFO', `[MITIGATION RESULT] Cloudflare WAF successfully blocked 1.48M packets globally. Main Supabase DB load is normal.`);
+        renderLogs();
+      }
+    });
+  }
+
+  if (btnSqli) {
+    btnSqli.addEventListener('click', () => {
+      if (state.isDdosActive) return;
+      btnSqli.disabled = true;
+      btnSqli.style.opacity = '0.5';
+
+      if (threatLevelEl) {
+        threatLevelEl.textContent = 'HIGH SQLi ATTEMPT (14.28%)';
+        threatLevelEl.style.color = '#A78BFA';
+      }
+      if (statusText) {
+        statusText.textContent = 'PROBE INTERCEPTED — INJECTION PAYLOAD QUARANTINED — DEFCON 2';
+        statusText.style.color = '#A78BFA';
+      }
+
+      // Add SQLi attack logs
+      setTimeout(() => {
+        createAndStoreLog('BLOCKED', `SQL Injection signature XSS/SQLI-9014 detected on query parameter: '/api/products?id=1%27%20OR%201%3D1' ➔ Connection Dropped.`);
+        renderLogs();
+      }, 400);
+
+      setTimeout(() => {
+        createAndStoreLog('BLOCKED', `Payload quarantine: IP ${randomIP()} blacklisted for repeated backend authentication bypass attempt.`);
+        renderLogs();
+
+        // Restore normal status
+        btnSqli.disabled = false;
+        btnSqli.style.opacity = '1';
+
+        if (threatLevelEl) {
+          threatLevelEl.textContent = 'NORMAL (0.02%)';
+          threatLevelEl.style.color = 'var(--clr-cyan)';
+        }
+        if (statusText) {
+          statusText.textContent = 'SYSTEM OPERATIONAL — DEFCON 4';
+          statusText.style.color = 'var(--clr-green)';
+        }
+      }, 2500);
+    });
+  }
+
+  if (btnBot) {
+    btnBot.addEventListener('click', () => {
+      if (state.isDdosActive) return;
+      btnBot.disabled = true;
+      btnBot.style.opacity = '0.5';
+
+      if (threatLevelEl) {
+        threatLevelEl.textContent = 'WARNING BOT SCAN ACTIVE (8.40%)';
+        threatLevelEl.style.color = 'var(--clr-cyan)';
+      }
+      if (statusText) {
+        statusText.textContent = 'BOT TELEMETRY WARNING — SCAN SEQUENCING ACTIVE — DEFCON 3';
+        statusText.style.color = 'var(--clr-cyan)';
+      }
+
+      // Add crawler scanner logs
+      let scanStep = 0;
+      const botInterval = setInterval(() => {
+        const paths = ['/wp-login.php', '/.env', '/config/db.php', '/admin/setup'];
+        createAndStoreLog('BLOCKED', `Crawler Exploit Probe blocked: GET ${paths[scanStep]} from headless python-agent.`);
+        renderLogs();
+        scanStep++;
+        if (scanStep >= paths.length) {
+          clearInterval(botInterval);
+          
+          btnBot.disabled = false;
+          btnBot.style.opacity = '1';
+
+          if (threatLevelEl) {
+            threatLevelEl.textContent = 'NORMAL (0.02%)';
+            threatLevelEl.style.color = 'var(--clr-cyan)';
+          }
+          if (statusText) {
+            statusText.textContent = 'SYSTEM OPERATIONAL — DEFCON 4';
+            statusText.style.color = 'var(--clr-green)';
+          }
+        }
+      }, 600);
+    });
   }
 
   // Active loop for live logs & counters
   function runLoop() {
-    addLogLine();
+    if (!state.isDdosActive) {
+      createAndStoreLog();
+      renderLogs();
+
+      // Normal graph progression
+      state.chartData.shift();
+      state.chartData.push(85 + Math.floor(Math.random() * 65));
+      drawChart();
+    }
 
     // Fluctuating traffic & latency
-    totalTraffic += Math.floor(Math.random() * 4) + 1;
-    if (trafficEl) trafficEl.textContent = totalTraffic.toLocaleString();
+    state.traffic24h += Math.floor(Math.random() * 4) + 1;
+    if (trafficEl) trafficEl.textContent = state.traffic24h.toLocaleString();
 
     if (latencyEl) {
-      const lat = Math.floor(Math.random() * 10) + 78;
+      const lat = Math.floor(Math.random() * 8) + 79;
       latencyEl.textContent = `${lat}ms`;
     }
 
-    // Slightly increment site visits
+    // Update hardware resources
+    updateSystemResources();
+
+    // Slightly increment client site visits
     const luckySite = sites[Math.floor(Math.random() * sites.length)];
     luckySite.visits += Math.floor(Math.random() * 2) + 1;
     if (luckySite.el) {
@@ -702,10 +1025,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
 
     // Schedule next log
-    const nextMs = Math.floor(Math.random() * 1800) + 1200;
+    const nextMs = state.isDdosActive ? 1500 : (Math.floor(Math.random() * 1500) + 1500);
     setTimeout(runLoop, nextMs);
   }
 
+  // Initial runs
+  updateThreatDistribution(45, 25, 20, 10);
+  drawChart();
   setTimeout(runLoop, 1500);
 })();
 

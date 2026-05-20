@@ -1,62 +1,167 @@
 <%- include('../partials/head', { 
   title: 'Politique de Confidentialité — Arkis Agency', 
-  description: 'Politique de confidentialité et traitement des données personnelles d\'Arkis Agency.' 
+  description: 'Politique de confidentialité exhaustive et traitement rigoureux des données personnelles d\'Arkis Agency en parfaite conformité avec le RGPD.' 
 }) %>
 
 <%- include('../partials/header', { page: 'politique-confidentialite' }) %>
 
-<main style="padding-top: var(--nav-h); min-height: 80vh;">
-  <section class="section legal-page" style="background-image: var(--grad-glow);">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
-        <p class="section-tag font-mono" style="margin-left: 0;">Légal</p>
-        <h1 class="section-title" style="font-size: 2.5rem; line-height: 1.2;">Politique de <span class="gradient-text">Confidentialité.</span></h1>
-        <p class="section-subtitle" style="margin-left: 0; max-width: 100%;">Dernière mise à jour : 20 mai 2026</p>
+<main style="padding-top: var(--nav-h); min-height: 80vh; background-color: var(--clr-bg); color: var(--clr-text);">
+  <!-- Background Glow & Grid -->
+  <section class="section legal-page" style="background-image: var(--grad-glow); position: relative; padding-bottom: 6rem;">
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none;" aria-hidden="true"></div>
+
+    <div class="container" style="max-width: 900px; position: relative; z-index: 2;">
+      <div class="section-header" style="text-align: left; margin-bottom: 3.5rem; max-width: 100%;">
+        <p class="section-tag font-mono" style="margin-left: 0;">Protection des données</p>
+        <h1 class="section-title" style="font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.15; font-weight: 800;">
+          Politique de <span class="gradient-text">Confidentialité.</span>
+        </h1>
+        <p class="section-subtitle" style="margin-left: 0; max-width: 100%; font-size: 0.95rem; color: var(--clr-text-3); font-family: var(--font-mono);">
+          Version 2.0 — Date d'application : 20 mai 2026 • Conformité européenne RGPD (Règlement 2016/679)
+        </p>
       </div>
 
-      <div class="legal-content-wrap" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3rem); box-shadow: var(--shadow-card);">
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">1. Collecte des Données Personnelles</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem;">
-            Lorsque vous utilisez notre formulaire de contact, nous collectons les données indispensables au traitement de votre demande de projet ou d'audit de sécurité :
+      <div class="legal-content-wrap" style="background: rgba(12, 21, 41, 0.7); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3.5rem); box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+        
+        <!-- Introduction -->
+        <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2.5rem;">
+          L'agence <strong>Arkis Agency</strong> attache une importance capitale à la protection de la vie privée et à la sécurité des données à caractère personnel de ses clients, partenaires, prospects et utilisateurs du présent site internet. La présente politique décrit comment nous collectons, stockons, traitons et protégeons vos données de manière rigoureuse et en conformité totale avec le <strong>Règlement Général sur la Protection des Données (RGPD)</strong> européen.
+        </p>
+
+        <!-- Block 1 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">01.</span> Responsible du Traitement &amp; DPO
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Le responsable des traitements de données personnelles collectées sur ce site internet est :
           </p>
-          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-bottom: 1rem;">
-            <li>Nom et prénom</li>
-            <li>Adresse e-mail professionnelle</li>
-            <li>Numéro de téléphone (optionnel)</li>
-            <li>Nom de votre entreprise</li>
-            <li>Détails techniques du message</li>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--clr-text-2); line-height: 1.6;">
+            <strong>ARKIS SAS</strong>, Société par Actions Simplifiée au capital de 10 000 €<br>
+            Siège social : 12 Rue de la Paix, 75002 Paris, France<br>
+            Immatriculation : R.C.S. Paris — B 999 888 777<br>
+            Représentant légal : Équipe de Direction d'Arkis Agency
+          </div>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Pour toute question relative à notre gestion de vos données ou pour faire valoir vos droits, vous pouvez contacter notre <strong>Délégué à la Protection des Données (DPO)</strong> à l'adresse e-mail dédiée : 
+            <a href="mailto:dpo@arkis.agency" style="color: var(--clr-cyan); text-decoration: underline; font-weight: 600;">dpo@arkis.agency</a>.
+          </p>
+        </div>
+
+        <!-- Block 2 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">02.</span> Base Légale du Traitement
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            La collecte et le traitement de vos données personnelles reposent sur les bases juridiques définies à l'article 6 du RGPD :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><strong>Le consentement (Article 6.1.a)</strong> : Vous donnez votre accord explicite lors de la soumission de vos formulaires de contact ou de demande de devis en cochant la case d'acceptation obligatoire.</li>
+            <li><strong>L'exécution contractuelle (Article 6.1.b)</strong> : Le traitement est nécessaire à la gestion de la relation client, de la facturation, et de la bonne réalisation technique des prestations d'abonnement (Phases BUILD et RUN).</li>
+            <li><strong>L'intérêt légitime (Article 6.1.f)</strong> : Traitement des données techniques pour sécuriser l'infrastructure d'Arkis Agency et les sites clients (détection proactive des attaques DDoS, injections, ou robots malveillants via le SIEM / WAF).</li>
           </ul>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">2. Utilisation des Données</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Ces données sont exclusivement utilisées par l'équipe technique d'Arkis Agency afin de :
+        <!-- Block 3 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">03.</span> Catégories de Données Collectées
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Arkis Agency applique le principe de minimisation des données (Article 5.1.c). Nous collectons uniquement les informations indispensables aux finalités prévues :
           </p>
-          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-top: 0.5rem;">
-            <li>Répondre à vos demandes de création de site web et d'audit</li>
-            <li>Préparer les comptes-rendus d'évaluation OWASP et Pen-testing</li>
-            <li>Assurer le suivi de la maintenance opérationnelle (Abonnement Run)</li>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem;">
+            <li><strong>Données d'identité</strong> : Nom, prénom, civilité, fonction.</li>
+            <li><strong>Données professionnelles</strong> : Nom de l'entreprise, adresse e-mail professionnelle, numéro de téléphone.</li>
+            <li><strong>Contenus des requêtes</strong> : Contenu textuel des formulaires de contact, détails techniques des projets web soumis.</li>
+            <li><strong>Données de navigation et de sécurité Edge</strong> : Adresses IP anonymisées, caractéristiques du navigateur, logs d'accès réseau Edge Cloudflare requis pour neutraliser les cybermenaces.</li>
           </ul>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-top: 0.5rem;">
-            Aucune donnée n'est cédée, revendue ou partagée avec des tiers à des fins publicitaires.
+          <p style="color: var(--clr-text-3); font-size: 0.85rem; font-style: italic; line-height: 1.6;">
+            * Important : Arkis Agency ne collecte ni ne traite aucune donnée dite "sensible" (données de santé, opinions politiques, croyances religieuses, etc.).
           </p>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">3. Chiffrement et Hébergement des Données</h2>
+        <!-- Block 4 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">04.</span> Finalités des Traitements
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Vos données personnelles font l'objet d'un traitement informatique pour les objectifs exclusifs suivants :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: decimal; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li>Répondre aux demandes d'informations, d'audits et de création de sites web formulées via le site.</li>
+            <li>Préparer les devis techniques de BUILD et d'abonnements de maintenance RUN.</li>
+            <li>Fournir, maintenir et surveiller en direct l'infrastructure de sécurité réseau via notre dashboard SIEM.</li>
+            <li>Assurer la facturation des contrats et le traitement de vos flux de paiement Stripe chiffrés de bout en bout.</li>
+          </ul>
+        </div>
+
+        <!-- Block 5 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">05.</span> Sécurité, Chiffrement et Hébergement Souverain
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Conformément aux exigences de l'article 32 du RGPD, l'agence Arkis Agency déploie une politique de sécurité technique rigoureuse :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><strong>Chiffrement des Données</strong> : Toutes les informations stockées sont chiffrées au repos via le protocole matériel AES-256. Les flux de données web sont chiffrés en transit avec la suite protocolaire TLS 1.3.</li>
+            <li><strong>Localisation Souveraine (UE)</strong> : Vos informations d'inscription et de contact sont hébergées au sein des serveurs cloud souverains de <strong>Supabase (instance isolée PostgreSQL)</strong> situés dans des datacenters européens dans l'Union Européenne.</li>
+            <li><strong>Filtrage Actif à l'Edge (WAF)</strong> : Toutes les requêtes HTTP entrantes passent par le pare-feu applicatif web (WAF) de <strong>Cloudflare</strong> pour filtrer les menaces et bloquer les IP malveillantes en temps réel.</li>
+          </ul>
+        </div>
+
+        <!-- Block 6 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">06.</span> Destinataires des Données
+          </h2>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Toutes les informations soumises via nos formulaires sont stockées au sein de notre infrastructure cloud souveraine sur <strong>Supabase (PostgreSQL)</strong>, localisée dans des datacenters européens. Toutes les communications et tables de bases de données sont entièrement chiffrées au repos (AES-256) et en transit (TLS 1.3).
+            Arkis Agency s'engage formellement à <strong>ne jamais revendre, louer, ou partager</strong> vos données personnelles à des tiers à des fins publicitaires ou marketing. Les seuls destinataires des données sont l'équipe de cybersécurité interne d'Arkis et nos sous-traitants techniques strictement habilités intervenant dans le strict cadre contractuel (Supabase pour le stockage SQL chiffré, Cloudflare pour le CDN Edge et le routage réseau, Brevo pour l'envoi automatisé de nos réponses mail chiffrées).
           </p>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">4. Vos Droits (RGPD)</h2>
+        <!-- Block 7 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">07.</span> Durée de Conservation des Données
+          </h2>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Conformément aux réglementations européennes, vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données personnelles. Pour exercer ce droit, écrivez simplement à notre DPO (Data Protection Officer) à l'adresse suivante : <a href="mailto:dpo@arkis.agency" style="color: var(--clr-cyan); text-decoration: underline;">dpo@arkis.agency</a>.
+            Nous conservons vos informations personnelles uniquement pour le temps strictement nécessaire à l'accomplissement des objectifs :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Données prospects / formulaires</strong> : Supprimées ou archivées de manière anonyme après un délai de 36 mois sans contact ou interaction de votre part.</li>
+            <li><strong>Données clients (BUILD &amp; RUN)</strong> : Conservées pendant toute la durée contractuelle et archivées légalement pendant 10 ans pour répondre aux exigences comptables et fiscales.</li>
+          </ul>
+        </div>
+
+        <!-- Block 8 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">08.</span> Vos Droits &amp; Réclamation (CNIL)
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Conformément aux réglementations européennes, vous disposez des droits suivants concernant vos données à caractère personnel :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <li>Droit d'accès et de consultation (Article 15 du RGPD).</li>
+            <li>Droit de rectification de vos données erronées (Article 16).</li>
+            <li>Droit de suppression et à l'oubli numérique (Article 17).</li>
+            <li>Droit à la limitation du traitement (Article 18) et d'opposition (Article 21).</li>
+            <li>Droit à la portabilité de vos données dans un format standard (Article 20).</li>
+          </ul>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Pour exercer l'un de ces droits, veuillez transmettre votre demande accompagnée d'une preuve d'identité à notre DPO à : 
+            <a href="mailto:dpo@arkis.agency" style="color: var(--clr-cyan); text-decoration: underline;">dpo@arkis.agency</a>.
+          </p>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation officielle à la Commission Nationale de l'Informatique et des Libertés (CNIL) sur son site officiel : 
+            <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style="color: var(--clr-cyan); text-decoration: underline;">www.cnil.fr</a>.
           </p>
         </div>
+
       </div>
     </div>
   </section>

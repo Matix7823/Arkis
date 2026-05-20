@@ -1,51 +1,129 @@
 <%- include('../partials/head', { 
   title: 'Conditions Générales de Vente (CGV) — Arkis Agency', 
-  description: 'Conditions générales de vente de nos prestations de services de développement web et audit de cybersécurité.' 
+  description: 'Conditions Générales de Vente régissant les prestations de création web et cybersécurité d\'Arkis Agency.' 
 }) %>
 
 <%- include('../partials/header', { page: 'cgv' }) %>
 
-<main style="padding-top: var(--nav-h); min-height: 80vh;">
-  <section class="section legal-page" style="background-image: var(--grad-glow);">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
-        <p class="section-tag font-mono" style="margin-left: 0;">Légal</p>
-        <h1 class="section-title" style="font-size: 2.5rem; line-height: 1.2;">Conditions Générales <br><span class="gradient-text">de Vente (CGV).</span></h1>
-        <p class="section-subtitle" style="margin-left: 0; max-width: 100%;">Dernière mise à jour : 20 mai 2026</p>
+<main style="padding-top: var(--nav-h); min-height: 80vh; background-color: var(--clr-bg); color: var(--clr-text);">
+  <!-- Background Glow & Grid -->
+  <section class="section legal-page" style="background-image: var(--grad-glow); position: relative; padding-bottom: 6rem;">
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none;" aria-hidden="true"></div>
+
+    <div class="container" style="max-width: 900px; position: relative; z-index: 2;">
+      <div class="section-header" style="text-align: left; margin-bottom: 3.5rem; max-width: 100%;">
+        <p class="section-tag font-mono" style="margin-left: 0;">Cadre Contractuel</p>
+        <h1 class="section-title" style="font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.15; font-weight: 800;">
+          Conditions Générales <br><span class="gradient-text">de Vente (CGV).</span>
+        </h1>
+        <p class="section-subtitle" style="margin-left: 0; max-width: 100%; font-size: 0.95rem; color: var(--clr-text-3); font-family: var(--font-mono);">
+          Version 2.0 — Date de mise à jour : 20 mai 2026 • Réservé aux relations professionnelles (B2B)
+        </p>
       </div>
 
-      <div class="legal-content-wrap" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3rem); box-shadow: var(--shadow-card);">
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">1. Objet des Prestations</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Les présentes Conditions Générales de Vente régissent les relations contractuelles entre Arkis Agency et ses clients professionnels pour l'ensemble de nos offres de création web full-stack, d'audits de sécurité (Pen-testing), et de maintenance applicative continue (Abonnements RUN).
-          </p>
-        </div>
+      <div class="legal-content-wrap" style="background: rgba(12, 21, 41, 0.7); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3.5rem); box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+        
+        <!-- Intro -->
+        <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2.5rem;">
+          Les présentes Conditions Générales de Vente (ci-après "CGV") constituent le socle unique de la négociation commerciale et s'appliquent de plein droit à toutes les prestations de services et développements web conclus entre l'agence <strong>Arkis Agency</strong> (gérée par la société ARKIS SAS) et ses clients professionnels (ci-après "le Client"). Tout devis accepté ou contrat signé implique l'acceptation sans réserve des présentes conditions.
+        </p>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">2. Tarifs et Modalités de Paiement</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem;">
-            Nos projets font l'objet d'un devis préalable détaillé. Le cycle tarifaire d'un projet comprend :
+        <!-- Article 1 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 1.</span> Objet &amp; Prestations de Services
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Arkis Agency propose des services d'ingénierie web et de sécurité informatique divisés en deux phases :
           </p>
-          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-bottom: 1rem;">
-            <li><strong>Phase BUILD</strong> : Acompte de 40% au lancement, 30% après validation des maquettes fonctionnelles et 30% lors du déploiement en production.</li>
-            <li><strong>Phase RUN</strong> : Facturation mensuelle par prélèvement automatique au début de chaque période d'abonnement (sans engagement après 12 mois initial).</li>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Prestations de BUILD</strong> : Études ergonomiques, maquettage, développement front-end et back-end d'applications JAMstack/Next.js/Astro, intégration de bases de données Supabase, configuration CDN/WAF Cloudflare, et tests d'intrusion (Pen-testing).</li>
+            <li><strong>Prestations de RUN</strong> : Maintenance applicative opérationnelle (TMA), hébergement cloud chiffré, support technique prioritaire 24h/7, et surveillance active des menaces.</li>
           </ul>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">3. Délais de Livraison et Recette</h2>
+        <!-- Article 2 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 2.</span> Devis, Commande &amp; Cahier des Charges
+          </h2>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Arkis Agency s'engage à livrer le projet conformément au planning annexé au cahier des charges. À la livraison, le client dispose d'une phase de recette technique de 10 jours ouvrés pour formuler d'éventuelles réserves. En l'absence de réserves durant cette période, la prestation est réputée validée.
+            La vente de prestations n'est réputée parfaite qu'à compter de la signature écrite ou électronique par le Client du devis détaillé d'Arkis Agency, accompagné éventuellement du Cahier des Charges technique. Les devis émis sont valables pendant une durée de trente (30) jours à compter de leur date d'émission. Toute demande de modification du Cahier des Charges après signature fera l'objet d'un avenant tarifaire spécifique.
           </p>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">4. Garantie Zéro Vulnérabilité Critique</h2>
+        <!-- Article 3 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 3.</span> Conditions Financières, Tarifs &amp; Pénalités
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Les prix sont exprimés en Euros et s'entendent hors taxes (HT), majorés de la TVA au taux légal en vigueur en France au jour de la facturation.
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
+            <li><strong>Facturation du BUILD</strong> : Établie selon un échéancier fixe ➔ <strong>40% d'acompte</strong> exigible au lancement du projet; <strong>30% de paiement intermédiaire</strong> après validation des prototypes UI/UX; <strong>30% de solde final</strong> lors du déploiement en production.</li>
+            <li><strong>Facturation du RUN (Abonnement)</strong> : Facturation mensuelle en début de période contractuelle par prélèvement bancaire automatique Stripe. L'abonnement RUN comporte un engagement initial de douze (12) mois, renouvelable par tacite reconduction.</li>
+            <li><strong>Délais de paiement</strong> : Les factures sont payables à réception sauf accord contraire écrit. Aucun escompte n'est consenti pour paiement anticipé.</li>
+            <li><strong>Pénalités de retard</strong> : En cas de retard de paiement, des pénalités équivalentes à <strong>trois (3) fois le taux d'intérêt légal</strong> en vigueur seront appliquées de plein droit sur le montant TTC, majorées d'une indemnité forfaitaire pour frais de recouvrement de <strong>40 euros</strong> (Article L.441-10 du Code de commerce).</li>
+          </ul>
+        </div>
+
+        <!-- Article 4 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 4.</span> Exécution, Délais &amp; Recette Technique
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Les délais de livraison indiqués sur les devis sont donnés à titre indicatif et ne tiennent pas compte de retards d'approvisionnement d'éléments rédactionnels ou de maquettes sous la responsabilité du Client.
+          </p>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Chaque site livré par Arkis Agency bénéficie d'une garantie post-livraison de 30 jours. Si une faille de sécurité critique (selon les standards OWASP) est détectée sur notre périmètre de développement dans ce délai, nous nous engageons à la patcher gratuitement sous 48 heures ouvrées.
+            À la livraison des développements en environnement de staging, le Client dispose d'une période de <strong>recette technique de dix (10) jours ouvrés</strong> pour faire part de réserves de conformité. En l'absence de retour écrit ou à défaut de réserves motivées à l'expiration de ce délai, le projet est légalement réputé accepté sans réserve, déclenchant l'exigibilité de la facture de solde et le déploiement en production.
           </p>
         </div>
+
+        <!-- Article 5 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 5.</span> Garantie Zéro Vulnérabilité Critique (SLA)
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Fidèle à ses engagements fondamentaux, Arkis Agency assortit chaque livraison de BUILD d'une **garantie de sécurité post-déploiement de trente (30) jours**. Si une vulnérabilité critique (répertoriée dans le Top 10 OWASP ou possédant un score CVSS v3 supérieur à 8.0) est découverte au sein de notre périmètre de code dans ce délai, Arkis s'engage à développer et déployer un correctif (patch) de sécurité sans frais supplémentaires dans un délai maximal de **48 heures ouvrées**. Cette garantie est exclue en cas de modification ultérieure du code source par un tiers ou par le Client.
+          </p>
+        </div>
+
+        <!-- Article 6 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 6.</span> Propriété Intellectuelle &amp; Clause de Réserve de Propriété
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Réserve de propriété</strong> : Arkis SAS conserve la propriété exclusive de l'ensemble des livrables techniques, graphiques, et logiciels créés jusqu'au paiement complet et effectif de l'intégralité du prix en principal et accessoires (Loi n°80-335).
+          </p>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            <strong>Cession de droits</strong> : Après paiement intégral des factures de solde, Arkis Agency cède au Client les droits d'exploitation et de représentation des développements sur-mesure pour le monde entier. Cependant, Arkis conserve le droit d'utiliser des modules logiciels réutilisables ou génériques construits au cours du projet et de citer le nom du Client à titre de référence commerciale.
+          </p>
+        </div>
+
+        <!-- Article 7 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 7.</span> Responsabilité &amp; Assurances
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Arkis Agency est liée par une obligation de moyens pour l'ensemble de ses prestations de cybersécurité. La responsabilité de l'agence ne pourra être engagée qu'en cas de faute prouvée et sera strictement limitée au montant total hors taxes (HT) payé par le Client au titre de la commande spécifique à l'origine du litige. Arkis décline toute responsabilité pour les pertes d'exploitation indirectes, pertes de données ou atteintes à l'image de marque. L'éditeur est titulaire d'une police d'assurance responsabilité civile professionnelle (RC Pro Cybersécurité) couvrant les dommages matériels et immatériels.
+          </p>
+        </div>
+
+        <!-- Article 8 -->
+        <div class="legal-block">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 8.</span> Droit Applicable &amp; Attribution de Juridiction
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
+            Les présentes CGV et toutes les opérations contractuelles qui en découlent sont régies exclusivement par le <strong>Droit Français</strong>. En cas de contestation ou de litige sur l'interprétation ou l'exécution du contrat, et après tentative de résolution amiable infructueuse, attribution expresse de juridiction est faite auprès du <strong>Tribunal de Commerce de Paris</strong>, seul compétent, nonobstant pluralité de défendeurs ou appel en garantie.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>

@@ -1,54 +1,119 @@
 <%- include('../partials/head', { 
-  title: 'Conformité RGPD — Arkis Agency', 
-  description: 'Engagement et conformité RGPD de l\'agence Arkis Agency.' 
+  title: 'Conformité RGPD & Charte de Sécurité — Arkis Agency', 
+  description: 'Charte opérationnelle d\'engagement et de conformité RGPD d\'Arkis Agency, ingénierie logicielle sécurisée by design.' 
 }) %>
 
 <%- include('../partials/header', { page: 'rgpd' }) %>
 
-<main style="padding-top: var(--nav-h); min-height: 80vh;">
-  <section class="section legal-page" style="background-image: var(--grad-glow);">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
-        <p class="section-tag font-mono" style="margin-left: 0;">Légal</p>
-        <h1 class="section-title" style="font-size: 2.5rem; line-height: 1.2;">Conformité <span class="gradient-text">RGPD.</span></h1>
-        <p class="section-subtitle" style="margin-left: 0; max-width: 100%;">Dernière mise à jour : 20 mai 2026</p>
+<main style="padding-top: var(--nav-h); min-height: 80vh; background-color: var(--clr-bg); color: var(--clr-text);">
+  <!-- Background Glow & Grid -->
+  <section class="section legal-page" style="background-image: var(--grad-glow); position: relative; padding-bottom: 6rem;">
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none;" aria-hidden="true"></div>
+
+    <div class="container" style="max-width: 900px; position: relative; z-index: 2;">
+      <div class="section-header" style="text-align: left; margin-bottom: 3.5rem; max-width: 100%;">
+        <p class="section-tag font-mono" style="margin-left: 0;">Réglementation européenne</p>
+        <h1 class="section-title" style="font-size: clamp(2.25rem, 5vw, 3rem); line-height: 1.15; font-weight: 800;">
+          Charte de Conformité <br><span class="gradient-text">RGPD &amp; Sécurité.</span>
+        </h1>
+        <p class="section-subtitle" style="margin-left: 0; max-width: 100%; font-size: 0.95rem; color: var(--clr-text-3); font-family: var(--font-mono);">
+          Version 2.0 — En vigueur au 20 mai 2026 • Politique "Secure &amp; Private by Design" d'Arkis Agency
+        </p>
       </div>
 
-      <div class="legal-content-wrap" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3rem); box-shadow: var(--shadow-card);">
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">1. Notre Engagement RGPD</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Le Règlement Général sur la Protection des Données (RGPD) encadre le traitement des données des citoyens de l'Union Européenne. Pour l'agence Arkis Agency, la conformité réglementaire n'est pas une obligation administrative tardive, mais fait partie intégrante de notre concept fondamental <strong>"Secure by Design"</strong>.
-          </p>
-        </div>
+      <div class="legal-content-wrap" style="background: rgba(12, 21, 41, 0.7); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: clamp(1.5rem, 5vw, 3.5rem); box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+        
+        <!-- Intro -->
+        <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2.5rem;">
+          Le Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679) fixe un cadre exigeant pour les acteurs du numérique. Au-delà d'une simple contrainte administrative, l'agence <strong>Arkis Agency</strong> considère la protection de la vie privée comme une brique structurelle de notre ingénierie logicielle. La présente charte formalise nos engagements opérationnels, méthodologiques, et techniques pour assurer la parfaite sécurité des données confiées.
+        </p>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">2. Traitements pour le Compte de Nos Clients</h2>
-          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem;">
-            Lorsque nous concevons des applications Web Full-Stack pour nos clients (e-commerce, SaaS, formulaires de réservation, CMS), nous mettons en œuvre les meilleures pratiques techniques pour assurer leur propre conformité :
+        <!-- Article 1 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 1.</span> Statuts &amp; Rôles dans la Sous-Traitance (Art. 28)
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Dans le cadre des prestations de développement (BUILD) et de maintenance (RUN), Arkis Agency intervient sous deux statuts distincts au sens du RGPD :
           </p>
-          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; margin-bottom: 1rem;">
-            <li>Minimisation des données collectées au strict nécessaire.</li>
-            <li>Double-consentement opt-in systématique.</li>
-            <li>Rétention limitée dans le temps.</li>
-            <li>Exportation et suppression simplifiées des données à la demande de l'usager.</li>
-            <li>Chiffrement asymétrique des mots de passe et des données sensibles.</li>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><strong>En tant que Responsable de Traitement</strong> : Pour les données personnelles collectées directement sur notre site internet (formulaires de contact, relations commerciales, facturation). Ce traitement est détaillé dans notre <a href="/legal/politique-confidentialite" style="color: var(--clr-cyan); text-decoration: underline;">Politique de Confidentialité</a>.</li>
+            <li><strong>En tant que Sous-Traitant (Art. 28 du RGPD)</strong> : Pour toutes les données stockées et transitant au sein des applications web, bases de données, et API que nous développons et hébergeons pour le compte de nos Clients. Le Client demeure l'unique Responsable de ces Traitements. Arkis Agency s'engage formellement à ne traiter ces informations que sur instruction écrite documentée du Client.</li>
           </ul>
         </div>
 
-        <div class="legal-block" style="margin-bottom: 2rem;">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">3. Cookies et Traceurs</h2>
+        <!-- Article 2 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 2.</span> Intégration de la Sécurité dès la Conception
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Toutes nos architectures logicielles intègrent les principes fondamentaux de **Privacy by Design** (protection dès la conception) et **Privacy by Default** (protection par défaut) :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><strong>Row-Level Security (RLS)</strong> : Dans nos intégrations Supabase / PostgreSQL, nous implémentons systématiquement des politiques RLS rigoureuses. Aucun accès direct aux tables n'est possible sans authentification vérifiée, garantissant le cloisonnement absolu des comptes usagers.</li>
+            <li><strong>Chiffrement Multi-Couches</strong> : Les flux sont sécurisés en transit via HTTPS et le protocole TLS 1.3 avec chiffrement à clé asymétrique de courbe elliptique. Les données en base de données PostgreSQL sont chiffrées au repos via du chiffrement matériel AES-256.</li>
+            <li><strong>Minimisation des données</strong> : Les structures de tables sont optimisées pour éliminer la collecte de métadonnées superflues.</li>
+            <li><strong>Défense active Edge</strong> : Déploiement systématique de stratégies Zero-Trust et de filtrages de requêtes HTTP malveillantes via Cloudflare Edge WAF.</li>
+          </ul>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 3.</span> Registre des Traitements &amp; Assistance DPO
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Conformément à l'article 30 du RGPD, Arkis Agency maintient en permanence un registre interne exhaustif et à jour répertoriant l'ensemble de nos activités de traitement de données.
+          </p>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Ce site internet n'utilise aucun traceur ou cookie publicitaire intrusif. Les seuls cookies techniques pouvant être déposés sont indispensables au fonctionnement du réseau mondial de diffusion (Edge CDN Cloudflare) ou pour maintenir la sécurité applicative (protection CSRF).
+            De plus, nous fournissons à nos Clients sous contrat d'abonnement RUN une **assistance technique de conformité**. Nos ingénieurs et notre Délégué à la Protection des Données (DPO) vous assistent lors de la rédaction de vos propres Analyses d'Impact relative à la Protection des Données (AIPD) et pour la structuration de vos mentions de recueil de consentement.
           </p>
         </div>
 
+        <!-- Article 4 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 4.</span> Gestion des Incidents de Sécurité &amp; Notification (Art. 33)
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Arkis Agency applique des procédures strictes de gestion d'incident de sécurité pour limiter tout risque de fuite de données :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
+            <li><strong>Superveillance active 24h/7</strong> : Notre centre opérationnel de sécurité (SOC) surveille en continu les tentatives d'intrusion et les alertes système d'intégrité de vos bases de données.</li>
+            <li><strong>Délai maximal de Notification</strong> : En cas de détection d'une violation avérée de données personnelles (accès non autorisé, perte d'intégrité, divulgation accidentelle), Arkis Agency s'engage à en informer le Client par écrit dans un délai maximal de **72 heures** après en avoir pris connaissance.</li>
+            <li><strong>Rapport circonstancié d'Incident</strong> : Cette notification est accompagnée d'une documentation décrivant les catégories de données compromises, le nombre approximatif de personnes concernées, les conséquences probables de l'incident et l'ensemble des mesures correctives et d'atténuation immédiates entreprises.</li>
+          </ul>
+        </div>
+
+        <!-- Article 5 -->
+        <div class="legal-block" style="margin-bottom: 2.5rem;">
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 5.</span> Exercice des Droits des Usagers
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Pour permettre à vos utilisateurs finaux de faire valoir sereinement leurs droits (accès, rectification, suppression, limitation, portabilité), les applications construites par Arkis intègrent des fonctionnalités natives :
+          </p>
+          <ul style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; padding-left: 1.25rem; list-style-type: disc; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li>Interfaces de profil utilisateur permettant l'export brut des données de l'usager dans un format standardisé structuré (JSON ou CSV).</li>
+            <li>Routines d'anonymisation ou de suppression irréversible et complète des fiches clients en base de données.</li>
+            <li>Mécanismes de blocage temporaire de traitement.</li>
+          </ul>
+        </div>
+
+        <!-- Article 6 -->
         <div class="legal-block">
-          <h2 style="font-size: 1.25rem; color: var(--clr-cyan); margin-bottom: 1rem; font-family: var(--font-display);">4. Registre des Activités de Traitement</h2>
+          <h2 style="font-size: 1.35rem; color: var(--clr-cyan); margin-bottom: 1.25rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.9rem;">Art. 6.</span> Souveraineté &amp; Localisation Européenne (UE)
+          </h2>
+          <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem;">
+            Arkis Agency garantit la **souveraineté géographique** totale des données de vos clients.
+          </p>
           <p style="color: var(--clr-text-2); font-size: 0.95rem; line-height: 1.7;">
-            Nous maintenons à jour un registre interne des traitements de données sous la supervision de notre DPO. Pour toute question, contactez : <a href="mailto:rgpd@arkis.agency" style="color: var(--clr-cyan); text-decoration: underline;">rgpd@arkis.agency</a>.
+            Toutes les instances de bases de données relationnelles SQL d'Arkis Agency et de nos projets clients en BUILD/RUN sont implantées au sein de l'Union Européenne (principalement dans les régions d'hébergement ouest-européennes de Francfort et de Paris). Nous refusons l'utilisation de sous-traitants cloud non sécurisés ou stockant des données hors UE sans garanties d'équivalence de protection conformes aux décisions d'adéquation de la Commission Européenne.
           </p>
         </div>
+
       </div>
     </div>
   </section>

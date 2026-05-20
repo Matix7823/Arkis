@@ -50,7 +50,12 @@ const pages = [
   { template: 'realisations.ejs', output: 'realisations.html', pageName: 'realisations' },
   { template: 'tarifs.ejs', output: 'tarifs.html', pageName: 'tarifs' },
   { template: 'equipe.ejs', output: 'equipe.html', pageName: 'equipe' },
-  { template: 'contact.ejs', output: 'contact.html', pageName: 'contact' }
+  { template: 'contact.ejs', output: 'contact.html', pageName: 'contact' },
+  { template: 'live.ejs', output: 'live.html', pageName: 'live' },
+  { template: 'legal/mentions-legales.ejs', output: 'legal/mentions-legales.html', pageName: 'mentions-legales' },
+  { template: 'legal/confidentialite.ejs', output: 'legal/politique-confidentialite.html', pageName: 'politique-confidentialite' },
+  { template: 'legal/cgv.ejs', output: 'legal/cgv.html', pageName: 'cgv' },
+  { template: 'legal/rgpd.ejs', output: 'legal/rgpd.html', pageName: 'rgpd' }
 ];
 
 let compiledCount = 0;
@@ -64,10 +69,9 @@ pages.forEach(page => {
         process.exit(1);
       }
       
-      // Clean up EJS links to match standard relative files or mapped routes
-      // Cloudflare Pages clean URLs maps /services -> services.html automatically,
-      // but modifying .ejs links is not needed as Cloudflare resolves them natively.
       const outputPath = path.join(DIST_DIR, page.output);
+      // Ensure target directory exists
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
       fs.writeFileSync(outputPath, html);
       console.log(`✓ Compiled: ${page.template} -> dist/${page.output}`);
       
@@ -82,3 +86,4 @@ pages.forEach(page => {
     process.exit(1);
   }
 });
+
