@@ -54,39 +54,69 @@
         </div>
 
         <div class="team-right reveal-up delay-2">
-          <!-- Founders -->
-          <div class="founders-grid">
-            <div class="founder-card" id="founder-1">
-              <div class="founder-avatar founder-avatar-blue" aria-label="Fondateur 1">
-                <span class="avatar-initials">A1</span>
-                <div class="avatar-ring"></div>
+          <!-- Founders & Core Team -->
+          <div class="founders-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+            
+            <!-- Founder 1: Alexandre Voisin -->
+            <div class="founder-card" id="founder-1" style="display: flex; gap: 1.5rem; background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem; align-items: center; position: relative; overflow: hidden; transition: all var(--t-base);">
+              <div class="founder-avatar founder-avatar-blue" aria-label="Alexandre Voisin" style="flex-shrink: 0; width: 68px; height: 68px; background: rgba(0, 212, 255, 0.08); border: 1.5px solid var(--clr-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                <span class="avatar-initials" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--clr-cyan);">AV</span>
+                <div class="avatar-ring" style="position: absolute; inset: -4px; border: 1px dashed rgba(0, 212, 255, 0.25); border-radius: 50%; animation: spin 20s linear infinite;"></div>
               </div>
-              <div class="founder-info">
-                <h4 class="founder-name">Co-Fondateur</h4>
-                <p class="founder-role font-mono">Lead Developer & Architect</p>
-                <div class="founder-skills">
-                  <span class="skill-tag">Full-Stack</span>
-                  <span class="skill-tag">DevOps</span>
-                  <span class="skill-tag">Cloud</span>
+              <div class="founder-info" style="flex-grow: 1;">
+                <h4 class="founder-name" style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Alexandre Voisin</h4>
+                <p class="founder-role font-mono" style="font-size: 0.72rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">Co-Fondateur & Lead Architecte Web</p>
+                <div class="founder-skills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">JAMstack</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Supabase</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Cloudflare</span>
                 </div>
+                <button class="btn-bio-trigger" data-bio="alexandre" style="background: transparent; border: none; color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; padding: 0; outline: none;">
+                  Consulter sa bio <span aria-hidden="true">→</span>
+                </button>
               </div>
             </div>
 
-            <div class="founder-card" id="founder-2">
-              <div class="founder-avatar founder-avatar-purple" aria-label="Fondateur 2">
-                <span class="avatar-initials">A2</span>
-                <div class="avatar-ring"></div>
+            <!-- Founder 2: Mathis Leroy -->
+            <div class="founder-card" id="founder-2" style="display: flex; gap: 1.5rem; background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem; align-items: center; position: relative; overflow: hidden; transition: all var(--t-base);">
+              <div class="founder-avatar founder-avatar-purple" aria-label="Mathis Leroy" style="flex-shrink: 0; width: 68px; height: 68px; background: rgba(123, 47, 255, 0.08); border: 1.5px solid var(--clr-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                <span class="avatar-initials" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--clr-purple);">ML</span>
+                <div class="avatar-ring" style="position: absolute; inset: -4px; border: 1px dashed rgba(123, 47, 255, 0.25); border-radius: 50%; animation: spin 20s linear reverse infinite;"></div>
               </div>
-              <div class="founder-info">
-                <h4 class="founder-name">Co-Fondateur</h4>
-                <p class="founder-role font-mono">Head of Security & Red Team</p>
-                <div class="founder-skills">
-                  <span class="skill-tag">Pen-Testing</span>
-                  <span class="skill-tag">OSCP</span>
-                  <span class="skill-tag">ISO 27001</span>
+              <div class="founder-info" style="flex-grow: 1;">
+                <h4 class="founder-name" style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Mathis Leroy</h4>
+                <p class="founder-role font-mono" style="font-size: 0.72rem; color: #A78BFA; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">Co-Fondateur & Expert Cybersécurité</p>
+                <div class="founder-skills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Pen-Testing</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">OSCP cert</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">WAF Shield</span>
                 </div>
+                <button class="btn-bio-trigger" data-bio="mathis" style="background: transparent; border: none; color: #A78BFA; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; padding: 0; outline: none;">
+                  Consulter sa bio <span aria-hidden="true">→</span>
+                </button>
               </div>
             </div>
+
+            <!-- Founder 3: Amandine Roche -->
+            <div class="founder-card" id="founder-3" style="display: flex; gap: 1.5rem; background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 1.5rem; align-items: center; position: relative; overflow: hidden; transition: all var(--t-base);">
+              <div class="founder-avatar founder-avatar-cyan" aria-label="Amandine Roche" style="flex-shrink: 0; width: 68px; height: 68px; background: rgba(0, 212, 255, 0.08); border: 1.5px solid var(--clr-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                <span class="avatar-initials" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--clr-cyan);">AR</span>
+                <div class="avatar-ring" style="position: absolute; inset: -4px; border: 1px dashed rgba(0, 212, 255, 0.25); border-radius: 50%; animation: spin 20s linear infinite;"></div>
+              </div>
+              <div class="founder-info" style="flex-grow: 1;">
+                <h4 class="founder-name" style="font-size: 1.1rem; font-weight: 700; color: var(--clr-text); margin-bottom: 0.15rem;">Amandine Roche</h4>
+                <p class="founder-role font-mono" style="font-size: 0.72rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">Responsable SEO & Marketing Digital</p>
+                <div class="founder-skills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">SEO Strategy</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Growth</span>
+                  <span class="skill-tag" style="font-size: 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.15rem 0.45rem; border-radius: 4px; color: var(--clr-text-2);">Analytics</span>
+                </div>
+                <button class="btn-bio-trigger" data-bio="amandine" style="background: transparent; border: none; color: var(--clr-cyan); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; padding: 0; outline: none;">
+                  Consulter sa bio <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+
           </div>
 
           <!-- Team stats -->
@@ -127,5 +157,42 @@
     </div>
   </section>
 </main>
+
+<!-- ═══════════════════════════════════════════════
+     BIOGRAPHIC SIDEBAR DRAWER MODAL
+     ═══════════════════════════════════════════════ -->
+<div id="bio-drawer" class="bio-drawer" style="position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: flex-end; pointer-events: none;" aria-hidden="true" role="dialog" aria-modal="true">
+  <!-- Overlay dim background -->
+  <div id="bio-drawer-overlay" style="position: absolute; inset: 0; background: rgba(5, 10, 24, 0.85); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.40s ease; pointer-events: auto; cursor: pointer;"></div>
+  
+  <!-- Drawer content pane -->
+  <div id="bio-drawer-pane" style="position: relative; width: 100%; max-width: 500px; height: 100%; background: #070F22; border-left: 1px solid rgba(0, 212, 255, 0.15); box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.40s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: auto; padding: 3rem 2.5rem; overflow-y: auto;">
+    
+    <!-- Close button -->
+    <button id="bio-drawer-close" aria-label="Fermer la biographie" style="position: absolute; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); color: var(--clr-text-2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--t-fast); outline: none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Content to be dynamically loaded in script.js -->
+    <div id="bio-drawer-content" style="display: flex; flex-direction: column; gap: 2rem;">
+      <!-- Dynamic Bio template loaded by Javascript -->
+    </div>
+
+  </div>
+</div>
+
+<style>
+.founder-card:hover {
+  border-color: rgba(0, 212, 255, 0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.04);
+}
+.btn-bio-trigger:hover {
+  text-decoration: underline;
+}
+.bio-drawer.active {
+  display: flex !important;
+}
+</style>
 
 <%- include('partials/footer') %>

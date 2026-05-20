@@ -44,29 +44,95 @@
         </div>
       </div>
 
-      <!-- SIEM COMMAND CONTROLS (Simulators) -->
-      <div style="background: rgba(12, 21, 41, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; backdrop-filter: blur(10px); position: relative; z-index: 2;">
-        <div>
-          <h3 style="font-size: 0.95rem; font-weight: 700; font-family: var(--font-mono); color: var(--clr-cyan); text-transform: uppercase; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
-            <span style="display:inline-block; width:6px; height:6px; background:var(--clr-cyan); border-radius:50%;"></span>
-            Console d'Attaque Offensive Simulator
-          </h3>
-          <p style="font-size: 0.8rem; color: var(--clr-text-3);">Testez la réactivité défensive de nos pare-feux en déclenchant des simulations d'attaques à la volée.</p>
+      <!-- ═══════════════════════════════════════════════
+           SIEM COMMAND CONTROLS & EXPLOIT PLAYGROUND
+           ═══════════════════════════════════════════════ -->
+      <div style="background: rgba(12, 21, 41, 0.6); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; backdrop-filter: blur(10px); position: relative; z-index: 2; box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);" class="exploit-grid">
+        
+        <!-- Left: Quick presets and custom exploit sandbox -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; font-family: var(--font-display); color: var(--clr-text); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="display:inline-block; width:8px; height:8px; background:var(--clr-red); border-radius:50%; animation: pulseGlow 1s infinite;"></span>
+              Cyber Attack Exploit Sandbox
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--clr-text-2);">Testez l'impénétrabilité de nos systèmes. Choisissez un vecteur d'attaque ci-dessous, ajustez le payload et déclenchez l'offensive pour monitorer le WAF.</p>
+          </div>
+
+          <!-- Payload type selector -->
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <label for="exploit-vector" style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-cyan); text-transform: uppercase; font-weight: 600;">Vecteur d'Attaque</label>
+            <select id="exploit-vector" style="width: 100%; padding: 0.65rem 1rem; background: var(--clr-bg-2); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); color: var(--clr-text); font-size: 0.85rem; font-weight: 500; outline: none; cursor: pointer; transition: border-color var(--t-fast);">
+              <option value="sqli">Injection SQL — Authentification Bypass Presets</option>
+              <option value="xss">Cross-Site Scripting (XSS) — Cookie Grabber Alert</option>
+              <option value="bot">Bad Bot User-Agent — Web Server Scraper Crawler</option>
+              <option value="custom">Payload Perso (Saisissez votre propre code malveillant)</option>
+            </select>
+          </div>
+
+          <!-- Payload input textarea -->
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <label for="exploit-payload" style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-cyan); text-transform: uppercase; font-weight: 600;">Code du Payload Offensif</label>
+            <textarea id="exploit-payload" rows="3" style="width: 100%; padding: 0.75rem 1rem; background: #020612; border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-sm); color: #C084FC; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.4; outline: none; resize: none; transition: border-color 0.2s;" placeholder="' OR '1'='1' --"></textarea>
+          </div>
+
+          <!-- Action and status triggers -->
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <button id="btn-fire-exploit" class="btn btn-primary" style="background: var(--clr-red); border-color: var(--clr-red); color: white; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Lancer l'Attaque
+            </button>
+            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-text-3);" id="sandbox-status-text">Prêt à l'envoi</span>
+          </div>
+
         </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <button id="btn-sim-ddos" class="btn btn-sm btn-outline" style="border-color: rgba(239, 68, 68, 0.3); color: #F87171; display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(239, 68, 68, 0.02);">
-            <span class="btn-bullet" style="width: 5px; height: 5px; background: #EF4444; border-radius: 50%;"></span>
-            Simuler DDoS Flood
-          </button>
-          <button id="btn-sim-sqli" class="btn btn-sm btn-outline" style="border-color: rgba(167, 139, 250, 0.3); color: #C084FC; display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167, 139, 250, 0.02);">
-            <span class="btn-bullet" style="width: 5px; height: 5px; background: #A78BFA; border-radius: 50%;"></span>
-            Injecter SQLi Payload
-          </button>
-          <button id="btn-sim-bot" class="btn btn-sm btn-outline" style="border-color: rgba(0, 212, 255, 0.3); color: var(--clr-cyan); display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 212, 255, 0.02);">
-            <span class="btn-bullet" style="width: 5px; height: 5px; background: var(--clr-cyan); border-radius: 50%;"></span>
-            Simuler Bot Scanner
-          </button>
+
+        <!-- Right: Real-time Firewall Intercept Telemetry & Quick triggers -->
+        <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          
+          <div>
+            <h4 style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em; display: flex; justify-content: space-between;">
+              <span>Rapport de Filtration Edge</span>
+              <span id="sandbox-result-badge" style="color:var(--clr-green); font-weight: 800;">● SHIELD ON</span>
+            </h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.75rem;">
+              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.04); padding-bottom: 0.4rem;">
+                <span style="color:var(--clr-text-2);">Dernier Verdict WAF :</span>
+                <strong id="waf-verdict" style="color:var(--clr-green);">PASS (Légitime)</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(255,255,255,0.04); padding-bottom: 0.4rem;">
+                <span style="color:var(--clr-text-2);">Action Déclenchée :</span>
+                <strong id="waf-action" style="color:var(--clr-text-3);">MONITOR ONLY</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:var(--clr-text-2);">Signature de Risque :</span>
+                <strong id="waf-signature" style="color:var(--clr-text-3);">NONE (0x000)</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick simulation buttons at the bottom -->
+          <div>
+            <h4 style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--clr-text-3); text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05em;">Scénarios d'Attaque Globaux (Auto)</h4>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button id="btn-sim-ddos" class="btn btn-xs btn-outline" style="border-color: rgba(239, 68, 68, 0.3); color: #F87171; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(239, 68, 68, 0.02);">
+                <span style="width: 4px; height: 4px; background: #EF4444; border-radius: 50%;"></span>
+                DDoS Flood
+              </button>
+              <button id="btn-sim-sqli" class="btn btn-xs btn-outline" style="border-color: rgba(167, 139, 250, 0.3); color: #C084FC; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(167, 139, 250, 0.02);">
+                <span style="width: 4px; height: 4px; background: #A78BFA; border-radius: 50%;"></span>
+                Auto SQLi
+              </button>
+              <button id="btn-sim-bot" class="btn btn-xs btn-outline" style="border-color: rgba(0, 212, 255, 0.3); color: var(--clr-cyan); display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; padding: 0.35rem 0.65rem; background: rgba(0, 212, 255, 0.02);">
+                <span style="width: 4px; height: 4px; background: var(--clr-cyan); border-radius: 50%;"></span>
+                Bot Scan
+              </button>
+            </div>
+          </div>
+
         </div>
+
       </div>
 
       <!-- Grid: Global Stats Counters -->
