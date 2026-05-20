@@ -30,6 +30,7 @@
       </a>
 
       <ul class="nav-links" role="list">
+        <li><a href="/" class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Accueil</a></li>
         <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
         <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
         <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>
@@ -49,6 +50,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
       <ul role="list">
+        <li><a href="/" class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">🏠 Accueil</a></li>
         <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
         <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
         <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>

@@ -1977,18 +1977,242 @@ function initFaqAccordions() {
     trigger.addEventListener('click', () => {
       const item = trigger.closest('.faq-item');
       const expanded = trigger.getAttribute('aria-expanded') === 'true';
-      
-      document.querySelectorAll('.faq-item').forEach(otherItem => {
+      const content = item.querySelector('.faq-content');
+      const chevron = trigger.querySelector('.faq-chevron');
+
+      // Close all others in the SAME pane only
+      const pane = item.closest('.faq-group-pane') || item.closest('.faq-list');
+      const scope = pane ? pane.querySelectorAll('.faq-item') : document.querySelectorAll('.faq-item');
+      scope.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove('active');
           const otherTrigger = otherItem.querySelector('.faq-trigger');
+          const otherContent = otherItem.querySelector('.faq-content');
+          const otherChevron = otherItem.querySelector('.faq-chevron');
           if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+          if (otherContent) otherContent.style.gridTemplateRows = '0fr';
+          if (otherChevron) otherChevron.style.transform = 'rotate(0deg)';
         }
       });
 
-      item.classList.toggle('active');
-      trigger.setAttribute('aria-expanded', !expanded);
+      // Toggle current
+      if (expanded) {
+        item.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+        if (content) content.style.gridTemplateRows = '0fr';
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      } else {
+        item.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+        if (content) content.style.gridTemplateRows = '1fr';
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      }
     });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 19. FAQ CATEGORY TABS
+// ═══════════════════════════════════════════════
+function initFaqTabs() {
+  const tabBtns = document.querySelectorAll('.faq-tab-btn');
+  const tabPanes = document.querySelectorAll('.faq-group-pane');
+  if (!tabBtns.length || !tabPanes.length) return;
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.dataset.tab;
+
+      // Update buttons
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Update panes
+      tabPanes.forEach(pane => {
+        if (pane.id === `pane-${targetTab}`) {
+          pane.classList.add('active');
+          pane.removeAttribute('hidden');
+          pane.style.display = '';
+        } else {
+          pane.classList.remove('active');
+          pane.setAttribute('hidden', '');
+          pane.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Initialize: show first pane, hide others
+  tabPanes.forEach((pane, idx) => {
+    if (idx === 0) {
+      pane.classList.add('active');
+      pane.style.display = '';
+    } else {
+      pane.classList.remove('active');
+      pane.style.display = 'none';
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 20. JARGON DECODER (Cyber Buster)
+// ═══════════════════════════════════════════════
+function initJargonDecoder() {
+  const items = document.querySelectorAll('.jargon-item');
+  const titleEl = document.getElementById('jargon-bubble-title');
+  const descEl = document.getElementById('jargon-bubble-desc');
+  if (!items.length || !titleEl || !descEl) return;
+
+  const jargonData = {
+    lcp: {
+      title: 'LCP — Largest Contentful Paint (Vitesse)',
+      desc: 'Le chrono de chargement principal. C\'est le temps nécessaire pour que l\'élément le plus lourd de votre page web apparaisse à l\'écran. Notre architecture Edge garantit un score LCP parfait de 100/100, assurant une expérience client fluide et un SEO optimisé.'
+    },
+    waf: {
+      title: 'WAF — Web Application Firewall (Frontal)',
+      desc: 'Le videur ultra-intelligent de votre site. Un WAF analyse chaque requête avant qu\'elle n\'atteigne votre serveur. Il bloque en temps réel les hackers, robots malveillants, injections SQL et attaques DDoS. Arkis utilise le WAF Enterprise de Cloudflare, le plus avancé du marché.'
+    },
+    rls: {
+      title: 'RLS — Row-Level Security (Isolation)',
+      desc: 'La serrure individuelle de chaque donnée. Dans votre base de données Supabase, le RLS garantit que chaque utilisateur ne peut voir et modifier que ses propres données. Même si un hacker accède à la base, il ne voit qu\'une cellule vide : la sienne.'
+    },
+    cve: {
+      title: 'CVE — Common Vulnerabilities & Exposures (Faille)',
+      desc: 'Le catalogue mondial des failles informatiques connues. Chaque faille découverte reçoit un identifiant unique (ex: CVE-2024-1234). Arkis surveille ce catalogue en temps réel pour patcher vos infrastructures avant qu\'un hacker ne puisse les exploiter.'
+    },
+    pentest: {
+      title: 'Pen-testing — Test d\'Intrusion',
+      desc: 'L\'attaque simulée que nous lançons contre votre propre site. Nos experts OSCP jouent le rôle du hacker et tentent de s\'introduire dans votre infrastructure avec toutes les techniques réelles. L\'objectif : trouver les failles avant les vrais attaquants et les colmater immédiatement.'
+    },
+    jamstack: {
+      title: 'JAMstack — JavaScript, APIs, Markup',
+      desc: 'L\'architecture qui rend votre site aussi rapide que Google. JAMstack signifie que votre site est pré-généré en milliers de fichiers statiques ultra-légers, distribués dans le monde entier via un CDN. Résultat : score 100/100 Google, zéro serveur exposé aux hackers.'
+    },
+    buildrun: {
+      title: 'Build & Run — Notre modèle tarifaire',
+      desc: 'La séparation claire entre la construction et la protection. La phase BUILD est le coût unique de création de votre site (conception, développement, déploiement). La phase RUN est l\'abonnement mensuel de surveillance, maintenance et sécurité active. Comme construire une maison, puis payer la surveillance 24h/24.'
+    },
+    zerotrust: {
+      title: 'Zero-Trust — Confiance Zéro',
+      desc: 'Le principe : ne faire confiance à personne, jamais, même à l\'intérieur de votre réseau. Chaque accès, chaque requête, chaque utilisateur est vérifié à chaque fois. Contrairement à la sécurité traditionnelle (périmètre de château fort), Zero-Trust traite chaque demande comme potentiellement malveillante.'
+    }
+  };
+
+  function showJargon(key) {
+    const data = jargonData[key];
+    if (!data) return;
+    items.forEach(i => i.classList.toggle('active', i.dataset.jargon === key));
+    titleEl.textContent = data.title;
+    descEl.textContent = data.desc;
+  }
+
+  items.forEach(item => {
+    item.addEventListener('click', () => showJargon(item.dataset.jargon));
+    item.addEventListener('mouseenter', () => showJargon(item.dataset.jargon));
+    item.style.cursor = 'pointer';
+  });
+}
+
+// ═══════════════════════════════════════════════
+// 21. GUIDED TOUR (Visite Guidée)
+// ═══════════════════════════════════════════════
+function initGuidedTour() {
+  const triggerBtn = document.getElementById('tour-trigger-btn');
+  const modal = document.getElementById('tour-modal');
+  const closeBtn = document.getElementById('tour-close-btn');
+  const nextBtn = document.getElementById('tour-btn-next');
+  const prevBtn = document.getElementById('tour-btn-prev');
+  const stepBadge = document.getElementById('tour-step-badge');
+  const titleEl = document.getElementById('tour-title');
+  const textEl = document.getElementById('tour-text');
+  const dots = document.querySelectorAll('.tour-dot');
+
+  if (!triggerBtn || !modal || !closeBtn || !nextBtn || !prevBtn) return;
+
+  const steps = [
+    {
+      title: 'Bienvenue chez Arkis 👋',
+      text: 'Nous créons des applications web sur-mesure d\'une vitesse foudroyante et dotées d\'une sécurité offensive intégrée dès la conception. Découvrons ensemble comment nous blindons votre avenir numérique !'
+    },
+    {
+      title: '⚡ Des sites 100/100 Google',
+      text: 'Notre architecture JAMstack Edge délivre vos pages depuis le serveur le plus proche de vos visiteurs dans le monde. Résultat garanti : score LCP parfait de 100/100 sur Google PageSpeed, ce qui propulse votre référencement en première page.'
+    },
+    {
+      title: '🛡️ Sécurité Offensive Intégrée',
+      text: 'Arkis ne rajoute pas la sécurité après coup. Nous concevons chaque architecture comme une forteresse : WAF Enterprise Cloudflare, isolation des données par Row-Level Security Supabase, TLS 1.3, et audits de pénétration réguliers par notre expert OSCP certifié.'
+    },
+    {
+      title: '💰 Le Modèle Build & Run',
+      text: 'Phase BUILD : un coût unique pour créer votre site parfait. Phase RUN : un abonnement mensuel pour surveiller, protéger et maintenir votre infrastructure 24h/24. Vous ne payez que ce dont vous avez besoin, avec un SLA garanti contractuellement.'
+    },
+    {
+      title: '🚀 Prêt à commencer ?',
+      text: 'Nos experts sont disponibles pour un audit gratuit de votre projet. Nous analysons vos besoins, proposons une architecture sur-mesure et vous donnons une estimation transparente. Zéro engagement, 100% de valeur ajoutée.'
+    }
+  ];
+
+  let currentStep = 0;
+
+  function renderStep(idx) {
+    const step = steps[idx];
+    if (stepBadge) stepBadge.textContent = `Étape ${idx + 1}/${steps.length}`;
+    if (titleEl) titleEl.textContent = step.title;
+    if (textEl) textEl.textContent = step.text;
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.textContent = idx === steps.length - 1 ? 'Commencer 🚀' : 'Suivant ➔';
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+  }
+
+  function openTour() {
+    currentStep = 0;
+    renderStep(0);
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => modal.classList.add('active'), 10);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTour() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    setTimeout(() => { modal.style.display = 'none'; }, 350);
+    document.body.style.overflow = '';
+  }
+
+  triggerBtn.addEventListener('click', openTour);
+  closeBtn.addEventListener('click', closeTour);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeTour();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentStep >= steps.length - 1) {
+      closeTour();
+      window.location.href = '/contact';
+    } else {
+      currentStep++;
+      renderStep(currentStep);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      renderStep(currentStep);
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeTour();
+    if (e.key === 'ArrowRight') nextBtn.click();
+    if (e.key === 'ArrowLeft') prevBtn.click();
   });
 }
 
@@ -2000,6 +2224,9 @@ document.addEventListener('DOMContentLoaded', () => {
   handleContactPreFill();
   initTeamModals();
   initFaqAccordions();
+  initFaqTabs();
+  initJargonDecoder();
+  initGuidedTour();
   initHardeningSimulator();
   initCyberThreatMap();
 });
