@@ -63,10 +63,12 @@ const pages = [
 
 let compiledCount = 0;
 
+const buildVersion = Date.now();
+
 pages.forEach(page => {
   const templatePath = path.join(VIEWS_DIR, page.template);
   if (fs.existsSync(templatePath)) {
-    ejs.renderFile(templatePath, { page: page.pageName }, {}, (err, html) => {
+    ejs.renderFile(templatePath, { page: page.pageName, buildVersion }, {}, (err, html) => {
       if (err) {
         console.error(`❌ Error compiling template ${page.template}:`, err);
         process.exit(1);

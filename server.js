@@ -13,6 +13,7 @@ const helmet = require('helmet');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.locals.buildVersion = Date.now();
 
 // ─── 1. CYBERSECURITÉ : En-têtes HTTP Sécurisés (Helmet) ───
 // Bloque le clickjacking, désactive le sniff de type MIME, et applique une CSP stricte.

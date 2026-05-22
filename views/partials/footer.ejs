@@ -157,6 +157,6 @@
     </div>
   </div>
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=<%= typeof buildVersion !== 'undefined' ? buildVersion : Date.now() %>"></script>
 </body>
 </html>
