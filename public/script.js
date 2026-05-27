@@ -81,9 +81,60 @@
       } catch (err) {
         toast('Réseau indisponible. Réessayez.', 'error');
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
       }
     });
+  }
+
+  /* ─── Homepage animations ─────────────────────────────────── */
+  const animUptime = document.getElementById('anim-uptime');
+  if (animUptime) {
+    let u = 99.90;
+    setInterval(() => {
+      u += (Math.random() > 0.5 ? 0.01 : -0.01);
+      if (u > 99.99) u = 99.99;
+      if (u < 99.95) u = 99.95;
+      animUptime.textContent = u.toFixed(2);
+    }, 3000);
+  }
+
+  const animAttacks = document.getElementById('anim-attacks');
+  if (animAttacks) {
+    let a = 12.8;
+    setInterval(() => {
+      a += (Math.random() * 0.1);
+      animAttacks.textContent = a.toFixed(1);
+    }, 4500);
+  }
+
+  /* Terminal typing effect */
+  const terminalBody = document.querySelector('.hv-term-body');
+  if (terminalBody) {
+    const lines = terminalBody.querySelectorAll('.ln');
+    if (lines.length > 0) {
+      lines.forEach(l => l.style.display = 'none');
+      let currentLine = 0;
+      
+      function showNextLine() {
+        if (currentLine < lines.length) {
+          lines[currentLine].style.display = 'block';
+          currentLine++;
+          
+          let delay = 300 + Math.random() * 500;
+          if (currentLine === 1) delay = 800;
+          if (currentLine === 2) delay = 1200;
+          
+          setTimeout(showNextLine, delay);
+        } else {
+          // Restart animation after 10s
+          setTimeout(() => {
+            lines.forEach(l => l.style.display = 'none');
+            currentLine = 0;
+            showNextLine();
+          }, 10000);
+        }
+      }
+      setTimeout(showNextLine, 500);
+    }
   }
 
   /* ════════════════════════════════════════════════════════════

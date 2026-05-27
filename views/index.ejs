@@ -28,7 +28,7 @@
       <div class="hero-trust">
         <div class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Audit gratuit 30 min
+          Appel découverte offert
         </div>
         <div class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -63,16 +63,16 @@
       </div>
       <div class="hv-card hv-mini-card">
         <div class="label">Uptime · 30j</div>
-        <div class="value">99.99<small>%</small></div>
+        <div class="value"><span id="anim-uptime">99.99</span><small>%</small></div>
         <svg class="hv-spark" viewBox="0 0 100 32" preserveAspectRatio="none">
-          <polyline points="0,24 12,18 24,22 36,12 48,16 60,8 72,10 84,4 100,6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="0,24 12,18 24,22 36,12 48,16 60,8 72,10 84,4 100,6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
       <div class="hv-card hv-mini-card">
         <div class="label">Attaques bloquées · 24h</div>
-        <div class="value">12.8k<small>+18%</small></div>
+        <div class="value"><span id="anim-attacks">12.8</span>k<small>+18%</small></div>
         <svg class="hv-spark" viewBox="0 0 100 32" preserveAspectRatio="none">
-          <polyline points="0,28 12,24 24,20 36,22 48,14 60,18 72,10 84,12 100,4" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="0,28 12,24 24,20 36,22 48,14 60,18 72,10 84,12 100,4" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
     </div>
@@ -117,21 +117,21 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <h3>Création web sur-mesure</h3>
-        <p>Sites vitrine, e-commerce, SaaS. Stack moderne (Next.js, Astro, Supabase), performance maximale, SEO inclus.</p>
+        <p>Nous créons des sites web vitrines, e-commerce et SaaS ultra-performants, soignés et parfaitement référencés (SEO inclus).</p>
       </div>
       <div class="card reveal">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Cybersécurité intégrée</h3>
-        <p>Hardening serveur, WAF, anti-DDoS, headers de sécurité. Conformité OWASP & RGPD garantie.</p>
+        <p>Nous sécurisons vos sites au maximum de nos capacités pour vous protéger des attaques. Tout est pensé pour la sécurité dès le départ.</p>
       </div>
       <div class="card reveal">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
         <h3>SOC / SIEM 24/7</h3>
-        <p>Monitoring temps réel, détection d'intrusions, réponse à incident. Dashboard client transparent.</p>
+        <p>Nous vous fournissons un système complet pour vous rassurer et vous montrer toutes les informations importantes de votre site en temps réel.</p>
       </div>
     </div>
     <div style="text-align:center;margin-top:var(--sp-6)">
@@ -151,9 +151,9 @@
     <div class="mockups-grid">
       <%
         const mockups = [
-          { img: '/images/portfolio_bricosam.png', url: 'bricosam.fr', name: 'BricoSam', desc: 'Site vitrine artisan bricolage', tags: ['Next.js', 'Tailwind', 'CMS'] },
-          { img: '/images/portfolio_commerce.png', url: 'shop.dhmtech.fr', name: 'DHM Shop', desc: 'E-commerce électronique B2B', tags: ['Astro', 'Stripe', 'PostgreSQL'] },
-          { img: '/images/portfolio_dhmtech.png', url: 'dhmtech.fr', name: 'DHM Tech', desc: 'Plateforme SaaS technique', tags: ['Next.js', 'Supabase', 'Auth'] }
+          { img: '/images/portfolio_bricosam.png', url: 'bricosam.fr', name: 'BricoSam', desc: 'Site vitrine artisan bricolage', tags: ['Site Vitrine', 'Artisan', 'Sécurisé'] },
+          { img: '/images/portfolio_commerce.png', url: 'shop.dhmtech.fr', name: 'DHM Shop', desc: 'E-commerce électronique B2B', tags: ['E-Commerce', 'Sur-mesure', 'Sécurisé'] },
+          { img: '/images/portfolio_dhmtech.png', url: 'dhmtech.fr', name: 'DHM Tech', desc: 'Plateforme SaaS technique', tags: ['Application SaaS', 'B2B', 'Sécurisé'] }
         ];
         mockups.forEach(m => {
       %>
@@ -186,21 +186,30 @@
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Notre approche</span>
-      <h2>Pourquoi choisir Arkis ?</h2>
+      <span class="eyebrow">Notre méthode</span>
+      <h2>Comment on travaille</h2>
+      <p>Une méthode éprouvée, transparente, et toujours sécurisée.</p>
     </div>
-    <div class="services-grid">
-      <div class="card">
-        <h3>Secure by Design</h3>
-        <p>La sécurité n'est pas un patch après-coup : elle est intégrée à chaque décision technique, de l'architecture au déploiement.</p>
+    <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+      <div class="card reveal" style="text-align: left;">
+        <div style="font-family: var(--font-mono); color: var(--accent-1); font-size: 2rem; margin-bottom: 0.5rem;">01</div>
+        <h3 style="margin-top: 0;">Discovery &amp; cadrage</h3>
+        <p>Atelier de cadrage gratuit. On comprend votre besoin, votre cible, vos contraintes. Livrables : brief, planning, devis.</p>
       </div>
-      <div class="card">
-        <h3>Transparence totale</h3>
-        <p>Vous voyez en temps réel l'état de votre site, les attaques bloquées, les performances. Plus de boîte noire.</p>
+      <div class="card reveal" style="text-align: left; transition-delay: 100ms;">
+        <div style="font-family: var(--font-mono); color: var(--accent-1); font-size: 2rem; margin-bottom: 0.5rem;">02</div>
+        <h3 style="margin-top: 0;">Design &amp; maquettes</h3>
+        <p>Wireframes puis maquettes haute-fidélité sur Figma. Itérations jusqu'à validation. Vous avez la main.</p>
       </div>
-      <div class="card">
-        <h3>Build &amp; Run</h3>
-        <p>On ne livre pas et on disparaît. Maintenance, mises à jour de sécurité, support — on reste à vos côtés.</p>
+      <div class="card reveal" style="text-align: left; transition-delay: 200ms;">
+        <div style="font-family: var(--font-mono); color: var(--accent-1); font-size: 2rem; margin-bottom: 0.5rem;">03</div>
+        <h3 style="margin-top: 0;">Développement</h3>
+        <p>Sprints courts (1-2 sem), démos régulières, code source à vous. Stack moderne, sécurité intégrée.</p>
+      </div>
+      <div class="card reveal" style="text-align: left; transition-delay: 300ms;">
+        <div style="font-family: var(--font-mono); color: var(--accent-1); font-size: 2rem; margin-bottom: 0.5rem;">04</div>
+        <h3 style="margin-top: 0;">Pen-test &amp; lancement</h3>
+        <p>Audit de sécurité avant mise en prod. Mise en ligne progressive. Activation du monitoring SOC.</p>
       </div>
     </div>
   </div>
@@ -211,9 +220,10 @@
   <div class="container">
     <div class="cta-block">
       <h2>Prêt à passer au niveau supérieur ?</h2>
-      <p>30 minutes d'audit offert pour comprendre vos besoins et vous proposer la meilleure approche. Sans engagement.</p>
+      <p>30 minutes d'audit offert pour comprendre vos besoins et vous proposer la meilleure approche. Sans engagement.<br/><br/>
+      Nous faisons cet appel pour comprendre vos besoins, ce que vous attendez, et ainsi nous nous adaptons entièrement à vous.</p>
       <a href="/contact" class="btn btn-lg">
-        Réserver mon audit gratuit
+        Réserver mon appel découverte
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
