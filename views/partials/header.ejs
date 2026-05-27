@@ -1,98 +1,48 @@
-  <!-- ═══ READING PROGRESS BAR ═══ -->
-  <div id="reading-progress" aria-hidden="true"></div>
-
-  <!-- ═══ THREAT TICKER BANNER ═══ -->
-  <div id="threat-ticker" aria-label="Flux d'alertes de sécurité en direct" role="marquee">
-    <div class="ticker-track" id="ticker-track">
-      <!-- Set 1 (original) -->
-      <span class="ticker-item"><span class="ti-badge ti-blocked">BLOCKED</span> SQLi Attack from 91.234.18.55 → WAF Intercepted <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">CVE-2025-0132</span> Chrome zero-day patched on all client stacks <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">DDoS</span> 48k req/s flood absorbed by Cloudflare POP CDG <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">UPTIME</span> 99.993% — Tous les sites clients opérationnels <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-warn">WARN</span> Brute-force détecté sur /admin → Rate-limit actif <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">XSS</span> Payload malveillant bloqué en entrée /contact <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">TLS 1.3</span> Handshake cryptographique vérifié sur toute la flotte <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">BOT</span> 2,341 requêtes de crawlers malveillants filtrées / h <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">SIEM</span> 0 incident critique — Score Résilience : 98/100 <span class="ticker-sep">|</span></span>
-      <!-- Set 2 (duplicate for seamless loop) -->
-      <span class="ticker-item"><span class="ti-badge ti-blocked">BLOCKED</span> SQLi Attack from 91.234.18.55 → WAF Intercepted <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">CVE-2025-0132</span> Chrome zero-day patched on all client stacks <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">DDoS</span> 48k req/s flood absorbed by Cloudflare POP CDG <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">UPTIME</span> 99.993% — Tous les sites clients opérationnels <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-warn">WARN</span> Brute-force détecté sur /admin → Rate-limit actif <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">XSS</span> Payload malveillant bloqué en entrée /contact <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">TLS 1.3</span> Handshake cryptographique vérifié sur toute la flotte <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-blocked">BOT</span> 2,341 requêtes de crawlers malveillants filtrées / h <span class="ticker-sep">|</span></span>
-      <span class="ticker-item"><span class="ti-badge ti-info">SIEM</span> 0 incident critique — Score Résilience : 98/100 <span class="ticker-sep">|</span></span>
-    </div>
-    <div class="ticker-label">
-      <span class="ticker-dot"></span>
-      LIVE THREAT INTEL
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════
-       NAVIGATION
-  ═══════════════════════════════════════════════ -->
-
+  <!-- ═══ HEADER / NAVIGATION ═══ -->
   <header id="navbar" role="banner">
     <nav aria-label="Navigation principale">
-      <a href="/" class="logo" aria-label="Arkis — Retour à l'accueil">
+      <a href="/" class="logo" aria-label="Arkis — Accueil">
         <span class="logo-icon" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="none" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <polygon points="16,8 24,13 24,19 16,24 8,19 8,13" fill="url(#logoGradFill)" opacity="0.3"/>
-            <line x1="16" y1="2" x2="16" y2="8" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <line x1="30" y1="10" x2="24" y2="13" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <line x1="30" y1="22" x2="24" y2="19" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <line x1="16" y1="30" x2="16" y2="24" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <line x1="2" y1="22" x2="8" y2="19" stroke="url(#logoGrad)" stroke-width="1.5"/>
-            <line x1="2" y1="10" x2="8" y2="13" stroke="url(#logoGrad)" stroke-width="1.5"/>
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#00D4FF"/>
-                <stop offset="100%" stop-color="#7B2FFF"/>
-              </linearGradient>
-              <linearGradient id="logoGradFill" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#00D4FF"/>
-                <stop offset="100%" stop-color="#7B2FFF"/>
+                <stop offset="0%" stop-color="#4f46e5"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
               </linearGradient>
             </defs>
+            <path d="M6 26 L16 4 L26 26 L21 26 L16 14 L11 26 Z" fill="url(#logoGrad)"/>
           </svg>
         </span>
-        <span class="logo-text">ARKIS<span class="logo-dot">.</span></span>
+        <span class="logo-text">Arkis<span class="logo-dot">.</span></span>
       </a>
 
       <ul class="nav-links" role="list">
-        <li><a href="/" class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Accueil</a></li>
+        <li><a href="/" class="nav-link <%= typeof page !== 'undefined' && page === 'accueil' ? 'active' : '' %>">Accueil</a></li>
         <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
-        <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
+        <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Maquettes</a></li>
         <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>
         <li><a href="/equipe" class="nav-link <%= typeof page !== 'undefined' && page === 'equipe' ? 'active' : '' %>">Équipe</a></li>
-        <li><a href="/contact" class="nav-link <%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
-        <li><a href="/live" class="nav-link <%= typeof page !== 'undefined' && page === 'live' ? 'active' : '' %>" style="display:inline-flex; align-items:center; gap:0.35rem;">Live SOC <span style="width: 6px; height: 6px; background:var(--clr-green); border-radius:50%; display:inline-block; animation: pulseGlow 1.5s infinite;"></span></a></li>
+        <li><a href="/live" class="nav-link live-link <%= typeof page !== 'undefined' && page === 'live' ? 'active' : '' %>">Live SOC <span class="live-dot" aria-hidden="true"></span></a></li>
       </ul>
 
       <div class="nav-cta-group">
-        <a href="/contact" class="btn btn-ghost" id="nav-audit-btn">Audit gratuit</a>
+        <a href="/contact" class="btn btn-primary">Démarrer un projet</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
           <span></span><span></span><span></span>
         </button>
       </div>
-
     </nav>
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
       <ul role="list">
-        <li><a href="/" class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Accueil</a></li>
-        <li><a href="/services" class="nav-link <%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
-        <li><a href="/realisations" class="nav-link <%= typeof page !== 'undefined' && page === 'realisations' ? 'active' : '' %>">Réalisations</a></li>
-        <li><a href="/tarifs" class="nav-link <%= typeof page !== 'undefined' && page === 'tarifs' ? 'active' : '' %>">Tarifs</a></li>
-        <li><a href="/equipe" class="nav-link <%= typeof page !== 'undefined' && page === 'equipe' ? 'active' : '' %>">Équipe</a></li>
-        <li><a href="/contact" class="nav-link <%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
-        <li><a href="/live" class="nav-link <%= typeof page !== 'undefined' && page === 'live' ? 'active' : '' %>" style="display:inline-flex; align-items:center; gap:0.35rem; justify-content:center;">Live SOC <span style="width: 6px; height: 6px; background:var(--clr-green); border-radius:50%; display:inline-block; animation: pulseGlow 1.5s infinite;"></span></a></li>
-        <li><a href="/contact" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">Démarrer un projet</a></li>
+        <li><a href="/" class="nav-link">Accueil</a></li>
+        <li><a href="/services" class="nav-link">Services</a></li>
+        <li><a href="/realisations" class="nav-link">Maquettes</a></li>
+        <li><a href="/tarifs" class="nav-link">Tarifs</a></li>
+        <li><a href="/equipe" class="nav-link">Équipe</a></li>
+        <li><a href="/live" class="nav-link live-link">Live SOC <span class="live-dot" aria-hidden="true"></span></a></li>
+        <li><a href="/contact" class="btn btn-primary">Démarrer un projet</a></li>
       </ul>
     </div>
   </header>

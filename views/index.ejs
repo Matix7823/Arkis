@@ -1,942 +1,223 @@
 <%- include('partials/head', {
-  title: 'Arkis — Secure by Design | Agence Web & Cybersécurité de Confiance',
-  description: 'Votre site internet, impénétrable par conception. Nous marions la création web Full-Stack de pointe (Astro, Supabase, Cloudflare) avec un audit de cybersécurité offensif (Pen-testing) intégré.'
+  title: 'Arkis — Agence Web & Cybersécurité',
+  description: 'Sites web sur-mesure + cybersécurité intégrée dès la conception. Création, monitoring SOC/SIEM 24/7, audit de sécurité.'
 }) %>
 
-<%- include('partials/header', { page: 'accueil' }) %>
+<%- include('partials/header') %>
 
-<main>
-  <!-- ═══════════════════════════════════════════════
-       1. HERO SECTION
-  ═══════════════════════════════════════════════ -->
-  <section id="accueil" class="hero" aria-label="Section d'accueil">
-    <div class="hero-canvas" id="hero-canvas" aria-hidden="true"></div>
-    <div class="hero-grid-overlay" aria-hidden="true"></div>
-
-    <div class="hero-grid-container">
-
-      <!-- Left Column: Headline and Pitch -->
-      <div class="hero-left">
-        <div class="hero-badge reveal-up" aria-label="Statut" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.2); padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem;">
-          <span class="badge-dot"></span>
-          <span class="badge-text font-mono">Secure by Design — Red &amp; Blue Team Intégré</span>
-        </div>
-
-        <h1 class="hero-headline reveal-up delay-1" style="text-align: left;">
-          Votre site web,<br />
-          <span class="gradient-text">impénétrable</span><br />
-          par conception.
-        </h1>
-
-        <p class="hero-subtitle reveal-up delay-2" style="text-align: left; max-width: 580px;">
-          Nous fusionnons le développement Full-Stack de pointe —
-          <strong>JAMstack, Supabase, Edge Computing Cloudflare</strong> —
-          avec des tests d'intrusion (Pen-testing) rigoureux menés dès le premier jour.
-          Nous créons des vitrines prestigieuses et des applications critiques ultra-rapides et immunisées contre les menaces.
-        </p>
-
-        <div class="hero-cta-group reveal-up delay-3">
-          <a href="/contact" class="btn btn-primary btn-lg" id="hero-audit-btn" style="display: inline-flex; align-items: center; gap: 0.75rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Demander un audit gratuit
-          </a>
-          <a href="/realisations" class="btn btn-ghost btn-lg" id="hero-portfolio-btn" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-            Voir nos réalisations
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right Column: Interactive Security HUD -->
-      <div class="hero-hud-wrap reveal-up delay-3" style="background: rgba(8, 15, 34, 0.65); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 0 40px rgba(0, 212, 255, 0.08); font-family: var(--font-mono); font-size: 0.75rem; color: var(--clr-text-2); max-width: 420px; width: 100%;">
-        <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(0, 212, 255, 0.25); display: flex;">
-          <span class="hint-dot"></span>
-          <span>HUD Interactif : Observabilité active</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--clr-border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
-          <span style="color: var(--clr-cyan); font-weight: 600; letter-spacing: 0.05em;">ARKIS_WAF_MONITOR</span>
-          <span style="font-size: 0.65rem; background: rgba(16, 185, 129, 0.15); color: var(--clr-green); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
-            <span style="width: 5px; height: 5px; background: var(--clr-green); border-radius: 50%; display: inline-block; animation: blink 1.5s infinite;"></span>
-            SHIELD ACTIVE
-          </span>
-        </div>
-        <div id="cyber-console" style="height: 180px; overflow-y: auto; background: rgba(2, 6, 18, 0.75); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 0.75rem; font-size: 0.68rem; line-height: 1.5; scrollbar-width: none;">
-          <div id="log-container">
-            <!-- Dynamic logs injected by script.js -->
-          </div>
-        </div>
-        <div style="margin-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.68rem;">
-          <span>Réseau : <strong style="color: var(--clr-green);">PROTECTED</strong></span>
-          <a href="/live" style="color: var(--clr-cyan); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">Console Live SOC →</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Global statistics counter strip -->
-    <div class="container" style="position: relative; z-index: 1;">
-      <div class="hero-stats reveal-up delay-4" aria-label="Statistiques clés" style="margin-top: 2rem;">
-        <div class="stat-item">
-          <span class="stat-value counter" data-target="100">0</span><span class="stat-unit">%</span>
-          <span class="stat-label">Score Lighthouse LCP</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value counter" data-target="0">0</span><span class="stat-unit"> CVE</span>
-          <span class="stat-label">Vulnérabilité livrée</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value counter" data-target="24">0</span><span class="stat-unit">h/7</span>
-          <span class="stat-label">Support critique RUN</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value counter" data-target="99">0</span><span class="stat-unit">.99%</span>
-          <span class="stat-label">Uptime réseau Edge</span>
-        </div>
-      </div>
-      <div class="interactive-hint reveal-up delay-5" style="margin: 1.25rem auto 0 auto; display: flex; justify-content: center; gap: 0.5rem;">
-        <span class="hint-dot"></span>
-        <span>Métriques de performance garanties par audits et CDN Edge</span>
-      </div>
-    </div>
-
-    <!-- Trusted tech badges -->
-    <div class="tech-strip reveal-up delay-5" aria-label="Technologies maîtrisées" style="margin-top: 4rem;">
-      <span class="tech-label">Stack souveraine :</span>
-      <div class="tech-badges">
-        <span class="tech-badge">Supabase DB</span>
-        <span class="tech-badge">Cloudflare CDN &amp; WAF</span>
-        <span class="tech-badge">Astro / Next.js</span>
-        <span class="tech-badge">TypeScript</span>
-        <span class="tech-badge">Zero-Trust Security</span>
-        <span class="tech-badge">OWASP Compliant</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       2. EXPERTISES / TROIS PILIERS
-  ═══════════════════════════════════════════════ -->
-  <section id="expertises" class="section services" style="border-top: 1px solid var(--clr-border);">
-    <div class="container">
-
-      <div class="section-header">
-        <p class="section-tag reveal-up">Nos expertises techniques</p>
-        <h2 class="section-title reveal-up delay-1">Trois piliers,<br/><span class="gradient-text">une forteresse inviolable.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Nous ne faisons aucun compromis entre le design prestigieux, les performances de pointe et le blindage défensif. Découvrez comment nous protégeons vos investissements.</p>
-      </div>
-
-      <div class="services-grid">
-
-        <!-- Pillar 1: Création Web -->
-        <article class="service-card reveal-up delay-1">
-          <div class="service-card-inner">
-            <div class="service-icon-wrap service-icon-blue" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-            <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-text-3); display: block; margin-bottom: 0.5rem;">PILIER 01</span>
-            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; display: flex;">
-              <span class="hint-dot"></span>
-              <span>Développement &amp; Intégration</span>
-            </div>
-            <h3 class="service-title">Création Web Full-Stack</h3>
-            <p class="service-desc">Du cahier des charges au déploiement — nous façonnons des sites vitrines ou boutiques e-commerce élégants, fluides et optimisés pour la vitesse.</p>
-            <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
-              <li>Développement Astro &amp; React ultra-léger</li>
-              <li>Base de données Supabase PostgreSQL temps réel</li>
-              <li>Score Core Web Vitals 100/100 garanti</li>
-            </ul>
-            <div class="service-cta">
-              <a href="/services#service-web" class="link-arrow">Découvrir les exemples <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-          <div class="service-glow service-glow-blue" aria-hidden="true"></div>
-        </article>
-
-        <!-- Pillar 2: Cybersécurité -->
-        <article class="service-card service-card-featured reveal-up delay-2">
-          <div class="service-card-inner">
-            <div class="service-icon-wrap service-icon-purple" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-cyan); display: block; margin-bottom: 0.5rem;">CŒUR DE MÉTIER 02</span>
-            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(0, 212, 255, 0.3); display: flex;">
-              <span class="hint-dot"></span>
-              <span>Défense Active 24h/7</span>
-            </div>
-            <h3 class="service-title">Cybersécurité &amp; Défense</h3>
-            <p class="service-desc">Votre infrastructure, blindée à chaque couche. Nous arrêtons les cybermenaces (DDoS, bots, vols de données) avant qu'elles n'effleurent vos serveurs.</p>
-            <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
-              <li>Pare-feu applicatif (WAF) Cloudflare Enterprise</li>
-              <li>Protection contre les botnets &amp; DDoS</li>
-              <li>Réseau Zero-Trust &amp; conformité RGPD</li>
-            </ul>
-            <div class="service-cta">
-              <a href="/services#service-cyber" class="link-arrow" style="color: #fff;">Voir notre défense <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-          <div class="service-glow service-glow-purple" aria-hidden="true"></div>
-        </article>
-
-        <!-- Pillar 3: Pen-Testing -->
-        <article class="service-card reveal-up delay-3">
-          <div class="service-card-inner">
-            <div class="service-icon-wrap service-icon-red" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <span class="service-number font-mono" style="font-size: 0.75rem; color: var(--clr-text-3); display: block; margin-bottom: 0.5rem;">PILIER 03</span>
-            <div class="interactive-hint" style="margin-top: 0; margin-bottom: 0.75rem; border-color: rgba(239, 68, 68, 0.25); color: #EF4444; display: flex;">
-              <span class="hint-dot" style="background: #EF4444; box-shadow: 0 0 8px #EF4444;"></span>
-              <span>Audit Offensif OWASP</span>
-            </div>
-            <h3 class="service-title">Pen-Testing Red &amp; Blue Team</h3>
-            <p class="service-desc">Nous attaquons nos propres créations avant les hackers. Des audits d'intrusion rigoureux garantissent qu'aucune CVE ne subsiste.</p>
-            <ul style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.8rem; color:var(--clr-text-2); margin-bottom: 1.5rem; padding-left:1rem; list-style-type:square;">
-              <li>Audit d'intrusion complet OWASP Top 10</li>
-              <li>Fuzzing d'API et scans de vulnérabilités CVE</li>
-              <li>Rapports détaillés de correctifs fournis</li>
-            </ul>
-            <div class="service-cta">
-              <a href="/services#service-pentest" class="link-arrow">En savoir plus <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-          <div class="service-glow service-glow-red" aria-hidden="true"></div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       2.5 PORTFOLIO PREVIEW / RÉALISATIONS EN VEDETTE
-  ═══════════════════════════════════════════════ -->
-  <section class="section portfolio-preview" style="border-top: 1px solid var(--clr-border); background: var(--clr-bg-2);">
-    <div class="container">
-
-      <div class="section-header">
-        <p class="section-tag reveal-up">Réalisations récentes</p>
-        <h2 class="section-title reveal-up delay-1">Nos créations,<br/><span class="gradient-text">vitrines &amp; techniques.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Du site vitrine local au SaaS industriel complexe, nous allions esthétique haut-de-gamme et protection défensive absolue.</p>
-      </div>
-
-      <div class="portfolio-grid">
-
-        <!-- Project 1: DHM-Tech -->
-        <article class="portfolio-card reveal-up delay-1" data-category="web" id="preview-dhmtech">
-          <div class="portfolio-img-wrap">
-            <img src="images/portfolio_dhmtech.png" alt="SaaS Dashboard de pilotage industriel complexe pour DHM-Tech" loading="lazy" />
-            <div class="portfolio-overlay">
-              <div class="portfolio-tags">
-                <span class="p-tag">React / Next.js</span>
-                <span class="p-tag">Supabase DB</span>
-                <span class="p-tag">API Realtime</span>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <div class="portfolio-meta">
-              <span class="portfolio-category">Création Web Full-Stack</span>
-              <span class="portfolio-year font-mono">2026</span>
-            </div>
-            <h3 class="portfolio-title">DHM-Tech — Pilotage Industriel</h3>
-            <p class="portfolio-desc">Dashboard SaaS temps réel d'observabilité IoT. Intègre l'isolation de données Supabase, un temps de chargement sous la seconde et une conformité NIS2.</p>
-            <div class="portfolio-metrics" aria-label="Métriques du projet">
-              <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
-                <span class="metric-value">0.7s</span>
-                <span class="metric-label">LCP Speed</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
-                <span class="metric-value">12k+</span>
-                <span class="metric-label">Visites/j</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
-                <span class="metric-value">100/100</span>
-                <span class="metric-label">SEO</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 2: Bricosam.fr -->
-        <article class="portfolio-card reveal-up delay-2" data-category="vitrine" id="preview-bricosam">
-          <div class="portfolio-img-wrap">
-            <img src="images/portfolio_bricosam.png" alt="E-Commerce Bricolage et outillage Bricosam" loading="lazy" />
-            <div class="portfolio-overlay">
-              <div class="portfolio-tags">
-                <span class="p-tag">Stripe</span>
-                <span class="p-tag">Static Generation</span>
-                <span class="p-tag">Cloudflare WAF</span>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <div class="portfolio-meta">
-              <span class="portfolio-category">E-Commerce &amp; Bricolage</span>
-              <span class="portfolio-year font-mono">2025</span>
-            </div>
-            <h3 class="portfolio-title">Bricosam.fr — Outils &amp; Bricolage</h3>
-            <p class="portfolio-desc">Boutique en ligne complète et ultra-rapide pour professionnels. Tokenisation de paiement sécurisée Stripe et protection anti-fraude active.</p>
-            <div class="portfolio-metrics" aria-label="Métriques du projet">
-              <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
-                <span class="metric-value">0.6s</span>
-                <span class="metric-label">LCP Speed</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
-                <span class="metric-value">0</span>
-                <span class="metric-label">Fraude subie</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">↑</span>
-                <span class="metric-value">+42%</span>
-                <span class="metric-label">Ventes</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 3: L'Écrin Sucré -->
-        <article class="portfolio-card reveal-up delay-3" data-category="vitrine" id="preview-bakery">
-          <div class="portfolio-img-wrap">
-            <img src="images/portfolio_commerce.png" alt="Boulangerie L'Écrin Sucré site web moderne" loading="lazy" />
-            <div class="portfolio-overlay">
-              <div class="portfolio-tags">
-                <span class="p-tag">JAMstack</span>
-                <span class="p-tag">Click &amp; Collect</span>
-                <span class="p-tag">WAF Shield</span>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <div class="portfolio-meta">
-              <span class="portfolio-category">Commerce Local / Vitrine</span>
-              <span class="portfolio-year font-mono">2026</span>
-            </div>
-            <h3 class="portfolio-title">L'Écrin Sucré — Boulangerie</h3>
-            <p class="portfolio-desc">Site vitrine gourmand de boulangerie-pâtisserie artisanale. Intègre un module de commande Click &amp; Collect ultra-sécurisé hébergé sur CDN Edge.</p>
-            <div class="portfolio-metrics" aria-label="Métriques du projet">
-              <div class="metric-item">
-                <span class="metric-icon metric-green" aria-hidden="true">⚡</span>
-                <span class="metric-value">0.4s</span>
-                <span class="metric-label">Chargement</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-blue" aria-hidden="true">🛡</span>
-                <span class="metric-value">100%</span>
-                <span class="metric-label">Statique</span>
-              </div>
-              <div class="metric-item">
-                <span class="metric-icon metric-purple" aria-hidden="true">✓</span>
-                <span class="metric-value">A+</span>
-                <span class="metric-label">SSL Grade</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <div style="text-align: center; margin-top: 3.5rem;">
-        <a href="/realisations" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-          Voir toutes nos réalisations
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content reveal">
+      <span class="eyebrow"><span class="dot"></span> Agence hybride · Web + Sécurité</span>
+      <h1>Le web <span class="gradient-text">propre</span>, sécurisé dès la première ligne de code.</h1>
+      <p class="lead">
+        Arkis conçoit des sites et applications web sur-mesure avec une cybersécurité intégrée dès la conception.
+        Création, déploiement, monitoring SOC 24/7 — tout en un.
+      </p>
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn-primary btn-lg">
+          Démarrer un projet
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="/live" class="btn btn-secondary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Voir le Live SOC
         </a>
       </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       3. LIVE SOC PREVIEW
-  ═══════════════════════════════════════════════ -->
-  <section class="section live-preview" style="background: var(--clr-bg); border-top: 1px solid var(--clr-border); padding-top: 5rem; padding-bottom: 5rem;">
-    <div class="container">
-
-      <div class="resp-grid-2" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 3rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3.5rem; align-items: center; position: relative; overflow: hidden; box-shadow: var(--shadow-card);">
-
-        <div style="position: relative; z-index: 1;">
-          <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); padding:0.35rem 0.75rem; border-radius:100px; margin-bottom:1.25rem;">
-            <span style="width: 6px; height: 6px; background:var(--clr-green); border-radius:50%; display:inline-block; animation: pulseGlow 1.5s infinite;"></span>
-            <span class="font-mono" style="font-size:0.7rem; color:var(--clr-green); font-weight:600; text-transform:uppercase;">Arkis Live Network</span>
-          </div>
-          <h2 style="font-size:1.8rem; font-weight:700; color:var(--clr-text); margin-bottom:1rem; line-height:1.2;">Vos sites web surveillés<br><span class="gradient-text">et immunisés en continu.</span></h2>
-          <p style="font-size:0.9rem; color:var(--clr-text-2); line-height:1.65; margin-bottom:2rem;">
-            Nous surveillons activement la bande passante, le trafic et les menaces ciblant les sites de nos clients comme <strong>bricosam.fr</strong> et <strong>DHM-Tech</strong>. Accédez à notre console d'observabilité réseau en direct pour suivre la cybersécurité des serveurs en temps réel.
-          </p>
-          <a href="/live" class="btn btn-live" style="display:inline-flex; align-items:center; gap:0.5rem;">
-            <span class="btn-icon" aria-hidden="true">🟢</span>
-            Accéder à la Console Live SOC
-          </a>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Audit gratuit 30 min
         </div>
-
-        <!-- Micro visual live system -->
-        <div style="background:#020612; border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 12px; padding:1.25rem; font-family:var(--font-mono); font-size:0.7rem; color:#94A3B8; box-shadow: 0 0 20px rgba(0,212,255,0.05);">
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:0.5rem; margin-bottom:0.75rem;">
-            <span style="color:var(--clr-cyan); font-weight:600;">LIVE_NETWORK_STATUS</span>
-            <span style="color:var(--clr-green);">● NORMAL</span>
-          </div>
-          <p style="margin-bottom:0.35rem; color: var(--clr-text-3);">[12:35:10] Connection secured from Cloudflare Paris POP</p>
-          <p style="margin-bottom:0.35rem; color: var(--clr-green);">[12:35:12] Integrity check pass: bricosam.fr → SSL active</p>
-          <p style="margin-bottom:0.35rem; color: var(--clr-green);">[12:35:14] Integrity check pass: dhmtech.com → SSL active</p>
-          <p style="margin-bottom:0.35rem; color: #F87171;">[12:35:15] WAF Blocked: DDoS threat from botnet → [Intercepted]</p>
-          <p style="color: var(--clr-cyan); margin-top:0.75rem; text-decoration:underline; font-size:0.68rem; text-align:right;">[Dérouler le flux d'observabilité complet]</p>
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Réponse sous 24h
         </div>
-
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          100% basé en France
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════════
-       4. BUILD & RUN EXPLANATION
-  ═══════════════════════════════════════════════ -->
-  <section class="section build-and-run" style="border-top:1px solid var(--clr-border); background-image: var(--grad-section);">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Une méthode pérenne</p>
-        <h2 class="section-title reveal-up delay-1">Le modèle <span class="gradient-text">Build &amp; Run.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Notre philosophie de travail est transparente et sans surprise : nous construisons votre infrastructure robuste (Build), puis nous la maintenons et la blindons face à l'avenir (Run).</p>
+    <!-- Hero visual : terminal + KPI cards -->
+    <div class="hero-visual reveal">
+      <div class="hv-card hv-terminal" aria-hidden="true">
+        <div class="hv-term-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="hv-term-title">arkis@soc — security-scan</div>
+        </div>
+        <div class="hv-term-body">
+          <span class="ln"><span class="pr">$</span>arkis scan --target client.fr</span>
+          <span class="ln"><span class="dim">→ Initializing scan...</span></span>
+          <span class="ln"><span class="info">[INFO]</span> Probing 247 endpoints</span>
+          <span class="ln"><span class="ok">[OK]</span> TLS 1.3 — A+ rating</span>
+          <span class="ln"><span class="ok">[OK]</span> Headers: HSTS, CSP, X-Frame</span>
+          <span class="ln"><span class="warn">[WARN]</span> 1 outdated dep · patched</span>
+          <span class="ln"><span class="ok">[OK]</span> SQL injection: not vulnerable</span>
+          <span class="ln"><span class="ok">[OK]</span> XSS: not vulnerable</span>
+          <span class="ln"><span class="info">[INFO]</span> Score: <span class="ok">98 / 100</span></span>
+          <span class="ln"><span class="pr">$</span><span class="hv-cursor"></span></span>
+        </div>
       </div>
-
-      <div class="resp-grid-2" style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; margin-top:3.5rem; align-items: center;">
-
-        <div class="reveal-up delay-1" style="background:var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-card);">
-          <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; background:rgba(0, 212, 255, 0.08); color:var(--clr-cyan); border-radius:12px; margin-bottom:1.5rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </div>
-          <h3 style="font-size:1.35rem; font-weight:700; color:var(--clr-text); margin-bottom:1rem;">Phase 1 : Le BUILD (Création)</h3>
-          <p style="font-size:0.9rem; color:var(--clr-text-2); line-height:1.7; margin-bottom:1.5rem;">
-            Nous créons de A à Z votre application web, vitrine ou boutique e-commerce. Nous concevons le design, structurons la base de données PostgreSQL, configurons le CDN et appliquons notre audit de sécurité défensif complet avant la livraison finale.
-          </p>
-          <a href="/tarifs" style="color:var(--clr-cyan); font-weight:600; font-size:0.875rem; display:inline-flex; align-items:center; gap:0.5rem;">
-            Voir les tarifs du Build <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <div class="reveal-up delay-2" style="background:var(--clr-bg-card); border: 1px solid rgba(123, 47, 255, 0.2); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-glow-p);">
-          <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; background:rgba(123, 47, 255, 0.08); color:#A78BFA; border-radius:12px; margin-bottom:1.5rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 style="font-size:1.35rem; font-weight:700; color:var(--clr-text); margin-bottom:1rem;">Phase 2 : Le RUN (Abonnement Sérénité)</h3>
-          <p style="font-size:0.9rem; color:var(--clr-text-2); line-height:1.7; margin-bottom:1.5rem;">
-            Une fois en ligne, votre site entre en mode Run. Nous prenons en charge la maintenance technique, la mise à jour des librairies, la protection DDoS continue et les sauvegardes quotidiennes. Vous vous concentrez uniquement sur votre activité commerciale.
-          </p>
-          <a href="/tarifs#run" style="color:#A78BFA; font-weight:600; font-size:0.875rem; display:inline-flex; align-items:center; gap:0.5rem;">
-            Découvrir l'abonnement Run <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
+      <div class="hv-card hv-mini-card">
+        <div class="label">Uptime · 30j</div>
+        <div class="value">99.99<small>%</small></div>
+        <svg class="hv-spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+          <polyline points="0,24 12,18 24,22 36,12 48,16 60,8 72,10 84,4 100,6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="hv-card hv-mini-card">
+        <div class="label">Attaques bloquées · 24h</div>
+        <div class="value">12.8k<small>+18%</small></div>
+        <svg class="hv-spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+          <polyline points="0,28 12,24 24,20 36,22 48,14 60,18 72,10 84,12 100,4" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       4.5 TÉMOIGNAGES & CONFIANCE
-  ═══════════════════════════════════════════════ -->
-  <section class="section testimonials">
-    <div class="container">
-
-      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
-        <p class="section-tag reveal-up">Retours d'expérience</p>
-        <h2 class="section-title reveal-up delay-1">Ils nous font <span class="gradient-text">confiance.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Découvrez les témoignages de nos clients qui ont fait le choix de la performance sans faille et de la sécurité absolue.</p>
+<!-- ═══ STATS ═══ -->
+<section class="section section-sm">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-value">99.99<span style="font-size:1.25rem;color:var(--text-3)">%</span></div>
+        <div class="stat-label">Uptime moyen</div>
       </div>
+      <div class="stat">
+        <div class="stat-value">&lt; 1.2<span style="font-size:1.25rem;color:var(--text-3)">s</span></div>
+        <div class="stat-label">Time to interactive</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">A+</div>
+        <div class="stat-label">Note SSL Labs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">24/7</div>
+        <div class="stat-label">Monitoring SOC</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="testimonials-grid">
+<!-- ═══ SERVICES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Nos services</span>
+      <h2>Une équipe, trois expertises</h2>
+      <p>Du brief à la mise en production, on couvre toute la chaîne — design, code, sécurité, monitoring.</p>
+    </div>
+    <div class="services-grid">
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Création web sur-mesure</h3>
+        <p>Sites vitrine, e-commerce, SaaS. Stack moderne (Next.js, Astro, Supabase), performance maximale, SEO inclus.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Cybersécurité intégrée</h3>
+        <p>Hardening serveur, WAF, anti-DDoS, headers de sécurité. Conformité OWASP & RGPD garantie.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>SOC / SIEM 24/7</h3>
+        <p>Monitoring temps réel, détection d'intrusions, réponse à incident. Dashboard client transparent.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:var(--sp-6)">
+      <a href="/services" class="btn btn-ghost">Voir tous nos services →</a>
+    </div>
+  </div>
+</section>
 
-        <article class="testimonial-card reveal-up delay-1">
-          <div class="testimonial-stars" aria-label="5 étoiles sur 5">★★★★★</div>
-          <blockquote class="testimonial-quote">
-            "Le professionnalisme de l'équipe Arkis a dépassé nos attentes. Notre dashboard SaaS industriel DHM-Tech est non seulement extrêmement rapide mais dispose d'une sécurité Zero-Trust robuste indispensable pour nos clients industriels."
-          </blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">SL</div>
-            <div class="testimonial-info">
-              <h4>Sophie Lemaire</h4>
-              <p>Directrice Technique, DHM-Tech</p>
+<!-- ═══ MAQUETTES APERÇU ═══ -->
+<section class="section" style="background:var(--surface-1);border-top:1px solid var(--border-1);border-bottom:1px solid var(--border-1)">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Réalisations</span>
+      <h2>Nos dernières maquettes</h2>
+      <p>Un aperçu de ce qu'on livre. Chaque site est livré avec son audit de sécurité.</p>
+    </div>
+    <div class="mockups-grid">
+      <%
+        const mockups = [
+          { img: '/images/portfolio_bricosam.png', url: 'bricosam.fr', name: 'BricoSam', desc: 'Site vitrine artisan bricolage', tags: ['Next.js', 'Tailwind', 'CMS'] },
+          { img: '/images/portfolio_commerce.png', url: 'shop.dhmtech.fr', name: 'DHM Shop', desc: 'E-commerce électronique B2B', tags: ['Astro', 'Stripe', 'PostgreSQL'] },
+          { img: '/images/portfolio_dhmtech.png', url: 'dhmtech.fr', name: 'DHM Tech', desc: 'Plateforme SaaS technique', tags: ['Next.js', 'Supabase', 'Auth'] }
+        ];
+        mockups.forEach(m => {
+      %>
+        <article class="mockup reveal">
+          <div class="mockup-img">
+            <div class="browser-bar"><span></span><span></span><span></span><div class="url"><%= m.url %></div></div>
+            <img src="<%= m.img %>" alt="Maquette <%= m.name %>" loading="lazy" onerror="this.style.display='none'" />
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-tags">
+              <% m.tags.forEach(t => { %><span class="mockup-tag"><%= t %></span><% }) %>
+            </div>
+            <h3><%= m.name %></h3>
+            <p><%= m.desc %></p>
+            <div class="mockup-actions">
+              <a href="/realisations" class="btn btn-secondary">Détails</a>
+              <a href="https://<%= m.url %>" class="btn btn-ghost" target="_blank" rel="noopener">Voir le site ↗</a>
             </div>
           </div>
         </article>
+      <% }) %>
+    </div>
+    <div style="text-align:center;margin-top:var(--sp-6)">
+      <a href="/realisations" class="btn btn-primary">Voir toutes les maquettes →</a>
+    </div>
+  </div>
+</section>
 
-        <article class="testimonial-card reveal-up delay-2">
-          <div class="testimonial-stars" aria-label="5 étoiles sur 5">★★★★★</div>
-          <blockquote class="testimonial-quote">
-            "Pour notre boutique e-commerce Bricosam.fr, la vitesse de chargement et la sécurité des paiements étaient nos deux priorités absolues. Arkis a livré une plateforme de haute facture, avec zéro fraude subie et +42% de conversion."
-          </blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">SL</div>
-            <div class="testimonial-info">
-              <h4>Samuel Leroy</h4>
-              <p>Fondateur, Bricosam.fr</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card reveal-up delay-3">
-          <div class="testimonial-stars" aria-label="5 étoiles sur 5">★★★★★</div>
-          <blockquote class="testimonial-quote">
-            "Un site magnifique et ultra-sécurisé pour notre boulangerie. Nos clients adorent utiliser le module Click &amp; Collect qui est super rapide. Une équipe réactive et un accompagnement exceptionnel au quotidien."
-          </blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">MD</div>
-            <div class="testimonial-info">
-              <h4>Marc-Antoine Dubois</h4>
-              <p>Propriétaire, L'Écrin Sucré</p>
-            </div>
-          </div>
-        </article>
-
+<!-- ═══ POURQUOI ARKIS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Notre approche</span>
+      <h2>Pourquoi choisir Arkis ?</h2>
+    </div>
+    <div class="services-grid">
+      <div class="card">
+        <h3>Secure by Design</h3>
+        <p>La sécurité n'est pas un patch après-coup : elle est intégrée à chaque décision technique, de l'architecture au déploiement.</p>
+      </div>
+      <div class="card">
+        <h3>Transparence totale</h3>
+        <p>Vous voyez en temps réel l'état de votre site, les attaques bloquées, les performances. Plus de boîte noire.</p>
+      </div>
+      <div class="card">
+        <h3>Build &amp; Run</h3>
+        <p>On ne livre pas et on disparaît. Maintenance, mises à jour de sécurité, support — on reste à vos côtés.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       5. FAQ SECTION (Tabbed + Jargon Buster)
-  ═══════════════════════════════════════════════ -->
-  <section class="section faqs" id="faq-section" style="border-top: 1px solid var(--clr-border); background: var(--clr-bg-2); padding-bottom: 7rem;">
-    <div class="container">
-
-      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
-        <p class="section-tag reveal-up">Foire aux questions</p>
-        <h2 class="section-title reveal-up delay-1">Questions &amp; <span class="gradient-text">Cybersécurité.</span></h2>
-        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Découvrez nos réponses simples, illustrées par des métaphores concrètes, pour comprendre les technologies et le blindage de nos architectures.</p>
-        <div class="interactive-hint reveal-up delay-3" style="margin-inline: auto;">
-          <span class="hint-dot"></span>
-          <span>Cliquez sur les onglets et questions pour révéler les secrets cyber</span>
-        </div>
-      </div>
-
-      <div class="faq-grid-layout reveal-up delay-2">
-
-        <!-- Left Column: Tabbed FAQ -->
-        <div class="faq-left-col">
-
-          <div class="faq-tabs-container">
-            <button class="faq-tab-btn active" data-tab="web" aria-controls="pane-web" aria-selected="true" role="tab">💻 Création &amp; Vitesse</button>
-            <button class="faq-tab-btn" data-tab="cyber" aria-controls="pane-cyber" aria-selected="false" role="tab">🛡️ Sécurité &amp; Données</button>
-            <button class="faq-tab-btn" data-tab="model" aria-controls="pane-model" aria-selected="false" role="tab">🤝 Modèle &amp; Services</button>
-          </div>
-
-          <!-- PANE 1: Web & Vitesse -->
-          <div class="faq-group-pane active" id="pane-web" role="tabpanel">
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Qu'est-ce que le concept "Secure by Design" chez Arkis ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>La sécurité comme fondation, pas comme vernis.</strong> "Secure by Design" signifie que nous blindons votre site dès la première ligne de code. Nous excluons d'emblée les plateformes fragiles comme WordPress et ses plugins vulnérables. À la place, nous construisons une forteresse moderne en séparant le contenu de la base de données, rendant l'architecture techniquement inviolable et imperméable aux attaques courantes.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment fonctionne la garantie de performance de 100/100 LCP ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Le chargement instantané comme un éclair.</strong> Le score <em>LCP (Largest Contentful Paint)</em> mesure le temps d'affichage de l'élément principal de votre site. Grâce à notre architecture JAMstack reliée aux serveurs Edge de Cloudflare, vos pages ne sont pas recalculées à chaque visite. Elles sont pré-rendues statiquement et livrées instantanément depuis le serveur DNS le plus proche du visiteur en moins de 1 seconde, garantissant un score parfait sans ralentissement de base de données.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Quels types de sites web concevez-vous ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Des œuvres d'art technologiques robustes.</strong> Nous concevons et développons des applications sur-mesure d'une vitesse foudroyante : des plateformes SaaS industrielles complexes (comme pour <em>DHM-Tech</em>), des boutiques e-commerce à fort trafic prêtes pour les pics de ventes (comme <em>Bricosam.fr</em>), et des sites vitrines prestigieux de haute facture (boulangeries, commerces et artisans de luxe).
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PANE 2: Sécurité & Données -->
-          <div class="faq-group-pane" id="pane-cyber" role="tabpanel">
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment Supabase assure-t-il la sécurité des données ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>L'analogie de la résidence ultra-sécurisée.</strong> Pensez à votre base de données comme à un immeuble résidentiel. Avec la technologie <strong>Row Level Security (RLS)</strong> de Supabase (PostgreSQL), chaque utilisateur possède une clé cryptographique unique qui lui donne accès exclusivement à son propre appartement (ses lignes de données). Il est techniquement impossible pour un locataire de déborder ou de forcer les portes des voisins, neutralisant nativement les risques de vol de données.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Pourquoi un pare-feu Cloudflare WAF Enterprise est-il nécessaire ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Le garde du corps d'élite posté à l'entrée.</strong> Le <em>WAF (Web Application Firewall) Enterprise</em> de Cloudflare intercepte 100% du trafic mondial avant qu'il ne s'approche de votre site. Il analyse chaque requête HTTP en moins de 1 milliseconde et filtre instantanément les injections, les tentatives de piratage, les DDoS volumétriques et les scripts robots malveillants. Les attaquants sont mis au tapis à la frontière du réseau.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Combien de temps dure un Pen-testing complet ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Le crash-test intensif de sécurité.</strong> Nos audits offensifs durent généralement entre 3 et 7 jours ouvrés selon la complexité et la taille de votre infrastructure. Nos experts certifiés (équipes Red Team) simulent de vraies attaques cyber pour débusquer les moindres failles, puis vous livrent un rapport d'audit exhaustif et concret, suivi d'un accompagnement direct pour sceller hermétiquement toutes les vulnérabilités trouvées.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PANE 3: Modèle & Services -->
-          <div class="faq-group-pane" id="pane-model" role="tabpanel">
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Qu'est-ce que le modèle de tarification Build &amp; Run ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>La construction robuste puis la garde active.</strong> Le modèle <strong>Build &amp; Run</strong> sépare clairement l'étape de création de votre site (le <em>Build</em> — un coût fixe unitaire sans surprise) de l'étape de surveillance et maintenance en conditions opérationnelles (le <em>Run</em> — un abonnement mensuel transparent). Cela vous garantit un site toujours à jour techniquement, blindé face aux nouvelles menaces, sans aucune facture cachée.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Comment fonctionne la "Garantie Zéro Vulnérabilité" ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Notre engagement contractuel de sécurité.</strong> Chaque ligne de code conçue par Arkis est passée au crible par nos ingénieurs. Si une vulnérabilité critique (référencée par l'OWASP ou une CVE officielle) est découverte sur les fonctionnalités que nous avons développées dans les 30 jours suivant la mise en ligne, nos équipes analysent la faille et déploient son correctif de sécurité gratuitement en moins de 48 heures.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item" style="background: var(--clr-bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--t-fast);">
-              <button class="faq-trigger" aria-expanded="false" style="width: 100%; padding: 1.5rem; background: transparent; border: none; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; outline: none; gap: 1rem;">
-                <span style="font-size: 1.05rem; font-weight: 700; color: var(--clr-text); font-family: var(--font-display);">Puis-je migrer mon site WordPress actuel chez Arkis ?</span>
-                <span class="faq-chevron" style="color: var(--clr-cyan); transition: transform var(--t-base); flex-shrink: 0; display: flex;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </span>
-              </button>
-              <div class="faq-content" style="display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t-base) var(--ease-out);">
-                <div style="overflow: hidden;">
-                  <div style="padding: 0 1.5rem 1.5rem; font-size: 0.9rem; color: var(--clr-text-2); line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1rem;">
-                    <strong>Éradiquez définitivement les tracas WordPress.</strong> Oui, absolument. Nous prenons en charge la refonte et la migration complète de votre site WordPress actuel vers une architecture JAMstack moderne ultra-rapide. Nous transférons l'intégralité de vos contenus et de votre structure SEO pour que vous ne perdiez aucune position Google. Vous conservez un tableau de bord intuitif pour publier vos textes, mais vous dites définitivement adieu aux pannes, lenteurs et piratages.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- Right Column: Jargon Buster -->
-        <div class="faq-right-col" id="jargon-buster-step">
-          <div class="jargon-buster-card">
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--clr-text); font-family: var(--font-display); line-height: 1.2;">
-              Le Décodeur de <br /><span class="gradient-text">Jargon Cyber 🛡️</span>
-            </h3>
-            <p style="font-size: 0.8rem; color: var(--clr-text-2); margin-top: 0.5rem; line-height: 1.5;">
-              La sécurité est souvent remplie d'acronymes obscurs. Survolez ou cliquez sur les termes ci-dessous pour obtenir instantanément leur définition en clair !
-            </p>
-
-            <div class="jargon-grid">
-              <div class="jargon-item active" data-jargon="lcp">LCP (Vitesse)</div>
-              <div class="jargon-item" data-jargon="waf">WAF (Frontal)</div>
-              <div class="jargon-item" data-jargon="rls">RLS (Isolation)</div>
-              <div class="jargon-item" data-jargon="cve">CVE (Faille)</div>
-              <div class="jargon-item" data-jargon="pentest">Pen-testing</div>
-              <div class="jargon-item" data-jargon="jamstack">JAMstack</div>
-              <div class="jargon-item" data-jargon="buildrun">Build &amp; Run</div>
-              <div class="jargon-item" data-jargon="zerotrust">Zero-Trust</div>
-            </div>
-
-            <div class="jargon-bubble">
-              <h4 id="jargon-bubble-title" class="font-mono" style="font-size: 0.85rem; color: var(--clr-cyan); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">LCP (Vitesse)</h4>
-              <p id="jargon-bubble-desc" style="font-size: 0.82rem; color: var(--clr-text-2); line-height: 1.55;">
-                Le chrono de chargement principal. C'est le temps nécessaire pour que l'élément le plus lourd de votre page web apparaisse à l'écran. Notre architecture Edge garantit un score LCP parfait de 100/100, assurant une expérience client fluide et un SEO optimisé.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
+<!-- ═══ CTA ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="cta-block">
+      <h2>Prêt à passer au niveau supérieur ?</h2>
+      <p>30 minutes d'audit offert pour comprendre vos besoins et vous proposer la meilleure approche. Sans engagement.</p>
+      <a href="/contact" class="btn btn-lg">
+        Réserver mon audit gratuit
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       PROCESSUS EN 4 ÉTAPES
-  ═══════════════════════════════════════════════ -->
-  <section class="section" id="processus" style="background: var(--clr-bg); border-top: 1px solid var(--clr-border);">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Comment on travaille</p>
-        <h2 class="section-title reveal-up delay-1">De l'idée au site blindé,<br/><span class="gradient-text">en 4 étapes nettes.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Pas de promesses vagues, pas de réunions inutiles. Un processus rodé qui livre un résultat mesurable à chaque étape.</p>
-      </div>
-
-      <div class="process-timeline reveal-up delay-2">
-
-        <div class="process-step">
-          <div class="process-step-num">01</div>
-          <div class="process-step-line" aria-hidden="true"></div>
-          <div class="process-step-content">
-            <div class="process-icon" style="background: rgba(37,99,235,0.1); color: var(--clr-cyan); border: 1px solid rgba(37,99,235,0.25);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3 class="process-step-title">Découverte &amp; Cadrage</h3>
-            <p class="process-step-desc">Un appel de 45 minutes suffit. On décortique vos besoins, votre secteur, vos contraintes techniques. On sort avec un cahier des charges précis et un devis fixe, sans surprise.</p>
-            <span class="process-step-tag">48h de réponse garanties</span>
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step-num">02</div>
-          <div class="process-step-line" aria-hidden="true"></div>
-          <div class="process-step-content">
-            <div class="process-icon" style="background: rgba(123,47,255,0.1); color: #A78BFA; border: 1px solid rgba(123,47,255,0.25);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            </div>
-            <h3 class="process-step-title">Architecture &amp; Design</h3>
-            <p class="process-step-desc">On conçoit la structure technique (base de données, CDN, WAF) et le design de votre interface. Vous validez les maquettes avant qu'une seule ligne de code ne soit écrite.</p>
-            <span class="process-step-tag">Design sur-mesure, zéro template</span>
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step-num">03</div>
-          <div class="process-step-line" aria-hidden="true"></div>
-          <div class="process-step-content">
-            <div class="process-icon" style="background: rgba(0,212,255,0.08); color: var(--clr-cyan); border: 1px solid rgba(0,212,255,0.2);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-            <h3 class="process-step-title">BUILD — Développement</h3>
-            <p class="process-step-desc">Le code est écrit, testé et audité en parallèle. Notre Red Team tente d'attaquer le site pendant que les développeurs le construisent. Livraison avec rapport de sécurité complet.</p>
-            <span class="process-step-tag">Pen-test intégré au développement</span>
-          </div>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step-num">04</div>
-          <div class="process-step-content">
-            <div class="process-icon" style="background: rgba(16,185,129,0.1); color: var(--clr-green); border: 1px solid rgba(16,185,129,0.25);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3 class="process-step-title">RUN — Surveillance Active</h3>
-            <p class="process-step-desc">Mise en ligne, puis surveillance continue. On gère les mises à jour de sécurité, les sauvegardes chiffrées, le monitoring 24h/7. Vous vous réveillez chaque matin avec un site intact.</p>
-            <span class="process-step-tag">Astreinte CTO disponible</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       COMPARAISON ARKIS VS CONCURRENTS
-  ═══════════════════════════════════════════════ -->
-  <section class="section" id="comparaison" style="background: var(--clr-bg-2); border-top: 1px solid var(--clr-border);">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Pourquoi Arkis</p>
-        <h2 class="section-title reveal-up delay-1">Ce que les autres<br/><span class="gradient-text">ne font pas.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">La plupart des agences web livrent un site. Nous livrons une infrastructure. La différence se mesure au premier incident de sécurité.</p>
-      </div>
-
-      <div class="comparison-table-wrap reveal-up delay-2">
-        <div class="comparison-table">
-          <div class="ct-header">
-            <div class="ct-feature-col">Critère</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-badge-arkis">Arkis</span></div>
-            <div class="ct-col"><span class="ct-badge-other">WordPress Agency</span></div>
-            <div class="ct-col"><span class="ct-badge-other">Agence Classique</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">⚡</span>Score PageSpeed</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">100/100 garanti</span></div>
-            <div class="ct-col"><span class="ct-cross">40–70/100</span></div>
-            <div class="ct-col"><span class="ct-cross">60–85/100</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">🛡️</span>Pen-testing</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">Intégré dès le Build</span></div>
-            <div class="ct-col"><span class="ct-cross">Non inclus</span></div>
-            <div class="ct-col"><span class="ct-cross">En option, coûteux</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">🔒</span>Protection DDoS</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">200 Tbps — Cloudflare Enterprise</span></div>
-            <div class="ct-col"><span class="ct-cross">Plugin basique</span></div>
-            <div class="ct-col"><span class="ct-neutral">Selon hébergeur</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">🔍</span>CVE livrées</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">0 garanti contractuellement</span></div>
-            <div class="ct-col"><span class="ct-cross">Non suivi</span></div>
-            <div class="ct-col"><span class="ct-cross">Non garanti</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">📞</span>Support critique</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">24h/7 — CTO en astreinte 15min</span></div>
-            <div class="ct-col"><span class="ct-cross">Email sous 48h</span></div>
-            <div class="ct-col"><span class="ct-cross">Ticketing, délais variables</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">📈</span>Conformité RGPD</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">Natif — architecture Zero-Trust</span></div>
-            <div class="ct-col"><span class="ct-neutral">Plugin payant requis</span></div>
-            <div class="ct-col"><span class="ct-neutral">Consulter juriste séparé</span></div>
-          </div>
-
-          <div class="ct-row">
-            <div class="ct-feature-col"><span class="ct-feature-icon">💶</span>Coût total (TCO 2 ans)</div>
-            <div class="ct-col ct-col-arkis"><span class="ct-check">Transparent, fixe, prévisible</span></div>
-            <div class="ct-col"><span class="ct-cross">Plugins + hébergement + urgences</span></div>
-            <div class="ct-col"><span class="ct-cross">Devis revu à chaque itération</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="text-align:center; margin-top: 2.5rem;">
-        <a href="/contact" class="btn btn-primary btn-lg reveal-up delay-3" id="comparison-cta-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Commencer avec Arkis — Audit gratuit
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       CERTIFICATIONS & BADGES
-  ═══════════════════════════════════════════════ -->
-  <section class="certs-section" id="certifications">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Nos Standards</p>
-        <h2 class="section-title reveal-up delay-1">Certifications &amp; <span class="gradient-text">Conformités</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Chaque projet respecte les standards les plus exigeants de l'industrie. Pas une case à cocher — une façon de travailler.</p>
-      </div>
-      <div class="certs-grid">
-        <div class="cert-badge-card featured reveal-up delay-1" id="cert-owasp">
-          <span class="cert-icon">🛡️</span>
-          <span class="cert-label">OWASP<br>Top 10 Compliant</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-2" id="cert-cloudflare">
-          <span class="cert-icon">☁️</span>
-          <span class="cert-label">Cloudflare<br>Partner Network</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-3" id="cert-rgpd">
-          <span class="cert-icon">🔐</span>
-          <span class="cert-label">RGPD<br>Conforme &amp; Natif</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-4" id="cert-iso">
-          <span class="cert-icon">📋</span>
-          <span class="cert-label">ISO 27001<br>Aligned Practices</span>
-        </div>
-        <div class="cert-badge-card featured reveal-up delay-2" id="cert-nis2">
-          <span class="cert-icon">🇪🇺</span>
-          <span class="cert-label">NIS2<br>Directive Ready</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-3" id="cert-tls">
-          <span class="cert-icon">🔒</span>
-          <span class="cert-label">TLS 1.3<br>Chiffrement bout en bout</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-4" id="cert-zerotrust">
-          <span class="cert-icon">🧱</span>
-          <span class="cert-label">Zero-Trust<br>Architecture</span>
-        </div>
-        <div class="cert-badge-card reveal-up delay-5" id="cert-france">
-          <span class="cert-icon">🇫🇷</span>
-          <span class="cert-label">Made in<br>France</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       CTA FINAL
-  ═══════════════════════════════════════════════ -->
-  <section class="section cta-final-section reveal-up" id="demarrer" style="border-top: 1px solid var(--clr-border);">
-    <div class="cta-final-bg" aria-hidden="true"></div>
-    <div class="container" style="position: relative; z-index: 1;">
-      <div class="cta-final-inner">
-        <div class="cta-final-availability">
-          <span class="cta-avail-dot"></span>
-          <span class="font-mono" style="font-size: 0.75rem; font-weight: 600; color: var(--clr-green); text-transform: uppercase; letter-spacing: 0.08em;">3 créneaux disponibles en juin 2025</span>
-        </div>
-        <h2 class="cta-final-title">Votre prochain site web<br/>devrait être <span class="gradient-text">impénétrable.</span></h2>
-        <p class="cta-final-subtitle">Un audit gratuit, c'est 30 minutes avec notre équipe pour analyser votre situation actuelle. Pas de PowerPoint, pas de discours commercial — juste un diagnostic technique honnête.</p>
-        <div class="cta-final-actions">
-          <a href="/contact" class="btn btn-primary btn-lg" id="cta-final-audit-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Réserver mon audit gratuit
-          </a>
-          <a href="/tarifs" class="btn btn-ghost btn-lg" id="cta-final-tarifs-btn">Voir les tarifs →</a>
-        </div>
-        <p style="margin-top: 1.25rem; font-size: 0.8rem; color: var(--clr-text-3);">Sans engagement · Réponse sous 24h ouvrées · 100% confidentiel</p>
-      </div>
-    </div>
-  </section>
-</main>
+  </div>
+</section>
 
 <%- include('partials/footer') %>

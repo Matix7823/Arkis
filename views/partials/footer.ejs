@@ -1,47 +1,40 @@
-  <!-- ═══════════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════════ -->
+  <!-- ═══ FOOTER ═══ -->
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="/" class="logo footer-logo" aria-label="Arkis — Retour à l'accueil">
+          <a href="/" class="logo" aria-label="Arkis — Accueil">
             <span class="logo-icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="none" stroke="url(#footerLogoGrad)" stroke-width="1.5"/>
-                <polygon points="16,8 24,13 24,19 16,24 8,19 8,13" fill="url(#footerLogoGrad)" opacity="0.2"/>
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
                 <defs>
                   <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#00D4FF"/>
-                    <stop offset="100%" stop-color="#7B2FFF"/>
+                    <stop offset="0%" stop-color="#4f46e5"/>
+                    <stop offset="100%" stop-color="#06b6d4"/>
                   </linearGradient>
                 </defs>
+                <path d="M6 26 L16 4 L26 26 L21 26 L16 14 L11 26 Z" fill="url(#footerLogoGrad)"/>
               </svg>
             </span>
-            <span class="logo-text">ARKIS<span class="logo-dot">.</span></span>
+            <span class="logo-text">Arkis<span class="logo-dot">.</span></span>
           </a>
-          <p class="footer-tagline">Votre site web, impénétrable par conception.</p>
-          <div class="footer-security-badge" aria-label="Certifications sécurité">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span class="font-mono">Secure by Design</span>
-          </div>
+          <p>Agence web hybride. Sites sur-mesure et cybersécurité intégrée dès la conception.</p>
         </div>
 
         <nav class="footer-nav" aria-label="Navigation pied de page">
           <div class="footer-nav-col">
             <h4 class="footer-nav-title">Services</h4>
             <ul role="list">
-              <li><a href="/services#service-web">Création Web</a></li>
-              <li><a href="/services#service-cyber">Cybersécurité</a></li>
-              <li><a href="/services#service-pentest">Pen-Testing</a></li>
-              <li><a href="/tarifs#run">Abonnement Run</a></li>
+              <li><a href="/services#web">Création web</a></li>
+              <li><a href="/services#cyber">Cybersécurité</a></li>
+              <li><a href="/services#pentest">Pen-testing</a></li>
+              <li><a href="/services#soc">SOC managé</a></li>
             </ul>
           </div>
           <div class="footer-nav-col">
             <h4 class="footer-nav-title">Agence</h4>
             <ul role="list">
-              <li><a href="/realisations">Réalisations</a></li>
-              <li><a href="/equipe">Notre équipe</a></li>
+              <li><a href="/realisations">Maquettes</a></li>
+              <li><a href="/equipe">Équipe</a></li>
               <li><a href="/tarifs">Tarifs</a></li>
               <li><a href="/contact">Contact</a></li>
             </ul>
@@ -50,112 +43,26 @@
             <h4 class="footer-nav-title">Légal</h4>
             <ul role="list">
               <li><a href="/legal/mentions-legales">Mentions légales</a></li>
-              <li><a href="/legal/politique-confidentialite">Politique de confidentialité</a></li>
+              <li><a href="/legal/politique-confidentialite">Confidentialité</a></li>
               <li><a href="/legal/cgv">CGV</a></li>
               <li><a href="/legal/rgpd">RGPD</a></li>
-              <li><a href="#" onclick="window.reopenCookieBanner(event); return false;">Gérer mes cookies</a></li>
             </ul>
           </div>
         </nav>
       </div>
 
       <div class="footer-bottom">
-        <p class="footer-copy">&copy; <%= new Date().getFullYear() %> Arkis Agency. Tous droits réservés. Conçu et blindé en France.</p>
-        <div class="footer-bottom-badges">
-          <span class="footer-badge font-mono">OWASP Compliant</span>
-          <span class="footer-badge font-mono">RGPD Ready</span>
-          <span class="footer-badge font-mono">Made in France</span>
+        <p>&copy; <%= new Date().getFullYear() %> Arkis. Tous droits réservés.</p>
+        <div class="footer-badges">
+          <span class="footer-badge">OWASP Compliant</span>
+          <span class="footer-badge">RGPD Ready</span>
+          <span class="footer-badge">Made in France</span>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ═══ TOAST NOTIFICATION CONTAINER ═══ -->
   <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
-
-  <!-- ═══ BACK TO TOP BUTTON ═══ -->
-  <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page" hidden>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-
-  <!-- ═══ CUSTOM CYBER CURSOR ═══ -->
-  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-  <!-- ═══ CHATBOT ARIA ═══ -->
-  <button id="aria-chat-btn" aria-label="Ouvrir l'assistant ARIA" aria-expanded="false" aria-controls="aria-chat-window">
-    <span class="aria-pulse" aria-hidden="true"></span>
-    <span class="aria-pulse-2" aria-hidden="true"></span>
-    <svg id="aria-icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <svg id="aria-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
-
-  <div id="aria-chat-window" role="dialog" aria-hidden="true" aria-label="Assistant ARIA — Arkis">
-    <div class="aria-header">
-      <div class="aria-avatar" aria-hidden="true">🤖</div>
-      <div class="aria-info">
-        <div class="aria-name">ARIA</div>
-        <div class="aria-status">Assistant Arkis — En ligne</div>
-      </div>
-      <button class="aria-close-btn" id="aria-close-btn" aria-label="Fermer le chatbot">×</button>
-    </div>
-    <div class="aria-messages" id="aria-messages" role="log" aria-label="Conversation avec ARIA"></div>
-    <div class="aria-suggestions" id="aria-suggestions">
-      <button class="aria-suggestion-chip" data-msg="Quels sont vos services ?">Services</button>
-      <button class="aria-suggestion-chip" data-msg="Quels sont vos tarifs ?">Tarifs</button>
-      <button class="aria-suggestion-chip" data-msg="Comment fonctionne Build & Run ?">Build & Run</button>
-      <button class="aria-suggestion-chip" data-msg="Je veux un audit gratuit">Audit gratuit</button>
-    </div>
-    <div class="aria-input-area">
-      <input type="text" class="aria-input" id="aria-input" placeholder="Posez votre question…" autocomplete="off" aria-label="Message à ARIA" maxlength="200" />
-      <button class="aria-send-btn" id="aria-send-btn" aria-label="Envoyer">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- ═══ MOBILE STICKY CTA ═══ -->
-  <div id="mobile-sticky-cta" role="complementary" aria-label="Démarrer un projet">
-    <div class="msca-text">
-      <strong>Prêt à sécuriser votre avenir ?</strong>
-      1ère consultation 100% gratuite
-    </div>
-    <a href="/contact" class="btn btn-primary" id="msca-cta-btn">Audit gratuit</a>
-    <button id="mobile-sticky-cta-close" aria-label="Fermer">×</button>
-  </div>
-
-  <!-- ═══ ONBOARDING TOUR ═══ -->
-  <button id="tour-trigger-btn" class="tour-floating-btn" aria-label="Lancer la visite guidée interactive d'Arkis">
-    <span class="tour-pulse-ring"></span>
-    <span class="tour-icon">💡</span>
-    <span class="tour-btn-text">Visite Guidée</span>
-  </button>
-
-  <div id="tour-modal" class="tour-modal" aria-hidden="true" role="dialog" aria-labelledby="tour-title">
-    <div class="tour-box">
-      <button class="tour-close" id="tour-close-btn" aria-label="Fermer la visite guidée">×</button>
-      <div class="tour-header">
-        <span class="tour-step-badge" id="tour-step-badge">Étape 1/5</span>
-        <h3 class="tour-title" id="tour-title">Bienvenue chez Arkis</h3>
-      </div>
-      <p class="tour-text" id="tour-text">
-        Nous créons des applications web sur-mesure d'une vitesse foudroyante et dotées d'une sécurité offensive intégrée dès la conception. Découvrons ensemble comment nous blindons votre avenir numérique !
-      </p>
-      <div class="tour-footer">
-        <div class="tour-dots" id="tour-dots">
-          <span class="tour-dot active"></span>
-          <span class="tour-dot"></span>
-          <span class="tour-dot"></span>
-          <span class="tour-dot"></span>
-          <span class="tour-dot"></span>
-        </div>
-        <div class="tour-btns">
-          <button class="tour-btn tour-btn-prev" id="tour-btn-prev" disabled>Retour</button>
-          <button class="tour-btn tour-btn-next" id="tour-btn-next">Suivant ➔</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="/script.js?v=<%= typeof buildVersion !== 'undefined' ? buildVersion : Date.now() %>"></script>
 </body>

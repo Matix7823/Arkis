@@ -1,444 +1,127 @@
 <%- include('partials/head', {
-  title: 'Tarifs — Modèle Build & Run, Transparent & Sans Surprise | Arkis Agency',
-  description: 'Une facturation transparente en deux temps : on construit votre application ultra-performante (Build), puis on la protège et l\'héberge en continu avec notre support 24/7 (Run). Simulateur de devis inclus.'
+  title: 'Tarifs — Arkis',
+  description: 'Tarifs Build & Run transparents. Création de site + maintenance sécurisée mensuelle.'
 }) %>
 
-<%- include('partials/header', { page: 'tarifs' }) %>
+<%- include('partials/header') %>
 
-<main style="padding-top: var(--nav-h);">
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Tarifs</span>
+    <h1>Build &amp; Run — simple et transparent</h1>
+    <p>Un coût de création (Build) + un abonnement mensuel pour l'hébergement, la maintenance et la sécurité (Run). Pas de surprise.</p>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       TARIFS HERO
-  ═══════════════════════════════════════════════ -->
-  <section class="section" style="background:var(--grad-glow);border-bottom:1px solid var(--clr-border);padding:5rem 0 4rem;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,212,255,0.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;" aria-hidden="true"></div>
-    <div class="container" style="position:relative;z-index:1;">
-      <div style="max-width:800px;margin:0 auto;text-align:center;">
-        <p class="section-tag reveal-up">Tarification transparente</p>
-        <h1 class="section-title reveal-up delay-1" style="font-size:clamp(2.4rem,5vw,3.5rem);">
-          Le modèle <span class="gradient-text">Build &amp; Run.</span>
-        </h1>
-        <p class="section-subtitle reveal-up delay-2" style="margin-inline:auto;font-size:1.05rem;">
-          Une facturation en deux temps, claire et sans surprise : on construit votre infrastructure, puis on la protège — pour toujours. Aucune ligne cachée, aucune mauvaise surprise.
-        </p>
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:var(--sp-6)">
+      <h2 style="font-size:1.5rem">1️⃣ &nbsp;Build — création de votre site</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Vitrine</div>
+        <div class="price-amount"><span class="amount">1 990</span><span class="period">€ HT</span></div>
+        <p class="price-desc">Site vitrine 3 à 6 pages. Idéal pour artisans, indépendants, petites entreprises.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Jusqu'à 6 pages</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Design sur-mesure (Figma)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Responsive + SEO de base</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Formulaire de contact sécurisé</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Audit de sécurité inclus</li>
+        </ul>
+        <a href="/contact?plan=vitrine" class="btn btn-secondary">Choisir Vitrine</a>
+      </div>
 
-        <!-- Value props -->
-        <div class="reveal-up delay-3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;">
-          <div style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--clr-text-2);">
-            <span style="color:var(--clr-green);">✓</span> Prix fixe garanti
-          </div>
-          <div style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--clr-text-2);">
-            <span style="color:var(--clr-green);">✓</span> Zéro CVE livré
-          </div>
-          <div style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--clr-text-2);">
-            <span style="color:var(--clr-green);">✓</span> 100/100 LCP garanti
-          </div>
-          <div style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--clr-text-2);">
-            <span style="color:var(--clr-green);">✓</span> SLA jusqu'à 99.99%
-          </div>
-          <div style="display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--clr-text-2);">
-            <span style="color:var(--clr-green);">✓</span> Audit gratuit inclus
-          </div>
-        </div>
+      <div class="price-card featured">
+        <div class="price-name">Pro</div>
+        <div class="price-amount"><span class="amount">4 990</span><span class="period">€ HT</span></div>
+        <p class="price-desc">Site avancé avec CMS, espace client, intégrations API. Pour PME et e-commerces.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Jusqu'à 20 pages + CMS</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Espace client / authentification</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Intégrations API (Stripe, etc.)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SEO avancé + analytics</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pen-test pré-lancement</li>
+        </ul>
+        <a href="/contact?plan=pro" class="btn btn-primary">Choisir Pro</a>
+      </div>
 
-        <!-- Phase explainer -->
-        <div class="reveal-up delay-3" style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-top:3.5rem;max-width:700px;margin-inline:auto;">
-          <div style="background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:var(--radius-lg);padding:1.5rem;text-align:center;">
-            <div style="font-size:1.5rem;margin-bottom:.5rem;">🏗️</div>
-            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--clr-cyan);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;">Phase 1 — BUILD</div>
-            <div style="font-size:.85rem;color:var(--clr-text-2);">Coût unique de création.<br>Prix fixe, sans surprise.</div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:1.5rem;color:var(--clr-text-3);">→</div>
-          <div style="background:rgba(123,47,255,0.06);border:1px solid rgba(123,47,255,0.15);border-radius:var(--radius-lg);padding:1.5rem;text-align:center;">
-            <div style="font-size:1.5rem;margin-bottom:.5rem;">🛡️</div>
-            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--clr-purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;">Phase 2 — RUN</div>
-            <div style="font-size:.85rem;color:var(--clr-text-2);">Abonnement mensuel.<br>Sécurité &amp; hébergement continus.</div>
-          </div>
-        </div>
+      <div class="price-card">
+        <div class="price-name">Custom</div>
+        <div class="price-amount"><span class="amount">Sur devis</span></div>
+        <p class="price-desc">Application sur-mesure, plateforme SaaS, projet d'envergure. On en parle.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sans limite de pages / features</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Architecture sur-mesure</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Équipe dédiée</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Audit Red Team complet</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Accompagnement long-terme</li>
+        </ul>
+        <a href="/contact?plan=custom" class="btn btn-secondary">Discuter du projet</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       TARIFS — MODÈLE HYBRIDE
-  ═══════════════════════════════════════════════ -->
-  <section id="tarifs" class="section pricing">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag reveal-up">Phase 1 — Build</p>
-        <h2 class="section-title reveal-up delay-1">Choisissez votre <span class="gradient-text">niveau d'infrastructure.</span></h2>
-        <p class="section-subtitle reveal-up delay-2">Une facturation en deux temps, claire et sans surprise : on construit, puis on protège. Pour toujours.</p>
-      </div>
-
-      <!-- Phase Toggle -->
-      <div class="pricing-phases reveal-up delay-2">
-        <div class="phase-tab active" id="phase-build-tab">
-          <span class="phase-icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </span>
-          Phase 1 — BUILD
-        </div>
-        <div class="phase-divider" aria-hidden="true">→</div>
-        <div class="phase-tab" id="phase-run-tab">
-          <span class="phase-icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </span>
-          Phase 2 — RUN
-        </div>
-      </div>
-
-      <!-- BUILD Cards -->
-      <div class="pricing-grid" id="pricing-build">
-
-        <article class="pricing-card reveal-up delay-1" id="pricing-starter">
-          <div class="pricing-header">
-            <h3 class="pricing-name">Starter</h3>
-            <p class="pricing-desc">Idéal pour les entrepreneurs & PME qui débutent leur présence en ligne.</p>
-            <div class="pricing-amount">
-              <span class="pricing-price">2 900</span> <span class="pricing-currency">€</span>
-              <span class="pricing-period">one-time</span>
-            </div>
-          </div>
-          <ul class="pricing-features" role="list">
-            <li><span class="pf-check" aria-hidden="true"></span>Site vitrine jusqu'à 8 pages</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Design sur-mesure & responsive</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Score Core Web Vitals 100/100</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Audit de sécurité OWASP Top 10</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Intégration CMS headless</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Configuration Cloudflare de base</li>
-            <li class="pf-disabled"><span class="pf-x" aria-hidden="true"></span>Pen-testing Red Team avancé</li>
-            <li class="pf-disabled"><span class="pf-x" aria-hidden="true"></span>Architecture Zero-Trust</li>
-          </ul>
-          <a href="/contact" class="btn btn-outline pricing-btn" id="pricing-starter-btn">Démarrer ce projet</a>
-        </article>
-
-        <article class="pricing-card pricing-card-featured reveal-up delay-2" id="pricing-pro">
-          <div class="pricing-badge">Recommandé</div>
-          <div class="pricing-header">
-            <h3 class="pricing-name">Pro Secure</h3>
-            <p class="pricing-desc">Pour les entreprises qui font de la sécurité un avantage compétitif.</p>
-            <div class="pricing-amount">
-              <span class="pricing-price">6 900</span> <span class="pricing-currency">€</span>
-              <span class="pricing-period">one-time</span>
-            </div>
-          </div>
-          <ul class="pricing-features" role="list">
-            <li><span class="pf-check" aria-hidden="true"></span>Application web complète (illimité)</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Architecture Full-Stack Supabase + Edge</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Score Core Web Vitals 100/100 garanti</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Pen-testing Red Team complet</li>
-            <li><span class="pf-check" aria-hidden="true"></span>WAF Cloudflare Enterprise configuré</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Architecture Zero-Trust & MFA</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Rapport CVE détaillé & certifié</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Conformité RGPD accompagnée</li>
-          </ul>
-          <a href="/contact" class="btn btn-primary pricing-btn" id="pricing-pro-btn">Démarrer ce projet</a>
-        </article>
-
-        <article class="pricing-card reveal-up delay-3" id="pricing-enterprise">
-          <div class="pricing-header">
-            <h3 class="pricing-name">Enterprise</h3>
-            <p class="pricing-desc">Pour les grandes structures avec des exigences de sécurité critiques.</p>
-            <div class="pricing-amount">
-              <span class="pricing-price" style="font-size:2rem;">Sur devis</span>
-            </div>
-          </div>
-          <ul class="pricing-features" role="list">
-            <li><span class="pf-check" aria-hidden="true"></span>Architecture microservices sur-mesure</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Infrastructure cloud dédiée</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Red Team + Blue Team continus</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Conformité ISO 27001 & NIS2</li>
-            <li><span class="pf-check" aria-hidden="true"></span>SLA personnalisé & engagements légaux</li>
-            <li><span class="pf-check" aria-hidden="true"></span>CISO virtuel dédié</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Formation cybersécurité des équipes</li>
-            <li><span class="pf-check" aria-hidden="true"></span>Audit de sécurité semestriel</li>
-          </ul>
-          <a href="/contact" class="btn btn-outline pricing-btn" id="pricing-enterprise-btn">Nous contacter</a>
-        </article>
-      </div>
-
-      <!-- RUN Subscriptions -->
-      <div class="run-section reveal-up delay-1" style="margin-top: 5rem;">
-        <div class="run-header">
-          <div class="run-icon" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div>
-            <h3 class="run-title">Phase 2 — RUN : Abonnement Sérénité</h3>
-            <p class="run-desc">Après la livraison, votre site entre en "mode Run". Nous prenons en charge <em>tout</em> : hébergement, sécurité, mises à jour, et support critique.</p>
-          </div>
-        </div>
-
-        <div class="run-plans-grid">
-
-          <div class="run-plan reveal-up delay-1" id="run-essentiel">
-            <div class="run-plan-header">
-              <h4 class="run-plan-name">Essentiel</h4>
-              <div class="run-plan-price">149 <span class="rp-cur">€</span><span class="rp-per">/mois</span></div>
-            </div>
-            <ul class="run-features" role="list">
-              <li>Hébergement haute disponibilité (99.9%)</li>
-              <li>Gestion Cloudflare & CDN mondial</li>
-              <li>Mises à jour de sécurité mensuelles</li>
-              <li>Sauvegardes quotidiennes chiffrées</li>
-              <li>Support par email (48h)</li>
-            </ul>
-          </div>
-
-          <div class="run-plan run-plan-featured reveal-up delay-2" id="run-business">
-            <div class="run-featured-badge">Populaire</div>
-            <div class="run-plan-header">
-              <h4 class="run-plan-name">Business</h4>
-              <div class="run-plan-price">349 <span class="rp-cur">€</span><span class="rp-per">/mois</span></div>
-            </div>
-            <ul class="run-features" role="list">
-              <li>Tout ce qu'inclut Essentiel</li>
-              <li>Monitoring des menaces 24/7 (SIEM)</li>
-              <li>WAF Enterprise + protection DDoS active</li>
-              <li>Mises à jour en continu & patches critiques</li>
-              <li>Support prioritaire (4h) + Slack dédié</li>
-              <li class="run-feature-highlight">🔴 Intervention d'urgence 24h/7 incluse</li>
-            </ul>
-          </div>
-
-          <div class="run-plan reveal-up delay-3" id="run-critique">
-            <div class="run-plan-header">
-              <h4 class="run-plan-name">Critique</h4>
-              <div class="run-plan-price">890 <span class="rp-cur">€</span><span class="rp-per">/mois</span></div>
-            </div>
-            <ul class="run-features" role="list">
-              <li>Tout ce qu'inclut Business</li>
-              <li>SOC dédié & réponse aux incidents</li>
-              <li>Pen-testing trimestriel inclus</li>
-              <li>CISO virtuel & conseils stratégiques</li>
-              <li>SLA 99.99% garanti contractuellement</li>
-              <li class="run-feature-highlight">🔴 Astreinte CTO sur incidents (15min)</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div class="run-disclaimer" style="margin-top: 3rem;">
-          <span class="disclaimer-icon" aria-hidden="true">🔴</span>
-          <strong>Support Critique 24h/7 :</strong> Pour les abonnés Business et Critique, un membre senior de notre équipe est joignable à toute heure en cas d'incident de sécurité ou de panne critique. Temps de réponse garanti.
-        </div>
-      </div>
-
+<section class="section" style="background:var(--surface-1);border-top:1px solid var(--border-1);border-bottom:1px solid var(--border-1)">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:var(--sp-6)">
+      <h2 style="font-size:1.5rem">2️⃣ &nbsp;Run — maintenance &amp; sécurité mensuelle</h2>
+      <p style="color:var(--text-3)">Hébergement, monitoring, mises à jour, support. Annulable à tout moment.</p>
     </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       INTERACTIVE CYBER ROI & BUDGET SIMULATOR
-       ═══════════════════════════════════════════════ -->
-  <section id="calculator" class="section simulator-section" style="background: var(--clr-bg); border-top: 1px solid var(--clr-border); padding: 5rem 0; position: relative; overflow: hidden;">
-    <div style="position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.04), transparent 50%); pointer-events: none;" aria-hidden="true"></div>
-    
-    <div class="container">
-      <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
-        <p class="section-tag reveal-up">Simulateur Interactif</p>
-        <h2 class="section-title reveal-up delay-1">Estimez votre <span class="gradient-text">Projet Sur-Mesure.</span></h2>
-        <p class="section-subtitle reveal-up delay-2" style="margin-inline: auto;">Configurez votre infrastructure, ajustez le niveau de blindage WAF et de support pour calculer votre devis estimatif en direct.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Run Essentiel</div>
+        <div class="price-amount"><span class="amount">49</span><span class="period">€ / mois HT</span></div>
+        <p class="price-desc">L'essentiel pour garder votre site rapide et à jour.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hébergement Cloudflare/Vercel</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Backup quotidien</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Mises à jour de sécurité</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Support email (48h)</li>
+        </ul>
+        <a href="/contact?run=essentiel" class="btn btn-secondary">S'abonner</a>
       </div>
 
-      <div class="simulator-layout">
-        
-        <!-- Controls Panel -->
-        <div class="simulator-controls reveal-up delay-1">
-          
-          <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--clr-text); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--clr-cyan)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
-            Configuration de la Stack
-          </h3>
-
-          <!-- Control 1: Pages Slider -->
-          <div class="control-group">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <label for="sim-pages" style="font-weight: 600; font-size: 0.95rem; color: var(--clr-text);">Volume de Pages</label>
-              <span class="font-mono" style="font-size: 0.85rem; color: var(--clr-cyan); background: var(--clr-cyan-dim); padding: 0.2rem 0.6rem; border-radius: 6px;" id="sim-pages-val">5 pages</span>
-            </div>
-            <input type="range" id="sim-pages" min="1" max="30" value="5" style="width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); outline: none; transition: background 0.3s; cursor: pointer; -webkit-appearance: none;" />
-            <p style="font-size: 0.75rem; color: var(--clr-text-3); margin-top: 0.5rem;">Idéal pour les sites vitrines à fort impact (150 € par page supplémentaire au-delà de 5).</p>
-          </div>
-
-          <!-- Control 2: Database Checkbox -->
-          <div class="control-group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md); padding: 1.25rem; transition: border-color var(--t-fast);">
-            <label class="checkbox-wrap" style="display: flex; gap: 1rem; align-items: flex-start; cursor: pointer;">
-              <input type="checkbox" id="sim-db" style="width: 20px; height: 20px; accent-color: var(--clr-cyan); cursor: pointer;" />
-              <div>
-                <span style="font-weight: 600; font-size: 0.95rem; color: var(--clr-text); display: block; margin-bottom: 0.25rem;">Base de Données Supabase (PostgreSQL)</span>
-                <span style="font-size: 0.78rem; color: var(--clr-text-2); display: block; line-height: 1.4;">Active le temps réel, l'isolation Row-Level Security (RLS) et l'accès sécurisé à des fonctionnalités dynamiques.</span>
-              </div>
-            </label>
-          </div>
-
-          <!-- Control 3: Cloudflare Security Dropdown -->
-          <div class="control-group">
-            <label for="sim-security" style="font-weight: 600; font-size: 0.95rem; color: var(--clr-text); display: block; margin-bottom: 0.75rem;">Bouclier de Sécurité Cloudflare</label>
-            <select id="sim-security" style="width: 100%; padding: 0.85rem 1.25rem; background: var(--clr-bg-2); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); color: var(--clr-text); font-weight: 500; font-size: 0.9rem; cursor: pointer; outline: none; transition: border-color 0.2s;">
-              <option value="basic">Standard Edge CDN (Hébergement de base)</option>
-              <option value="advanced" selected>Advanced WAF & DDoS Shield (Hautement recommandé)</option>
-              <option value="enterprise">Zero-Trust Enterprise Vault (Blindage maximal)</option>
-            </select>
-            <p style="font-size: 0.75rem; color: var(--clr-text-3); margin-top: 0.5rem;">Détermine la couche de filtration des menaces en direct à la périphérie du réseau (Edge).</p>
-          </div>
-
-          <!-- Control 4: RUN Support Dropdown -->
-          <div class="control-group">
-            <label for="sim-support" style="font-weight: 600; font-size: 0.95rem; color: var(--clr-text); display: block; margin-bottom: 0.75rem;">Maintenance & Support RUN</label>
-            <select id="sim-support" style="width: 100%; padding: 0.85rem 1.25rem; background: var(--clr-bg-2); border: 1px solid var(--clr-border); border-radius: var(--radius-sm); color: var(--clr-text); font-weight: 500; font-size: 0.9rem; cursor: pointer; outline: none; transition: border-color 0.2s;">
-              <option value="none">Aucun abonnement (Hébergement statique brut)</option>
-              <option value="essentiel">Run Essentiel (Sauvegardes & Mises à jour — 149 €/m)</option>
-              <option value="business" selected>Run Business (Support 24/7 & WAF actif — 349 €/m)</option>
-              <option value="critique">Run Critique (SLA 99.99% & Astreinte CTO — 890 €/m)</option>
-            </select>
-            <p style="font-size: 0.75rem; color: var(--clr-text-3); margin-top: 0.5rem;">Support réactif d'ingénieurs seniors en direct sur Slack pour toute urgence de cybersécurité.</p>
-          </div>
-
-        </div>
-
-        <!-- Dynamic Results Card -->
-        <div class="simulator-results reveal-up delay-2" style="position: sticky; top: calc(var(--nav-h) + 2rem); display: flex; flex-direction: column; gap: 1.5rem;">
-          
-          <!-- Price Box -->
-          <div class="simulator-result-card">
-            <div style="position: absolute; top: -1px; right: 2rem; background: var(--grad-primary); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.25rem 0.8rem; border-radius: 0 0 6px 6px;">Estimation Devis</div>
-            
-            <h4 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--clr-text-3); letter-spacing: 0.05em; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-              <span style="display:inline-block; width:6px; height:6px; background:var(--clr-cyan); border-radius:50%;"></span>
-              Montant Estimatif du Devis
-            </h4>
-
-            <div style="display: flex; flex-direction: column; gap: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.75rem; margin-bottom: 1.75rem;">
-              
-              <!-- Build cost -->
-              <div>
-                <span style="font-size: 0.85rem; color: var(--clr-text-2); display: block; margin-bottom: 0.25rem;">PHASE 1 — BUILD (Coût de création unique)</span>
-                <div style="display: flex; align-items: baseline; gap: 0.35rem;">
-                  <span class="font-mono" style="font-size: 2.25rem; font-weight: 800; color: var(--clr-text);" id="sim-build-price">2 900</span>
-                  <span style="font-size: 1.25rem; color: var(--clr-text-2); font-weight: 600;">€</span>
-                  <span style="font-size: 0.78rem; color: var(--clr-text-3); font-family: var(--font-mono); margin-left: 0.5rem;">one-time build</span>
-                </div>
-              </div>
-
-              <!-- Run cost -->
-              <div>
-                <span style="font-size: 0.85rem; color: var(--clr-text-2); display: block; margin-bottom: 0.25rem;">PHASE 2 — RUN (Hébergement & Cybersécurité mensuels)</span>
-                <div style="display: flex; align-items: baseline; gap: 0.35rem;">
-                  <span class="font-mono" style="font-size: 2.25rem; font-weight: 800; color: var(--clr-cyan);" id="sim-run-price">349</span>
-                  <span style="font-size: 1.25rem; color: var(--clr-cyan); font-weight: 600;">€</span>
-                  <span style="font-size: 0.78rem; color: var(--clr-text-3); font-family: var(--font-mono); margin-left: 0.5rem;">/ mois</span>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Dynamic ROI and Cyber indicators inside the card -->
-            <div class="resp-grid-2">
-              
-              <!-- Speed/LCP Performance score -->
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md); padding: 0.85rem; text-align: center;">
-                <span style="font-size: 0.65rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; display: block; margin-bottom: 0.25rem;">Score LCP Estimé</span>
-                <strong class="font-mono" style="font-size: 1.25rem; color: var(--clr-green);" id="sim-lcp-val">100 / 100</strong>
-              </div>
-
-              <!-- Security rating -->
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md); padding: 0.85rem; text-align: center;">
-                <span style="font-size: 0.65rem; color: var(--clr-text-3); font-family: var(--font-mono); text-transform: uppercase; display: block; margin-bottom: 0.25rem;">Niveau de Sécurité</span>
-                <strong class="font-mono" style="font-size: 1.25rem; color: var(--clr-cyan);" id="sim-security-val">Grade A</strong>
-              </div>
-
-            </div>
-
-            <!-- Dispatch CTA button -->
-            <a href="/contact" class="btn btn-primary btn-full" id="sim-quote-btn" style="justify-content: center; font-size: 0.95rem; font-weight: 700;">
-              Transmettre ce devis
-              <span aria-hidden="true" style="margin-left: 0.5rem;">→</span>
-            </a>
-
-          </div>
-
-          <!-- Small disclaimer -->
-          <div style="font-size: 0.75rem; color: var(--clr-text-3); line-height: 1.5; padding: 0 1rem; text-align: center;">
-            * Cette simulation est fournie à titre indicatif. Un ingénieur Arkis analysera vos spécifications techniques pour valider le cahier des charges et émettre le contrat final.
-          </div>
-
-        </div>
-
+      <div class="price-card featured">
+        <div class="price-name">Run Pro + SOC</div>
+        <div class="price-amount"><span class="amount">149</span><span class="period">€ / mois HT</span></div>
+        <p class="price-desc">Maintenance + monitoring SOC 24/7 + accès dashboard Live SOC.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Tout l'Essentiel +</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SIEM 24/7 + alertes temps réel</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Dashboard client Live SOC</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Support prioritaire (4h)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pen-test annuel inclus</li>
+        </ul>
+        <a href="/contact?run=pro" class="btn btn-primary">S'abonner</a>
       </div>
 
+      <div class="price-card">
+        <div class="price-name">Run Enterprise</div>
+        <div class="price-amount"><span class="amount">Sur devis</span></div>
+        <p class="price-desc">Sites critiques, conformité ISO, SLA renforcés.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SLA 99.99% contractuel</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Réponse incident &lt; 15 min</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Conformité ISO 27001 / RGPD</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Account manager dédié</li>
+        </ul>
+        <a href="/contact?run=enterprise" class="btn btn-secondary">Nous contacter</a>
+      </div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<style>
-/* Slider styling tweaks */
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--clr-cyan);
-  box-shadow: 0 0 10px var(--clr-cyan-glow);
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-/* Simulator Layout CSS */
-.simulator-layout {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 3rem;
-  align-items: start;
-}
-.simulator-controls {
-  background: var(--clr-bg-card);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  box-shadow: var(--shadow-card);
-}
-.simulator-result-card {
-  background: linear-gradient(160deg, #0D1630 0%, #0A1225 100%);
-  border: 1px solid rgba(0, 212, 255, 0.25);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  box-shadow: var(--shadow-glow-c);
-  position: relative;
-  overflow: hidden;
-}
-.resp-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 992px) {
-  .simulator-layout {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-}
-@media (max-width: 576px) {
-  .simulator-controls, .simulator-result-card {
-    padding: 1.5rem;
-    gap: 1.5rem;
-  }
-  .resp-grid-2 {
-    grid-template-columns: 1fr;
-  }
-  #sim-build-price, #sim-run-price {
-    font-size: 1.8rem !important;
-  }
-  .control-group label {
-    font-size: 0.85rem !important;
-  }
-}
-</style>
+<section class="section">
+  <div class="container">
+    <div class="cta-block">
+      <h2>Une question sur les tarifs ?</h2>
+      <p>30 min d'échange gratuit pour estimer votre projet et choisir la bonne formule.</p>
+      <a href="/contact" class="btn btn-lg">Parler à un expert →</a>
+    </div>
+  </div>
+</section>
 
 <%- include('partials/footer') %>

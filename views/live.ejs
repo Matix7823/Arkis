@@ -1,784 +1,294 @@
 <%- include('partials/head', {
-  title: 'ARKIS SOC — Security Operations Center Live | Threat Intelligence Dashboard',
-  description: 'Centre opérationnel de sécurité Arkis en temps réel. SIEM, WAF, threat feed, métriques de performance et télémétrie réseau live — comme un vrai SOC industriel.'
+  title: 'Live SOC — Arkis SIEM Dashboard',
+  description: 'Dashboard SOC/SIEM live : monitoring temps réel, détection des menaces, alertes, métriques. Démo d\'un vrai centre opérationnel de sécurité.'
 }) %>
 
-<%- include('partials/header', { page: 'live' }) %>
+<%- include('partials/header') %>
 
-<main class="soc-main">
+<div class="soc-shell">
 
-  <!-- ════════════════════════════════════════════════════════════════
-       ARKIS SOC — SECURITY OPERATIONS CENTER
-       Full-screen SIEM dashboard with real-time simulated telemetry
-  ════════════════════════════════════════════════════════════════ -->
-
-  <!-- ── SOC Top Status Bar ── -->
-  <div class="soc-statusbar" id="soc-statusbar">
-    <div class="soc-statusbar-left">
-      <span class="soc-sb-logo font-mono">ARKIS_SOC</span>
-      <span class="soc-sb-sep">|</span>
-      <span class="soc-sb-dot" id="soc-dot"></span>
-      <span class="soc-sb-status font-mono" id="soc-status-text">SYSTEM OPERATIONAL — DEFCON 4</span>
+  <!-- Header du SOC -->
+  <div class="soc-header">
+    <div>
+      <h1 class="soc-title">Security Operations Center</h1>
+      <div class="soc-subtitle">Tenant: <span style="color:var(--accent-2)">demo-client.fr</span> · Region: EU-West · v2.5.0</div>
     </div>
-    <div class="soc-statusbar-right font-mono">
-      <span class="soc-sb-item"><span class="soc-sb-label">UTC</span><span id="soc-clock">--:--:--</span></span>
-      <span class="soc-sb-sep">|</span>
-      <span class="soc-sb-item"><span class="soc-sb-label">UPTIME</span><span class="soc-sb-val-green">99.993%</span></span>
-      <span class="soc-sb-sep">|</span>
-      <span class="soc-sb-item"><span class="soc-sb-label">EDGE POPs</span><span class="soc-sb-val-cyan">310</span></span>
-      <span class="soc-sb-sep">|</span>
-      <span class="soc-sb-item"><span class="soc-sb-label">WAF</span><span class="soc-sb-val-green">ACTIVE</span></span>
+    <div class="soc-header-right">
+      <span class="soc-status-pill"><span class="dot"></span>All Systems Operational</span>
+      <span class="soc-clock" id="soc-clock">--:--:--</span>
     </div>
   </div>
 
-  <!-- ── SOC Layout Grid ── -->
+  <!-- KPIs en haut -->
+  <div class="soc-kpis">
+    <div class="kpi">
+      <div class="kpi-label">Events / sec</div>
+      <div class="kpi-value"><span id="kpi-eps">847</span> <span class="delta up">+12%</span></div>
+      <svg class="kpi-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+        <polyline points="0,22 10,18 20,20 30,14 40,16 50,10 60,12 70,8 80,10 90,4 100,6"
+                  fill="none" stroke="#22d3ee" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Threats blocked / 24h</div>
+      <div class="kpi-value"><span id="kpi-blocked">12,847</span> <span class="delta up">+18%</span></div>
+      <svg class="kpi-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+        <polyline points="0,28 10,24 20,20 30,22 40,14 50,18 60,10 70,12 80,4 90,8 100,2"
+                  fill="none" stroke="#34d399" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="kpi critical">
+      <div class="kpi-label">Active critical</div>
+      <div class="kpi-value"><span id="kpi-crit">3</span> <span class="delta down">-2</span></div>
+      <svg class="kpi-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+        <polyline points="0,8 10,12 20,6 30,18 40,16 50,10 60,20 70,14 80,22 90,18 100,20"
+                  fill="none" stroke="#fca5a5" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Uptime SLA</div>
+      <div class="kpi-value">99.99<span style="font-size:1rem;color:#64748b">%</span></div>
+      <svg class="kpi-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+        <polyline points="0,6 10,8 20,6 30,4 40,6 50,4 60,6 70,4 80,6 90,4 100,4"
+                  fill="none" stroke="#818cf8" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Mean response</div>
+      <div class="kpi-value">142<span style="font-size:1rem;color:#64748b">ms</span></div>
+      <svg class="kpi-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+        <polyline points="0,12 10,14 20,10 30,12 40,8 50,10 60,6 70,8 80,4 90,6 100,4"
+                  fill="none" stroke="#fcd34d" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Grid principale : Logs + Attack Map -->
   <div class="soc-grid">
 
-    <!-- ╔═══════════════════════════════════════════════════╗ -->
-    <!-- ║   LEFT COLUMN — KPI + Controls + Geo              ║ -->
-    <!-- ╚═══════════════════════════════════════════════════╝ -->
-    <div class="soc-col-left">
-
-      <!-- ── KPI Cards Row ── -->
-      <div class="soc-kpi-grid">
-        <div class="soc-kpi-card soc-kpi-blocked">
-          <div class="soc-kpi-label font-mono">Menaces Bloquées / h</div>
-          <div class="soc-kpi-value" id="kpi-blocked">0</div>
-          <div class="soc-kpi-trend">↑ <span id="kpi-blocked-rate">0</span>/min</div>
+    <!-- Live logs feed -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Live Event Stream
+          <span class="live-tag">LIVE</span>
         </div>
-        <div class="soc-kpi-card soc-kpi-req">
-          <div class="soc-kpi-label font-mono">Requêtes / sec</div>
-          <div class="soc-kpi-value" id="kpi-rps">0</div>
-          <div class="soc-kpi-trend">Edge CDN Paris</div>
-        </div>
-        <div class="soc-kpi-card soc-kpi-integrity">
-          <div class="soc-kpi-label font-mono">Intégrité TLS</div>
-          <div class="soc-kpi-value" id="kpi-tls">100%</div>
-          <div class="soc-kpi-trend soc-trend-green">TLS 1.3 Only</div>
-        </div>
-        <div class="soc-kpi-card soc-kpi-score">
-          <div class="soc-kpi-label font-mono">Score Résilience</div>
-          <div class="soc-kpi-value" id="kpi-score">98</div>
-          <div class="soc-kpi-trend soc-trend-green">/100 SIEM Index</div>
+        <div class="panel-tools">
+          <button class="panel-tool active" data-filter="all">All</button>
+          <button class="panel-tool" data-filter="crit">Crit</button>
+          <button class="panel-tool" data-filter="warn">Warn</button>
+          <button class="panel-tool" data-filter="info">Info</button>
         </div>
       </div>
-
-      <!-- ── Threat Distribution Bar ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">THREAT DISTRIBUTION — WAF Classification</span>
-          <span class="soc-panel-badge live-badge">LIVE</span>
-        </div>
-        <div class="soc-threat-dist" id="threat-dist">
-          <div class="soc-td-row">
-            <span class="soc-td-label font-mono">DDoS / L7 Flood</span>
-            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-red" id="bar-ddos" style="width:0%"></div></div>
-            <span class="soc-td-pct font-mono" id="pct-ddos">0%</span>
-          </div>
-          <div class="soc-td-row">
-            <span class="soc-td-label font-mono">SQL Injection</span>
-            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-orange" id="bar-sqli" style="width:0%"></div></div>
-            <span class="soc-td-pct font-mono" id="pct-sqli">0%</span>
-          </div>
-          <div class="soc-td-row">
-            <span class="soc-td-label font-mono">XSS / CSRF</span>
-            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-yellow" id="bar-xss" style="width:0%"></div></div>
-            <span class="soc-td-pct font-mono" id="pct-xss">0%</span>
-          </div>
-          <div class="soc-td-row">
-            <span class="soc-td-label font-mono">Bot / Crawler</span>
-            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-cyan" id="bar-bot" style="width:0%"></div></div>
-            <span class="soc-td-pct font-mono" id="pct-bot">0%</span>
-          </div>
-          <div class="soc-td-row">
-            <span class="soc-td-label font-mono">Brute Force</span>
-            <div class="soc-td-bar-wrap"><div class="soc-td-bar soc-td-purple" id="bar-bf" style="width:0%"></div></div>
-            <span class="soc-td-pct font-mono" id="pct-bf">0%</span>
-          </div>
-        </div>
+      <div class="panel-body">
+        <div class="log-feed" id="log-feed" role="log" aria-live="polite"></div>
       </div>
-
-      <!-- ── Network Traffic Sparkline Chart ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">NETWORK TRAFFIC — Req/s (Last 60s)</span>
-          <div style="display:flex;gap:1rem;align-items:center;">
-            <span class="soc-panel-badge">EDGE CDG</span>
-            <span class="font-mono" style="font-size:0.65rem;color:var(--clr-text-3);" id="chart-peak">Peak: 0</span>
-          </div>
-        </div>
-        <canvas id="soc-traffic-chart" class="soc-chart" aria-label="Network traffic chart"></canvas>
-      </div>
-
-      <!-- ── Cyber Attack Simulator ── -->
-      <div class="soc-panel soc-attack-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono" style="color:#F87171;">
-            <span class="soc-live-dot soc-dot-red"></span>EXPLOIT SANDBOX — Simulation WAF
-          </span>
-        </div>
-        <p style="font-size:0.78rem;color:var(--clr-text-2);margin:0.875rem 1rem 1.25rem;line-height:1.5;">
-          Testez l'impénétrabilité d'Arkis en direct. Déclenchez une attaque simulée et observez la mitigation en temps réel dans la console SIEM.
-        </p>
-        <div class="soc-attack-btns">
-          <button class="soc-atk-btn" id="btn-ddos">
-            <span class="soc-atk-icon">🌊</span>
-            <span class="soc-atk-name">DDoS Flood</span>
-            <span class="soc-atk-sub">L7 HTTP/2</span>
-          </button>
-          <button class="soc-atk-btn" id="btn-sqli">
-            <span class="soc-atk-icon">💉</span>
-            <span class="soc-atk-name">SQL Injection</span>
-            <span class="soc-atk-sub">UNION-based</span>
-          </button>
-          <button class="soc-atk-btn" id="btn-xss">
-            <span class="soc-atk-icon">📜</span>
-            <span class="soc-atk-name">XSS Payload</span>
-            <span class="soc-atk-sub">DOM-based</span>
-          </button>
-          <button class="soc-atk-btn" id="btn-bruteforce">
-            <span class="soc-atk-icon">🔑</span>
-            <span class="soc-atk-name">Brute Force</span>
-            <span class="soc-atk-sub">Credential stuffing</span>
-          </button>
-        </div>
-        <div class="soc-attack-status font-mono" id="attack-status">
-          <span style="color:var(--clr-green);">◉</span> WAF SHIELD NOMINAL — Awaiting simulation command...
-        </div>
-      </div>
-
-    </div><!-- end left col -->
-
-    <!-- ╔═══════════════════════════════════════════════════╗ -->
-    <!-- ║   CENTER COLUMN — SIEM Event Log (main console)  ║ -->
-    <!-- ╚═══════════════════════════════════════════════════╝ -->
-    <div class="soc-col-center">
-      <div class="soc-panel soc-console-panel">
-        <div class="soc-panel-header">
-          <div style="display:flex;align-items:center;gap:0.75rem;">
-            <span class="soc-live-dot"></span>
-            <span class="soc-panel-title font-mono">SIEM EVENT LOG — Security Console</span>
-          </div>
-          <div style="display:flex;gap:0.5rem;align-items:center;">
-            <div class="soc-filter-tabs" id="soc-filter-tabs">
-              <button class="soc-filter-btn active" data-filter="all">ALL</button>
-              <button class="soc-filter-btn" data-filter="BLOCKED">BLOCKED</button>
-              <button class="soc-filter-btn" data-filter="WARN">WARN</button>
-              <button class="soc-filter-btn" data-filter="INFO">INFO</button>
-            </div>
-            <button class="soc-clear-btn" id="soc-clear-btn" title="Clear console">CLR</button>
-          </div>
-        </div>
-
-        <div class="soc-console" id="soc-console" role="log" aria-live="polite" aria-label="Security event log">
-          <div class="soc-console-welcome font-mono">
-            <span style="color:var(--clr-cyan);">ARKIS_SIEM v3.1.4</span> — Security Information &amp; Event Management<br/>
-            <span style="color:var(--clr-text-3);">[INIT] Loading security modules... ThreatFeed, WAF, IDS, NetFlow...</span><br/>
-            <span style="color:var(--clr-green);">[OK] All systems operational. Monitoring 6 client stacks.</span>
-          </div>
-        </div>
-
-        <!-- Console event count bar -->
-        <div class="soc-console-footer font-mono">
-          <span>Events: <span id="event-count">0</span></span>
-          <span>Blocked: <span id="event-blocked" style="color:#F87171;">0</span></span>
-          <span>Warnings: <span id="event-warn" style="color:#FBBF24;">0</span></span>
-          <span class="soc-console-scroll-hint">⬇ Auto-scroll</span>
-        </div>
-      </div>
-    </div><!-- end center col -->
-
-    <!-- ╔═══════════════════════════════════════════════════╗ -->
-    <!-- ║   RIGHT COLUMN — Assets + CPU + Active Threats   ║ -->
-    <!-- ╚═══════════════════════════════════════════════════╝ -->
-    <div class="soc-col-right">
-
-      <!-- ── Active Threats Feed ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">ACTIVE THREAT FEED</span>
-          <span class="soc-panel-badge soc-badge-red">INTEL</span>
-        </div>
-        <div class="soc-threat-feed" id="threat-feed"></div>
-      </div>
-
-      <!-- ── Protected Assets Status ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">PROTECTED ASSETS</span>
-          <span class="soc-panel-badge">6 SITES</span>
-        </div>
-        <div class="soc-assets" id="soc-assets">
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-green"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">DHM-Tech Dashboard</span>
-              <span class="soc-asset-url font-mono">dhmtech.com</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">0.7s LCP</span>
-              <span class="soc-asset-metric">99.99%</span>
-            </div>
-          </div>
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-green"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">Bricosam E-Commerce</span>
-              <span class="soc-asset-url font-mono">bricosam.fr</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">0.6s LCP</span>
-              <span class="soc-asset-metric">99.99%</span>
-            </div>
-          </div>
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-green"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">L'Écrin Sucré</span>
-              <span class="soc-asset-url font-mono">ecrin-sucre.fr</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">0.4s LCP</span>
-              <span class="soc-asset-metric">100%</span>
-            </div>
-          </div>
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-green"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">Salon Signature</span>
-              <span class="soc-asset-url font-mono">salonside.fr</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">0.6s LCP</span>
-              <span class="soc-asset-metric">99.98%</span>
-            </div>
-          </div>
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-green"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">SOC Industriel</span>
-              <span class="soc-asset-url font-mono">soc-logistik.eu</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">1.1s LCP</span>
-              <span class="soc-asset-metric">99.99%</span>
-            </div>
-          </div>
-          <div class="soc-asset">
-            <div class="soc-asset-indicator soc-ind-cyan"></div>
-            <div class="soc-asset-info">
-              <span class="soc-asset-name">Arkis Agency</span>
-              <span class="soc-asset-url font-mono">arkis.agency</span>
-            </div>
-            <div class="soc-asset-metrics">
-              <span class="soc-asset-metric soc-met-green">0.5s LCP</span>
-              <span class="soc-asset-metric">100%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── WAF Rule Engine Status ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">WAF RULE ENGINE</span>
-          <span class="soc-panel-badge soc-badge-green">ENTERPRISE</span>
-        </div>
-        <div class="soc-waf-rules">
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">OWASP Core Ruleset v3.3</span>
-            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">DDoS L3/L4 Mitigation</span>
-            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">Bot Management Pro</span>
-            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">Rate Limiting (429)</span>
-            <span class="soc-waf-rule-status soc-badge-cyan">ADAPTIVE</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">Zero-Day Shield (ML)</span>
-            <span class="soc-waf-rule-status soc-badge-green">ACTIVE</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">CVE Database Feed</span>
-            <span class="soc-waf-rule-status soc-badge-green">SYNCED</span>
-          </div>
-          <div class="soc-waf-rule">
-            <span class="soc-waf-rule-name font-mono">TLS 1.3 Enforcement</span>
-            <span class="soc-waf-rule-status soc-badge-green">ENFORCED</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── CPU / Memory System Metrics ── -->
-      <div class="soc-panel">
-        <div class="soc-panel-header">
-          <span class="soc-panel-title font-mono">SYSTEM TELEMETRY</span>
-        </div>
-        <div class="soc-sys-metrics">
-          <div class="soc-sys-row">
-            <span class="soc-sys-label font-mono">CPU Load</span>
-            <div class="soc-sys-bar-wrap">
-              <div class="soc-sys-bar" id="cpu-bar" style="width:0%"></div>
-            </div>
-            <span class="soc-sys-val font-mono" id="cpu-val">0%</span>
-          </div>
-          <div class="soc-sys-row">
-            <span class="soc-sys-label font-mono">RAM Usage</span>
-            <div class="soc-sys-bar-wrap">
-              <div class="soc-sys-bar soc-bar-cyan" id="ram-bar" style="width:0%"></div>
-            </div>
-            <span class="soc-sys-val font-mono" id="ram-val">0%</span>
-          </div>
-          <div class="soc-sys-row">
-            <span class="soc-sys-label font-mono">Bandwidth</span>
-            <div class="soc-sys-bar-wrap">
-              <div class="soc-sys-bar soc-bar-purple" id="bw-bar" style="width:0%"></div>
-            </div>
-            <span class="soc-sys-val font-mono" id="bw-val">0 Gbps</span>
-          </div>
-          <div class="soc-sys-row">
-            <span class="soc-sys-label font-mono">Edge Latency</span>
-            <div class="soc-sys-bar-wrap">
-              <div class="soc-sys-bar soc-bar-green" id="lat-bar" style="width:0%"></div>
-            </div>
-            <span class="soc-sys-val font-mono" id="lat-val">0ms</span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end right col -->
-
-  </div><!-- end soc-grid -->
-
-  <!-- ── CTA Bar ── -->
-  <div class="soc-cta-bar">
-    <div class="soc-cta-text">
-      <strong>Protégez votre infrastructure comme nous protégeons nos clients.</strong>
-      Audit de sécurité gratuit — 30 minutes, diagnostic honnête, zéro engagement.
     </div>
-    <a href="/contact" class="btn btn-primary" id="soc-cta-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Demander un audit gratuit
-    </a>
+
+    <!-- Attack map -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Global Threat Map
+        </div>
+        <div class="panel-tools"><span class="panel-tool">EU-W1</span></div>
+      </div>
+      <div class="panel-body" style="padding:0">
+        <div class="map-wrap" id="map-wrap">
+          <svg class="map-svg" id="map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.4"/>
+              </linearGradient>
+            </defs>
+            <!-- Simplified world continents (stylized) -->
+            <path d="M150,180 Q220,140 280,170 Q340,200 320,240 Q280,260 220,250 Q170,230 150,180 Z"/>
+            <path d="M380,150 Q480,130 540,160 Q580,200 560,240 Q520,260 460,250 Q400,230 380,200 Q380,170 380,150 Z"/>
+            <path d="M580,180 Q700,160 800,180 Q860,210 840,250 Q780,270 700,260 Q620,240 580,210 Z"/>
+            <path d="M200,290 Q260,280 310,300 Q340,340 320,380 Q280,400 240,390 Q210,360 200,290 Z"/>
+            <path d="M440,290 Q520,290 580,310 Q600,360 580,400 Q520,420 470,410 Q440,370 440,290 Z"/>
+            <path d="M720,300 Q800,300 850,330 Q860,380 830,400 Q780,410 740,400 Q710,360 720,300 Z"/>
+            <!-- Target (your server) -->
+            <circle cx="430" cy="190" r="4" fill="#22d3ee"/>
+            <!-- Attack arcs -->
+            <g id="attack-arcs"></g>
+          </svg>
+          <div class="map-target" style="top:38%; left:43%"></div>
+          <div class="map-pulse" style="top:25%; left:18%"></div>
+          <div class="map-pulse" style="top:35%; left:78%" id="map-pulse-2"></div>
+          <div class="map-pulse" style="top:62%; left:25%" id="map-pulse-3"></div>
+          <div class="map-pulse" style="top:55%; left:72%" id="map-pulse-4"></div>
+          <div style="position:absolute;bottom:12px;left:14px;font-family:var(--font-mono);font-size:0.7rem;color:#94a3b8">
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#22d3ee;display:inline-block"></span>Your assets · 1</span>
+            &nbsp;&nbsp;
+            <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block"></span>Active threats · <span id="map-threat-count">4</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-</main>
+  <!-- Grid du bas : Chart, Donut, Top sources -->
+  <div class="soc-grid-bottom">
+
+    <!-- Bar chart -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Events / Heure (24h)
+        </div>
+        <div class="panel-tools"><span class="panel-tool active">24h</span><span class="panel-tool">7j</span><span class="panel-tool">30j</span></div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap">
+          <div class="chart-bars" id="chart-bars"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat donut -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2 A10 10 0 0 1 22 12 L12 12 Z" fill="currentColor"/></svg>
+          Threat Types
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg width="130" height="130" viewBox="0 0 130 130">
+              <circle cx="65" cy="65" r="48" fill="none" stroke="#1e293b" stroke-width="18"/>
+              <!-- 4 segments: DDoS 40%, SQLi 25%, XSS 20%, Brute 15% -->
+              <circle cx="65" cy="65" r="48" fill="none" stroke="#ef4444" stroke-width="18"
+                      stroke-dasharray="120.6 301.6" stroke-dashoffset="0"/>
+              <circle cx="65" cy="65" r="48" fill="none" stroke="#f59e0b" stroke-width="18"
+                      stroke-dasharray="75.4 301.6" stroke-dashoffset="-120.6"/>
+              <circle cx="65" cy="65" r="48" fill="none" stroke="#3b82f6" stroke-width="18"
+                      stroke-dasharray="60.3 301.6" stroke-dashoffset="-196"/>
+              <circle cx="65" cy="65" r="48" fill="none" stroke="#8b5cf6" stroke-width="18"
+                      stroke-dasharray="45.2 301.6" stroke-dashoffset="-256.3"/>
+            </svg>
+            <div class="donut-center">
+              <div class="num">12.8k</div>
+              <div class="lbl">Total</div>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="donut-leg-item"><span class="sw" style="background:#ef4444"></span>DDoS<span class="v">40%</span></div>
+            <div class="donut-leg-item"><span class="sw" style="background:#f59e0b"></span>SQLi<span class="v">25%</span></div>
+            <div class="donut-leg-item"><span class="sw" style="background:#3b82f6"></span>XSS<span class="v">20%</span></div>
+            <div class="donut-leg-item"><span class="sw" style="background:#8b5cf6"></span>Brute-force<span class="v">15%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top sources -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+          Top Source IPs
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="src-list">
+          <div class="src-row">
+            <div><div class="src-ip">185.220.101.42</div><div class="src-country">🇷🇺 RU · TOR exit</div></div>
+            <div class="src-count">1,847</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+          <div class="src-row">
+            <div><div class="src-ip">91.234.18.55</div><div class="src-country">🇨🇳 CN · Beijing</div></div>
+            <div class="src-count">1,204</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+          <div class="src-row">
+            <div><div class="src-ip">45.142.214.219</div><div class="src-country">🇰🇵 KP · Pyongyang</div></div>
+            <div class="src-count">983</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+          <div class="src-row">
+            <div><div class="src-ip">194.180.49.114</div><div class="src-country">🇮🇷 IR · Tehran</div></div>
+            <div class="src-count">812</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+          <div class="src-row">
+            <div><div class="src-ip">103.224.182.245</div><div class="src-country">🇻🇳 VN · Hanoi</div></div>
+            <div class="src-count">654</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+          <div class="src-row">
+            <div><div class="src-ip">5.188.10.180</div><div class="src-country">🇷🇺 RU · St-Petersburg</div></div>
+            <div class="src-count">521</div>
+            <button class="panel-tool" style="font-size:0.65rem">BLOCK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active alerts -->
+  <div class="panel" style="margin-top:var(--sp-4)">
+    <div class="panel-head">
+      <div class="panel-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Active Alerts
+        <span class="live-tag">3 CRITICAL</span>
+      </div>
+      <div class="panel-tools"><span class="panel-tool">View all →</span></div>
+    </div>
+    <div class="panel-body">
+      <div class="alert-list">
+        <div class="alert-row">
+          <span class="alert-dot crit"></span>
+          <div class="alert-body">
+            <div class="alert-title">SQL injection attempt on <code style="color:var(--accent-2)">/api/users</code> from 185.220.101.42</div>
+            <div class="alert-meta">WAF rule #1042 triggered · Blocked · GeoIP: RU · ASN: AS9009</div>
+          </div>
+          <div class="alert-time">il y a 12s</div>
+        </div>
+        <div class="alert-row">
+          <span class="alert-dot crit"></span>
+          <div class="alert-body">
+            <div class="alert-title">DDoS volumetric attack — 48k req/s</div>
+            <div class="alert-meta">Mitigated at edge · Anycast network · Layer 7</div>
+          </div>
+          <div class="alert-time">il y a 1m</div>
+        </div>
+        <div class="alert-row">
+          <span class="alert-dot warn"></span>
+          <div class="alert-body">
+            <div class="alert-title">Brute-force credentials detected on <code style="color:var(--accent-2)">/admin/login</code></div>
+            <div class="alert-meta">Rate-limit activé · 23 IPs bannies sur 5 min</div>
+          </div>
+          <div class="alert-time">il y a 3m</div>
+        </div>
+        <div class="alert-row">
+          <span class="alert-dot info"></span>
+          <div class="alert-body">
+            <div class="alert-title">TLS certificate auto-renewed (Let's Encrypt)</div>
+            <div class="alert-meta">Valid jusqu'au 24 août 2026 · DNS-01 challenge passed</div>
+          </div>
+          <div class="alert-time">il y a 12m</div>
+        </div>
+        <div class="alert-row">
+          <span class="alert-dot info"></span>
+          <div class="alert-body">
+            <div class="alert-title">Patch de sécurité appliqué — openssl 3.0.13 → 3.0.14</div>
+            <div class="alert-meta">Auto-deploy · 0 downtime · Vérification post-deploy OK</div>
+          </div>
+          <div class="alert-time">il y a 1h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <%- include('partials/footer') %>
-
-<script>
-/* ═══════════════════════════════════════════════════════════
-   ARKIS SOC DASHBOARD — Live SIEM Engine
-   Self-contained script for the Live SOC page
-═══════════════════════════════════════════════════════════ */
-
-// ── State ──────────────────────────────────────────────────
-const state = {
-  events: [],
-  filteredEvents: [],
-  activeFilter: 'all',
-  counters: {
-    blocked: 0,
-    blocked_rate: 0,
-    rps: 0,
-    total_events: 0,
-    warn_count: 0,
-  },
-  chartData: Array(60).fill(0),
-  isAttacking: false,
-  attackType: null,
-  cpu: 18, ram: 34, bw: 2.4, lat: 8,
-};
-
-const clients = ['DHM-Tech', 'Bricosam.fr', "L'Écrin Sucré", 'Salon Signature', 'SOC Industriel', 'Arkis Agency'];
-const ipPool = () => {
-  const r = () => Math.floor(Math.random() * 254) + 1;
-  return `${r()}.${r()}.${r()}.${r()}`;
-};
-
-// ── SIEM Log Definitions ───────────────────────────────────
-const LOG_TEMPLATES = {
-  sqli: () => ({
-    level: 'BLOCKED', type: 'SQLi',
-    msg: `SQL Injection detected on endpoint /${['search','api/users','products','checkout'][Math.floor(Math.random()*4)]} → Dropped by Cloudflare WAF (OWASP CRS Rule 942100). Source: ${ipPool()}`
-  }),
-  xss: () => ({
-    level: 'BLOCKED', type: 'XSS',
-    msg: `Cross-Site Scripting payload blocked on ${['/contact','/comment','/api/v2/data'][Math.floor(Math.random()*3)]} — Script injection sanitized. Source: ${ipPool()}`
-  }),
-  ddos: () => ({
-    level: 'BLOCKED', type: 'DDoS',
-    msg: `Layer-7 HTTP flood mitigated — ${(300+Math.floor(Math.random()*400)).toLocaleString()} req/s absorbed by Edge CDG. BGP Anycast rerouting engaged.`
-  }),
-  bruteforce: () => ({
-    level: 'BLOCKED', type: 'BruteForce',
-    msg: `Credential stuffing detected on /admin — Rate-limit 429 engaged after ${5+Math.floor(Math.random()*10)} failed attempts. Source: ${ipPool()}`
-  }),
-  bot: () => ({
-    level: 'BLOCKED', type: 'Bot',
-    msg: `Malicious crawler fingerprint detected — User-Agent: "${['SentryBot/1.0','Scrapy/2.6','masscan/1.3','nmap/7.9'][Math.floor(Math.random()*4)]}" → Blocked at Edge. Source: ${ipPool()}`
-  }),
-  tls: () => ({
-    level: 'INFO', type: 'TLS',
-    msg: `TLS 1.3 handshake verified — ECDHE_RSA_AES256_GCM_SHA384 on ${clients[Math.floor(Math.random()*clients.length)]}. HSTS enforced.`
-  }),
-  cache: () => ({
-    level: 'INFO', type: 'Cache',
-    msg: `Static page delivery from Edge cache (Cloudflare POP CDG) — Cache HIT ratio: ${(85+Math.floor(Math.random()*15))}%. Asset: ${clients[Math.floor(Math.random()*clients.length)]}`
-  }),
-  rls: () => ({
-    level: 'INFO', type: 'RLS',
-    msg: `Row-Level Security policy enforced — Supabase isolation confirmed. User scope restricted to tenant ID #${Math.floor(Math.random()*9999)+1000}`
-  }),
-  zerotrust: () => ({
-    level: 'INFO', type: 'ZeroTrust',
-    msg: `Zero-Trust token validated — mTLS certificate presented. Identity: service-account@${clients[Math.floor(Math.random()*clients.length)].toLowerCase().replace(/\s/g,'-')}`
-  }),
-  integrity: () => ({
-    level: 'INFO', type: 'Integrity',
-    msg: `SHA-256 asset hash verified — Edge static manifest integrity check PASS on ${clients[Math.floor(Math.random()*clients.length)]}`
-  }),
-  cve: () => ({
-    level: 'WARN', type: 'CVE',
-    msg: `CVE Advisory: ${['CVE-2025-0132','CVE-2025-1841','CVE-2024-9956','CVE-2025-0330'][Math.floor(Math.random()*4)]} — Patch status: RESOLVED. Client stacks auto-updated.`
-  }),
-  ratelimit: () => ({
-    level: 'WARN', type: 'RateLimit',
-    msg: `Threshold exceeded — ${Math.floor(Math.random()*200)+50} req/5s from ${ipPool()} on /${['api','login','checkout','search'][Math.floor(Math.random()*4)]}. HTTP 429 returned.`
-  }),
-  pentest: () => ({
-    level: 'INFO', type: 'PenTest',
-    msg: `Scheduled pen-test routine — OWASP ZAP scan completed on ${clients[Math.floor(Math.random()*clients.length)]}. CVE found: 0. Score: A+`
-  }),
-};
-
-const NORMAL_POOL = ['tls','cache','rls','zerotrust','integrity','pentest'];
-const THREAT_POOL = ['sqli','xss','bot','ratelimit'];
-const CRITICAL_POOL = ['ddos','bruteforce','cve'];
-
-function getRandomLog() {
-  const roll = Math.random();
-  let pool;
-  if (state.isAttacking) {
-    if (state.attackType === 'ddos') pool = ['ddos','ratelimit','bot'];
-    else if (state.attackType === 'sqli') pool = ['sqli','sqli','xss'];
-    else if (state.attackType === 'xss') pool = ['xss','xss','sqli'];
-    else pool = ['bruteforce','bruteforce','ratelimit'];
-  } else {
-    if (roll < 0.55) pool = NORMAL_POOL;
-    else if (roll < 0.85) pool = THREAT_POOL;
-    else pool = CRITICAL_POOL;
-  }
-  const key = pool[Math.floor(Math.random()*pool.length)];
-  return { key, ...LOG_TEMPLATES[key]() };
-}
-
-// ── Console Renderer ───────────────────────────────────────
-const consoleEl = document.getElementById('soc-console');
-const MAX_EVENTS = 200;
-
-function addLog(log) {
-  const now = new Date();
-  const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-
-  const entry = {
-    ts,
-    level: log.level,
-    type: log.type,
-    msg: log.msg,
-    id: Date.now() + Math.random()
-  };
-
-  state.events.unshift(entry);
-  if (state.events.length > MAX_EVENTS) state.events.pop();
-
-  // Counters
-  state.counters.total_events++;
-  if (log.level === 'BLOCKED') {
-    state.counters.blocked++;
-    state.counters.blocked_rate = Math.min(state.counters.blocked_rate + 1, 999);
-  }
-  if (log.level === 'WARN') state.counters.warn_count++;
-
-  renderConsole();
-  updateCounters();
-}
-
-function renderConsole() {
-  const filter = state.activeFilter;
-  const visible = filter === 'all'
-    ? state.events
-    : state.events.filter(e => e.level === filter);
-
-  // Rebuild only if needed (perf)
-  const html = visible.slice(0, 80).map(e => {
-    const cls = e.level === 'BLOCKED' ? 'soc-log-blocked'
-              : e.level === 'WARN'    ? 'soc-log-warn'
-              : 'soc-log-info';
-    const badge = e.level === 'BLOCKED' ? `<span class="soc-log-badge soc-lb-red">${e.level}</span>`
-                : e.level === 'WARN'    ? `<span class="soc-log-badge soc-lb-yellow">${e.level}</span>`
-                : `<span class="soc-log-badge soc-lb-blue">${e.level}</span>`;
-    return `<div class="soc-log-entry ${cls}">
-      <span class="soc-log-ts font-mono">${e.ts}</span>
-      ${badge}
-      <span class="soc-log-type font-mono">[${e.type}]</span>
-      <span class="soc-log-msg">${e.msg}</span>
-    </div>`;
-  }).join('');
-
-  consoleEl.innerHTML = html;
-}
-
-function updateCounters() {
-  const el = (id, val) => { const e = document.getElementById(id); if(e) e.textContent = val; };
-  el('kpi-blocked', state.counters.blocked.toLocaleString());
-  el('kpi-blocked-rate', state.counters.blocked_rate);
-  el('event-count', state.counters.total_events.toLocaleString());
-  el('event-blocked', state.events.filter(e=>e.level==='BLOCKED').length);
-  el('event-warn', state.events.filter(e=>e.level==='WARN').length);
-}
-
-// ── Clock ──────────────────────────────────────────────────
-function updateClock() {
-  const now = new Date();
-  const utc = `${String(now.getUTCHours()).padStart(2,'0')}:${String(now.getUTCMinutes()).padStart(2,'0')}:${String(now.getUTCSeconds()).padStart(2,'0')} UTC`;
-  const el = document.getElementById('soc-clock');
-  if (el) el.textContent = utc;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ── Traffic Chart ──────────────────────────────────────────
-const canvas = document.getElementById('soc-traffic-chart');
-const ctx = canvas ? canvas.getContext('2d') : null;
-
-function drawChart() {
-  if (!ctx) return;
-  const W = canvas.offsetWidth;
-  const H = canvas.offsetHeight || 120;
-  canvas.width = W;
-  canvas.height = H;
-
-  const max = Math.max(...state.chartData, 100);
-  const step = W / (state.chartData.length - 1);
-
-  ctx.clearRect(0, 0, W, H);
-
-  // Grid lines
-  ctx.strokeStyle = 'rgba(0,212,255,0.06)';
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = (H / 4) * i;
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(W, y);
-    ctx.stroke();
-  }
-
-  // Gradient fill
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, 'rgba(0, 212, 255, 0.3)');
-  grad.addColorStop(1, 'rgba(0, 212, 255, 0.0)');
-
-  ctx.beginPath();
-  state.chartData.forEach((val, i) => {
-    const x = i * step;
-    const y = H - (val / max) * (H - 8) - 4;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  ctx.lineTo((state.chartData.length - 1) * step, H);
-  ctx.lineTo(0, H);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Line
-  ctx.beginPath();
-  ctx.strokeStyle = '#00D4FF';
-  ctx.lineWidth = 2;
-  ctx.shadowBlur = 8;
-  ctx.shadowColor = '#00D4FF';
-  state.chartData.forEach((val, i) => {
-    const x = i * step;
-    const y = H - (val / max) * (H - 8) - 4;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-
-  // Peak label
-  const peak = document.getElementById('chart-peak');
-  if (peak) peak.textContent = `Peak: ${max.toLocaleString()} req/s`;
-}
-
-// ── System Metrics ─────────────────────────────────────────
-function updateSysMetrics() {
-  const targetCpu = state.isAttacking
-    ? 80 + Math.floor(Math.random()*18)
-    : 12 + Math.floor(Math.random()*22);
-
-  state.cpu += (targetCpu - state.cpu) * 0.15;
-  state.ram = 28 + Math.sin(Date.now()/10000)*8 + Math.random()*5;
-  state.bw = state.isAttacking ? 8 + Math.random()*12 : 1.8 + Math.random()*2;
-  state.lat = state.isAttacking ? 25 + Math.random()*40 : 6 + Math.random()*8;
-
-  const setBar = (barId, valId, pct, val) => {
-    const b = document.getElementById(barId); const v = document.getElementById(valId);
-    if(b) b.style.width = `${Math.min(pct,100)}%`;
-    if(v) v.textContent = val;
-    if(b) {
-      b.style.background = pct > 80 ? 'var(--clr-red)' : pct > 60 ? '#FBBF24' : '';
-    }
-  };
-
-  setBar('cpu-bar','cpu-val', state.cpu, `${Math.round(state.cpu)}%`);
-  setBar('ram-bar','ram-val', state.ram, `${Math.round(state.ram)}%`);
-  setBar('bw-bar','bw-val', (state.bw/20)*100, `${state.bw.toFixed(1)} Gbps`);
-  setBar('lat-bar','lat-val', (state.lat/100)*100, `${Math.round(state.lat)}ms`);
-
-  // RPS
-  const rps = state.isAttacking ? 800+Math.floor(Math.random()*400) : 80+Math.floor(Math.random()*120);
-  const kpiRps = document.getElementById('kpi-rps');
-  if (kpiRps) kpiRps.textContent = rps.toLocaleString();
-  state.chartData.push(rps);
-  state.chartData.shift();
-  drawChart();
-}
-
-// ── Threat Distribution ────────────────────────────────────
-function updateThreatDist() {
-  const dist = state.isAttacking ? { ddos: 65, sqli: 15, xss: 10, bot: 6, bf: 4 }
-                                 : { ddos: 38, sqli: 22, xss: 18, bot: 14, bf: 8 };
-
-  const keys = ['ddos','sqli','xss','bot','bf'];
-  keys.forEach(k => {
-    const bar = document.getElementById(`bar-${k}`);
-    const pct = document.getElementById(`pct-${k}`);
-    if (bar) bar.style.width = `${dist[k]}%`;
-    if (pct) pct.textContent = `${dist[k]}%`;
-  });
-}
-
-// ── Threat Feed ────────────────────────────────────────────
-const THREAT_INTEL = [
-  { country: 'CN', ip: '218.92.0.0/16', threat: 'APT41 Botnet', severity: 'CRITICAL' },
-  { country: 'RU', ip: '91.234.18.55', threat: 'Emotet C2 Node', severity: 'HIGH' },
-  { country: 'KP', ip: '175.45.176.0/22', threat: 'Lazarus Group', severity: 'CRITICAL' },
-  { country: 'BR', ip: '189.40.0.0/14', threat: 'Credential Stuffing Ring', severity: 'MEDIUM' },
-  { country: 'US', ip: '104.21.48.1', threat: 'Tor Exit Node', severity: 'LOW' },
-  { country: 'DE', ip: '46.243.189.0/24', threat: 'DDoS-for-Hire', severity: 'HIGH' },
-];
-
-function renderThreatFeed() {
-  const feed = document.getElementById('threat-feed');
-  if (!feed) return;
-  feed.innerHTML = THREAT_INTEL.map(t => `
-    <div class="soc-threat-item">
-      <div class="soc-threat-flag">${t.country}</div>
-      <div class="soc-threat-details">
-        <span class="soc-threat-ip font-mono">${t.ip}</span>
-        <span class="soc-threat-name">${t.threat}</span>
-      </div>
-      <span class="soc-threat-sev soc-sev-${t.severity.toLowerCase()}">${t.severity}</span>
-    </div>
-  `).join('');
-}
-
-// ── Attack Simulator ───────────────────────────────────────
-function initAttacks() {
-  const attacks = [
-    { id: 'btn-ddos', type: 'ddos', name: 'DDoS Flood' },
-    { id: 'btn-sqli', type: 'sqli', name: 'SQL Injection' },
-    { id: 'btn-xss',  type: 'xss',  name: 'XSS Payload' },
-    { id: 'btn-bruteforce', type: 'bruteforce', name: 'Brute Force' },
-  ];
-
-  attacks.forEach(atk => {
-    const btn = document.getElementById(atk.id);
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      if (state.isAttacking) return;
-      state.isAttacking = true;
-      state.attackType = atk.type;
-
-      btn.classList.add('soc-atk-active');
-      document.querySelectorAll('.soc-atk-btn').forEach(b => b.disabled = true);
-
-      const statusEl = document.getElementById('attack-status');
-      if (statusEl) {
-        statusEl.innerHTML = `<span style="color:#EF4444;animation:blink 0.5s infinite;">⚠</span> ATTACK ENGAGED: ${atk.name.toUpperCase()} — WAF mitigation active...`;
-      }
-
-      // Inject rapid attack logs
-      let count = 0;
-      const atk_interval = setInterval(() => {
-        addLog(getRandomLog());
-        count++;
-        if (count >= 20) {
-          clearInterval(atk_interval);
-          state.isAttacking = false;
-          state.attackType = null;
-          btn.classList.remove('soc-atk-active');
-          document.querySelectorAll('.soc-atk-btn').forEach(b => b.disabled = false);
-          if (statusEl) {
-            statusEl.innerHTML = `<span style="color:var(--clr-green);">◉</span> MITIGATION COMPLETE — ${atk.name} attack neutralized. 0 data breached.`;
-          }
-        }
-      }, 200);
-    });
-  });
-}
-
-// ── Filter Tabs ────────────────────────────────────────────
-document.querySelectorAll('.soc-filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.soc-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.activeFilter = btn.dataset.filter;
-    renderConsole();
-  });
-});
-
-// Clear button
-const clearBtn = document.getElementById('soc-clear-btn');
-if (clearBtn) clearBtn.addEventListener('click', () => {
-  state.events = [];
-  state.counters = { blocked: 0, blocked_rate: 0, rps: 0, total_events: 0, warn_count: 0 };
-  renderConsole();
-  updateCounters();
-});
-
-// ── Main Loop ──────────────────────────────────────────────
-function mainLoop() {
-  // Inject new event
-  addLog(getRandomLog());
-  updateSysMetrics();
-  updateThreatDist();
-}
-
-// ── Init ───────────────────────────────────────────────────
-renderThreatFeed();
-initAttacks();
-
-// Initial events burst
-for (let i = 0; i < 12; i++) {
-  setTimeout(() => addLog(getRandomLog()), i * 100);
-}
-
-// Recurring intervals
-setInterval(mainLoop, state.isAttacking ? 400 : 1800);
-setInterval(() => {
-  // Variable speed
-  const delay = 800 + Math.random() * 2000;
-  setTimeout(mainLoop, delay);
-}, 2500);
-
-</script>
-</main>
