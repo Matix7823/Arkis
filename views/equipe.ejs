@@ -9,48 +9,83 @@
   <div class="container">
     <span class="eyebrow">Équipe</span>
     <h1>Une équipe experte et dédiée</h1>
-    <p>Nous travaillons depuis 2 ans dans le domaine exclusif de la création de sites web ultra-sécurisés. Une équipe resserrée, où chaque membre est expert dans son domaine pour un niveau de qualité maximal.</p>
+    <p>Nous travaillons dans le domaine exclusif de la création de sites web ultra-sécurisés. Une équipe resserrée où chaque membre est expert dans son domaine, pour un niveau de qualité maximal.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="team-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
-      <div class="member">
-        <div class="member-avatar">MD</div>
-        <h4>Mathis Ducarois</h4>
-        <div class="member-role">Blue Team SOC · Architecte Full-Stack</div>
-        <p class="member-bio">Expert en création de plateformes performantes et supervision défensive.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp-5);max-width:800px;margin:0 auto">
+
+      <!-- Mathis -->
+      <div class="card reveal" style="text-align:center;padding:var(--sp-6) var(--sp-5)">
+        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#06b6d4);display:flex;align-items:center;justify-content:center;margin:0 auto var(--sp-4);font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:0.5px">MD</div>
+        <h3 style="margin-bottom:0.25rem;font-size:1.125rem">Mathis Ducarois</h3>
+        <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--accent-1);margin-bottom:var(--sp-3)">Blue Team SOC · Architecte Full-Stack</div>
+        <p style="font-size:0.9rem;color:var(--text-2);line-height:1.6">Expert en création de plateformes performantes et supervision défensive. Conçoit des architectures robustes avec cybersécurité intégrée dès la première ligne de code.</p>
+        <div style="display:flex;gap:var(--sp-2);justify-content:center;margin-top:var(--sp-4);flex-wrap:wrap">
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(79,70,229,0.15);border:1px solid rgba(79,70,229,0.3);color:#a5b4fc">Node.js</span>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(79,70,229,0.15);border:1px solid rgba(79,70,229,0.3);color:#a5b4fc">Next.js</span>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);color:#67e8f9">SOC/SIEM</span>
+        </div>
       </div>
-      <div class="member">
-        <div class="member-avatar">LB</div>
-        <h4>Lucas Bataille</h4>
-        <div class="member-role">Pentesting · Expert Cyber OSCP</div>
-        <p class="member-bio">Spécialiste de la sécurité offensive et des audits.</p>
+
+      <!-- Lucas -->
+      <div class="card reveal" style="text-align:center;padding:var(--sp-6) var(--sp-5);transition-delay:100ms">
+        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;margin:0 auto var(--sp-4);font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:0.5px">LB</div>
+        <h3 style="margin-bottom:0.25rem;font-size:1.125rem">Lucas Bataille</h3>
+        <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--accent-1);margin-bottom:var(--sp-3)">Pentesting · Expert Cyber OSCP</div>
+        <p style="font-size:0.9rem;color:var(--text-2);line-height:1.6">Spécialiste de la sécurité offensive et des audits de pénétration. Détecte les failles avant les attaquants et renforce chaque projet contre les menaces réelles.</p>
+        <div style="display:flex;gap:var(--sp-2);justify-content:center;margin-top:var(--sp-4);flex-wrap:wrap">
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#c4b5fd">OSCP</span>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#c4b5fd">Metasploit</span>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;padding:3px 10px;border-radius:999px;background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);color:#67e8f9">Red Team</span>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="background:var(--surface-1);border-top:1px solid var(--border-1);border-bottom:1px solid var(--border-1)">
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Valeurs</span>
-      <h2>Comment Nous Travaillons</h2>
+      <h2>Comment nous travaillons</h2>
+      <p>Trois principes non-négociables qui guident chaque projet.</p>
     </div>
     <div class="services-grid">
-      <div class="card">
+      <div class="card reveal">
+        <div class="card-icon" style="background:rgba(79,70,229,0.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
         <h3>Transparence radicale</h3>
-        <p>Vous restez propriétaire de 100% de votre projet. Le code source, l'infrastructure et tous vos mots de passe vous appartiennent. Aucun enfermement, vous gardez le contrôle total en toute confiance.</p>
+        <p>Vous restez propriétaire à 100% de votre projet. Le code source, l'infrastructure et tous vos accès vous appartiennent. Aucun enfermement, vous gardez le contrôle total.</p>
       </div>
-      <div class="card">
+      <div class="card reveal" style="transition-delay:100ms">
+        <div class="card-icon" style="background:rgba(79,70,229,0.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <h3>Sécurité par défaut</h3>
-        <p>La cybersécurité n'est jamais une option payante. Chaque ligne de code et chaque serveur sont durcis selon les meilleurs standards de l'industrie dès le premier jour pour que vous dormiez tranquille.</p>
+        <p>La cybersécurité n'est jamais une option payante. Chaque ligne de code et chaque serveur sont durcis selon les meilleurs standards de l'industrie dès le premier jour.</p>
       </div>
-      <div class="card">
-        <h3>Partenariat Long-terme</h3>
-        <p>Nous ne livrons pas un site pour disparaître ensuite. Nous accompagnons un nombre restreint de clients sur la durée (Build &amp; Run), avec un suivi proactif de la sécurité et des performances.</p>
+      <div class="card reveal" style="transition-delay:200ms">
+        <div class="card-icon" style="background:rgba(79,70,229,0.12)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Partenariat long-terme</h3>
+        <p>Nous ne livrons pas un site pour disparaître. Nous accompagnons un nombre restreint de clients sur la durée, avec un suivi proactif de la sécurité et des performances.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-block">
+      <h2>Travaillons ensemble</h2>
+      <p>Une question ? Un projet ? Prenez 30 minutes pour en discuter — sans engagement, sans pression.</p>
+      <a href="/contact" class="btn btn-lg">Contacter l'équipe →</a>
     </div>
   </div>
 </section>

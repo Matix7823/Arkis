@@ -3,16 +3,18 @@
 const { createClient } = require('@supabase/supabase-js');
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.warn('⚠️  Supabase URL or Secret Key is missing in .env file.');
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('⚠️  Supabase URL or Anon Key is missing in .env file.');
 }
 
-// Initialise le client Supabase avec la clé service_role (permet de contourner RLS côté serveur de manière sécurisée)
-const supabase = createClient(supabaseUrl || '', supabaseServiceKey || '', {
+// Initialise le client Supabase avec la clé anon (respecte les politiques RLS)
+// IMPORTANT : Les politiques RLS doivent être configurées côté Supabase
+// pour autoriser les insertions sur la table contacts (voir docs/SUPABASE_RLS.md)
+const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '', {
   auth: {
-    persistSession: false, // Pas besoin de persister la session sur un serveur Node.js/Express
+    persistSession: false,
   },
 });
 

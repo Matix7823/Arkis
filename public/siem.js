@@ -193,7 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
     MITRE.forEach((tactic, col) => {
       const colEl = document.createElement('div');
       colEl.className = 'mitre-col';
-      colEl.innerHTML = `<div class="mitre-head" title="${tactic.id} · ${tactic.name}">${tactic.name}</div>`;
+      const headDiv = document.createElement('div');
+      headDiv.className = 'mitre-head';
+      headDiv.title = `${tactic.id} \u00b7 ${tactic.name}`;
+      headDiv.textContent = tactic.name;
+      colEl.appendChild(headDiv);
       tactic.sub.forEach((tech, row) => {
         const key = `${col}-${row}`;
         let level = forcedLevels[key] ?? 0;
@@ -259,12 +263,35 @@ document.addEventListener('DOMContentLoaded', () => {
     tr.className = 'row-new';
     tr.dataset.sev = t.sev;
     tr.style.display = (curFilter === 'all' || curFilter === t.sev) ? '' : 'none';
-    tr.innerHTML = `
-      <td style="font-family:var(--font-mono);font-size:0.73rem;white-space:nowrap">${fmt()}</td>
-      <td><span class="sev-badge sev-${t.sev}">${t.sev === 'crit' ? 'CRITIQUE' : t.sev === 'warn' ? 'ÉLEVÉ' : 'INFO'}</span></td>
-      <td style="font-family:var(--font-mono);font-size:0.73rem;color:var(--siem-text-mut)">${t.src}</td>
-      <td class="log-ip">${t.ip}</td>
-      <td style="color:var(--siem-text)">${t.msg}</td>`;
+
+    const tdTime = document.createElement('td');
+    tdTime.style.cssText = 'font-family:var(--font-mono);font-size:0.73rem;white-space:nowrap';
+    tdTime.textContent = fmt();
+
+    const tdSev = document.createElement('td');
+    const sevSpan = document.createElement('span');
+    sevSpan.className = `sev-badge sev-${t.sev}`;
+    sevSpan.textContent = t.sev === 'crit' ? 'CRITIQUE' : t.sev === 'warn' ? 'ÉLEVÉ' : 'INFO';
+    tdSev.appendChild(sevSpan);
+
+    const tdSrc = document.createElement('td');
+    tdSrc.style.cssText = 'font-family:var(--font-mono);font-size:0.73rem;color:var(--siem-text-mut)';
+    tdSrc.textContent = t.src;
+
+    const tdIp = document.createElement('td');
+    tdIp.className = 'log-ip';
+    tdIp.textContent = t.ip;
+
+    const tdMsg = document.createElement('td');
+    tdMsg.style.cssText = 'color:var(--siem-text)';
+    tdMsg.textContent = t.msg;
+
+    tr.appendChild(tdTime);
+    tr.appendChild(tdSev);
+    tr.appendChild(tdSrc);
+    tr.appendChild(tdIp);
+    tr.appendChild(tdMsg);
+
     tbody.insertBefore(tr, tbody.firstChild);
     if (tbody.children.length > 60) tbody.removeChild(tbody.lastChild);
   }
@@ -299,7 +326,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const t = { type, title, msg, icon: icon || (type === 'crit' ? '🚨' : type === 'warn' ? '⚠️' : '✅') };
     const d = document.createElement('div');
     d.className = `toast toast-${t.type}`;
-    d.innerHTML = `<span class="toast-icon">${t.icon}</span><div style="flex:1"><div class="toast-title">${t.title}</div><div class="toast-msg">${t.msg}</div></div>`;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'toast-icon';
+    iconSpan.textContent = t.icon;
+
+    const wrapper = document.createElement('div');
+    wrapper.style.flex = '1';
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'toast-title';
+    titleDiv.textContent = t.title;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'toast-msg';
+    msgDiv.textContent = t.msg;
+    wrapper.appendChild(titleDiv);
+    wrapper.appendChild(msgDiv);
+
+    d.appendChild(iconSpan);
+    d.appendChild(wrapper);
+
     toastBox.appendChild(d);
     setTimeout(() => { d.style.opacity = '0'; d.style.transition = 'opacity 0.4s'; }, 4800);
     setTimeout(() => d.remove(), 5300);
@@ -369,14 +414,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const cols = Object.keys(data[0]);
     const rows = data.slice(0, 6);
-    queryResults.innerHTML = `
-      <table class="query-result-table">
-        <thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
-        <tbody>${rows.map(r => `<tr>${cols.map(c => `<td style="color:var(--siem-text)">${r[c] ?? '—'}</td>`).join('')}</tr>`).join('')}</tbody>
-      </table>`;
+
+    // Construction securisee du tableau (DOM API, pas innerHTML)
+    queryResults.textContent = '';
+    const table = document.createElement('table');
+    table.className = 'query-result-table';
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    cols.forEach(c => { const th = document.createElement('th'); th.textContent = c; headRow.appendChild(th); });
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+    const tbodyEl = document.createElement('tbody');
+    rows.forEach(r => {
+      const row = document.createElement('tr');
+      cols.forEach(c => { const td = document.createElement('td'); td.style.color = 'var(--siem-text)'; td.textContent = r[c] != null ? String(r[c]) : '—'; row.appendChild(td); });
+      tbodyEl.appendChild(row);
+    });
+    table.appendChild(tbodyEl);
+    queryResults.appendChild(table);
+
     if (queryStatus) {
       const ms = Math.round(42 + Math.random() * 180);
-      queryStatus.innerHTML = `<span style="color:var(--siem-ok)">✓ ${rows.length} résultats</span><span>${ms} ms · Arkis Search Engine v3</span>`;
+      queryStatus.textContent = '';
+      const okSpan = document.createElement('span');
+      okSpan.style.color = 'var(--siem-ok)';
+      okSpan.textContent = `✓ ${rows.length} résultats`;
+      const infoSpan = document.createElement('span');
+      infoSpan.textContent = `${ms} ms · Arkis Search Engine v3`;
+      queryStatus.appendChild(okSpan);
+      queryStatus.appendChild(infoSpan);
     }
   }
 
@@ -391,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!queryHistoryEl) return;
     if (queryHistoryEl.children.length === 1 && queryHistoryEl.firstElementChild && queryHistoryEl.firstElementChild.tagName !== 'DIV'.toUpperCase()) return;
     const first = queryHistoryEl.firstElementChild;
-    if (first && first.textContent.includes('L\'historique')) queryHistoryEl.innerHTML = '';
+    if (first && first.textContent.includes('L\'historique')) queryHistoryEl.textContent = '';
     const item = document.createElement('div');
     item.style.cssText = 'padding:7px 10px;background:var(--siem-surface-2);border:1px solid var(--siem-border);border-radius:4px;cursor:pointer;font-size:0.72rem;font-family:var(--font-mono);color:var(--siem-accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:border-color 0.15s';
     item.textContent = q;
@@ -493,15 +559,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const asset = ASSETS[Math.floor(Math.random() * ASSETS.length)];
     const evId = 'EVT-' + String(Math.floor(Math.random() * 99999)).padStart(5, '0');
     const action = t.sev === 'crit' ? 'BLOCK' : t.sev === 'warn' ? 'ALERT' : 'LOG';
-    tr.innerHTML = `
-      <td style="font-family:var(--font-mono);font-size:0.73rem;white-space:nowrap">${fmt()}</td>
-      <td><span class="sev-badge sev-${t.sev}">${t.sev === 'crit' ? 'CRITIQUE' : t.sev === 'warn' ? 'ÉLEVÉ' : 'INFO'}</span></td>
-      <td style="font-family:var(--font-mono);font-size:0.73rem;color:var(--siem-text-mut)">${t.src}</td>
-      <td style="font-family:var(--font-mono);font-size:0.71rem;color:var(--siem-text-dim)">${asset}</td>
-      <td class="log-ip">${t.ip}</td>
-      <td style="font-family:var(--font-mono);font-size:0.7rem;color:var(--siem-text-dim)">${evId}</td>
-      <td style="color:var(--siem-text)">${t.msg}</td>
-      <td><span class="sev-badge ${action === 'BLOCK' ? 'sev-crit' : action === 'ALERT' ? 'sev-warn' : 'sev-info'}" style="font-size:0.6rem">${action}</span></td>`;
+
+    const tdTime2 = document.createElement('td');
+    tdTime2.style.cssText = 'font-family:var(--font-mono);font-size:0.73rem;white-space:nowrap';
+    tdTime2.textContent = fmt();
+
+    const tdSev2 = document.createElement('td');
+    const sevSpan2 = document.createElement('span');
+    sevSpan2.className = `sev-badge sev-${t.sev}`;
+    sevSpan2.textContent = t.sev === 'crit' ? 'CRITIQUE' : t.sev === 'warn' ? 'ÉLEVÉ' : 'INFO';
+    tdSev2.appendChild(sevSpan2);
+
+    const tdSrc2 = document.createElement('td');
+    tdSrc2.style.cssText = 'font-family:var(--font-mono);font-size:0.73rem;color:var(--siem-text-mut)';
+    tdSrc2.textContent = t.src;
+
+    const tdAsset = document.createElement('td');
+    tdAsset.style.cssText = 'font-family:var(--font-mono);font-size:0.71rem;color:var(--siem-text-dim)';
+    tdAsset.textContent = asset;
+
+    const tdIp2 = document.createElement('td');
+    tdIp2.className = 'log-ip';
+    tdIp2.textContent = t.ip;
+
+    const tdEvId = document.createElement('td');
+    tdEvId.style.cssText = 'font-family:var(--font-mono);font-size:0.7rem;color:var(--siem-text-dim)';
+    tdEvId.textContent = evId;
+
+    const tdMsg2 = document.createElement('td');
+    tdMsg2.style.cssText = 'color:var(--siem-text)';
+    tdMsg2.textContent = t.msg;
+
+    const tdAction = document.createElement('td');
+    const actionSpan = document.createElement('span');
+    actionSpan.className = `sev-badge ${action === 'BLOCK' ? 'sev-crit' : action === 'ALERT' ? 'sev-warn' : 'sev-info'}`;
+    actionSpan.style.fontSize = '0.6rem';
+    actionSpan.textContent = action;
+    tdAction.appendChild(actionSpan);
+
+    tr.appendChild(tdTime2);
+    tr.appendChild(tdSev2);
+    tr.appendChild(tdSrc2);
+    tr.appendChild(tdAsset);
+    tr.appendChild(tdIp2);
+    tr.appendChild(tdEvId);
+    tr.appendChild(tdMsg2);
+    tr.appendChild(tdAction);
+
     eventsTbody.insertBefore(tr, eventsTbody.firstChild);
     if (eventsTbody.children.length > 100) eventsTbody.removeChild(eventsTbody.lastChild);
   }

@@ -18,32 +18,42 @@ console.log('⚡ Starting Arkis Static Compiler...');
 fs.mkdirSync(DIST_DIR, { recursive: true });
 console.log('✓ dist/ directory ready.');
 
-// 2. Copy static resources from public/
+// 2. Copy static resources from public/ (whitelist d'extensions autorisees)
 const publicDir = path.join(__dirname, 'public');
+const ALLOWED_EXTENSIONS = new Set(['.js', '.css', '.png', '.jpg', '.jpeg', '.svg', '.webp', '.woff2', '.ico', '.json', '.webmanifest', '.txt']);
 
 function safeCopy(src, dest) {
   try { fs.copyFileSync(src, dest); return true; }
   catch (e) { console.warn(`! Could not copy ${src}: ${e.code || e.message}`); return false; }
 }
 
+function isAllowedFile(filename) {
+  const ext = path.extname(filename).toLowerCase();
+  return ALLOWED_EXTENSIONS.has(ext);
+}
+
 if (fs.existsSync(publicDir)) {
   fs.readdirSync(publicDir).forEach(file => {
     const srcPath = path.join(publicDir, file);
-    if (fs.statSync(srcPath).isFile()) {
+    if (fs.statSync(srcPath).isFile() && isAllowedFile(file)) {
       safeCopy(srcPath, path.join(DIST_DIR, file));
       console.log(`✓ Copied: ${file}`);
+    } else if (fs.statSync(srcPath).isFile()) {
+      console.log(`⊘ Skipped (extension non autorisee): ${file}`);
     }
   });
 }
 
-// Images
+// Images (whitelist d'extensions egalement)
 const imagesDir = path.join(publicDir, 'images');
 const distImagesDir = path.join(DIST_DIR, 'images');
 if (fs.existsSync(imagesDir)) {
   fs.mkdirSync(distImagesDir, { recursive: true });
   fs.readdirSync(imagesDir).forEach(file => {
-    safeCopy(path.join(imagesDir, file), path.join(distImagesDir, file));
-    console.log(`✓ Copied image: images/${file}`);
+    if (isAllowedFile(file)) {
+      safeCopy(path.join(imagesDir, file), path.join(distImagesDir, file));
+      console.log(`✓ Copied image: images/${file}`);
+    }
   });
 }
 
