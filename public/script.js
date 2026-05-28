@@ -170,4 +170,15 @@
     }
   }
 
+  /* ─── Generic Button Feedback ─────────────────────────────── */
+  document.querySelectorAll('button:not([type="submit"]):not(#hamburger-btn)').forEach(btn => {
+    if (!btn.onclick && !btn.id) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const actionText = btn.textContent.trim() || 'Action';
+        toast(`${actionText} a été déclenché.`, 'info');
+      });
+    }
+  });
+
 })();

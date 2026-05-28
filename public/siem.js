@@ -647,4 +647,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scoreBar) { scoreBar.style.width = '0%'; setTimeout(() => { scoreBar.style.transition = 'width 1.2s ease'; scoreBar.style.width = score + '%'; }, 100); }
   }, 400);
 
+  /* ── Generic Button Feedback ────────────────────────────────── */
+  document.querySelectorAll('button:not(.siem-nav-item):not(.time-btn):not(.filter-pill):not(.qtab):not(#query-run):not(#events-pause-btn)').forEach(btn => {
+    if (!btn.onclick && !btn.hasAttribute('data-view') && !btn.id) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const actionText = btn.textContent.trim() || 'Action';
+        pushToast('info', 'Action en cours', `${actionText} a été déclenché.`);
+      });
+    }
+  });
+
 });
