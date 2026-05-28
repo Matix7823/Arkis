@@ -1,137 +1,943 @@
-<%- include('partials/head', {
-  title: 'Live SOC — Arkis SIEM Dashboard',
-  description: 'Dashboard SOC/SIEM live : monitoring temps réel, détection des menaces, alertes, métriques.'
-}) %>
-
-<!-- Styles spécifiques au SIEM -->
-<link rel="stylesheet" href="/siem.css">
-
-<!-- On ferme la balise head et body ouverte par partials/head si besoin. En réalité partials/head n'ouvre pas le body, il contient juste le <head>. 
-Wait, let's assume partials/head outputs just <head>...</head> or opens body. Let's use standard layout -->
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live SOC — Arkis SIEM</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 26 L16 4 L26 26 L21 26 L16 14 L11 26 Z' fill='%2306b6d4'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/siem.css?v=<%= typeof buildVersion !== 'undefined' ? buildVersion : Date.now() %>" />
 </head>
 <body class="siem-layout">
 
-  <!-- Sidebar -->
+  <div class="demo-banner">
+    <strong>DÉMO INTERACTIVE</strong>
+    <span>Aperçu fictif du SIEM managé Arkis — données synthétiques en temps réel</span>
+    <a href="/contact" class="demo-cta">Demander une démo réelle →</a>
+  </div>
+
+  <!-- ═══ SIDEBAR ═══ -->
   <aside class="siem-sidebar">
     <div class="siem-logo">
-      <svg viewBox="0 0 32 32" fill="none"><path d="M6 26 L16 4 L26 26 L21 26 L16 14 L11 26 Z" fill="#22d3ee"/></svg>
-      Arkis SIEM
+      <svg viewBox="0 0 32 32" width="22" height="22"><path d="M6 26 L16 4 L26 26 L21 26 L16 14 L11 26 Z" fill="#06b6d4"/></svg>
+      <span>Arkis<span class="logo-suffix">SIEM</span></span>
     </div>
+
+    <div class="sidebar-section-title">Surveillance</div>
     <nav class="siem-nav">
-      <a href="#" class="siem-nav-item active">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-        Dashboard
-      </a>
-      <a href="#" class="siem-nav-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        Live Events
-      </a>
-      <a href="#" class="siem-nav-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <button class="siem-nav-item active" data-view="dashboard">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard <span class="nav-badge nav-badge-live">live</span>
+      </button>
+      <button class="siem-nav-item" data-view="events">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Flux d'événements
+      </button>
+      <button class="siem-nav-item" data-view="incidents">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Incidents <span class="nav-badge nav-badge-crit">3</span>
+      </button>
+      <button class="siem-nav-item" data-view="threatintel">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
         Threat Intel
-      </a>
-      <a href="#" class="siem-nav-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Reports
-      </a>
+      </button>
+      <button class="siem-nav-item" data-view="ueba">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        UEBA <span class="nav-badge nav-badge-warn">2</span>
+      </button>
     </nav>
+
+    <div class="sidebar-section-title">Gestion</div>
+    <nav class="siem-nav">
+      <button class="siem-nav-item" data-view="assets">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        Assets <span class="nav-badge">247</span>
+      </button>
+      <button class="siem-nav-item" data-view="vulns">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Vulnérabilités <span class="nav-badge nav-badge-warn">17</span>
+      </button>
+      <button class="siem-nav-item" data-view="compliance">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Conformité
+      </button>
+      <button class="siem-nav-item" data-view="query">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Query Console
+      </button>
+      <button class="siem-nav-item" data-view="reports">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Reports
+      </button>
+    </nav>
+
+    <div class="sidebar-section-title">Système</div>
+    <nav class="siem-nav">
+      <button class="siem-nav-item" data-view="integrations">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Intégrations <span class="nav-badge">24</span>
+      </button>
+      <button class="siem-nav-item" data-view="settings">
+        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Paramètres
+      </button>
+    </nav>
+
     <div class="siem-sidebar-footer">
-      <a href="/" class="btn-back">← Retour au site web</a>
+      <div class="analyst-card">
+        <div class="analyst-avatar">SA</div>
+        <div class="analyst-info">
+          <div class="analyst-name">S. Aubry — SOC L2</div>
+          <div class="analyst-role">En ligne · Shift 08h–20h</div>
+        </div>
+        <span class="analyst-dot"></span>
+      </div>
+      <a href="/" class="btn-back">← Retour au site Arkis</a>
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- ═══ MAIN ═══ -->
   <main class="siem-main">
-    
-    <!-- Topbar -->
     <header class="siem-topbar">
       <div class="topbar-left">
         <div class="tenant-selector">
-          <strong>Tenant:</strong> demo-client.fr
+          <span class="tenant-label">Tenant</span>
+          <strong id="topbar-tenant">demo-client.fr</strong>
+          <span style="color:var(--siem-text-dim)">▾</span>
         </div>
-        <div class="tenant-selector" style="border:none;background:transparent;color:#8b949e">
-          Region: EU-West
+        <div class="tenant-region"><span class="region-dot"></span> EU-West · Paris</div>
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="global-search" placeholder="Rechercher : IP, asset, alerte, CVE…" autocomplete="off" />
+          <span class="kbd">⌘K</span>
         </div>
       </div>
       <div class="topbar-right">
         <div class="time-range">
-          <span class="live-indicator"></span>
-          Live Monitoring
+          <button class="time-btn">1h</button>
+          <button class="time-btn active">24h</button>
+          <button class="time-btn">7j</button>
+          <button class="time-btn">30j</button>
         </div>
-        <div id="siem-clock" style="font-family:var(--font-mono);font-size:0.9rem">--:--:--</div>
+        <div class="live-pill"><span class="live-indicator"></span> LIVE</div>
+        <div id="siem-clock" class="siem-clock">--:--:-- UTC</div>
+        <button class="icon-btn" title="Notifications" aria-label="Notifications">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="icon-badge">3</span>
+        </button>
       </div>
     </header>
 
-    <!-- Dashboard Content -->
-    <div class="siem-content">
-      
-      <!-- KPIs -->
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <div class="kpi-title">Events / Sec</div>
-          <div class="kpi-value"><span id="siem-eps">0</span> <span class="kpi-unit">EPS</span></div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-title">Threats Blocked (24h)</div>
-          <div class="kpi-value"><span id="siem-blocked">0</span></div>
-        </div>
-        <div class="kpi-card" style="border-color: rgba(248,81,73,0.5)">
-          <div class="kpi-title" style="color: var(--siem-crit)">Active Critical Alerts</div>
-          <div class="kpi-value" style="color: var(--siem-crit)">3 <span class="kpi-unit">Needs Action</span></div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-title">Uptime SLA</div>
-          <div class="kpi-value">99.99 <span class="kpi-unit">%</span></div>
-        </div>
-      </div>
+    <!-- ══════════════════════════════════════════════════
+         VIEW: DASHBOARD
+    ══════════════════════════════════════════════════ -->
+    <section class="view active" id="view-dashboard">
+      <div class="siem-content">
 
-      <!-- Charts -->
-      <div class="chart-row">
-        <!-- Main Network Traffic -->
-        <div class="panel">
-          <div class="panel-header">Network Traffic (Live)</div>
-          <div class="panel-body">
-            <canvas id="trafficChart"></canvas>
+        <section class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-head"><span class="kpi-title">Events / sec</span><span class="kpi-trend trend-up">▲ 12%</span></div>
+            <div class="kpi-value"><span id="siem-eps">1 024</span><span class="kpi-unit">EPS</span></div>
+            <div class="kpi-spark"><canvas id="sparkEps"></canvas></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-head"><span class="kpi-title">Menaces bloquées 24h</span><span class="kpi-trend trend-up">▲ 8%</span></div>
+            <div class="kpi-value"><span id="siem-blocked">48 391</span></div>
+            <div class="kpi-spark"><canvas id="sparkBlocked"></canvas></div>
+          </div>
+          <div class="kpi-card kpi-crit">
+            <div class="kpi-head"><span class="kpi-title">Incidents critiques</span><span class="kpi-trend trend-down">⚠ Action requise</span></div>
+            <div class="kpi-value"><span>3</span><span class="kpi-unit">ouverts</span></div>
+            <div class="kpi-sub">MTTR moyen : <strong>4m 12s</strong></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-head"><span class="kpi-title">Score de menace</span><span class="kpi-trend trend-flat">→ stable</span></div>
+            <div class="kpi-value"><span id="siem-score">38</span><span class="kpi-unit">/100</span></div>
+            <div class="kpi-bar"><div class="kpi-bar-fill" id="siem-score-bar" style="width:38%;background:linear-gradient(90deg,#22c55e,#e3a008 55%,#f85149)"></div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-head"><span class="kpi-title">Assets supervisés</span><span class="kpi-trend trend-flat">→ stable</span></div>
+            <div class="kpi-value"><span>247</span></div>
+            <div class="kpi-sub"><span class="dot-ok"></span>244 sains &nbsp;<span class="dot-warn"></span>2 dégr. &nbsp;<span class="dot-crit"></span>1 offline</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-head"><span class="kpi-title">SLA disponibilité</span><span class="kpi-trend trend-up">▲ objectif</span></div>
+            <div class="kpi-value"><span>99.99</span><span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">Contractuel : <strong>99.95%</strong></div>
+          </div>
+        </section>
+
+        <section class="grid-2-1">
+          <div class="panel">
+            <div class="panel-header">
+              <div><h3>Trafic réseau temps réel</h3><p class="panel-sub">Inbound · Outbound · Bloqué WAF</p></div>
+              <div class="legend">
+                <span><i style="background:#06b6d4"></i> Inbound</span>
+                <span><i style="background:#8b5cf6"></i> Outbound</span>
+                <span><i style="background:#f85149"></i> Bloqué</span>
+              </div>
+            </div>
+            <div class="panel-body chart-canvas-wrap"><canvas id="trafficChart"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Santé infrastructure</h3><p class="panel-sub">12 services critiques</p></div></div>
+            <div class="panel-body health-grid">
+              <div class="gauge"><div class="gauge-circle" style="--p:18"><span class="gauge-val">18%</span></div><div class="gauge-label">CPU</div></div>
+              <div class="gauge"><div class="gauge-circle" style="--p:64"><span class="gauge-val">64%</span></div><div class="gauge-label">RAM</div></div>
+              <div class="gauge"><div class="gauge-circle gauge-warn" style="--p:83"><span class="gauge-val">83%</span></div><div class="gauge-label">Disque</div></div>
+              <div class="gauge"><div class="gauge-circle gauge-ok" style="--p:100"><span class="gauge-val">100%</span></div><div class="gauge-label">Uptime</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid-2-1">
+          <div class="panel">
+            <div class="panel-header">
+              <div><h3>Origine géographique des attaques</h3><p class="panel-sub">Sources actives · Arkis Threat Feed</p></div>
+              <div class="legend"><span><i class="dot-crit"></i> Critique</span><span><i class="dot-warn"></i> Suspect</span><span><i class="dot-info"></i> Scan</span></div>
+            </div>
+            <div class="panel-body world-map-wrap">
+              <svg viewBox="0 0 1000 500" class="world-map">
+                <rect width="1000" height="500" fill="#0d1119" rx="4"/>
+                <g fill="#161e2d" stroke="#1e2a3a" stroke-width="0.7">
+                  <path d="M80,60 L220,55 L310,80 L340,160 L310,230 L260,270 L200,280 L160,240 L110,200 L70,140 Z"/>
+                  <path d="M180,290 L240,285 L270,360 L250,440 L220,460 L200,420 L185,360 Z"/>
+                  <path d="M430,70 L510,60 L550,90 L545,140 L510,160 L460,165 L430,130 Z"/>
+                  <path d="M440,185 L530,180 L570,260 L560,380 L510,420 L460,400 L430,310 Z"/>
+                  <path d="M540,50 L820,45 L880,90 L870,150 L800,175 L650,170 L570,130 Z"/>
+                  <path d="M570,175 L700,175 L740,250 L700,300 L630,295 L580,240 Z"/>
+                  <path d="M700,195 L830,200 L880,270 L850,330 L790,320 L730,270 Z"/>
+                  <path d="M790,360 L890,355 L920,410 L870,440 L800,430 Z"/>
+                </g>
+                <g class="attack-lines" stroke-width="1.2" fill="none" opacity="0.6">
+                  <path d="M490,110 Q420,170 230,210" stroke="#f85149"/>
+                  <path d="M490,110 Q690,90 800,135" stroke="#e3a008"/>
+                  <path d="M490,110 Q680,180 760,270" stroke="#f85149"/>
+                  <path d="M490,110 Q370,200 270,320" stroke="#3b82f6"/>
+                  <path d="M490,110 Q550,160 660,240" stroke="#f85149"/>
+                </g>
+                <circle cx="490" cy="110" r="5" fill="#06b6d4"/>
+                <circle cx="490" cy="110" r="13" fill="none" stroke="#06b6d4" class="map-target-ring"/>
+                <g class="attack-pts">
+                  <circle cx="230" cy="210" r="5" fill="#f85149" class="atk-dot"/><text x="240" y="208" fill="#7a8798" font-size="9" font-family="Fira Sans">USA · 3 219</text>
+                  <circle cx="800" cy="135" r="6" fill="#e3a008" class="atk-dot"/><text x="714" y="130" fill="#7a8798" font-size="9" font-family="Fira Sans">RU · 2 847</text>
+                  <circle cx="760" cy="270" r="6" fill="#f85149" class="atk-dot"/><text x="680" y="295" fill="#7a8798" font-size="9" font-family="Fira Sans">CN · 4 012</text>
+                  <circle cx="660" cy="240" r="5" fill="#f85149" class="atk-dot"/><text x="668" y="238" fill="#7a8798" font-size="9" font-family="Fira Sans">IR · 1 024</text>
+                </g>
+              </svg>
+              <div class="map-stats">
+                <div><strong>12 114</strong><span>menaces</span></div>
+                <div><strong>58</strong><span>pays</span></div>
+                <div><strong>100%</strong><span>bloquées</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Distribution alertes 24h</h3><p class="panel-sub">Sévérité horaire</p></div></div>
+            <div class="panel-body chart-canvas-wrap"><canvas id="severityChart"></canvas></div>
+          </div>
+        </section>
+
+        <section class="grid-3">
+          <div class="panel">
+            <div class="panel-header"><div><h3>Typologie des menaces</h3><p class="panel-sub">24h</p></div></div>
+            <div class="panel-body chart-canvas-wrap" style="min-height:240px"><canvas id="threatChart"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Top 5 attaquants</h3><p class="panel-sub">Score Threat Intel</p></div></div>
+            <div class="panel-body">
+              <div class="hbar-list">
+                <div class="hbar-row"><div class="hbar-label"><code>185.220.101.42</code><span class="flag">RU</span></div><div class="hbar-track"><div class="hbar-fill bar-crit" style="width:96%"></div></div><div class="hbar-val">3 219</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>194.180.49.114</code><span class="flag">CN</span></div><div class="hbar-track"><div class="hbar-fill bar-crit" style="width:79%"></div></div><div class="hbar-val">2 541</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>91.204.212.170</code><span class="flag">IR</span></div><div class="hbar-track"><div class="hbar-fill bar-crit" style="width:65%"></div></div><div class="hbar-val">2 088</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>45.142.214.219</code><span class="flag">US</span></div><div class="hbar-track"><div class="hbar-fill bar-warn" style="width:48%"></div></div><div class="hbar-val">1 547</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>103.21.244.0</code><span class="flag">IN</span></div><div class="hbar-track"><div class="hbar-fill bar-info" style="width:26%"></div></div><div class="hbar-val">838</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Endpoints ciblés</h3><p class="panel-sub">Top URLs bloquées</p></div></div>
+            <div class="panel-body">
+              <div class="hbar-list">
+                <div class="hbar-row"><div class="hbar-label"><code>/wp-login.php</code></div><div class="hbar-track"><div class="hbar-fill bar-crit" style="width:94%"></div></div><div class="hbar-val">4 218</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>/api/auth/login</code></div><div class="hbar-track"><div class="hbar-fill bar-crit" style="width:74%"></div></div><div class="hbar-val">3 331</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>/.env</code></div><div class="hbar-track"><div class="hbar-fill bar-warn" style="width:51%"></div></div><div class="hbar-val">2 294</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>/api/users?id=</code></div><div class="hbar-track"><div class="hbar-fill bar-warn" style="width:38%"></div></div><div class="hbar-val">1 712</div></div>
+                <div class="hbar-row"><div class="hbar-label"><code>/.git/config</code></div><div class="hbar-track"><div class="hbar-fill bar-info" style="width:21%"></div></div><div class="hbar-val">944</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div><h3>MITRE ATT&amp;CK — Couverture</h3><p class="panel-sub">14 tactiques · 112 techniques surveillées</p></div>
+            <div class="legend">
+              <span><i style="background:#0d1119;border:1px solid #1e2a3a"></i> Aucun</span>
+              <span><i style="background:rgba(6,182,212,0.2)"></i> Bas</span>
+              <span><i style="background:rgba(227,160,8,0.4)"></i> Moyen</span>
+              <span><i style="background:rgba(248,81,73,0.5)"></i> Élevé</span>
+            </div>
+          </div>
+          <div class="panel-body"><div class="mitre-grid" id="mitreGrid"></div></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div><h3>Incidents actifs</h3><p class="panel-sub">Tickets SOC Arkis</p></div>
+            <div class="header-actions">
+              <button class="hd-btn" onclick="switchView('incidents')">Voir tous →</button>
+              <button class="hd-btn hd-btn-primary">+ Nouveau</button>
+            </div>
+          </div>
+          <div class="panel-body" style="padding:0;overflow:auto">
+            <table class="incidents-table">
+              <thead><tr><th>ID</th><th>Sév.</th><th>Titre</th><th>Asset</th><th>MITRE</th><th>Statut</th><th>Assigné</th><th>Ouvert</th></tr></thead>
+              <tbody>
+                <tr><td><code>INC-0314</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Exfiltration DNS vers C2</td><td><code>api-backend</code></td><td>TA0011</td><td><span class="status-pill status-investigating">Investigation</span></td><td><span class="mini-avatar">SA</span>S. Aubry</td><td>00h 04m</td></tr>
+                <tr><td><code>INC-0313</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Exfiltration base clients</td><td><code>db-prod-01</code></td><td>TA0010</td><td><span class="status-pill status-investigating">Investigation</span></td><td><span class="mini-avatar">SA</span>S. Aubry</td><td>00h 18m</td></tr>
+                <tr><td><code>INC-0312</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Port scan massif RU</td><td><code>edge-fw-eu1</code></td><td>TA0043</td><td><span class="status-pill status-contained">Contenu</span></td><td><span class="mini-avatar">JM</span>J. Moreau</td><td>00h 51m</td></tr>
+                <tr><td><code>INC-0311</code></td><td><span class="sev-badge sev-warn">ÉLEVÉ</span></td><td>Brute-force SSH bastion</td><td><code>bastion-01</code></td><td>TA0006</td><td><span class="status-pill status-resolving">Résolution</span></td><td><span class="mini-avatar">LP</span>L. Petit</td><td>01h 27m</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="grid-2-1">
+          <div class="panel">
+            <div class="panel-header">
+              <div><h3>Flux d'événements en direct</h3><p class="panel-sub">Logs corrélés · moteur Arkis SIEM</p></div>
+              <div class="stream-filters">
+                <button class="filter-pill filter-active" data-sev="all">Tout</button>
+                <button class="filter-pill" data-sev="crit">Critique</button>
+                <button class="filter-pill" data-sev="warn">Élevé</button>
+                <button class="filter-pill" data-sev="info">Info</button>
+              </div>
+            </div>
+            <div class="panel-body log-table-wrapper" style="padding:0">
+              <table class="log-table">
+                <thead><tr><th style="width:80px">Heure</th><th style="width:80px">Sév.</th><th style="width:68px">Source</th><th style="width:120px">IP</th><th>Message</th></tr></thead>
+                <tbody id="log-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Posture de conformité</h3><p class="panel-sub">Référentiels audités en continu</p></div></div>
+            <div class="panel-body compliance-list">
+              <div class="compliance-row"><div class="comp-info"><strong>RGPD</strong><span>32 contrôles · 1 en remédiation</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="97"></div></div></div><div class="comp-score score-good">97%</div></div>
+              <div class="compliance-row"><div class="comp-info"><strong>ISO 27001:2022</strong><span>114 contrôles · 4 à traiter</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="93"></div></div></div><div class="comp-score score-good">93%</div></div>
+              <div class="compliance-row"><div class="comp-info"><strong>OWASP Top 10</strong><span>10/10 vérifiés</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="100"></div></div></div><div class="comp-score score-good">100%</div></div>
+              <div class="compliance-row"><div class="comp-info"><strong>PCI-DSS v4.0</strong><span>6 contrôles à corriger</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="82"></div></div></div><div class="comp-score score-warn">82%</div></div>
+              <div class="compliance-row"><div class="comp-info"><strong>NIS 2</strong><span>Préparation</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="76"></div></div></div><div class="comp-score score-warn">76%</div></div>
+              <div class="compliance-row"><div class="comp-info"><strong>SecNumCloud</strong><span>Audit planifié</span><div class="comp-bar"><div class="comp-bar-fill" data-pct="71"></div></div></div><div class="comp-score score-warn">71%</div></div>
+              <div class="comp-footer"><span>Dernier scan :</span><strong id="lastScan">il y a 7 min</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="siem-footer">
+          <span>© Arkis — Démo SIEM managé · Données fictives</span>
+          <a href="/contact">Demander un accès réel →</a>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: FLUX D'ÉVÉNEMENTS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-events">
+      <div class="siem-content">
+        <div class="view-header">
+          <div>
+            <h2 class="view-title">Flux d'événements</h2>
+            <p class="view-sub">Tous les logs corrélés par le moteur SIEM Arkis · temps réel</p>
+          </div>
+          <div class="header-actions">
+            <button class="hd-btn" id="events-pause-btn">⏸ Pause</button>
+            <button class="hd-btn">⬇ Exporter CSV</button>
           </div>
         </div>
-        
-        <!-- Threat Donut -->
-        <div class="panel">
-          <div class="panel-header">Threat Typology</div>
-          <div class="panel-body">
-            <canvas id="threatChart"></canvas>
+
+        <div class="events-toolbar">
+          <div class="events-search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="events-search" placeholder="Filtrer par IP, source, message…" />
+          </div>
+          <div class="events-filters">
+            <select class="ev-select" id="ev-sev-filter">
+              <option value="all">Toutes sévérités</option>
+              <option value="crit">Critique</option>
+              <option value="warn">Élevé</option>
+              <option value="info">Info</option>
+            </select>
+            <select class="ev-select" id="ev-src-filter">
+              <option value="all">Toutes sources</option>
+              <option>WAF</option><option>IDS</option><option>EDR</option>
+              <option>AUTH</option><option>DNS</option><option>IAM</option>
+              <option>DLP</option><option>FW</option><option>TLS</option>
+            </select>
+          </div>
+          <div class="events-live-count">
+            <span class="live-indicator" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--siem-ok);margin-right:6px;box-shadow:0 0 6px var(--siem-ok)"></span>
+            <span id="events-count">0</span> événements
+          </div>
+        </div>
+
+        <div class="panel" style="flex:1">
+          <div class="panel-body" style="padding:0;overflow:auto;max-height:calc(100vh - 260px)">
+            <table class="log-table" style="font-size:0.78rem">
+              <thead>
+                <tr>
+                  <th style="width:90px">Heure UTC</th>
+                  <th style="width:85px">Sévérité</th>
+                  <th style="width:70px">Source</th>
+                  <th style="width:70px">Asset</th>
+                  <th style="width:130px">IP Source</th>
+                  <th style="width:80px">Event ID</th>
+                  <th>Message</th>
+                  <th style="width:80px">Action</th>
+                </tr>
+              </thead>
+              <tbody id="events-tbody"></tbody>
+            </table>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Live Event Stream -->
-      <div class="panel" style="flex:1">
-        <div class="panel-header">Live Event Stream</div>
-        <div class="panel-body log-table-wrapper" style="padding:0">
-          <table class="log-table">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Severity</th>
-                <th>Source</th>
-                <th>IP Address</th>
-                <th>Event Message</th>
-              </tr>
-            </thead>
-            <tbody id="log-tbody">
-              <!-- Logs injectés via JS -->
-            </tbody>
-          </table>
+    <!-- ══════════════════════════════════════════════════
+         VIEW: INCIDENTS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-incidents">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Incidents</h2><p class="view-sub">Gestion des incidents de sécurité · workflow SOC Arkis</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">Filtrer</button>
+            <button class="hd-btn hd-btn-primary">+ Nouvel incident</button>
+          </div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="kpi-card kpi-crit"><div class="kpi-head"><span class="kpi-title">Critiques ouverts</span></div><div class="kpi-value"><span>3</span></div><div class="kpi-sub">MTTR : <strong>4m 12s</strong></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">En investigation</span></div><div class="kpi-value"><span>5</span></div><div class="kpi-sub">Assignés à l'équipe</div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Résolus aujourd'hui</span></div><div class="kpi-value" style="color:var(--siem-ok)"><span>12</span></div><div class="kpi-sub">Délai moyen : 28 min</div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">SLA compliance</span></div><div class="kpi-value"><span>98.4</span><span class="kpi-unit">%</span></div><div class="kpi-sub">Objectif : 95%</div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div><h3>Tous les incidents</h3><p class="panel-sub">20 incidents actifs et résolus</p></div>
+            <div style="display:flex;gap:6px">
+              <button class="filter-pill filter-active" data-inc="all">Tous</button>
+              <button class="filter-pill" data-inc="crit">Critique</button>
+              <button class="filter-pill" data-inc="warn">Élevé</button>
+              <button class="filter-pill" data-inc="resolved">Résolu</button>
+            </div>
+          </div>
+          <div class="panel-body" style="padding:0;overflow:auto">
+            <table class="incidents-table">
+              <thead><tr><th>ID</th><th>Sév.</th><th>Titre</th><th>Asset</th><th>Tactique MITRE</th><th>Statut</th><th>Assigné</th><th>Créé</th><th>MTTR</th></tr></thead>
+              <tbody>
+                <tr><td><code>INC-0314</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Exfiltration DNS C2</td><td><code>api-backend</code></td><td>TA0011 · C2</td><td><span class="status-pill status-investigating">Investigation</span></td><td><span class="mini-avatar">SA</span>S. Aubry</td><td>14:22</td><td>—</td></tr>
+                <tr><td><code>INC-0313</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Exfiltration base clients</td><td><code>db-prod-01</code></td><td>TA0010 · Exfil</td><td><span class="status-pill status-investigating">Investigation</span></td><td><span class="mini-avatar">SA</span>S. Aubry</td><td>14:04</td><td>—</td></tr>
+                <tr><td><code>INC-0312</code></td><td><span class="sev-badge sev-crit">CRITIQUE</span></td><td>Port scan massif IP RU</td><td><code>edge-fw-eu1</code></td><td>TA0043 · Recon</td><td><span class="status-pill status-contained">Contenu</span></td><td><span class="mini-avatar">JM</span>J. Moreau</td><td>13:31</td><td>—</td></tr>
+                <tr><td><code>INC-0311</code></td><td><span class="sev-badge sev-warn">ÉLEVÉ</span></td><td>Brute-force SSH bastion</td><td><code>bastion-01</code></td><td>TA0006 · Cred</td><td><span class="status-pill status-resolving">Résolution</span></td><td><span class="mini-avatar">LP</span>L. Petit</td><td>12:55</td><td>—</td></tr>
+                <tr><td><code>INC-0310</code></td><td><span class="sev-badge sev-warn">ÉLEVÉ</span></td><td>Anomalie comportementale admin</td><td><code>iam-portal</code></td><td>TA0008 · Lateral</td><td><span class="status-pill status-resolving">Résolution</span></td><td><span class="mini-avatar">JM</span>J. Moreau</td><td>12:10</td><td>—</td></tr>
+                <tr><td><code>INC-0309</code></td><td><span class="sev-badge sev-warn">ÉLEVÉ</span></td><td>DLP — upload 847 MB suspect</td><td><code>workstation-22</code></td><td>TA0010 · Exfil</td><td><span class="status-pill status-resolving">Résolution</span></td><td><span class="mini-avatar">LP</span>L. Petit</td><td>11:42</td><td>—</td></tr>
+                <tr><td><code>INC-0308</code></td><td><span class="sev-badge sev-ok">INFO</span></td><td>Nouveau device — s.dupont</td><td><code>endpoint-087</code></td><td>—</td><td><span class="status-pill status-resolved">Résolu</span></td><td><span class="mini-avatar">SA</span>Auto-SOAR</td><td>10:15</td><td>3m</td></tr>
+                <tr><td><code>INC-0307</code></td><td><span class="sev-badge sev-ok">INFO</span></td><td>Cert TLS renouvelé auto</td><td><code>www.demo-client.fr</code></td><td>—</td><td><span class="status-pill status-resolved">Résolu</span></td><td><span class="mini-avatar">SA</span>Auto-SOAR</td><td>09:01</td><td>0m</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+    </section>
 
-    </div>
+    <!-- ══════════════════════════════════════════════════
+         VIEW: THREAT INTEL
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-threatintel">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Threat Intelligence</h2><p class="view-sub">IOC actifs · Arkis Threat Feed · 4 sources OSINT enrichies</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">+ Ajouter IOC</button>
+            <button class="hd-btn hd-btn-primary">⬇ Export STIX</button>
+          </div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">IOC actifs</span></div><div class="kpi-value"><span>1 247</span></div></div>
+          <div class="kpi-card kpi-crit"><div class="kpi-head"><span class="kpi-title">IP malveillantes</span></div><div class="kpi-value"><span>412</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Domaines C2</span></div><div class="kpi-value"><span>187</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Hashes malware</span></div><div class="kpi-value"><span>384</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">CVE exploitées</span></div><div class="kpi-value"><span>264</span></div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><div><h3>IOC récents</h3><p class="panel-sub">Dernières 6 heures · confiance ≥ 70%</p></div></div>
+            <div class="panel-body" style="padding:0;overflow:auto;max-height:400px">
+              <table class="incidents-table">
+                <thead><tr><th>Type</th><th>Indicateur</th><th>Acteur</th><th>Conf.</th><th>Première vue</th><th>Statut</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="intel-type intel-ip">IP</span></td><td><code>185.220.101.42</code></td><td>APT29</td><td style="color:var(--siem-crit);font-weight:700">96%</td><td>Il y a 24h</td><td><span class="status-pill status-investigating">Actif</span></td></tr>
+                  <tr><td><span class="intel-type intel-domain">DOMAIN</span></td><td><code>update-cdn-secure[.]ru</code></td><td>Emotet</td><td style="color:var(--siem-crit);font-weight:700">91%</td><td>Il y a 4j</td><td><span class="status-pill status-investigating">Actif</span></td></tr>
+                  <tr><td><span class="intel-type intel-hash">HASH</span></td><td><code>a3f4b2c1d9e87654</code></td><td>LockBit 3.0</td><td style="color:var(--siem-crit);font-weight:700">99%</td><td>Il y a 2j</td><td><span class="status-pill status-investigating">Actif</span></td></tr>
+                  <tr><td><span class="intel-type intel-cve">CVE</span></td><td><code>CVE-2025-31864</code></td><td>Multiple</td><td style="color:var(--siem-crit);font-weight:700">100%</td><td>Il y a 7j</td><td><span class="status-pill status-contained">KEV CISA</span></td></tr>
+                  <tr><td><span class="intel-type intel-ip">IP</span></td><td><code>194.180.49.0/24</code></td><td>Botnet CN</td><td style="color:var(--siem-warn);font-weight:700">78%</td><td>Il y a 3j</td><td><span class="status-pill status-investigating">Actif</span></td></tr>
+                  <tr><td><span class="intel-type intel-domain">DOMAIN</span></td><td><code>cdn-bootstrap[.]io</code></td><td>TA505</td><td style="color:var(--siem-warn);font-weight:700">72%</td><td>Il y a 12h</td><td><span class="status-pill status-investigating">Actif</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Profils d'acteurs</h3><p class="panel-sub">Groupes APT suivis</p></div></div>
+            <div class="panel-body">
+              <div class="intel-feed">
+                <div class="intel-item">
+                  <div style="width:36px;height:36px;border-radius:6px;background:rgba(248,81,73,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--siem-crit);font-family:var(--font-mono)">APT29</div>
+                  <div class="intel-body">
+                    <span class="intel-ioc">Cozy Bear · Russie · SVR</span>
+                    <div class="intel-desc">Espionnage gouvernemental · TTPs : Spearphishing, Supply Chain, Living-off-the-land</div>
+                    <div class="intel-tags"><span class="intel-tag">Actif</span><span class="intel-tag">Espionnage</span><span class="intel-tag">Gouvernement</span></div>
+                  </div>
+                  <span class="intel-conf conf-high">96%</span>
+                </div>
+                <div class="intel-item">
+                  <div style="width:36px;height:36px;border-radius:6px;background:rgba(227,160,8,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--siem-warn);font-family:var(--font-mono)">TA505</div>
+                  <div class="intel-body">
+                    <span class="intel-ioc">TA505 · Financier · RU/UA</span>
+                    <div class="intel-desc">Ransomware-as-a-Service · Clop, FlawedAmmyy · cible secteur financier</div>
+                    <div class="intel-tags"><span class="intel-tag">Ransomware</span><span class="intel-tag">Finance</span></div>
+                  </div>
+                  <span class="intel-conf conf-med">82%</span>
+                </div>
+                <div class="intel-item">
+                  <div style="width:36px;height:36px;border-radius:6px;background:rgba(248,81,73,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--siem-crit);font-family:var(--font-mono)">APT41</div>
+                  <div class="intel-body">
+                    <span class="intel-ioc">Double Dragon · Chine · MSS</span>
+                    <div class="intel-desc">Espionnage + cybercriminalité · supply chain, exploitation 0-day</div>
+                    <div class="intel-tags"><span class="intel-tag">0-day</span><span class="intel-tag">Supply Chain</span><span class="intel-tag">Chine</span></div>
+                  </div>
+                  <span class="intel-conf conf-high">91%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><div><h3>Sources Threat Feed</h3><p class="panel-sub">Connecteurs actifs · mise à jour continue</p></div></div>
+          <div class="panel-body">
+            <div class="asset-grid" style="grid-template-columns:repeat(4,1fr)">
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">MISP</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Open Source · Auto-sync 5min</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">IOCs</div><div class="asset-stat-val">48 291</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">2ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Abuse.ch</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">URLhaus · MalwareBazaar · Live</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">IOCs</div><div class="asset-stat-val">12 847</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">8ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">CISA KEV</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Known Exploited Vulns · CISA</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">CVE</div><div class="asset-stat-val">1 214</div></div><div class="asset-stat"><div class="asset-stat-label">Sync</div><div class="asset-stat-val">1h</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Arkis Feed</span><div class="asset-status" style="background:var(--siem-accent)"></div></div><div class="asset-type">Feed propriétaire · Arkis SOC</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">IOCs</div><div class="asset-stat-val">3 412</div></div><div class="asset-stat"><div class="asset-stat-label">Sync</div><div class="asset-stat-val">Temps réel</div></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: UEBA
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-ueba">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">UEBA — Analyse Comportementale</h2><p class="view-sub">Moteur ML · baseline 30 jours · score d'anomalie 0–100</p></div>
+          <div class="header-actions"><button class="hd-btn hd-btn-primary">Configurer alertes</button></div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="kpi-card kpi-crit"><div class="kpi-head"><span class="kpi-title">Alertes critiques</span></div><div class="kpi-value"><span>2</span></div><div class="kpi-sub">Score &gt; 80</div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Utilisateurs surveillés</span></div><div class="kpi-value"><span>847</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Anomalies 24h</span></div><div class="kpi-value"><span>14</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Faux positifs</span></div><div class="kpi-value" style="color:var(--siem-ok)"><span>2.1</span><span class="kpi-unit">%</span></div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><div><h3>Utilisateurs à risque</h3><p class="panel-sub">Classement par score d'anomalie</p></div></div>
+            <div class="panel-body">
+              <div class="ueba-list">
+                <div class="ueba-row ueba-crit">
+                  <div class="ueba-icon ueba-icon-crit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                  <div class="ueba-body">
+                    <div class="ueba-title">admin@demo-client.fr — connexion 03h14 UTC depuis Brésil</div>
+                    <div class="ueba-detail">Géoloc inhabituelle · Heure anormale · Accès ressources sensibles · IP jamais vue</div>
+                    <div class="ueba-meta"><span class="ueba-score ueba-score-crit">89/100</span><span class="ueba-time">Il y a 24 min</span><span class="sev-badge sev-crit" style="font-size:0.6rem">CRITIQUE</span></div>
+                  </div>
+                </div>
+                <div class="ueba-row ueba-warn">
+                  <div class="ueba-icon ueba-icon-warn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                  <div class="ueba-body">
+                    <div class="ueba-title">j.martin@demo-client.fr — volume download ×8 vs baseline</div>
+                    <div class="ueba-detail">847 MB exportés · endpoint /api/export · DLP alerte déclenchée</div>
+                    <div class="ueba-meta"><span class="ueba-score ueba-score-warn">72/100</span><span class="ueba-time">Il y a 1h 14min</span><span class="sev-badge sev-warn" style="font-size:0.6rem">ÉLEVÉ</span></div>
+                  </div>
+                </div>
+                <div class="ueba-row ueba-info">
+                  <div class="ueba-icon ueba-icon-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                  <div class="ueba-body">
+                    <div class="ueba-title">s.dupont@demo-client.fr — 1er appareil inconnu</div>
+                    <div class="ueba-detail">MacOS 14.5 · Chrome 125 · MFA validé · Paris</div>
+                    <div class="ueba-meta"><span class="ueba-score" style="color:var(--siem-info);background:rgba(59,130,246,0.1)">31/100</span><span class="ueba-time">Il y a 3h</span></div>
+                  </div>
+                </div>
+                <div class="ueba-row ueba-info">
+                  <div class="ueba-icon ueba-icon-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                  <div class="ueba-body">
+                    <div class="ueba-title">r.garcia@demo-client.fr — connexions multiples simultanées</div>
+                    <div class="ueba-detail">3 sessions actives · Paris + Lyon + Mobile · horaires normaux</div>
+                    <div class="ueba-meta"><span class="ueba-score" style="color:var(--siem-info);background:rgba(59,130,246,0.1)">28/100</span><span class="ueba-time">Il y a 5h</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Anomalies par catégorie</h3><p class="panel-sub">24 dernières heures</p></div></div>
+            <div class="panel-body chart-canvas-wrap"><canvas id="uebaChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: ASSETS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-assets">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Inventaire des Assets</h2><p class="view-sub">247 assets supervisés · scan agentless quotidien</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">+ Ajouter</button>
+            <button class="hd-btn hd-btn-primary">Lancer scan</button>
+          </div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Total assets</span></div><div class="kpi-value"><span>247</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Sains</span></div><div class="kpi-value" style="color:var(--siem-ok)"><span>244</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Dégradés</span></div><div class="kpi-value" style="color:var(--siem-warn)"><span>2</span></div></div>
+          <div class="kpi-card kpi-crit"><div class="kpi-head"><span class="kpi-title">Hors-ligne</span></div><div class="kpi-value"><span>1</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Vulnérables</span></div><div class="kpi-value" style="color:var(--siem-warn)"><span>17</span></div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div><h3>Assets</h3></div>
+            <div style="display:flex;gap:6px">
+              <button class="filter-pill filter-active" data-asset-type="all">Tous</button>
+              <button class="filter-pill" data-asset-type="server">Serveurs</button>
+              <button class="filter-pill" data-asset-type="endpoint">Endpoints</button>
+              <button class="filter-pill" data-asset-type="network">Réseau</button>
+              <button class="filter-pill" data-asset-type="cloud">Cloud</button>
+            </div>
+          </div>
+          <div class="panel-body" style="padding:0;overflow:auto">
+            <table class="incidents-table">
+              <thead><tr><th>Nom</th><th>Type</th><th>IP</th><th>OS</th><th>Statut</th><th>CPU</th><th>RAM</th><th>Vuln.</th><th>Dernière vue</th></tr></thead>
+              <tbody>
+                <tr><td><code>db-prod-01</code></td><td>Serveur BD</td><td>10.0.1.10</td><td>Ubuntu 22.04</td><td><span class="status-pill status-investigating">Critique</span></td><td>24%</td><td>71%</td><td><span class="sev-badge sev-crit">2 CVE</span></td><td>À l'instant</td></tr>
+                <tr><td><code>api-backend</code></td><td>App Server</td><td>10.0.1.20</td><td>Ubuntu 22.04</td><td><span class="status-pill status-resolved">Sain</span></td><td>18%</td><td>54%</td><td><span class="sev-badge sev-ok">0</span></td><td>À l'instant</td></tr>
+                <tr><td><code>edge-fw-eu1</code></td><td>Firewall</td><td>10.0.0.1</td><td>pfSense 2.7</td><td><span class="status-pill status-resolved">Sain</span></td><td>8%</td><td>32%</td><td><span class="sev-badge sev-ok">0</span></td><td>À l'instant</td></tr>
+                <tr><td><code>bastion-01</code></td><td>Bastion SSH</td><td>10.0.0.5</td><td>Debian 12</td><td><span class="status-pill status-resolving">Dégradé</span></td><td>44%</td><td>62%</td><td><span class="sev-badge sev-warn">1 CVE</span></td><td>Il y a 2min</td></tr>
+                <tr><td><code>www-cluster</code></td><td>Web Cluster</td><td>10.0.2.0/24</td><td>NGINX 1.24</td><td><span class="status-pill status-resolved">Sain</span></td><td>12%</td><td>41%</td><td><span class="sev-badge sev-crit">1 CVE</span></td><td>À l'instant</td></tr>
+                <tr><td><code>iam-portal</code></td><td>Identity</td><td>10.0.3.10</td><td>Keycloak 23</td><td><span class="status-pill status-resolved">Sain</span></td><td>9%</td><td>48%</td><td><span class="sev-badge sev-ok">0</span></td><td>À l'instant</td></tr>
+                <tr><td><code>worker-pool</code></td><td>Compute</td><td>10.0.4.0/24</td><td>Docker 24.0</td><td><span class="status-pill status-resolved">Sain</span></td><td>67%</td><td>78%</td><td><span class="sev-badge sev-warn">1 CVE</span></td><td>À l'instant</td></tr>
+                <tr><td><code>monitoring-01</code></td><td>Monitoring</td><td>10.0.5.10</td><td>Prometheus</td><td><span class="status-pill status-contained">Hors-ligne</span></td><td>—</td><td>—</td><td>—</td><td>Il y a 3h</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: VULNÉRABILITÉS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-vulns">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Vulnérabilités</h2><p class="view-sub">CVE classées par CVSS · scan agentless quotidien · enrichissement KEV CISA</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">Lancer scan</button>
+            <button class="hd-btn hd-btn-primary">⬇ Rapport PDF</button>
+          </div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="kpi-card kpi-crit"><div class="kpi-head"><span class="kpi-title">Critiques CVSS ≥ 9</span></div><div class="kpi-value"><span>2</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Élevées CVSS 7–9</span></div><div class="kpi-value" style="color:var(--siem-warn)"><span>7</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Modérées CVSS 4–7</span></div><div class="kpi-value" style="color:var(--siem-info)"><span>8</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Patchées 30j</span></div><div class="kpi-value" style="color:var(--siem-ok)"><span>34</span></div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body" style="padding:0;overflow:auto">
+            <table class="incidents-table">
+              <thead><tr><th>CVE</th><th>CVSS</th><th>Composant</th><th>Asset</th><th>Exploit</th><th>Statut</th><th>SOAR</th><th>Deadline</th></tr></thead>
+              <tbody>
+                <tr><td><code>CVE-2025-31864</code></td><td><span class="cvss cvss-crit">9.8</span></td><td>OpenSSL 3.0.13</td><td><code>edge-proxy-01</code></td><td><span class="kev">⚠ KEV CISA</span></td><td><span class="status-pill status-investigating">Patch en test</span></td><td style="font-size:0.72rem;color:var(--siem-text-mut)">Isolation auto</td><td style="color:var(--siem-crit);font-size:0.75rem">URGENT</td></tr>
+                <tr><td><code>CVE-2025-22149</code></td><td><span class="cvss cvss-crit">9.1</span></td><td>NGINX 1.24.0</td><td><code>www-cluster</code></td><td style="font-size:0.75rem;color:var(--siem-warn)">PoC public</td><td><span class="status-pill status-contained">Planifié 28/05</span></td><td style="font-size:0.72rem;color:var(--siem-text-mut)">WAF rule active</td><td style="color:var(--siem-warn);font-size:0.75rem">28/05</td></tr>
+                <tr><td><code>CVE-2025-19874</code></td><td><span class="cvss cvss-warn">7.5</span></td><td>Node.js 20.11</td><td><code>api-backend</code></td><td style="color:var(--siem-text-dim);font-size:0.75rem">—</td><td><span class="status-pill status-resolved">Patché v1.4.3</span></td><td style="font-size:0.72rem;color:var(--siem-ok)">✓ Résolu</td><td style="color:var(--siem-ok);font-size:0.75rem">✓</td></tr>
+                <tr><td><code>CVE-2025-04127</code></td><td><span class="cvss cvss-warn">7.2</span></td><td>Docker 24.0.5</td><td><code>worker-pool</code></td><td style="color:var(--siem-text-dim);font-size:0.75rem">—</td><td><span class="status-pill status-resolving">En cours</span></td><td style="font-size:0.72rem;color:var(--siem-text-mut)">Ticket créé</td><td style="color:var(--siem-warn);font-size:0.75rem">30/05</td></tr>
+                <tr><td><code>CVE-2024-49882</code></td><td><span class="cvss cvss-info">5.3</span></td><td>PostgreSQL 16.1</td><td><code>db-prod-01</code></td><td style="color:var(--siem-text-dim);font-size:0.75rem">—</td><td><span class="status-pill status-resolved">Patché</span></td><td style="font-size:0.72rem;color:var(--siem-ok)">✓ Résolu</td><td style="color:var(--siem-ok);font-size:0.75rem">✓</td></tr>
+                <tr><td><code>CVE-2024-38063</code></td><td><span class="cvss cvss-crit">9.8</span></td><td>Windows TCP/IP</td><td><code>workstation-12</code></td><td><span class="kev">⚠ KEV CISA</span></td><td><span class="status-pill status-investigating">Patch urgence</span></td><td style="font-size:0.72rem;color:var(--siem-crit)">Isolement réseau</td><td style="color:var(--siem-crit);font-size:0.75rem">URGENT</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: CONFORMITÉ
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-compliance">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Conformité</h2><p class="view-sub">Référentiels audités en continu · dernière vérification il y a 7 min</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">Lancer audit</button>
+            <button class="hd-btn hd-btn-primary">⬇ Rapport PDF</button>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="panel"><div class="panel-header"><div><h3>RGPD</h3><p class="panel-sub">32 contrôles · 1 en remédiation</p></div><div class="comp-score score-good" style="font-size:1.4rem;font-family:var(--font-mono)">97%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="97"></div></div><div class="timeline"><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Art. 32 — Chiffrement AES-256 ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Art. 33 — Notification breach &lt; 72h ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Art. 25 — Privacy by design — en cours</div></div></div></div></div></div>
+          <div class="panel"><div class="panel-header"><div><h3>ISO 27001:2022</h3><p class="panel-sub">114 contrôles · 4 à traiter</p></div><div class="comp-score score-good" style="font-size:1.4rem;font-family:var(--font-mono)">93%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="93"></div></div><div class="timeline"><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">A.8 — Asset Management ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">A.5.23 — Cloud security — en révision</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">A.8.8 — Vuln management — partiel</div></div></div></div></div></div>
+          <div class="panel"><div class="panel-header"><div><h3>PCI-DSS v4.0</h3><p class="panel-sub">6 contrôles à corriger</p></div><div class="comp-score score-warn" style="font-size:1.4rem;font-family:var(--font-mono)">82%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="82"></div></div><div class="timeline"><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Req. 3 — Protect card data ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-crit"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Req. 11.3 — Pen testing — manquant</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Req. 12 — Policies — en révision</div></div></div></div></div></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="panel"><div class="panel-header"><div><h3>OWASP Top 10</h3><p class="panel-sub">10/10 vérifiés en continu</p></div><div class="comp-score score-good" style="font-size:1.4rem;font-family:var(--font-mono)">100%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="100"></div></div><div class="hbar-list"><div class="hbar-row"><div class="hbar-label">A01 Broken Access</div><div class="hbar-track"><div class="hbar-fill" style="width:100%;background:var(--siem-ok)"></div></div><div class="hbar-val" style="color:var(--siem-ok)">✓</div></div><div class="hbar-row"><div class="hbar-label">A02 Crypto Failures</div><div class="hbar-track"><div class="hbar-fill" style="width:100%;background:var(--siem-ok)"></div></div><div class="hbar-val" style="color:var(--siem-ok)">✓</div></div><div class="hbar-row"><div class="hbar-label">A03 Injection</div><div class="hbar-track"><div class="hbar-fill" style="width:100%;background:var(--siem-ok)"></div></div><div class="hbar-val" style="color:var(--siem-ok)">✓</div></div></div></div></div>
+          <div class="panel"><div class="panel-header"><div><h3>NIS 2</h3><p class="panel-sub">Préparation conformité</p></div><div class="comp-score score-warn" style="font-size:1.4rem;font-family:var(--font-mono)">76%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="76"></div></div><div class="timeline"><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Art. 21 — Mesures de sécurité ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Art. 23 — Notification incidents — partiel</div></div></div></div></div></div>
+          <div class="panel"><div class="panel-header"><div><h3>SecNumCloud</h3><p class="panel-sub">Audit ANSSI planifié</p></div><div class="comp-score score-warn" style="font-size:1.4rem;font-family:var(--font-mono)">71%</div></div><div class="panel-body"><div class="comp-bar" style="height:6px;margin-bottom:14px"><div class="comp-bar-fill" data-pct="71"></div></div><div class="timeline"><div class="tl-item"><div class="tl-dot tl-dot-ok"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Hébergement EU souverain ✓</div></div></div><div class="tl-item"><div class="tl-dot tl-dot-warn"></div><div class="tl-body"><div class="tl-title" style="font-size:0.78rem">Audit ANSSI prévu Q3 2026</div></div></div></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: QUERY CONSOLE
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-query">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Query Console</h2><p class="view-sub">Arkis Search Engine v3 · SPL / KQL / SQL · cluster EU-West</p></div>
+          <div class="header-actions">
+            <button class="hd-btn">Historique</button>
+            <button class="hd-btn">Templates</button>
+          </div>
+        </div>
+
+        <div class="query-console">
+          <div class="query-header">
+            <h3 style="margin:0;font-size:0.88rem;color:#fff;font-weight:600">Éditeur de requêtes</h3>
+            <div class="query-tabs">
+              <button class="qtab active">SPL</button>
+              <button class="qtab">KQL</button>
+              <button class="qtab">SQL</button>
+            </div>
+          </div>
+          <div class="query-input-wrap">
+            <div class="query-prompt">arkis@siem:~$</div>
+            <input id="query-input" class="query-input" type="text" value="index=firewall severity=CRITICAL last=24h | stats count by src_ip" spellcheck="false" autocomplete="off" />
+            <button id="query-run" class="query-run">▶ Exécuter</button>
+          </div>
+          <div id="query-results" class="query-results"></div>
+          <div id="query-status" class="query-status">
+            <span style="color:var(--siem-text-dim)">Prêt · Entrez une requête et appuyez Entrée</span>
+            <span>Arkis Search Engine v3 · EU-West</span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><div><h3>Requêtes enregistrées</h3><p class="panel-sub">Templates équipe SOC</p></div></div>
+            <div class="panel-body">
+              <div class="hbar-list" style="gap:8px">
+                <div class="query-template" onclick="loadQuery('index=firewall severity=CRITICAL last=24h | stats count by src_ip')">
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--siem-accent)">index=firewall severity=CRITICAL last=24h</div>
+                  <div style="font-size:0.7rem;color:var(--siem-text-dim);margin-top:2px">Alertes critiques 24h · par IP source</div>
+                </div>
+                <div class="query-template" onclick="loadQuery('index=auth action=FAIL user=admin last=1h | timechart count')">
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--siem-accent)">index=auth action=FAIL user=admin last=1h</div>
+                  <div style="font-size:0.7rem;color:var(--siem-text-dim);margin-top:2px">Échecs auth admin · dernière heure</div>
+                </div>
+                <div class="query-template" onclick="loadQuery('index=vuln cvss>=9 | table cve, cvss, asset, status')">
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--siem-accent)">index=vuln cvss&gt;=9 | table cve, cvss, asset</div>
+                  <div style="font-size:0.7rem;color:var(--siem-text-dim);margin-top:2px">Vulnérabilités critiques · CVSS ≥ 9</div>
+                </div>
+                <div class="query-template" onclick="loadQuery('index=dns query=*.ru OR query=*.cn | stats count by query | sort -count')">
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--siem-accent)">index=dns query=*.ru OR query=*.cn</div>
+                  <div style="font-size:0.7rem;color:var(--siem-text-dim);margin-top:2px">Requêtes DNS vers TLD suspects</div>
+                </div>
+                <div class="query-template" onclick="loadQuery('index=endpoint process=powershell.exe encoded=true | table host, user, cmdline')">
+                  <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--siem-accent)">index=endpoint process=powershell.exe encoded=true</div>
+                  <div style="font-size:0.7rem;color:var(--siem-text-dim);margin-top:2px">PowerShell offusqué · MITRE T1059</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Historique</h3><p class="panel-sub">10 dernières requêtes</p></div></div>
+            <div class="panel-body">
+              <div id="query-history" class="hbar-list" style="gap:6px">
+                <div style="color:var(--siem-text-dim);font-size:0.78rem;text-align:center;padding:20px">L'historique s'affiche ici après exécution</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: REPORTS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-reports">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Reports</h2><p class="view-sub">Rapports de sécurité · planifiés et à la demande</p></div>
+          <div class="header-actions">
+            <button class="hd-btn hd-btn-primary">+ Nouveau rapport</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><div><h3>Rapports récents</h3><p class="panel-sub">Générés automatiquement</p></div></div>
+            <div class="panel-body" style="padding:0">
+              <table class="incidents-table">
+                <thead><tr><th>Rapport</th><th>Type</th><th>Généré</th><th>Taille</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td>Rapport SOC — Mai 2026</td><td><span class="intel-type intel-cve">PDF</span></td><td>28/05 00:00</td><td>2.4 MB</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem">⬇ Télécharger</button></td></tr>
+                  <tr><td>Vulnérabilités hebdo #22</td><td><span class="intel-type intel-cve">PDF</span></td><td>27/05 08:00</td><td>1.1 MB</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem">⬇ Télécharger</button></td></tr>
+                  <tr><td>Conformité RGPD Q2</td><td><span class="intel-type intel-cve">PDF</span></td><td>25/05 10:00</td><td>3.8 MB</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem">⬇ Télécharger</button></td></tr>
+                  <tr><td>Executive Dashboard — S21</td><td><span class="intel-type intel-cve">PDF</span></td><td>24/05 09:00</td><td>0.9 MB</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem">⬇ Télécharger</button></td></tr>
+                  <tr><td>IOC Export STIX 2.1</td><td><span class="intel-type intel-domain">JSON</span></td><td>23/05 00:00</td><td>4.2 MB</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem">⬇ Télécharger</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Rapports planifiés</h3><p class="panel-sub">Envoi automatique par email</p></div></div>
+            <div class="panel-body">
+              <div class="ueba-list">
+                <div class="ueba-row"><div class="ueba-icon ueba-icon-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="ueba-body"><div class="ueba-title">Rapport SOC mensuel</div><div class="ueba-detail">1er de chaque mois · 00:00 UTC · SOC + Direction</div><div class="ueba-meta"><span class="sev-badge sev-ok">Actif</span><span class="ueba-time">Prochain : 01/06</span></div></div></div>
+                <div class="ueba-row"><div class="ueba-icon ueba-icon-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="ueba-body"><div class="ueba-title">Rapport vulnérabilités hebdomadaire</div><div class="ueba-detail">Lundi 08:00 UTC · Équipe sécurité</div><div class="ueba-meta"><span class="sev-badge sev-ok">Actif</span><span class="ueba-time">Prochain : lundi</span></div></div></div>
+                <div class="ueba-row"><div class="ueba-icon ueba-icon-warn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="ueba-body"><div class="ueba-title">Executive Dashboard quotidien</div><div class="ueba-detail">09:00 UTC · Direction générale · Pause weekend</div><div class="ueba-meta"><span class="sev-badge sev-ok">Actif</span><span class="ueba-time">Prochain : demain</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: INTÉGRATIONS
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-integrations">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Intégrations</h2><p class="view-sub">24 connecteurs actifs · sources de données et outils SOAR</p></div>
+          <div class="header-actions"><button class="hd-btn hd-btn-primary">+ Ajouter connecteur</button></div>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Connecteurs actifs</span></div><div class="kpi-value" style="color:var(--siem-ok)"><span>22</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">En erreur</span></div><div class="kpi-value" style="color:var(--siem-crit)"><span>2</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Événements/jour</span></div><div class="kpi-value"><span>2.4M</span></div></div>
+          <div class="kpi-card"><div class="kpi-head"><span class="kpi-title">Sources de logs</span></div><div class="kpi-value"><span>18</span></div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><div><h3>Connecteurs</h3><p class="panel-sub">Sources de logs · ticketing · SOAR · threat intel</p></div></div>
+          <div class="panel-body">
+            <div class="asset-grid" style="grid-template-columns:repeat(4,1fr)">
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Microsoft Sentinel</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">SIEM · Logs Windows / Azure</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Ev/jour</div><div class="asset-stat-val">480k</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">12ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">CrowdStrike EDR</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Endpoint Detection</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Endpoints</div><div class="asset-stat-val">247</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">8ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Palo Alto WAF</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Web Application Firewall</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Règles</div><div class="asset-stat-val">1 847</div></div><div class="asset-stat"><div class="asset-stat-label">Bloqués</div><div class="asset-stat-val">48k/j</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Jira Service Desk</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Ticketing · SOAR intégré</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Tickets</div><div class="asset-stat-val">Auto</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">45ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Supabase DB</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Logs base de données</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Ev/jour</div><div class="asset-stat-val">120k</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">3ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Cloudflare</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">CDN · DNS · DDoS protection</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Ev/jour</div><div class="asset-stat-val">640k</div></div><div class="asset-stat"><div class="asset-stat-label">Latence</div><div class="asset-stat-val">1ms</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">MISP</span><div class="asset-status" style="background:var(--siem-ok)"></div></div><div class="asset-type">Threat Intelligence Platform</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">IOCs</div><div class="asset-stat-val">48k</div></div><div class="asset-stat"><div class="asset-stat-label">Sync</div><div class="asset-stat-val">5min</div></div></div></div>
+              <div class="asset-card"><div class="asset-card-header"><span class="asset-name">Tenable.io</span><div class="asset-status" style="background:var(--siem-crit)"></div></div><div class="asset-type">Vulnerability Scanner · Erreur</div><div class="asset-stats"><div class="asset-stat"><div class="asset-stat-label">Statut</div><div class="asset-stat-val" style="color:var(--siem-crit)">Erreur API</div></div><div class="asset-stat"><div class="asset-stat-label">Depuis</div><div class="asset-stat-val">2h</div></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         VIEW: PARAMÈTRES
+    ══════════════════════════════════════════════════ -->
+    <section class="view" id="view-settings">
+      <div class="siem-content">
+        <div class="view-header">
+          <div><h2 class="view-title">Paramètres</h2><p class="view-sub">Configuration du SIEM · gestion des utilisateurs · notifications</p></div>
+          <div class="header-actions"><button class="hd-btn hd-btn-primary">Sauvegarder</button></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><div><h3>Profil SOC</h3><p class="panel-sub">Informations analyste connecté</p></div></div>
+            <div class="panel-body">
+              <div style="display:flex;gap:16px;align-items:center;margin-bottom:20px">
+                <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--siem-accent),var(--siem-purple));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#040810;flex-shrink:0">SA</div>
+                <div><div style="font-size:1rem;color:#fff;font-weight:600">Sophie Aubry</div><div style="font-size:0.78rem;color:var(--siem-text-mut)">SOC Analyst Level 2 · Shift 08h–20h</div><div style="font-size:0.72rem;color:var(--siem-accent);margin-top:2px">s.aubry@arkis.fr</div></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--siem-border)"><span style="font-size:0.8rem;color:var(--siem-text-mut)">Tenant</span><span style="font-size:0.8rem;color:#fff;font-family:var(--font-mono)">demo-client.fr</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--siem-border)"><span style="font-size:0.8rem;color:var(--siem-text-mut)">Région</span><span style="font-size:0.8rem;color:#fff">EU-West · Paris CDG1</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--siem-border)"><span style="font-size:0.8rem;color:var(--siem-text-mut)">MFA</span><span class="sev-badge sev-ok">Activé</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><span style="font-size:0.8rem;color:var(--siem-text-mut)">Dernière connexion</span><span style="font-size:0.8rem;color:#fff;font-family:var(--font-mono)">28/05/2026 07:30 UTC</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div><h3>Notifications</h3><p class="panel-sub">Alertes et seuils de déclenchement</p></div></div>
+            <div class="panel-body">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:0.82rem;color:#fff;font-weight:500">Incidents critiques</div><div style="font-size:0.7rem;color:var(--siem-text-mut)">Alerte immédiate par email + SMS</div></div><div class="toggle-on">ON</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:0.82rem;color:#fff;font-weight:500">Score UBA ≥ 80</div><div style="font-size:0.7rem;color:var(--siem-text-mut)">Comportement utilisateur anormal</div></div><div class="toggle-on">ON</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:0.82rem;color:#fff;font-weight:500">Nouveaux CVE critiques</div><div style="font-size:0.7rem;color:var(--siem-text-mut)">CVSS ≥ 9 sur vos assets</div></div><div class="toggle-on">ON</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:0.82rem;color:#fff;font-weight:500">IOC correspondance</div><div style="font-size:0.7rem;color:var(--siem-text-mut)">IOC Threat Feed détecté en prod</div></div><div class="toggle-on">ON</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:0.82rem;color:#fff;font-weight:500">Rapports hebdomadaires</div><div style="font-size:0.7rem;color:var(--siem-text-mut)">Synthèse SOC · lundi 08h</div></div><div class="toggle-off">OFF</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><div><h3>Clés API</h3><p class="panel-sub">Accès programmatique à l'API Arkis SIEM</p></div><button class="hd-btn hd-btn-primary">+ Générer clé</button></div>
+          <div class="panel-body" style="padding:0">
+            <table class="incidents-table">
+              <thead><tr><th>Nom</th><th>Clé (masquée)</th><th>Permissions</th><th>Créée</th><th>Dernière utilisation</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><strong>SOAR-Webhook</strong></td><td><code>ark_••••••••••••4a2f</code></td><td><span class="sev-badge sev-info">Read · Write</span></td><td>12/01/2026</td><td>Il y a 2 min</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem;color:var(--siem-crit)">Révoquer</button></td></tr>
+                <tr><td><strong>Monitoring-Stack</strong></td><td><code>ark_••••••••••••9c11</code></td><td><span class="sev-badge sev-ok">Read only</span></td><td>05/03/2026</td><td>Il y a 1 min</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem;color:var(--siem-crit)">Révoquer</button></td></tr>
+                <tr><td><strong>Jira-Integration</strong></td><td><code>ark_••••••••••••b77e</code></td><td><span class="sev-badge sev-info">Read · Tickets</span></td><td>20/04/2026</td><td>Il y a 8 min</td><td><button class="hd-btn" style="padding:3px 8px;font-size:0.7rem;color:var(--siem-crit)">Révoquer</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Load Chart.js via CDN -->
+  <div id="toast-container" class="toast-container"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Load SIEM Script -->
-  <script src="/siem.js"></script>
+  <script src="/siem.js?v=<%= typeof buildVersion !== 'undefined' ? buildVersion : Date.now() %>"></script>
 </body>
 </html>

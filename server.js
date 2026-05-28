@@ -23,7 +23,7 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       // Autorise les scripts locaux et l'exécution nécessaire pour les animations interactives
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net"],
       // Autorise le chargement des styles locaux et de Google Fonts
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       // Autorise les polices de Google Fonts
