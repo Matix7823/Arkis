@@ -277,14 +277,14 @@ header#navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(6,13,31,0.85);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(26,45,74,0.8);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
   transition: background var(--t-slow), border-color var(--t-slow);
 }
 header#navbar.scrolled {
-  background: rgba(2,6,23,0.95);
+  background: rgba(248, 250, 252, 0.95);
   border-bottom-color: var(--border-2);
 }
 header#navbar nav {
